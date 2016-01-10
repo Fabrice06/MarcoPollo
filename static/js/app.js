@@ -1,9 +1,9 @@
-(function(){
+(function () {
 'use strict';
 
-var myApp = angular.module('marcopolo',['ngRoute']);
+var myApp = angular.module('marcopolo', ['ngRoute']);
 
-myApp.config(['$routeProvider',function($routeProvider) {
+myApp.config(['$routeProvider', function ($routeProvider) {
       $routeProvider
       .when('/', {
     	  templateUrl: 'resources/accueil.html'      	  

@@ -1,0 +1,6 @@
+/target/
+/logs/
+.classpath
+.project
+.settings
+/src/main/resources/db/db.trace.db
