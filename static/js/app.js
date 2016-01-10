@@ -1,15 +1,15 @@
 (function(){
 'use strict';
 
-var myApp = angular.module('tp7',['ngRoute']);
+var myApp = angular.module('marcopolo',['ngRoute']);
 
 myApp.config(['$routeProvider',function($routeProvider) {
       $routeProvider
       .when('/', {
-    	  templateUrl: 'accueil.html'      	  
+    	  templateUrl: 'resources/accueil.html'      	  
       })
       .when('/persons', {
-    	  templateUrl: 'persons.html',
+    	  templateUrl: 'resources/persons.html',
     	  controller: 'personCtrl'
       })
       .otherwise({
