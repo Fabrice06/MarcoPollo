@@ -1,0 +1,91 @@
+
+
+	<legend>
+		<div class="col-sm-6">
+			Persons List
+		</div>
+		<div class="col-sm-6">
+			<div class="form-inline pull-right">   
+				<button type="button" class="btn btn-default btn-sm">
+					Deconnexion
+				</button>
+			</div>
+		</div>
+	</legend>
+	<br><br/><br/>
+		<div>
+			<div class="col-sm-6">
+                   <form class="form-inline pull-left">
+                       <div class="input-group">
+                           <input type="text" class="form-control" placeholder="Recherche">
+                           <span class="input-group-btn">
+                               <button class="btn btn-default" type="submit">
+                                   <span class="icon-af icon-af-B-digital-loupe-recherche"></span>
+                               </button>
+                           </span>
+                       </div>
+                   </form>
+             </div>
+             <div class="col-sm-6">
+             	<div class="form-inline pull-right">                    
+					<button type="button" class="btn btn-default btn-sm">
+						<a data-ng-href="#/person/new"
+							ui-sref="person.New">
+							<span class="icon-af icon-af-A-basic-plus25"></span>
+						</a>Ajouter
+					</button>					
+				</div>
+			</div>
+		</div><br/><br/>
+   
+                       
+	<div class="col-lg-12 ">
+	<div class="table-responsive">
+		<table class="table table-hover" id="table_persons">
+			<thead>
+				<tr>
+					<th>Lastname</th>
+					<th>Firstname</th>
+					<th>Filtrer<span class="caret"></span></th>
+				</tr>
+			</thead>
+			<tfoot>
+				<tr>
+					<td colspan="4">&nbsp;</td>
+				</tr>
+			</tfoot>
+			<tbody>
+				<tr data-ng-repeat="p in listePersonnes|filter:search|orderBy:predicate ='name'">
+					<td>{{p.lastName}}</td>
+					<td>{{p.firstName}}</td>					
+					<td>
+						<abbr title="edit">
+							<a class="btn btn-primary" ui-sref="person.Update({id: application.idApplication})">
+								<span class="icon-af icon-af-B-digital-crayon-editer"></span>
+							</a>
+						</abbr>					
+						<abbr title="delete">
+							<button type="button" class="btn btn-default btn-md"
+								data-ng-click="applicationListController.deleteperson(person)">
+								<span class="icon-af icon-af-B-digital-cross"></span>
+							</button>
+						</abbr>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>	
+
+					
+				
+				
+<!--	<div><span>Fichier persons</span></div>
+	
+ <div><span>Le nom est : {{unePersonne.lastName}}</span></div>
+ 
+ <ul class="listePersonnes">
+  <li ng-repeat="p in listePersonnes">
+    <span>{{p.lastName}} {{p.firstName}}</span>
+  </li>
+</ul>	-->
