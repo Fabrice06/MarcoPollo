@@ -49,8 +49,7 @@ public class PersonController {
 	public List<Person> onePerson(@PathVariable("personId") long personId) {
 		log.info("personId=" + personId);
 			
-		// requete a eviter faille de securité
-		String requete =  "select * from person where id=" + personId;
+		String requete =  "select * from person where id=?";
 			  
 		List<Person> persons = this.jdbcTemplate.query(requete,	
         new RowMapper<Person>() {
@@ -61,7 +60,7 @@ public class PersonController {
                 person.setLastName(rs.getString("last_name"));
                 return person;
             }
-        });
+        }, personId);
 		return persons;	
 	}
 	
@@ -70,18 +69,17 @@ public class PersonController {
 	@RequestMapping(method = RequestMethod.DELETE,value= "/{personId}")
 	public void deleteWithId(@PathVariable("personId") long personId) {
 	
-		// requete a eviter faille de securité
-		String requete =  "delete from person where id="+ personId;
+		String requete =  "delete from person where id=?";
 		
-		this.jdbcTemplate.update(requete);
+		this.jdbcTemplate.update(requete, personId);
 	}
 	
 	
 	/* Créer une personne  */
-	@RequestMapping(method = RequestMethod.POST,value= "/{personId}")
-	public void createWithId(@PathVariable("personId") long personId) {
+	@RequestMapping(method = RequestMethod.POST,value= "/{first_name}/{last_name}")
+	public void createWithId(@PathVariable("first_name") String firstName, @PathVariable("last_name") String lastName) {
 		this.jdbcTemplate.update(
-		"insert into person values (" + personId + ",'test_first_name','test_last_name');");
+		"insert into person (id, first_name, last_name) values (?,?,?)", 5, firstName, lastName);
 	}
 	
 	
