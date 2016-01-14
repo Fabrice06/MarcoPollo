@@ -6,10 +6,10 @@ var myApp = angular.module('marcopolo', ['ngRoute']);
 myApp.config(['$routeProvider', function ($routeProvider) {
       $routeProvider
       .when('/', {
-    	  templateUrl: 'resources/accueil.html'      	  
+    	  templateUrl: 'views/login.html'      	  
       })
-      .when('/persons', {
-    	  templateUrl: 'resources/persons.html',
+      .when('/liens', {
+    	  templateUrl: 'views/liens.html',
     	  controller: 'personCtrl'
       })
       .otherwise({
@@ -18,7 +18,7 @@ myApp.config(['$routeProvider', function ($routeProvider) {
   }]);
 
 myApp.controller('personCtrl', function ($scope, $http) {
-	$http.get('http://localhost:8080/persons').
+	$http.get('/persons').
 		success(function(data){
 			$scope.listePersonnes = data;
 			$scope.unePersonne = data[0];
