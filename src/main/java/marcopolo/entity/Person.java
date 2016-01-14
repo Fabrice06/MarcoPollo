@@ -13,7 +13,7 @@ import javax.persistence.Table;
 
 
 //@Entity
-//@Table(name="PERSON")
+@Table(name="PERSON")
 @SequenceGenerator(
     name="SEQ_PERSON",
     sequenceName="SEQ_PERSON"

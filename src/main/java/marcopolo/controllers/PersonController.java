@@ -88,12 +88,13 @@ public class PersonController {
 	@RequestMapping(method = RequestMethod.POST,value= "/new/{personMail}/{personMdp}")
 	public void createPerson(@PathVariable("personMail") String personMail, @PathVariable("personMdp") String personMdp) {
 		
-		idProv++;
+		idProv++; //provisoire le temps de récupérer dernier id de la BD
+		
 		
 		log.info("Appel webService createPerson avec personMail = " + personMail);
 		
 		this.jdbcTemplate.update(
-		"insert into person (mail, mdp) values (?,?)", personMail, personMdp);
+		"insert into person (id, mail, mdp) values (?,?,?)", idProv,personMail, personMdp);
 	}
 	
 	
