@@ -31,7 +31,7 @@ public class Application implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		log.info("run.execute");
-       
+/*       
 		int rowCount = this.jdbcTemplate.queryForObject("select count(*) from person", Integer.class);
 		log.info("rowCount=" + rowCount);
 		
@@ -46,7 +46,7 @@ public class Application implements CommandLineRunner {
                 return person;
             }
         });
-		
+*/		
 	}
 		
 }
