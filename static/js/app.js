@@ -12,6 +12,10 @@ myApp.config(['$routeProvider', function ($routeProvider) {
     	  templateUrl: 'views/liens.html',
     	  controller: 'personCtrl'
       })
+	  .when('/persons', {
+    	  templateUrl: 'views/persons.html',
+    	  controller: 'personCtrl'
+      })
       .otherwise({
     	  redirectTo: '/'
       });
