@@ -1,18 +1,19 @@
 (function () {
 'use strict';
 
-var myApp = angular.module('marcopolo', ['ngRoute']);
+var myApp = angular.module('marcopolo', ['ngRoute','ngResource','marcopolo.Controllers','marcopolo.Services']);
 
 myApp.config(['$routeProvider', function ($routeProvider) {
       $routeProvider
       .when('/', {
+
     	  templateUrl: 'views/login.html'      	  
       })
       .when('/liens', {
     	  templateUrl: 'views/liens.html',
     	  controller: 'personCtrl'
       })
-	  .when('/persons', {
+	.when('/persons', {
     	  templateUrl: 'views/persons.html',
     	  controller: 'personCtrl'
       })
@@ -20,6 +21,7 @@ myApp.config(['$routeProvider', function ($routeProvider) {
     	  redirectTo: '/'
       });
   }]);
+
 
 myApp.controller('personCtrl', function ($scope, $http) {
 	$http.get('/persons').
@@ -31,15 +33,3 @@ myApp.controller('personCtrl', function ($scope, $http) {
 	
 })();
 
-
-
-
-
-/*
- $scope.listePersonnes = [
-	    {lastName: 'TOTO',firstName: 'Paul'},
-	    {lastName: 'LULU',firstName: 'Isa'},
-	    {lastName: 'BRIBRI',firstName: 'Carole'}
-	  ];
-	  $scope.unePersonne = {lastName:'Kiki'};
-	  */

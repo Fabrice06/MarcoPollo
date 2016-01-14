@@ -21,23 +21,29 @@ import org.springframework.web.bind.annotation.PathVariable;
 @RestController
 @RequestMapping("/persons")
 public class PersonController {
+	
+	private static long idProv = 0;
 
 	private static Log log = LogFactory.getLog(Application.class);
 	@Autowired
 	JdbcTemplate jdbcTemplate;
+	
+	
     
 	/* Afficher toutes les personnes  */
 	@RequestMapping(method = RequestMethod.GET, value = "")
 	public List<Person> allPerson() {
+		
+		log.info("Appel webService allPerson");
            	   	   				
 		List<Person> persons = this.jdbcTemplate.query(
-        "select id, first_name, last_name from person",
+        "select id, mail, mdp from person",
         new RowMapper<Person>() {
             public Person mapRow(ResultSet rs, int rowNum) throws SQLException {
                 Person person = new Person();
 				person.setId(rs.getInt("id"));
-                person.setFirstName(rs.getString("first_name"));
-                person.setLastName(rs.getString("last_name"));
+                person.setMail(rs.getString("mail"));
+                person.setMdp(rs.getString("mdp"));
                 return person;
             }
         });
@@ -45,9 +51,10 @@ public class PersonController {
 	}
 	
 	/* Afficher une personne  */
-	@RequestMapping(method = RequestMethod.GET, value = "/{personId}")
+	@RequestMapping(method = RequestMethod.GET, value = "/person/{personId}")
 	public List<Person> onePerson(@PathVariable("personId") long personId) {
-		log.info("personId=" + personId);
+		
+		log.info("Appel webService onePerson avec personId = " + personId);
 			
 		String requete =  "select * from person where id=?";
 			  
@@ -56,8 +63,8 @@ public class PersonController {
             public Person mapRow(ResultSet rs, int rowNum) throws SQLException {
 				Person person = new Person();
 				person.setId(rs.getInt("id"));
-                person.setFirstName(rs.getString("first_name"));
-                person.setLastName(rs.getString("last_name"));
+                person.setMail(rs.getString("mail"));
+                person.setMdp(rs.getString("mdp"));
                 return person;
             }
         }, personId);
@@ -66,8 +73,10 @@ public class PersonController {
 	
 	
 	/* Supprimer une personne  */
-	@RequestMapping(method = RequestMethod.DELETE,value= "/{personId}")
+	@RequestMapping(method = RequestMethod.DELETE,value= "/delete/{personId}")
 	public void deleteWithId(@PathVariable("personId") long personId) {
+		
+		log.info("Appel webService deleteWithId avec personId = " + personId);
 	
 		String requete =  "delete from person where id=?";
 		
@@ -76,10 +85,15 @@ public class PersonController {
 	
 	
 	/* Créer une personne  */
-	@RequestMapping(method = RequestMethod.POST,value= "/{first_name}/{last_name}")
-	public void createWithId(@PathVariable("first_name") String firstName, @PathVariable("last_name") String lastName) {
+	@RequestMapping(method = RequestMethod.POST,value= "/new/{personMail}/{personMdp}")
+	public void createPerson(@PathVariable("personMail") String personMail, @PathVariable("personMdp") String personMdp) {
+		
+		idProv++;
+		
+		log.info("Appel webService createPerson avec personMail = " + personMail);
+		
 		this.jdbcTemplate.update(
-		"insert into person (id, first_name, last_name) values (?,?,?)", 5, firstName, lastName);
+		"insert into person (mail, mdp) values (?,?)", personMail, personMdp);
 	}
 	
 	
