@@ -21,8 +21,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 @RestController
 @RequestMapping("/persons")
 public class PersonController {
-	
-	private static long idProv = 0;
 
 	private static Log log = LogFactory.getLog(Application.class);
 	@Autowired
@@ -88,13 +86,10 @@ public class PersonController {
 	@RequestMapping(method = RequestMethod.POST,value= "/new/{personMail}/{personMdp}")
 	public void createPerson(@PathVariable("personMail") String personMail, @PathVariable("personMdp") String personMdp) {
 		
-		idProv++; //provisoire le temps de récupérer dernier id de la BD
-		
-		
 		log.info("Appel webService createPerson avec personMail = " + personMail);
 		
 		this.jdbcTemplate.update(
-		"insert into person (id_person, mail, mdp) values (?,?,?)", idProv,personMail, personMdp);
+		"insert into person (id_person, mail, mdp) values (seq_person.nextval ,?,?)", personMail, personMdp);
 	}
 	
 	

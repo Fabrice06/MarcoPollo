@@ -102,7 +102,7 @@ public class CleController {
 		log.info("Appel webService createCle avec cle = " + cle);
 		
 		this.jdbcTemplate.update(
-		"insert into cle (id_cle, cle) values (?,?)", idProv,cle);
+		"insert into cle (id_cle, cle) values (seq_cle.nextval,?)", cle);
 	}
 	
 	
