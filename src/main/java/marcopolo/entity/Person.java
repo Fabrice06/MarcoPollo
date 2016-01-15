@@ -4,16 +4,14 @@ import static javax.persistence.GenerationType.AUTO;
 
 import java.io.Serializable;
 
-import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.Lob;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 
 //@Entity
-//@Table(name="PERSON")
+@Table(name="PERSON")
 @SequenceGenerator(
     name="SEQ_PERSON",
     sequenceName="SEQ_PERSON"
@@ -25,7 +23,7 @@ public class Person implements Serializable {
 	
 	@Id
     @GeneratedValue(strategy=AUTO, generator="SEQ_PERSON") 
-	private long id;
+	private long idPerson;
 	
     private String mail;
     private String mdp;
@@ -40,11 +38,11 @@ public class Person implements Serializable {
     }
 
 	public long getId() {
-		return this.id;
+		return this.idPerson;
 	}
 
-	public void setId(long id) {
-		this.id = id;
+	public void setId(long idPerson) {
+		this.idPerson = idPerson;
 	}
 	
 	public String getMail() {
@@ -66,8 +64,8 @@ public class Person implements Serializable {
 	@Override
     public String toString() {
         return String.format(
-                "Person[id=%d, mail='%s', mdp='%s']",
-                id, mail, mdp);
+                "Person[idPerson=%d, mail='%s', mdp='%s']",
+                idPerson, mail, mdp);
     }
 	
 }

@@ -37,11 +37,11 @@ public class PersonController {
 		log.info("Appel webService allPerson");
            	   	   				
 		List<Person> persons = this.jdbcTemplate.query(
-        "select id, mail, mdp from person",
+        "select id_person, mail, mdp from person",
         new RowMapper<Person>() {
             public Person mapRow(ResultSet rs, int rowNum) throws SQLException {
                 Person person = new Person();
-				person.setId(rs.getInt("id"));
+				person.setId(rs.getInt("id_person"));
                 person.setMail(rs.getString("mail"));
                 person.setMdp(rs.getString("mdp"));
                 return person;
@@ -56,13 +56,13 @@ public class PersonController {
 		
 		log.info("Appel webService onePerson avec personId = " + personId);
 			
-		String requete =  "select * from person where id=?";
+		String requete =  "select * from person where id_person=?";
 			  
 		List<Person> persons = this.jdbcTemplate.query(requete,	
         new RowMapper<Person>() {
             public Person mapRow(ResultSet rs, int rowNum) throws SQLException {
 				Person person = new Person();
-				person.setId(rs.getInt("id"));
+				person.setId(rs.getInt("id_person"));
                 person.setMail(rs.getString("mail"));
                 person.setMdp(rs.getString("mdp"));
                 return person;
@@ -78,7 +78,7 @@ public class PersonController {
 		
 		log.info("Appel webService deleteWithId avec personId = " + personId);
 	
-		String requete =  "delete from person where id=?";
+		String requete =  "delete from person where id_person=?";
 		
 		this.jdbcTemplate.update(requete, personId);
 	}
@@ -88,12 +88,13 @@ public class PersonController {
 	@RequestMapping(method = RequestMethod.POST,value= "/new/{personMail}/{personMdp}")
 	public void createPerson(@PathVariable("personMail") String personMail, @PathVariable("personMdp") String personMdp) {
 		
-		idProv++;
+		idProv++; //provisoire le temps de récupérer dernier id de la BD
+		
 		
 		log.info("Appel webService createPerson avec personMail = " + personMail);
 		
 		this.jdbcTemplate.update(
-		"insert into person (mail, mdp) values (?,?)", personMail, personMdp);
+		"insert into person (id_person, mail, mdp) values (?,?,?)", idProv,personMail, personMdp);
 	}
 	
 	
