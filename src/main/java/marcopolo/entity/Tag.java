@@ -1,18 +1,44 @@
 package marcopolo.entity;
 
-public class Tag {
+import java.io.Serializable;
 
-	private long id;
+
+public class Tag implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+	
+	private long idTag;
 	private long idMarquepage;
 	private long idCle;
     private String valeur;
     
-	public long getId() {
-		return id;
+	public Tag() {
+		super();
 	}
-	public void setId(long id) {
-		this.id = id;
+
+	public Tag(long idTag, long idMarquepage, long idCle, String valeur) {
+		super();
+		this.idTag = idTag;
+		this.idMarquepage = idMarquepage;
+		this.idCle = idCle;
+		this.valeur = valeur;
 	}
+		
+	@Override
+	public String toString() {
+		return String.format(
+				"Tag [idTag=%s, idMarquepage=%s, idCle=%s, valeur=%s]", idTag,
+				idMarquepage, idCle, valeur);
+	}
+	
+	public long getIdTag() {
+		return idTag;
+	}
+
+	public void setIdTag(long idTag) {
+		this.idTag = idTag;
+	}
+
 	public long getIdMarquepage() {
 		return idMarquepage;
 	}
