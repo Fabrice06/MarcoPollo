@@ -4,3 +4,4 @@
 .project
 .settings
 /src/main/resources/db/db.trace.db
+/src/main/resources/db/db.mv.db
