@@ -1,0 +1,22 @@
+[
+  {
+	"id_marquepage": 1,
+	"lien": "lien marquepage 1"
+  },
+  {
+	"id_marquepage": 2,
+    "lien": "lien marquepage 2"
+  },
+  {
+	"id_marquepage": 3,
+    "lien": "lien marquepage 3"
+  },
+  {
+	"id_marquepage": 4,
+    "lien": "lien marquepage 4"
+  },
+  {
+    "id_marquepage": 5,
+    "lien": "lien marquepage 5"
+  }
+]

@@ -1,36 +1,47 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" ng-app="marcopolo" >
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr"  ng-app="marcopolo">
 
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<title>MarcoPolo</title>
 		
 		<!-- Librairies Angular -->
-		<script type = "text/javascript" src="./js/libs/angular-1.4.8/angular.js"></script>
-		<script type = "text/javascript" src="./js/libs/angular-1.4.8/angular-route.js"></script>
-		<script type = "text/javascript" src="./js/libs/angular-1.4.8/angular-resource.js"></script>
-		
-		<!-- Controllers -->
-		<script type = "text/javascript" src="./js/marcopolo/controllers/controllers.js"></script>
-		
-		<!-- Services -->
-		<script type = "text/javascript" src="./js/marcopolo/services/services.js"></script>
+		<script type="text/javascript" src="js/libs/angular-1.4.8/angular.js"></script>
+		<script type="text/javascript" src="js/libs/angular-1.4.8/angular-route.js"></script>
+		<script type="text/javascript" src="js/libs/angular-1.4.8/angular-resource.js"></script>
 
-		
+        <!-- Mock BackEnd -->
+        <script type="text/javascript" src="js/libs/angular-mock/app_e2e.module.js"></script>
+        <script type="text/javascript" src="js/libs/angular-mock/angular-mocks.js"></script>
+
 		<!-- App -->
-		<script type = "text/javascript" src="./js/app.js"></script>
-		
+        <script type="text/javascript" src="js/marcopolo/app.module.js"></script>
+		<script type="text/javascript" src="js/marcopolo/app.route.js"></script>
+
+        <!-- Login -->
+        <script type="text/javascript" src="js/marcopolo/login/controllers/login_new_controller.js"></script>
+        <script type="text/javascript" src="js/marcopolo/login/services/login_service.js"></script>
+
+        <!-- Person -->
+        <script type="text/javascript" src="js/marcopolo/person/controllers/person_new_controller.js"></script>
+        <script type="text/javascript" src="js/marcopolo/person/controllers/person_detail_controller.js"></script>
+
+        <!-- Marquepage -->
+        <script type="text/javascript" src="js/marcopolo/marquepage/controllers/marquepage_new_controller.js"></script>
+        <script type="text/javascript" src="js/marcopolo/marquepage/controllers/marquepage_detail_controller.js"></script>
+        <script type="text/javascript" src="js/marcopolo/marquepage/controllers/marquepage_list_controller.js"></script>
+
 		<!-- CSS Bootstrap -->
-		<script type="text/javascript" src="js/libs/ui-bootstrap-tpls-0.13.0.js"></script>
-		<script type="text/javascript" src="js/libs/ui-bootstrap-af-tpls-overrides-0.13.0.js"></script>
+		<script type="text/javascript" src="js/libs/bootstrap/ui-bootstrap-tpls-0.13.0.js"></script>
+		<script type="text/javascript" src="js/libs/bootstrap/ui-bootstrap-af-tpls-overrides-0.13.0.js"></script>
 		<link rel="stylesheet" type="text/css" href="css/bootstrap.css" media="all" />
 		
-		<!-- CSS Commun -->
+		<!-- CSS Commune -->
 		<link rel="stylesheet" type="text/css" href="css/style.css" media="all" />
 
 	</head>
 	
-	<body ng-app="marcopolo">	
+	<body>
 
 		<!-- composant HEADER -->
 		<div class="container my-header" id="">

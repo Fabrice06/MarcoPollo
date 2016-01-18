@@ -5,3 +5,9 @@
 .settings
 /src/main/resources/db/db.trace.db
 /src/main/resources/db/db.mv.db
+.name
+misc.xml
+modules.xml
+static.iml
+vcs.xml
+workspace.xml
