@@ -13,7 +13,7 @@ public class Tag implements Serializable {
     private String valeur;
     
 	public Tag() {
-		super();
+		
 	}
 
 	public Tag(long idTag, long idMarquepage, long idCle, String valeur) {

@@ -19,7 +19,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/tag")
+@RequestMapping("/tags")
+
 public class TagController {
 
 	private static Log log = LogFactory.getLog(Application.class);
@@ -28,7 +29,7 @@ public class TagController {
 	JdbcTemplate jdbcTemplate;
 
 	/**
-	 * Liste de tous les tags de la base
+	 * Liste de tous les tags
 	 * 
 	 * @return liste de Tag
 	 */
@@ -59,12 +60,14 @@ public class TagController {
 	 * @param tagId
 	 * @return liste de Tag
 	 */
-	@RequestMapping(method = RequestMethod.GET, value = "/{tagId}")
-	public List<Tag> oneTag(@PathVariable("tagId") long tagId) {
+	@RequestMapping(method = RequestMethod.GET, value = "/{tagid}")
+	public List<Tag> oneTag(@PathVariable("tagid") long tagId) {
 
 		log.info("Appel webService oneTag avec tagId =" + tagId);
 
-		String requete = "select * from tag where id_tag=?";
+		String requete = "select * "
+				+ "from tag "
+				+ "where id_tag=?";
 
 		List<Tag> tags = this.jdbcTemplate.query(requete, new RowMapper<Tag>() {
 			public Tag mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -84,11 +87,13 @@ public class TagController {
 	 * 
 	 * @param tagId
 	 */
-	@RequestMapping(method = RequestMethod.DELETE, value = "/{tagId}")
-	public void deleteTag(@PathVariable("tagId") long tagId) {
+	@RequestMapping(method = RequestMethod.DELETE, value = "/{tagid}")
+	public void deleteTag(@PathVariable("tagid") long tagId) {
 
 		log.info("Appel webService deleteTag avec tagId = " + tagId);
-		String requete = "delete from tag where id_tag=?";
+		String requete = "delete "
+				+ "from tag "
+				+ "where id_tag=?";
 		this.jdbcTemplate.update(requete, tagId);
 	}
 
@@ -98,12 +103,13 @@ public class TagController {
 	 * 
 	 * @param tagValeur
 	 */
-	@RequestMapping(method = RequestMethod.POST, value = "/{tagValeur}")
-	public void createTag(@PathVariable("tagValeur") String tagValeur) {
+	@RequestMapping(method = RequestMethod.POST, value = "/{tagvaleur}")
+	public void createTag(@PathVariable("tagvaleur") String tagValeur) {
 
 		log.info("Appel webService createTag avec tagValeur = " + tagValeur);
 		
-		String requete = "insert into tag (id_tag, valeur) "
+		String requete = "insert "
+				+ "into tag (id_tag, valeur) "
 				+ "values (seq_tag.nextval ,?)";
 		
 		this.jdbcTemplate.update(requete, tagValeur);
