@@ -1,4 +1,4 @@
-<form class="" id="my-contact-form" action="" method="post" novalidate="true" role="form">
+<form class="" name="mqpForm" id="my-contact-form" action="" method="post" novalidate="true" role="form">
 	<div class="form-group">
 
 		<div class="panel panel-info">
@@ -10,9 +10,17 @@
 
 			<div class="panel-body">
 
-				<div class="input-group input-group-lg">
+				<div class="input-group input-group-lg" ng-class="{'has-success' : mqpForm.mqpUrl.$dirty && mqpForm.mqpUrl.$valid, 'has-error': mqpForm.mqpUrl.$dirty && mqpForm.mqpUrl.$invalid}" >
 					<span class="input-group-addon" id="basic-addon1">@</span>
-					<input type="text" class="form-control" placeholder="Lien" aria-describedby="basic-addon1">
+					<input name="mqpUrl" type="text" class="form-control" aria-describedby="basic-addon1" required>
+                    <span ng-show="mqpForm.mqpUrl.$dirty" ng-messages="mqpForm.mqpUrl.$error">
+						<span class="help-block" ng-message="required">
+							Ce champ est obligatoire
+						</span>
+						<span class="help-block" ng-message="url">
+							Ce champ doit être une URL
+						</span>
+					</span>
 				</div>
 
 				<br/>
@@ -24,7 +32,7 @@
 							<th>
 								<div class="input-group">
 									<div class="input-group-btn">
-										<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">ClÈ
+										<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">Clé
 											<span class="caret"></span>
 										</button>
 
@@ -64,7 +72,7 @@
 				</table>
 
 				<div class="text-right">
-					<button type="submit" name="submit-btn" value="1" class="btn btn-primary">Valider</button>
+					<button ng-disabled="mqpForm.$invalid" type="submit" name="submit-btn" value="1" class="btn btn-primary">Valider</button>
 				</div>
 
 			</div><!-- panel body -->
