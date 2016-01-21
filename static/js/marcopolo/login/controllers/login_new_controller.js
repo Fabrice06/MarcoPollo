@@ -5,8 +5,8 @@
         .module('marcopolo')
         .controller('loginNewCtrl', loginNewCtrl);
 
-    loginNewCtrl.$inject = ['$scope', '$resource', '$location'];
-    function loginNewCtrl($scope, $resource, $location) {
+    loginNewCtrl.$inject = ['$scope', '$resource', '$location', 'Login'];
+    function loginNewCtrl($scope, $resource, $location, Login) {
 
         $scope.submit = function (newLogin) {
 
