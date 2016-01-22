@@ -10,21 +10,22 @@
 
 			<div class="panel-body">
 
-				<div class="input-group input-group-lg" ng-class="{'has-success' : mqpForm.mqpUrl.$dirty && mqpForm.mqpUrl.$valid, 'has-error': mqpForm.mqpUrl.$dirty && mqpForm.mqpUrl.$invalid}" >
+				<div class="input-group input-group-lg"
+                     ng-class="{'has-success' : mqpForm.mqpUrl.$dirty && mqpForm.mqpUrl.$valid,
+                               'has-error': mqpForm.mqpUrl.$dirty && mqpForm.mqpUrl.$invalid}" >
 					<span class="input-group-addon" id="basic-addon1">@</span>
 					<input name="mqpUrl" type="text" class="form-control" aria-describedby="basic-addon1" required>
                     <span ng-show="mqpForm.mqpUrl.$dirty" ng-messages="mqpForm.mqpUrl.$error">
-						<span class="help-block" ng-message="required">
-							Ce champ est obligatoire
-						</span>
-						<span class="help-block" ng-message="url">
-							Ce champ doit être une URL
-						</span>
+                        <span class="help-block" ng-message="required">
+                            Ce champ est obligatoire
+                        </span>
+                        <span class="help-block" ng-message="url">
+                            Ce champ doit être une URL
+                        </span>
 					</span>
 				</div>
 
 				<br/>
-
 
 				<table class="table">
 					<thead>
@@ -32,7 +33,7 @@
 							<th>
 								<div class="input-group">
 									<div class="input-group-btn">
-										<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">Clé
+										<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Clé
 											<span class="caret"></span>
 										</button>
 
@@ -40,7 +41,7 @@
 											<li><a href="#">Action</a></li>
 											<li><a href="#">Another action</a></li>
 											<li><a href="#">Something else here</a></li>
-											<li class="divider"></li>
+											<li role="separator" class="divider"></li>
 											<li><a href="#">Separated link</a></li>
 										</ul>
 									</div>
@@ -51,13 +52,16 @@
 
 							<th>
 								<div class="input-group">
+									<div class="input-group-btn boutonBlanc">
+										<button type="button" class="btn btn-default dropdown-toggle " data-toggle="dropdown" aria-expanded="false" disabled>Valeur
+										</button>
+									</div>
 
-									<span class="input-group-addon" id="sizing-addon2">...</span>
-									<input type="text" class="form-control" placeholder="Valeur 1, Valeur 2, ...">
+									<input type="text" class="form-control" placeholder="" aria-label="...">
 									<!--		<input type="text" class="form-control" placeholder="Valeur" aria-label="...">  -->
 								</div><!-- /input-group -->
 							</th>
-
+                            
 							<th class="last_column">
 								<div class="btn-group">
 									<label class="btn btn-info" ng-model="radioModel" btn-radio="'Left'">+</label>
