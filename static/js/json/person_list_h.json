@@ -1,0 +1,54 @@
+{
+  _links: {
+    self: {
+      href: "http://http://localhost:8080/#/static/persons"
+    }
+  },
+  persons:[
+    {
+      _links: {
+        self: {
+          href: "http://http://localhost:8080/#/static/persons/1"
+        }
+      },
+      "mail": "toto@free.fr",
+      "mdp": "toto"
+    },
+    {
+      _links: {
+        self: {
+          href: "http://http://localhost:8080/#/static/persons/2"
+        }
+      },
+      "mail": "ccdd@mail.fr",
+      "mdp": "titi"
+    },
+    {
+      _links: {
+        self: {
+          href: "http://http://localhost:8080/#/static/persons/3"
+        }
+      },
+      "mail": "eeffb@mail.fr",
+      "mdp": "tutu"
+    },
+    {
+      _links: {
+        self: {
+          href: "http://http://localhost:8080/#/static/persons/4"
+        }
+      },
+      "mail": "gghhb@mail.fr",
+      "mdp": "tete"
+    },
+    {
+      _links: {
+        self: {
+          href: "http://http://localhost:8080/#/static/persons/4"
+        }
+      },
+      "mail": "mail@free.fr",
+      "mdp": "myMdp"
+    }
+  ]
+}
