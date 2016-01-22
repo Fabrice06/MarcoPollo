@@ -41,10 +41,14 @@
 		
 		.when('/mqp', {
             templateUrl: 'js/marcopolo/marquepage/marquepage-new.html',
-            controller: 'personNewCtrl'
+            controller: 'marquepage_new_controller'
         })
 		
-
+		.when('/mqpD', {
+            templateUrl: 'js/marcopolo/marquepage/marquepage-detail.html',
+            controller: 'marquepage_detail_controller'
+        })
+		
         .otherwise({
             redirectTo: '/'
         });
