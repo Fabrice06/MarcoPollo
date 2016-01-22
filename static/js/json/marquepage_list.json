@@ -1,22 +1,38 @@
-[
-  {
-	"id_marquepage": 1,
-	"lien": "lien marquepage 1"
-  },
-  {
-	"id_marquepage": 2,
-    "lien": "lien marquepage 2"
-  },
-  {
-	"id_marquepage": 3,
-    "lien": "lien marquepage 3"
-  },
-  {
-	"id_marquepage": 4,
-    "lien": "lien marquepage 4"
-  },
-  {
-    "id_marquepage": 5,
-    "lien": "lien marquepage 5"
-  }
+[ 
+    {
+        "id_marquepage": 1,  
+        "lien":"https://www.google.fr/",
+        "tags": [ 
+            {"id_tag": 1, "cle": "nom", "valeur":"Google"}                        
+        ] 
+    }, 
+    {
+    	"id_marquepage": 3,  
+        "lien":"http://www.philippesaucourt.com/",
+        "tags": [
+            {"id_tag": 2, "cle": "description", "valeur":"idée déco"}
+        ] 				
+      }, 
+    {
+        "id_marquepage": 2,  
+        "lien":"https://www.lri.fr/~keller/Enseignement/Orsay/LP-SRSI-AF/android.html",
+        "tags": [
+            {"id_tag": 3, "cle": "description", "valeur":"cours android"}
+        ]       
+    },
+    {
+        "id_marquepage": 4,  
+        "lien":"http://lacour.xavier.free.fr/",
+        "tags": [
+            {"id_tag": 4, "cle": "date", "valeur":"2014"},
+            {"id_tag": 6, "cle": "description", "valeur":"Systeme-Reseaux"}
+        ]
+    },
+    {
+        "id_marquepage": 5,  
+        "lien":"https://gitlab.com/users/sign_in",
+        "tags": [
+            {"id_tag": 5, "cle": "description", "valeur":"cours Prog Web"}
+        ]
+    }
 ]

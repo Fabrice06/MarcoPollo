@@ -1,0 +1,29 @@
+[ 
+      {
+          "id_person": 1,  
+          "mail":"aabb@mail.fr",
+          "mdp":"toto"
+      }, 
+      {
+         "id_person": 2,  
+          "mail":"ccdd@mail.fr",
+          "mdp":"titi"
+      }, 
+      {
+          "id_person": 3,  
+          "mail":"eeffb@mail.fr",
+          "mdp":"tutu"
+      },
+      {
+          "id_person": 4,  
+          "mail":"gghhb@mail.fr",
+          "mdp":"tete"
+      }
+       {
+          "id_person": 5,  
+          "mail":"mail@free.fr",
+          "mdp":"myMdp"
+      }
+      
+] 
+    
