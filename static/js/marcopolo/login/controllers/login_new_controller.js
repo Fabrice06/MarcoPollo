@@ -47,6 +47,16 @@
                 }
             );
         };
+        
+        $scope.confirmation = function(){
+        	alert('Un mot de passe provisoire a été envoyé à votre adresse e-mail');
+        };
+        
+        $scope.envoyerMail = function(){
+        	
+        };
+        
+       
     } // function
 
             //$scope.users = User.query();

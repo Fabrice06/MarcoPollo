@@ -7,8 +7,10 @@
 		
 		<!-- Librairies Angular -->
 		<script type="text/javascript" src="js/libs/angular-1.4.8/angular.js"></script>
-		<script type="text/javascript" src="js/libs/angular-1.4.8/angular-route.js"></script>
+		<script type="text/javascript" src="js/libs/angular-1.4.8/angular-route.js"></script> 
+		<!-- <script type="text/javascript" src="js/libs/angular-1.4.8/angular-ui-router.js"></script>	-->
 		<script type="text/javascript" src="js/libs/angular-1.4.8/angular-resource.js"></script>
+		<script type="text/javascript" src="js/libs/angular-1.4.8/angular-messages.js"></script>
 
         <!-- Mock BackEnd -->
         <script type="text/javascript" src="js/libs/angular-mock/app_e2e.module.js"></script>
@@ -16,7 +18,8 @@
 
 		<!-- App -->
         <script type="text/javascript" src="js/marcopolo/app.module.js"></script>
-		<script type="text/javascript" src="js/marcopolo/app.route.js"></script>
+		<script type="text/javascript" src="js/marcopolo/app.route.js"></script> 
+		<!--	<script type="text/javascript" src="js/marcopolo/app.route2.js"></script>	-->
 
         <!-- Login -->
         <script type="text/javascript" src="js/marcopolo/login/controllers/login_new_controller.js"></script>
@@ -47,8 +50,11 @@
 		<div class="container my-header" id="">
 			<div class="row">
 				<div class="col-lg-5 col-sm-12 col-lg-offset-7 text-right">
-					<span class="icon-af icon-af-A-basic-user77"></span>
-						<a href="#">Deconnexion</a>
+					<span class="icon-af icon-af-A-basic-user77">
+						<a href="#/persons/:personId">Mon profil</a></span>
+						<span class="glyphicon glyphicon-off">
+						<a href="#">Deconnexion</a></span>
+						
 				</div>
 			</div>
 
@@ -73,7 +79,8 @@
 		</br>
 
 
-		<div class="container" ng-view></div>
+		<div class="container" ng-view></div>	
+		<!--<div class="container" ng-view></div>	-->
 
 
 		<footer>
