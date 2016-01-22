@@ -11,7 +11,7 @@
           href: "http://http://localhost:8080/#/static/marquepages/1"
         }
       },
-      "lien": "lien marquepage 1",
+      lien: "lien marquepage 1",
       _embedded:{
         tags:[
           {
@@ -20,8 +20,8 @@
                 href: "http://http://localhost:8080/#/static/tags/1"
               }
             },
-            "cle": "nom",
-            "valeur":"Google"
+            cle: "nom",
+            valeur:"Google"
           }
         ]
       }
@@ -41,8 +41,8 @@
                 href: "http://http://localhost:8080/#/static/tags/2"
               }
             },
-            "cle": "description",
-            "valeur":"idée déco"
+            cle: "description",
+            valeur:"idée déco"
           }
         ]
       }
@@ -53,7 +53,7 @@
           href: "http://http://localhost:8080/#/static/marquepages/3"
         }
       },
-      "lien": "lien marquepage 3",
+      lien: "lien marquepage 3",
       _embedded:{
         tags:[
           {
@@ -62,8 +62,8 @@
                 href: "http://http://localhost:8080/#/static/tags/3"
               }
             },
-            "cle": "description",
-            "valeur":"cours android"
+            cle: "description",
+            valeur:"cours android"
           }
         ]
       }
@@ -74,7 +74,20 @@
           href: "http://http://localhost:8080/#/static/marquepages/4"
         }
       },
-      "lien": "lien marquepage 4"
+      lien: "lien marquepage 4",
+      _embedded:{
+        tags:[
+          {
+            _links: {
+              self: {
+                href: "http://http://localhost:8080/#/static/tags/3"
+              }
+            },
+            cle: "description",
+            valeur:"cours android"
+          }
+        ]
+      }
     },
     {
       _links: {
@@ -82,7 +95,7 @@
           href: "http://http://localhost:8080/#/static/marquepages/5"
         }
       },
-      "lien": "lien marquepage 5",
+      lien: "lien marquepage 5",
       _embedded:{
         tags:[
           {
@@ -91,8 +104,8 @@
                 href: "http://http://localhost:8080/#/static/tags/4"
               }
             },
-            "cle": "date",
-            "valeur":"2014"
+            cle: "date",
+            valeur:"2014"
           },
           {
             _links: {
@@ -100,8 +113,8 @@
                 href: "http://http://localhost:8080/#/static/tags/5"
               }
             },
-            "cle": "description",
-            "valeur":"Systeme-Reseaux"
+            cle: "description",
+            valeur:"Systeme-Reseaux"
           }
         ]
       }

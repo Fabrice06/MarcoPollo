@@ -21,15 +21,19 @@
 
         // récup des datas json -------------------------------------------------------------
             var nJsonPersons = null;
-            $httpBackend.whenGET('js/json/person_list.json').passThrough();
-            $http.get('js/json/person_list.json').success(function (response) {
+            var nJsonFileName = 'js/json/person_list.json';
+            //var nJsonFileName = 'js/json/person_list_h.json';
+            $httpBackend.whenGET(nJsonFileName).passThrough();
+            $http.get(nJsonFileName).success(function (response) {
                 nJsonPersons = JSON.stringify(response);
                 //nJsonPersons = response;
             });
 
             var nJsonMarquepages = null;
-            $httpBackend.whenGET('js/json/marquepage_list.json').passThrough();
-            $http.get('js/json/marquepage_list.json').success(function (response) {
+            nJsonFileName = 'js/json/marquepage_list.json';
+            //nJsonFileName = 'js/json/marquepage_list_h.json';
+            $httpBackend.whenGET(nJsonFileName).passThrough();
+            $http.get(nJsonFileName).success(function (response) {
                 nJsonMarquepages = JSON.stringify(response);
             });
 

@@ -3,17 +3,17 @@
 
     angular
         .module('marcopolo')
-        .controller('loginNewCtrl', loginNewCtrl);
+        .controller('personLogCtrl', personLogCtrl);
 
-    loginNewCtrl.$inject = ['$scope', '$resource', '$location', 'Login'];
-    function loginNewCtrl($scope, $resource, $location, Login) {
+    personLogCtrl.$inject = ['$scope', '$resource', '$location'];
+    function personLogCtrl($scope, $resource, $location) {
 
-        $scope.submit = function (newLogin) {
+        $scope.onSubmit = function (pPersonLog) {
 
             var nPerson = $resource('persons/', {});
             var nResponseId = 0;
             //calls http://localhost:63342/static/persons?mail=MyMail&mdp=myMdp
-            nPerson.query({mail:newLogin.mail, mdp:newLogin.mdp},
+            nPerson.query({mail:pPersonLog.mail, mdp:pPersonLog.mdp},
                 function (response) {
                     console.log("réussite login.query " + JSON.stringify(response));
 
@@ -47,30 +47,30 @@
                 }
             );
         };
-        
+
         $scope.confirmation = function(){
-        	alert('Un mot de passe provisoire a été envoyé à votre adresse e-mail');
+            alert('Un mot de passe provisoire a été envoyé à votre adresse e-mail');
         };
-        
+
         $scope.envoyerMail = function(){
-        	
+
         };
-        
-       
+
+
     } // function
 
-            //$scope.users = User.query();
-            //$scope.validate(user) {
-            //    user.$update();
-            //}
-            //$scope.delete(user) {
-            //    user.$delete();
-            //}
-            //$scope.create(newUserName) {
-            //    var user = new User();
-            //    user.name = newUserName;
-            //    user.$save();
-            //    $scope.users.push(user);
-            //}
+    //$scope.users = User.query();
+    //$scope.validate(user) {
+    //    user.$update();
+    //}
+    //$scope.delete(user) {
+    //    user.$delete();
+    //}
+    //$scope.create(newUserName) {
+    //    var user = new User();
+    //    user.name = newUserName;
+    //    user.$save();
+    //    $scope.users.push(user);
+    //}
 
 })();
