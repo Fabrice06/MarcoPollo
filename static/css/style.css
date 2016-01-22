@@ -18,6 +18,12 @@
 
 
 .last_column {
-	width: 15%;
+	width: 10%;
 	text-align: center;
+}
+
+.boutonBlanc {
+	background-color: #FFFFFF;
+	color: #000000;
+	
 }

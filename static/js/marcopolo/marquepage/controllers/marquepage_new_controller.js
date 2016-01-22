@@ -6,7 +6,7 @@
         .controller('marquepageNewCtrl', marquepageNewCtrl);
 
     marquepageNewCtrl.$inject = ['$scope'];
-    function marquepageNewCtrl($scope) {
+    function marquepageNewCtrl($scope, $routeParams) {
         
     } // function
 

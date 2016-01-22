@@ -8,7 +8,7 @@
              */
             'ngRoute',
             'ngResource',
-
+            'ngMessages',
             'ngMockE2E'
         ])
         .run(mockBackend);
