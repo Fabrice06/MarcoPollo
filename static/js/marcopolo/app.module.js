@@ -9,6 +9,7 @@
             'ngRoute',
             'ngResource',
             'ngMessages',
+
             'ngMockE2E'
         ])
         .run(mockBackend);
@@ -38,10 +39,10 @@
 
 
         // person --------------------------------------------------------------------------
-        var nRegexPersons= '/persons/[0-9]{1,}';
+        var nRegexPersons= 'persons/[0-9]{1,}';
 
             //$httpBackend.whenGET(new RegExp('persons\\?.*')).passThrough(); // vers le backend
-            $httpBackend.whenGET(new RegExp('/persons\\?.*')).respond(function (method, url) { // traitement FE sans BE
+            $httpBackend.whenGET(new RegExp('persons\\?.*')).respond(function (method, url) { // traitement FE sans BE
 
                 console.log("person?mail&mdp whenGET url params " + url.split("?")[1]);
 
@@ -92,19 +93,19 @@
                 return nReturn;
             });
 
-            $httpBackend.whenPUT(new RegExp('/persons/[0-9]{1,}\\?.*')).passThrough(); // vers le backend
-            $httpBackend.whenPOST(new RegExp('/persons\\?.*')).passThrough(); // vers le backend
+            $httpBackend.whenPUT(new RegExp('persons/[0-9]{1,}\\?.*')).passThrough(); // vers le backend
+            $httpBackend.whenPOST(new RegExp('persons\\?.*')).passThrough(); // vers le backend
 
             // requêtes non prise en compte
-            $httpBackend.whenGET(new RegExp('/persons$')).passThrough(); // vers le backend
+            $httpBackend.whenGET(new RegExp('persons$')).passThrough(); // vers le backend
             $httpBackend.whenDELETE(new RegExp(nRegexPersons)).passThrough(); // vers le backend
 
 
         // marquepage ----------------------------------------------------------------------
-        var nRegexMarquepages= '/marquepages/[0-9]{1,}';
+        var nRegexMarquepages= 'marquepages/[0-9]{1,}';
 
-            //$httpBackend.whenGET(new RegExp('/persons/[0-9]{1,}/marquepages$')).passThrough(); // vers le backend
-            $httpBackend.whenGET(new RegExp('/persons/[0-9]{1,}/marquepages$')).respond(function (method, url) { // traitement FE sans BE
+            //$httpBackend.whenGET(new RegExp('persons/[0-9]{1,}/marquepages$')).passThrough(); // vers le backend
+            $httpBackend.whenGET(new RegExp('persons/[0-9]{1,}/marquepages$')).respond(function (method, url) { // traitement FE sans BE
 
                 console.log("persons/[0-9]{1,}/marquepages whenGET url params " + url.split("/")[1]);
 
@@ -141,17 +142,17 @@
                 return nReturn;
             });
 
-            $httpBackend.whenPOST(new RegExp('/persons/[0-9]{1,}/marquepages\\?.*')).passThrough(); // vers le backend
+            $httpBackend.whenPOST(new RegExp('marquepages/[0-9]{1,}/marquepages\\?.*')).passThrough(); // vers le backend
             $httpBackend.whenDELETE(new RegExp(nRegexMarquepages)).passThrough(); // vers le backend
-            $httpBackend.whenPUT(new RegExp('/marquepages/[0-9]{1,}\\?.*')).passThrough(); // vers le backend
+            $httpBackend.whenPUT(new RegExp('marquepages/[0-9]{1,}\\?.*')).passThrough(); // vers le backend
 
         // tag --------------------------------------------------------------------------
-        var nRegexTags= '/tags/[0-9]{1,}';
+        var nRegexTags= 'tags/[0-9]{1,}';
 
-            //$httpBackend.whenGET(new RegExp('/marquepages/[0-9]{1,}/tags$')).passThrough(); // vers le backend
-            $httpBackend.whenGET(new RegExp('/marquepages/[0-9]{1,}/tags$')).respond(function (method, url) { // traitement FE sans BE
+            //$httpBackend.whenGET(new RegExp('marquepages/[0-9]{1,}/tags$')).passThrough(); // vers le backend
+            $httpBackend.whenGET(new RegExp('marquepages/[0-9]{1,}/tags$')).respond(function (method, url) { // traitement FE sans BE
 
-                console.log("/marquepages/[0-9]{1,}/tags whenGET url params " + url.split("/")[1]);
+                console.log("marquepages/[0-9]{1,}/tags whenGET url params " + url.split("/")[1]);
 
                 var nReturn = new Array();
                 nReturn.push(404);	// la page demandée n'existe pas
@@ -177,7 +178,7 @@
             //$httpBackend.whenGET(new RegExp(nRegexTags)).passThrough(); // vers le backend
             $httpBackend.whenGET(new RegExp(nRegexTags)).respond(function (method, url) { // traitement FE sans BE
 
-                console.log("/tags/[0-9]{1,} whenGET url params " + url.split("/")[1]);
+                console.log("tags/[0-9]{1,} whenGET url params " + url.split("/")[1]);
 
                 var nReturn = new Array();
                 nReturn.push(404);	// la page demandée n'existe pas
@@ -200,14 +201,14 @@
                 return nReturn;
             });
 
-            $httpBackend.whenPOST(new RegExp('/tags\\?.*')).passThrough(); // vers le backend
+            $httpBackend.whenPOST(new RegExp('tags\\?.*')).passThrough(); // vers le backend
             $httpBackend.whenDELETE(new RegExp(nRegexTags)).passThrough(); // vers le backend
 
         // cle --------------------------------------------------------------------------
-        //$httpBackend.whenGET(new RegExp('/cles$')).passThrough(); // vers le backend
-        $httpBackend.whenGET(new RegExp('/cles$')).respond(function (method, url) { // traitement FE sans BE
+        //$httpBackend.whenGET(new RegExp('cles$')).passThrough(); // vers le backend
+        $httpBackend.whenGET(new RegExp('cles$')).respond(function (method, url) { // traitement FE sans BE
 
-            console.log("/cles whenGET url params " + url.split("/")[1]);
+            console.log("cles whenGET url params " + url.split("/")[1]);
 
             var nReturn = new Array();
             nReturn.push(404);	// la page demandée n'existe pas
@@ -230,12 +231,12 @@
             return nReturn;
         });
 
-        $httpBackend.whenPOST(new RegExp('/cles\\?.*')).passThrough(); // vers le backend
+        $httpBackend.whenPOST(new RegExp('cles\\?.*')).passThrough(); // vers le backend
 
         //$httpBackend.whenGET(new RegExp('/persons/[0-9]{1,}/cles').passThrough(); // vers le backend
-        $httpBackend.whenGET(new RegExp('/persons/[0-9]{1,}/cles')).respond(function (method, url) { // traitement FE sans BE
+        $httpBackend.whenGET(new RegExp('persons/[0-9]{1,}/cles')).respond(function (method, url) { // traitement FE sans BE
 
-            console.log("/persons/[0-9]{1,}/cles whenGET url params " + url.split("/")[1]);
+            console.log("persons/[0-9]{1,}/cles whenGET url params " + url.split("/")[1]);
 
             var nReturn = new Array();
             nReturn.push(404);	// la page demandée n'existe pas
