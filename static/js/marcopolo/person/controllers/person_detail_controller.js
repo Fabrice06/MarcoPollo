@@ -29,7 +29,7 @@
         // clic sur le bouton déconnexion
         $scope.onExit = function () {
 
-            CurrentPerson.setData(null); // ça couine pas mais c'est valide???
+            CurrentPerson.setData(null); // ça couine pas??? c'est valide???
             $location.path('/').replace();
         };
 
