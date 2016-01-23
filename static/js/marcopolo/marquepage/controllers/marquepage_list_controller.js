@@ -24,6 +24,7 @@
         // clic sur le bouton profil
         $scope.onExit = function () {
 
+            $location.path('/').replace();
             console.log("eeeeee");
         };
 	}]);

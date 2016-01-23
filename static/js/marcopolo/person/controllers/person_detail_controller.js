@@ -66,16 +66,16 @@
             var nId = nUrlArray[nUriArray.length-1];
             console.log("personDetailCtrl onSubmit nId " + nId);
 
-            User.update(
-                {id : nId}, // Params
-                stTMp, // Data
-                function (data, headers) { // OK
-                    console.log("personDetailCtrl onSubmit update ok");
-                },
-                function (data, headers) { // Erreur
-                    console.log("personDetailCtrl onSubmit update echec");
-                }
-            );
+            //User.update(
+            //    {id : nId}, // Params
+            //    stTMp, // Data
+            //    function (data, headers) { // OK
+            //        console.log("personDetailCtrl onSubmit update ok");
+            //    },
+            //    function (data, headers) { // Erreur
+            //        console.log("personDetailCtrl onSubmit update echec");
+            //    }
+            //);
 
         };
 
