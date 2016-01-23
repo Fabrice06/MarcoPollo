@@ -20,7 +20,7 @@
 
     } // function
 
-    //
+    // sauvegarde de la ressource: son utilisation reste à vérifier et à valider
     function CurrentPerson () {
 
         return {

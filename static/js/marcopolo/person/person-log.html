@@ -47,16 +47,25 @@
 
                 <div class="text-right" >
                     <button type="button"
-                            name="submit-btn1"
                             class="btn btn-primary"
                             data-ng-disabled="formPersonLog.useremail.$invalid"
                             ng-click="onCreate(formPersonLog)">Nouvel utilisateur
                     </button>
                     <button type="button"
-                            name="submit-btn2"
                             class="btn btn-primary"
                             data-ng-disabled="formPersonLog.$invalid"
                             ng-click="onSubmit(formPersonLog)">Se connecter
+                    </button>
+                </div>
+                <br/>
+                <div class="text-right" >
+                    <button type="button"
+                            class="btn btn-primary"
+                            ng-click="onTestA()">test A
+                    </button>
+                    <button type="button"
+                            class="btn btn-primary"
+                            ng-click="onTestB()">test B
                     </button>
                 </div>
             </form>

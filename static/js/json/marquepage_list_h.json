@@ -51,8 +51,17 @@
                     "uri": "/tag/2"
                   }
                 },
-                "cle": "description",
+                "cle": "nom",
                 "valeur": "idée déco"
+              },
+              {
+                "_links": {
+                  "self": {
+                    "uri": "/tag/3"
+                  }
+                },
+                "cle": "description",
+                "valeur": "description idée déco"
               }
             ]
           }
@@ -69,11 +78,20 @@
               {
                 "_links": {
                   "self": {
-                    "uri": "/tags/3"
+                    "uri": "/tags/4"
+                  }
+                },
+                "cle": "nom",
+                "valeur": "cours android"
+              },
+              {
+                "_links": {
+                  "self": {
+                    "uri": "/tags/20"
                   }
                 },
                 "cle": "description",
-                "valeur": "cours android"
+                "valeur": "description cours android"
               }
             ]
           }
@@ -84,7 +102,29 @@
               "uri": "/marquepages/4"
             }
           },
-          "lien": "lien marquepage 4"
+          "lien": "lien marquepage 4",
+          "_embedded": {
+            "tags": [
+              {
+                "_links": {
+                  "self": {
+                    "uri": "/tags/5"
+                  }
+                },
+                "cle": "nom",
+                "valeur": "polochon"
+              },
+              {
+                "_links": {
+                  "self": {
+                    "uri": "/tags/67"
+                  }
+                },
+                "cle": "couleur",
+                "valeur": "blouge"
+              }
+            ]
+          }
         },
         {
           "_links": {
@@ -98,7 +138,16 @@
               {
                 "_links": {
                   "self": {
-                    "uri": "tags/4"
+                    "uri": "/tags/6"
+                  }
+                },
+                "cle": "nom",
+                "valeur": "polochon"
+              },
+              {
+                "_links": {
+                  "self": {
+                    "uri": "tags/100"
                   }
                 },
                 "cle": "date",
@@ -107,7 +156,7 @@
               {
                 "_links": {
                   "self": {
-                    "uri": "tags/5"
+                    "uri": "tags/101"
                   }
                 },
                 "cle": "description",

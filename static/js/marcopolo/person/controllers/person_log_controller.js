@@ -30,8 +30,7 @@
         // clic sur le bouton se connecter
         $scope.onCreate = function (pPersonLog) {
             // pour test uniquement
-            $location.path('/persons/2').replace();
-
+            alert('personLogCtrl onCreate en cours');
         };
 
         // clic sur le liem mot de passe perdu
@@ -39,7 +38,13 @@
             alert('Un mot de passe provisoire a été envoyé à votre adresse e-mail');
         };
 
-
+        // pour test uniquement
+        $scope.onTestA = function () {
+            $location.path('/persons/2').replace();
+        };
+        $scope.onTestB = function () {
+            $location.path('/persons/1/marquepages/2').replace();
+        };
     } // function
 
 })();

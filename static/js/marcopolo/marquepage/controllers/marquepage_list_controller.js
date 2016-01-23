@@ -5,6 +5,11 @@
 
 	myModuleController.controller('marquepageListCtrl',['$scope','Marquepage','$routeParams','$location', function($scope,Marquepage,$routeParams,$location){
 
+
+        //vince:
+        // pas de panoque: j'ai modifié ces lignes suivantes car il y avait des erreurs bloquantes dans la console.
+        // et j'avais besoin d'implanter les différents clics
+
 		//$scope.listMqp = Marquepage.query();
       //
 		///* var test=$routeParams.id_marquepage
@@ -18,7 +23,7 @@
         // clic sur le bouton rechercher
         $scope.onSearch = function () {
 
-            console.log("clic marquepageListCtrl rechercher en cours");
+            alert('clic marquepageListCtrl rechercher en cours');
         };
 
         // clic sur le bouton ajouter
