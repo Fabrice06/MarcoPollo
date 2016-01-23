@@ -4,7 +4,7 @@
       "uri": "/persons"
     }
   },
-  "persons":[
+  "data":[
     {
       "_links": {
         "self": {

@@ -28,14 +28,20 @@
                 nJsonPersons = response;
             });
 
-            var nJsonMarquepages = null;
+            var nJsonMarquepagesList = null;
             //nJsonFileName = 'js/json/marquepage_list.json';
             nJsonFileName = 'js/json/marquepage_list_h.json';
             $httpBackend.whenGET(nJsonFileName).passThrough();
             $http.get(nJsonFileName).success(function (response) {
-                nJsonMarquepages = response;
+                nJsonMarquepagesList = response;
             });
 
+            var nJsonMarquepagesDetail = null;
+            nJsonFileName = 'js/json/marquepage_detail_h.json';
+            $httpBackend.whenGET(nJsonFileName).passThrough();
+            $http.get(nJsonFileName).success(function (response) {
+                nJsonMarquepagesDetail = response;
+            });
 
         // pages html ----------------------------------------------------------------------
             $httpBackend.whenGET(new RegExp('/.*\.html$')).passThrough();
@@ -56,15 +62,15 @@
                 console.log("person?mail&mdp whenGET url params " + nParams);
 
                 // on boucle sur le fichier json pour trouver le mail et le mdp et retourner la ressource
-                for (var i = 0, len = nJsonPersons.persons.length; i < len; i++) {
+                for (var i = 0, len = nJsonPersons.data.length; i < len; i++) {
 
-                    if (("mail=" + nJsonPersons.persons[i].mail + "&mdp=" + nJsonPersons.persons[i].mdp) === nParams) {
+                    if (("mail=" + nJsonPersons.data[i].mail + "&mdp=" + nJsonPersons.persons[i].mdp) === nParams) {
 
                         nReturn[0] = 200; // requête effectuée avec succès
-                        nReturn[1] = nJsonPersons.persons[i];
+                        nReturn[1] = nJsonPersons.data[i];
                         break;
                     } // if
-                    //console.log("mail=" + nJsonPersons.persons[i].mail + "&mdp=" + nJsonPersons.persons[i].mdp);
+                    //console.log("mail=" + nJsonPersons.data[i].mail + "&mdp=" + nJsonPersons.data[i].mdp);
                 } // for
 
                 return nReturn;
@@ -79,18 +85,18 @@
                     nReturn.push(null);
 
                 var nParams = url;
-                console.log("person/id whenGET url params " + nParams);
+                console.log("persons/id whenGET url params " + nParams);
 
                 // on boucle sur le fichier json pour trouver le _links.self.uri et retourner le backend
-                for (var i = 0, len = nJsonPersons.persons.length; i < len; i++) {
+                for (var i = 0, len = nJsonPersons.data.length; i < len; i++) {
 
-                    if (nJsonPersons.persons[i]._links.self.uri === nParams) {
+                    if (nJsonPersons.data[i]._links.self.uri === nParams) {
 
                         nReturn[0] = 200; // requête effectuée avec succès
-                        nReturn[1] = nJsonPersons.persons[i];
+                        nReturn[1] = nJsonPersons.data[i];
                         break;
                     } // if
-                    console.log("id=" + nJsonPersons.persons[i]._links.self.uri);
+                    console.log("uri = " + nJsonPersons.data[i]._links.self.uri);
                 } // for
 
                 return nReturn;
@@ -110,11 +116,25 @@
             //$httpBackend.whenGET(new RegExp('persons/[0-9]{1,}/marquepages$')).passThrough(); // vers le backend
             $httpBackend.whenGET(new RegExp('persons/[0-9]{1,}/marquepages$')).respond(function (method, url) { // traitement FE sans BE
 
-                console.log("persons/[0-9]{1,}/marquepages whenGET url params " + url.split("/")[1]);
-
                 var nReturn = new Array();
-                nReturn[0] = 200; // requête effectuée avec succès
-                nReturn[1] = nJsonMarquepages;
+                // valeur de retour par défaut: [http status, data]
+                    nReturn[0] = 200; // requête effectuée avec succès
+                    nReturn[1] = null;
+
+                var nParams = url;
+                console.log("marquepages/list whenGET url params " + nParams);
+
+                // on boucle sur le fichier json pour trouver le _links.self.uri et retourner le backend
+                for (var i = 0, len = nJsonMarquepagesList.data.length; i < len; i++) {
+
+                    if (nJsonMarquepagesList.data[i]._links.self.uri === nParams) {
+
+                        nReturn[0] = 200; // requête effectuée avec succès
+                        nReturn[1] = nJsonMarquepagesList.data[i];
+                        break;
+                    } // if
+                    console.log("uri =" + nJsonMarquepagesList.data[i]._links.self.uri);
+                } // for
 
                 return nReturn;
             });
@@ -122,24 +142,24 @@
             //$httpBackend.whenGET(new RegExp(nRegexMarquepages)).passThrough(); // vers le backend
             $httpBackend.whenGET(new RegExp(nRegexMarquepages)).respond(function (method, url) { // traitement FE sans BE
 
-                console.log("/marquepages/[0-9]{1,} whenGET url params " + url.split("/")[1]);
-
                 var nReturn = new Array();
-                nReturn.push(404);	// la page demandée n'existe pas
-                nReturn.push(null);
+                // valeur de retour par défaut: [http status, data]
+                nReturn[0] = 200; // requête effectuée avec succès
+                nReturn[1] = null;
 
-                var nParams = url.split("/")[1];
-                var nMarquepages = angular.fromJson(nJsonMarquepages);
+                var nParams = url;
+                console.log("marquepages/id whenGET url params " + nParams);
 
-                for (var i = 0, len = nMarquepages.length; i < len; i++) {
+                // on boucle sur le fichier json pour trouver le _links.self.uri et retourner le backend
+                for (var i = 0, len = nJsonMarquepagesDetail.data.length; i < len; i++) {
 
-                    if (nMarquepages[i].id_marquepage === nParams) {
+                    if (nJsonMarquepagesDetail.data[i]._links.self.uri === nParams) {
 
                         nReturn[0] = 200; // requête effectuée avec succès
-                        nReturn[1] = JSON.stringify(nMarquepages[i]);
+                        nReturn[1] = nJsonMarquepagesDetail.data[i];
                         break;
                     } // if
-                    //console.log("id_marquepage=" + nMarquepages[i].id_marquepage);
+                    console.log("uri = " + nJsonMarquepagesDetail.data[i]._links.self.uri);
                 } // for
 
                 return nReturn;
