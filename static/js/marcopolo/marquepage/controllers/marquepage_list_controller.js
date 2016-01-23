@@ -12,7 +12,19 @@
       $scope.unMqp = $scope.data;*/
 
 		$scope.paramId = MarquepageListService.get();
-		$scope.unMqp = $scope.paramId;	
+		$scope.unMqp = $scope.paramId;
 
+
+        // clic sur le bouton déconnexion
+        $scope.onProfil = function () {
+
+            console.log("eeeeee");
+        };
+
+        // clic sur le bouton profil
+        $scope.onExit = function () {
+
+            console.log("eeeeee");
+        };
 	}]);
 })();

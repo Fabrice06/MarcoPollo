@@ -2,12 +2,13 @@
     'use strict';
 
     angular.module('marcopolo')
-        .factory('Person', Person);
+        .factory('Person', Person)
+        .factory('CurrentPerson', CurrentPerson);
 
     Person.$inject = ['$resource'];
     function Person ($resource) {
 
-        var nUrl= '/persons/:personId';
+        var nUrl= '/persons/:id';
         console.log("ressource Person " + nUrl);
 
         return $resource(nUrl, {}, { // return $resource('/users/:userId', {userId:'@id'}  ???
@@ -17,6 +18,17 @@
             'delete': 	{method:'DELETE', 	isArray: false}
         })
 
+    } // function
+
+    //
+    function CurrentPerson () {
+
+        return {
+            getData: {},
+            setData: function (pPerson) {
+                this.getData = pPerson;
+            }
+        }
     } // function
 
 })();

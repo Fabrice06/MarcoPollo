@@ -27,13 +27,18 @@
             );
         };
 
-        $scope.confirmation = function(){
+        // clic sur le bouton se connecter
+        $scope.onCreate = function (pPersonLog) {
+            // pour test uniquement
+            $location.path('/persons/2').replace();
+
+        };
+
+        // clic sur le liem mot de passe perdu
+        $scope.onLost = function(pPersonLog){
             alert('Un mot de passe provisoire a été envoyé à votre adresse e-mail');
         };
 
-        $scope.envoyerMail = function(){
-
-        };
 
     } // function
 

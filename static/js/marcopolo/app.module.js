@@ -33,7 +33,7 @@
             nJsonFileName = 'js/json/marquepage_list_h.json';
             $httpBackend.whenGET(nJsonFileName).passThrough();
             $http.get(nJsonFileName).success(function (response) {
-                nJsonMarquepages = JSON.stringify(response);
+                nJsonMarquepages = response;
             });
 
 
@@ -47,16 +47,15 @@
             //$httpBackend.whenGET(new RegExp('persons\\?.*')).passThrough(); // vers le backend
             $httpBackend.whenGET(new RegExp('persons\\?.*')).respond(function (method, url) { // traitement FE sans BE
 
-                console.log("person?mail&mdp whenGET url params " + url.split("?")[1]);
-
                 var nReturn = new Array();
                 // valeur de retour par défaut: [http status, data]
                     nReturn.push(404);	// la page demandée n'existe pas
                     nReturn.push(null);
 
                 var nParams = url.split("?")[1]; // récup des params aprés le ? dans l'url
+                console.log("person?mail&mdp whenGET url params " + nParams);
 
-                // on boucle sur le fichier json pour trouver le mail et le mdp
+                // on boucle sur le fichier json pour trouver le mail et le mdp et retourner la ressource
                 for (var i = 0, len = nJsonPersons.persons.length; i < len; i++) {
 
                     if (("mail=" + nJsonPersons.persons[i].mail + "&mdp=" + nJsonPersons.persons[i].mdp) === nParams) {
@@ -65,7 +64,7 @@
                         nReturn[1] = nJsonPersons.persons[i];
                         break;
                     } // if
-                    console.log("mail=" + nJsonPersons.persons[i].mail + "&mdp=" + nJsonPersons.persons[i].mdp);
+                    //console.log("mail=" + nJsonPersons.persons[i].mail + "&mdp=" + nJsonPersons.persons[i].mdp);
                 } // for
 
                 return nReturn;
@@ -74,24 +73,24 @@
             //$httpBackend.whenGET(new RegExp(nRegexPersons)).passThrough(); // vers le backend
             $httpBackend.whenGET(new RegExp(nRegexPersons)).respond(function (method, url) { // traitement FE sans BE
 
-                console.log("person/id whenGET url params " + url.split("/")[1]);
-
                 var nReturn = new Array();
                 // valeur de retour par défaut: [http status, data]
                     nReturn.push(404);	// la page demandée n'existe pas
                     nReturn.push(null);
 
-                var nParams = url.split("/")[1];
+                var nParams = url;
+                console.log("person/id whenGET url params " + nParams);
 
-                // on boucle sur le fichier json pour trouver l'id
+                // on boucle sur le fichier json pour trouver le _links.self.uri et retourner le backend
                 for (var i = 0, len = nJsonPersons.persons.length; i < len; i++) {
 
-                    if (nJsonPersons.persons[i].id_person === nParams) {
+                    if (nJsonPersons.persons[i]._links.self.uri === nParams) {
 
                         nReturn[0] = 200; // requête effectuée avec succès
                         nReturn[1] = nJsonPersons.persons[i];
                         break;
                     } // if
+                    console.log("id=" + nJsonPersons.persons[i]._links.self.uri);
                 } // for
 
                 return nReturn;
@@ -140,7 +139,7 @@
                         nReturn[1] = JSON.stringify(nMarquepages[i]);
                         break;
                     } // if
-                    console.log("id_marquepage=" + nMarquepages[i].id_marquepage);
+                    //console.log("id_marquepage=" + nMarquepages[i].id_marquepage);
                 } // for
 
                 return nReturn;

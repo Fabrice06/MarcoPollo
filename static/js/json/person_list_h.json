@@ -14,6 +14,7 @@
           "uri": "/persons/1/marquepages"
         }
       },
+      "id": 1,
       "mail": "toto@free.fr",
       "mdp": "toto"
     },
@@ -26,6 +27,7 @@
           "uri": "/persons/2/marquepages"
         }
       },
+      "id": 2,
       "mail": "titi@mail.fr",
       "mdp": "titi"
     },
@@ -38,6 +40,7 @@
           "uri": "/persons/3/marquepages"
         }
       },
+      "id": 3,
       "mail": "tutu@mail.fr",
       "mdp": "tutu"
     },
@@ -50,6 +53,7 @@
           "uri": "/persons/4/marquepages"
         }
       },
+      "id": 4,
       "mail": "tete@mail.fr",
       "mdp": "tete"
     },
@@ -62,6 +66,7 @@
           "uri": "/persons/5/marquepages"
         }
       },
+      "id": 5,
       "mail": "zz@free.fr",
       "mdp": "zz"
     }

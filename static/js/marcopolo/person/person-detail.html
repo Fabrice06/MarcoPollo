@@ -1,35 +1,64 @@
-<div class="panel panel-info" ng-controller="personDetailCtrl">
-    <div class="panel-heading">
-        <h3 class="panel-title">Mise a jour du profil</h3>
+<div ng-controller="personDetailCtrl">
+    <!-- composant HEADER -->
+    <div class="container my-header" id="">
+        <div class="row">
+            <div class="col-lg-5 col-sm-12 col-lg-offset-7 text-right">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-9">
+                <span class="fontsize-x2 color-blueaf">MarcoPolo</span>
+
+            </div>
+            <div class="col-xs-3 text-right">
+                <a ng-click="onExit()">déconnexion</a>
+            </div>
+        </div>
     </div>
 
-    <div class="panel-body">
-        <form class="" id="my-contact-form" role="form" data-ng-model="formPersonDetail" name="updateLoginForm" novalidate>
-
-            <div class="form-group" ng-class="{'has-success': updateLoginForm.useremail.$dirty && updateLoginForm.useremail.$valid,
-            'has-error': updateLoginForm.useremail.$dirty && updateLoginForm.useremail.$invalid}">
-                <div>
-                    <label for="useremail" class="control-label">Votre email</label>
-                    <input id="useremail" name="useremail" type="email" required class="form-control" ng-model="formPersonDetail.mail">
-                    <span  class="help-block" ng-show="updateLoginForm.useremail.$dirty" ng-messages="updateLoginForm.useremail.$error">
-							<span ng-message="required">
-								Ce champ est obligatoire	
-							</span>	
-							<span ng-message="email">
-								Merci d'indiquer une adresse e-mail valide
-							</span>							
-						</span><br/>					
-                </div>
+    <div class="container">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <h3 class="panel-title">Mise a jour du profil</h3>
             </div>
 
-            <div class="text-right" >
-           		<button type="button"
-                        name="submitNewMail"
-                        class="btn btn-primary"
-                        ng-disabled="updateLoginForm.$invalid"
-                        ng-click="onSubmit(formPersonDetail)">Valider
-                </button> 
-            </div>
-        </form>
-    </div><!-- panel body -->
-</div><!-- panel  -->
+            <div class="panel-body">
+                <form class="" id="my-contact-form" role="form" data-ng-model="formPersonDetail" name="updateLoginForm" novalidate>
+
+                    <div class="form-group" ng-class="{'has-success': updateLoginForm.useremail.$dirty && updateLoginForm.useremail.$valid,
+                    'has-error': updateLoginForm.useremail.$dirty && updateLoginForm.useremail.$invalid}">
+                        <div>
+                            <label for="useremail" class="control-label">Votre email</label>
+                            <input id="useremail" name="useremail" type="email" required class="form-control" ng-model="formPersonDetail.mail">
+                            <span  class="help-block" ng-show="updateLoginForm.useremail.$dirty" ng-messages="updateLoginForm.useremail.$error">
+                                    <span ng-message="required">
+                                        Ce champ est obligatoire
+                                    </span>
+                                    <span ng-message="email">
+                                        Merci d'indiquer une adresse e-mail valide
+                                    </span>
+                                </span><br/>
+                        </div>
+                    </div>
+
+                    <div class="text-right" >
+                        <button type="button"
+                                class="btn btn-primary"
+                                ng-click="onCancel()">Annuler
+                        </button>
+                        <button type="button"
+                                class="btn btn-primary"
+                                ng-click="onDelete()">Supprimer
+                        </button>
+                        <button type="button"
+                                class="btn btn-primary"
+                                ng-disabled="updateLoginForm.$invalid"
+                                ng-click="onSubmit(formPersonDetail)">Valider
+                        </button>
+                    </div>
+                </form>
+            </div><!-- panel body -->
+        </div><!-- panel  -->
+    </div>
+</div>
