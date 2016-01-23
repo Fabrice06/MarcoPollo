@@ -1,16 +1,16 @@
-<div class="panel panel-info" ng-controller="loginNewCtrl">
+<div class="panel panel-info" ng-controller="personDetailCtrl">
     <div class="panel-heading">
         <h3 class="panel-title">Mise a jour du profil</h3>
     </div>
 
     <div class="panel-body">
-        <form class="" id="my-contact-form" role="form" data-ng-model="formLoginUpdate" name="updateLoginForm" novalidate>
+        <form class="" id="my-contact-form" role="form" data-ng-model="formPersonDetail" name="updateLoginForm" novalidate>
 
             <div class="form-group" ng-class="{'has-success': updateLoginForm.useremail.$dirty && updateLoginForm.useremail.$valid,
             'has-error': updateLoginForm.useremail.$dirty && updateLoginForm.useremail.$invalid}">
                 <div>
                     <label for="useremail" class="control-label">Votre email</label>
-                    <input id="useremail" name="useremail" type="email" required class="form-control" ng-model="formLoginUpdate.mail">
+                    <input id="useremail" name="useremail" type="email" required class="form-control" ng-model="formPersonDetail.mail">
                     <span  class="help-block" ng-show="updateLoginForm.useremail.$dirty" ng-messages="updateLoginForm.useremail.$error">
 							<span ng-message="required">
 								Ce champ est obligatoire	
@@ -27,7 +27,7 @@
                         name="submitNewMail"
                         class="btn btn-primary"
                         ng-disabled="updateLoginForm.$invalid"
-                        data-ng-href="#" ng-click="modifOk()">Valider
+                        ng-click="onSubmit(formPersonDetail)">Valider
                 </button> 
             </div>
         </form>

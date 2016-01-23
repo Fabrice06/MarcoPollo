@@ -5,10 +5,21 @@
         .module('marcopolo')
         .controller('personDetailCtrl', personDetailCtrl);
 
-    personDetailCtrl.$inject = ['$scope', '$routeParams'];
-    function personDetailCtrl($scope, $routeParams) {
-    	
-        // récup id person sélectionné avec: $routeParams.personId;
+    personDetailCtrl.$inject = ['$scope', '$location', 'Person'];
+    function personDetailCtrl($scope, $location, Person) {
+
+        var vm = this;
+
+        ///** Récuperation des informations de la ressource person selectionnée*/
+        vm.person = Person.query({id : 3}, function (pPerson) {
+
+            console.log("personDetailCtrl get " + pPerson.mail);
+        });
+
+        $scope.onSubmit = function (pPersonDetail) {
+
+        };
+
     } // function
 
 })();

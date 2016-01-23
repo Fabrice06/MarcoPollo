@@ -10,8 +10,8 @@
         $routeProvider
 
         .when('/', {
-            templateUrl: 'js/marcopolo/login/login-new.html',
-            controller: 'loginNewCtrl'
+            templateUrl: 'js/marcopolo/person/person-log.html',
+            controller: 'personLogCtrl'
         })
 
         .when('/persons/:personId/marquepages', {
@@ -34,10 +34,11 @@
           controller: 'personDetailCtrl'
         })
 
-        .when('/persons/new', {
-            templateUrl: 'js/marcopolo/person/person-new.html',
-            controller: 'personNewCtrl'
-        })
+        // pas nécessaire sur person
+        //.when('/persons/new', {
+        //    templateUrl: 'js/marcopolo/person/person-new.html',
+        //    controller: 'personNewCtrl'
+        //})
 		
 		.when('/mqp', {
             templateUrl: 'js/marcopolo/marquepage/marquepage-new.html',

@@ -1,26 +1,54 @@
 (function () {
 'use strict';
 
+<<<<<<< HEAD
 
     var myApp = angular.module('marcopolo', ['ngRoute','ngResource','ngMockE2E', 'marcopolo.marquepageListCtrl', 'marcopolo.marquepageListService']);
     myApp.run(mockBackend);
 
     mockBackend.$inject = ['$httpBackend','$resource','$location', '$http','$routeParams'];
     function mockBackend($httpBackend, $resource, $http,$routeParams,$location) {
+=======
+    angular
+        .module('marcopolo', [
+            /*
+             * Angular modules
+             */
+            'ngRoute',
+            'ngResource',
+            'ngMessages',
+
+            'ngMockE2E'
+        ])
+        .run(mockBackend);
+
+    mockBackend.$inject = ['$httpBackend','$resource', '$http'];
+    function mockBackend($httpBackend, $resource, $http) {
+>>>>>>> e510b19950ec52613773c8ae1fed557127bd0feb
 
         console.log("Warning: httpBackend mode");
 
         // récup des datas json -------------------------------------------------------------
             var nJsonPersons = null;
+<<<<<<< HEAD
             $httpBackend.whenGET('js/json/person_list.json').passThrough();
             $http.get('js/json/person_list.json').success(function (response) {
                 nJsonPersons = JSON.stringify(response);
 
+=======
+            //var nJsonFileName = 'js/json/person_list.json';
+            var nJsonFileName = 'js/json/person_list_h.json';
+            $httpBackend.whenGET(nJsonFileName).passThrough();
+            $http.get(nJsonFileName).success(function (response) {
+                nJsonPersons = response;
+>>>>>>> e510b19950ec52613773c8ae1fed557127bd0feb
             });
 
             var nJsonMarquepages = null;
-            $httpBackend.whenGET('js/json/marquepage_list.json').passThrough();
-            $http.get('js/json/marquepage_list.json').success(function (response) {
+            //nJsonFileName = 'js/json/marquepage_list.json';
+            nJsonFileName = 'js/json/marquepage_list_h.json';
+            $httpBackend.whenGET(nJsonFileName).passThrough();
+            $http.get(nJsonFileName).success(function (response) {
                 nJsonMarquepages = JSON.stringify(response);
             });
 
@@ -57,29 +85,30 @@
 
 
         // person --------------------------------------------------------------------------
-        var nRegexPersons= '/persons/[0-9]{1,}';
+        var nRegexPersons= 'persons/[0-9]{1,}';
 
             //$httpBackend.whenGET(new RegExp('persons\\?.*')).passThrough(); // vers le backend
-            $httpBackend.whenGET(new RegExp('/persons\\?.*')).respond(function (method, url) { // traitement FE sans BE
+            $httpBackend.whenGET(new RegExp('persons\\?.*')).respond(function (method, url) { // traitement FE sans BE
 
                 console.log("person?mail&mdp whenGET url params " + url.split("?")[1]);
 
-                var nReturn = new Array(); // valeur de retour par défaut: http status et data
-                nReturn.push(404);	// la page demandée n'existe pas
-                nReturn.push(null);
+                var nReturn = new Array();
+                // valeur de retour par défaut: [http status, data]
+                    nReturn.push(404);	// la page demandée n'existe pas
+                    nReturn.push(null);
 
                 var nParams = url.split("?")[1]; // récup des params aprés le ? dans l'url
-                var nPersons = angular.fromJson(nJsonPersons);
 
-                for (var i = 0, len = nPersons.length; i < len; i++) {
+                // on boucle sur le fichier json pour trouver le mail et le mdp
+                for (var i = 0, len = nJsonPersons.persons.length; i < len; i++) {
 
-                    if ("mail=" + nPersons[i].mail + "&mdp=" + nPersons[i].mdp === nParams) {
+                    if (("mail=" + nJsonPersons.persons[i].mail + "&mdp=" + nJsonPersons.persons[i].mdp) === nParams) {
 
                         nReturn[0] = 200; // requête effectuée avec succès
-                        nReturn[1] = JSON.stringify([{"id_person": nPersons[i].id_person}]);
+                        nReturn[1] = nJsonPersons.persons[i];
                         break;
                     } // if
-                    console.log("mail=" + nPersons[i].mail + "&mdp=" + nPersons[i].mdp);
+                    console.log("mail=" + nJsonPersons.persons[i].mail + "&mdp=" + nJsonPersons.persons[i].mdp);
                 } // for
 
                 return nReturn;
@@ -91,27 +120,28 @@
                 console.log("person/id whenGET url params " + url.split("/")[1]);
 
                 var nReturn = new Array();
+                // valeur de retour par défaut: [http status, data]
                     nReturn.push(404);	// la page demandée n'existe pas
                     nReturn.push(null);
 
                 var nParams = url.split("/")[1];
-                var nPersons = angular.fromJson(nJsonPersons);
 
-                for (var i = 0, len = nPersons.length; i < len; i++) {
+                // on boucle sur le fichier json pour trouver l'id
+                for (var i = 0, len = nJsonPersons.persons.length; i < len; i++) {
 
-                    if (nPersons[i].id_person === nParams) {
+                    if (nJsonPersons.persons[i].id_person === nParams) {
 
                         nReturn[0] = 200; // requête effectuée avec succès
-                        nReturn[1] = JSON.stringify([{"id_person": nPersons[i].id_person}]);
+                        nReturn[1] = nJsonPersons.persons[i];
                         break;
                     } // if
-                    console.log("id_person=" + nPersons[i].id_person);
                 } // for
 
 
                 return nReturn;
             });
 
+<<<<<<< HEAD
 
             $httpBackend.whenPUT(new RegExp('/persons/[0-9]{1,}\\?.*')).passThrough(); // vers le backend
             $httpBackend.whenPOST(new RegExp('/persons\\?.*')).passThrough(); // vers le backend
@@ -119,12 +149,20 @@
             // requêtes non prise en compte
             $httpBackend.whenGET(new RegExp('/persons$')).passThrough(); // vers le backend
 
+=======
+            $httpBackend.whenPUT(new RegExp('persons/[0-9]{1,}\\?.*')).passThrough(); // vers le backend
+            $httpBackend.whenPOST(new RegExp('persons\\?.*')).passThrough(); // vers le backend
+
+            // requêtes non prise en compte
+            $httpBackend.whenGET(new RegExp('persons$')).passThrough(); // vers le backend
+>>>>>>> e510b19950ec52613773c8ae1fed557127bd0feb
             $httpBackend.whenDELETE(new RegExp(nRegexPersons)).passThrough(); // vers le backend
 
 
         // marquepage ----------------------------------------------------------------------
-        var nRegexMarquepages= '/marquepages/[0-9]{1,}';
+        var nRegexMarquepages= 'marquepages/[0-9]{1,}';
 
+<<<<<<< HEAD
 
             $httpBackend.whenPOST(new RegExp('/marquepages$')).passThrough(); // vers le backend
             
@@ -167,6 +205,10 @@
 
             //$httpBackend.whenGET(new RegExp('/persons/[0-9]{1,}/marquepages$')).passThrough(); // vers le backend
             $httpBackend.whenGET(new RegExp('/persons/[0-9]{1,}/marquepages$')).respond(function (method, url) { // traitement FE sans BE
+=======
+            //$httpBackend.whenGET(new RegExp('persons/[0-9]{1,}/marquepages$')).passThrough(); // vers le backend
+            $httpBackend.whenGET(new RegExp('persons/[0-9]{1,}/marquepages$')).respond(function (method, url) { // traitement FE sans BE
+>>>>>>> e510b19950ec52613773c8ae1fed557127bd0feb
 
                 console.log("persons/[0-9]{1,}/marquepages whenGET url params " + url.split("/")[1]);
 
@@ -204,6 +246,7 @@
                 return nReturn;
             });
 
+<<<<<<< HEAD
 
             $httpBackend.whenPUT(new RegExp(nRegexMarquepages)).passThrough(); // vers le backend            
             
@@ -224,16 +267,19 @@
 
 
             $httpBackend.whenPOST(new RegExp('/persons/[0-9]{1,}/marquepages\\?.*')).passThrough(); // vers le backend
+=======
+            $httpBackend.whenPOST(new RegExp('marquepages/[0-9]{1,}/marquepages\\?.*')).passThrough(); // vers le backend
+>>>>>>> e510b19950ec52613773c8ae1fed557127bd0feb
             $httpBackend.whenDELETE(new RegExp(nRegexMarquepages)).passThrough(); // vers le backend
-            $httpBackend.whenPUT(new RegExp('/marquepages/[0-9]{1,}\\?.*')).passThrough(); // vers le backend
+            $httpBackend.whenPUT(new RegExp('marquepages/[0-9]{1,}\\?.*')).passThrough(); // vers le backend
 
         // tag --------------------------------------------------------------------------
-        var nRegexTags= '/tags/[0-9]{1,}';
+        var nRegexTags= 'tags/[0-9]{1,}';
 
-            //$httpBackend.whenGET(new RegExp('/marquepages/[0-9]{1,}/tags$')).passThrough(); // vers le backend
-            $httpBackend.whenGET(new RegExp('/marquepages/[0-9]{1,}/tags$')).respond(function (method, url) { // traitement FE sans BE
+            //$httpBackend.whenGET(new RegExp('marquepages/[0-9]{1,}/tags$')).passThrough(); // vers le backend
+            $httpBackend.whenGET(new RegExp('marquepages/[0-9]{1,}/tags$')).respond(function (method, url) { // traitement FE sans BE
 
-                console.log("/marquepages/[0-9]{1,}/tags whenGET url params " + url.split("/")[1]);
+                console.log("marquepages/[0-9]{1,}/tags whenGET url params " + url.split("/")[1]);
 
                 var nReturn = new Array();
                 nReturn.push(404);	// la page demandée n'existe pas
@@ -259,7 +305,7 @@
             //$httpBackend.whenGET(new RegExp(nRegexTags)).passThrough(); // vers le backend
             $httpBackend.whenGET(new RegExp(nRegexTags)).respond(function (method, url) { // traitement FE sans BE
 
-                console.log("/tags/[0-9]{1,} whenGET url params " + url.split("/")[1]);
+                console.log("tags/[0-9]{1,} whenGET url params " + url.split("/")[1]);
 
                 var nReturn = new Array();
                 nReturn.push(404);	// la page demandée n'existe pas
@@ -282,14 +328,14 @@
                 return nReturn;
             });
 
-            $httpBackend.whenPOST(new RegExp('/tags\\?.*')).passThrough(); // vers le backend
+            $httpBackend.whenPOST(new RegExp('tags\\?.*')).passThrough(); // vers le backend
             $httpBackend.whenDELETE(new RegExp(nRegexTags)).passThrough(); // vers le backend
 
         // cle --------------------------------------------------------------------------
-        //$httpBackend.whenGET(new RegExp('/cles$')).passThrough(); // vers le backend
-        $httpBackend.whenGET(new RegExp('/cles$')).respond(function (method, url) { // traitement FE sans BE
+        //$httpBackend.whenGET(new RegExp('cles$')).passThrough(); // vers le backend
+        $httpBackend.whenGET(new RegExp('cles$')).respond(function (method, url) { // traitement FE sans BE
 
-            console.log("/cles whenGET url params " + url.split("/")[1]);
+            console.log("cles whenGET url params " + url.split("/")[1]);
 
             var nReturn = new Array();
             nReturn.push(404);	// la page demandée n'existe pas
@@ -312,12 +358,12 @@
             return nReturn;
         });
 
-        $httpBackend.whenPOST(new RegExp('/cles\\?.*')).passThrough(); // vers le backend
+        $httpBackend.whenPOST(new RegExp('cles\\?.*')).passThrough(); // vers le backend
 
         //$httpBackend.whenGET(new RegExp('/persons/[0-9]{1,}/cles').passThrough(); // vers le backend
-        $httpBackend.whenGET(new RegExp('/persons/[0-9]{1,}/cles')).respond(function (method, url) { // traitement FE sans BE
+        $httpBackend.whenGET(new RegExp('persons/[0-9]{1,}/cles')).respond(function (method, url) { // traitement FE sans BE
 
-            console.log("/persons/[0-9]{1,}/cles whenGET url params " + url.split("/")[1]);
+            console.log("persons/[0-9]{1,}/cles whenGET url params " + url.split("/")[1]);
 
             var nReturn = new Array();
             nReturn.push(404);	// la page demandée n'existe pas

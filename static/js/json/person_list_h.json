@@ -1,0 +1,69 @@
+{
+  "_links": {
+    "self": {
+      "uri": "/persons"
+    }
+  },
+  "persons":[
+    {
+      "_links": {
+        "self": {
+          "uri": "/persons/1"
+        },
+        "marquepages": {
+          "uri": "/persons/1/marquepages"
+        }
+      },
+      "mail": "toto@free.fr",
+      "mdp": "toto"
+    },
+    {
+      "_links": {
+        "self": {
+          "uri": "/persons/2"
+        },
+        "marquepages": {
+          "uri": "/persons/2/marquepages"
+        }
+      },
+      "mail": "titi@mail.fr",
+      "mdp": "titi"
+    },
+    {
+      "_links": {
+        "self": {
+          "uri": "/persons/3"
+        },
+        "marquepages": {
+          "uri": "/persons/3/marquepages"
+        }
+      },
+      "mail": "tutu@mail.fr",
+      "mdp": "tutu"
+    },
+    {
+      "_links": {
+        "self": {
+          "uri": "/persons/4"
+        },
+        "marquepages": {
+          "uri": "/persons/4/marquepages"
+        }
+      },
+      "mail": "tete@mail.fr",
+      "mdp": "tete"
+    },
+    {
+      "_links": {
+        "self": {
+          "uri": "/persons/5"
+        },
+        "marquepages": {
+          "uri": "/persons/5/marquepages"
+        }
+      },
+      "mail": "zz@free.fr",
+      "mdp": "zz"
+    }
+  ]
+}

@@ -2,13 +2,13 @@
     'use strict';
 
     angular.module('marcopolo')
-        .factory('Login', Login);
+        .factory('Marquepage', Marquepage);
 
-    Login.$inject = ['$resource'];
-    function Login ($resource) {
+    Marquepage.$inject = ['$resource'];
+    function Marquepage ($resource) {
 
-        var nUrl= '/persons';
-        console.log("ressource Login " + nUrl);
+        var nUrl= '/marquepages/:marquepageId';
+        console.log("ressource Marquepage " + nUrl);
 
         return $resource(nUrl, {}, { // return $resource('/users/:userId', {userId:'@id'}  ???
             'query': 	{method:'GET',		isArray: false},
