@@ -1,24 +1,27 @@
 <div ng-controller="marquepageListCtrl">
     <!-- composant HEADER -->
-    <div class="container my-header" id="">
+	<div class="container my-header" id="">
         <div class="row">
             <div class="col-lg-5 col-sm-12 col-lg-offset-7 text-right">
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-xs-9">
-                <span class="fontsize-x2 color-blueaf">MarcoPolo</span>
-
-            </div>
-            <div class="col-xs-3 text-right">
-                <a ng-click="onProfil()">mon profils</a>
+				<span class="icon-af icon-af-A-basic-user77"></span>
+				<a ng-click="onProfil()">mon profils</a>
                 <span>&NonBreakingSpace;/&NonBreakingSpace;</span>
                 <a ng-click="onExit()">déconnexion</a>
             </div>
         </div>
-    </div>
 
+        <div class="row">
+            <div class="col-xs-12">
+                <span class="fontsize-x2 color-blueaf">MarcoPolo</span>
+
+            </div>
+     
+        </div>
+    </div>
+	
+	<br/>
+	
+<div class="container">
     <div>
         <div class="col-sm-6">
             <form class="form-inline pull-left">
@@ -53,7 +56,7 @@
                 <li ng-repeat="p in listMqp"><span>{{p.id_marquepage}}</span></li>
             </ul>
         </div>
-        <div ng-model="unMqp">ID mqp : {{unMqp}}</div>
+  <!--      <div ng-model="unMqp">ID mqp : {{unMqp}}</div>   -->
 
 
     <div class="col-lg-12 ">
@@ -91,6 +94,7 @@
             </table>
         </div>
     </div>
+</div>
 </div>
 
 <!--	<div><span>Fichier persons</span></div>
