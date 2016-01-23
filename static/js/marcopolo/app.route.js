@@ -38,7 +38,17 @@
             templateUrl: 'js/marcopolo/person/person-new.html',
             controller: 'personNewCtrl'
         })
-
+		
+		.when('/mqp', {
+            templateUrl: 'js/marcopolo/marquepage/marquepage-new.html',
+            controller: 'marquepageNewCtrl'
+        })
+		
+		.when('/mqpD', {
+            templateUrl: 'js/marcopolo/marquepage/marquepage-detail.html',
+            controller: 'marquepageDetailCtrl'
+        })
+		
         .otherwise({
             redirectTo: '/'
         });
