@@ -5,8 +5,8 @@
         .module('marcopolo')
         .controller('marquepageListCtrl', marquepageListCtrl);
 
-    marquepageListCtrl.$inject = ['$scope', '$resource', '$location'];
-    function marquepageListCtrl($scope, $resource, $location) {
+    marquepageListCtrl.$inject = ['$scope', '$resource', '$location', 'Marquepage'];
+    function marquepageListCtrl($scope, $resource, $location, Marquepage) {
 
     } // function
 

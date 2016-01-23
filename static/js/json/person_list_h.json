@@ -1,54 +1,69 @@
 {
-  _links: {
-    self: {
-      href: "http://http://localhost:8080/#/static/persons"
+  "_links": {
+    "self": {
+      "uri": "/persons"
     }
   },
-  persons:[
+  "persons":[
     {
-      _links: {
-        self: {
-          href: "http://http://localhost:8080/#/static/persons/1"
+      "_links": {
+        "self": {
+          "uri": "/persons/1"
+        },
+        "marquepages": {
+          "uri": "/persons/1/marquepages"
         }
       },
       "mail": "toto@free.fr",
       "mdp": "toto"
     },
     {
-      _links: {
-        self: {
-          href: "http://http://localhost:8080/#/static/persons/2"
+      "_links": {
+        "self": {
+          "uri": "/persons/2"
+        },
+        "marquepages": {
+          "uri": "/persons/2/marquepages"
         }
       },
-      "mail": "ccdd@mail.fr",
+      "mail": "titi@mail.fr",
       "mdp": "titi"
     },
     {
-      _links: {
-        self: {
-          href: "http://http://localhost:8080/#/static/persons/3"
+      "_links": {
+        "self": {
+          "uri": "/persons/3"
+        },
+        "marquepages": {
+          "uri": "/persons/3/marquepages"
         }
       },
-      "mail": "eeffb@mail.fr",
+      "mail": "tutu@mail.fr",
       "mdp": "tutu"
     },
     {
-      _links: {
-        self: {
-          href: "http://http://localhost:8080/#/static/persons/4"
+      "_links": {
+        "self": {
+          "uri": "/persons/4"
+        },
+        "marquepages": {
+          "uri": "/persons/4/marquepages"
         }
       },
-      "mail": "gghhb@mail.fr",
+      "mail": "tete@mail.fr",
       "mdp": "tete"
     },
     {
-      _links: {
-        self: {
-          href: "http://http://localhost:8080/#/static/persons/4"
+      "_links": {
+        "self": {
+          "uri": "/persons/5"
+        },
+        "marquepages": {
+          "uri": "/persons/5/marquepages"
         }
       },
-      "mail": "mail@free.fr",
-      "mdp": "myMdp"
+      "mail": "zz@free.fr",
+      "mdp": "zz"
     }
   ]
 }

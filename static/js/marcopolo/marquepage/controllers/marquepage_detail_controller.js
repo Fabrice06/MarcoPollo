@@ -5,9 +5,9 @@
         .module('marcopolo')
         .controller('marquepageDetailCtrl', marquepageDetailCtrl);
 
-    marquepageDetailCtrl.$inject = ['$scope'];
-    function marquepageDetailCtrl($scope, $routeParams) {
-        // récup id person sélectionné avec: $routeParams.marquepageId;
+    marquepageDetailCtrl.$inject = ['$scope', '$resource', '$location', 'Marquepage'];
+    function marquepageDetailCtrl($scope, $resource, $location, Marquepage) {
+
         
     } // function
 

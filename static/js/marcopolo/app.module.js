@@ -21,17 +21,16 @@
 
         // récup des datas json -------------------------------------------------------------
             var nJsonPersons = null;
-            var nJsonFileName = 'js/json/person_list.json';
-            //var nJsonFileName = 'js/json/person_list_h.json';
+            //var nJsonFileName = 'js/json/person_list.json';
+            var nJsonFileName = 'js/json/person_list_h.json';
             $httpBackend.whenGET(nJsonFileName).passThrough();
             $http.get(nJsonFileName).success(function (response) {
-                nJsonPersons = JSON.stringify(response);
-                //nJsonPersons = response;
+                nJsonPersons = response;
             });
 
             var nJsonMarquepages = null;
-            nJsonFileName = 'js/json/marquepage_list.json';
-            //nJsonFileName = 'js/json/marquepage_list_h.json';
+            //nJsonFileName = 'js/json/marquepage_list.json';
+            nJsonFileName = 'js/json/marquepage_list_h.json';
             $httpBackend.whenGET(nJsonFileName).passThrough();
             $http.get(nJsonFileName).success(function (response) {
                 nJsonMarquepages = JSON.stringify(response);
@@ -50,22 +49,23 @@
 
                 console.log("person?mail&mdp whenGET url params " + url.split("?")[1]);
 
-                var nReturn = new Array(); // valeur de retour par défaut: http status et data
-                nReturn.push(404);	// la page demandée n'existe pas
-                nReturn.push(null);
+                var nReturn = new Array();
+                // valeur de retour par défaut: [http status, data]
+                    nReturn.push(404);	// la page demandée n'existe pas
+                    nReturn.push(null);
 
                 var nParams = url.split("?")[1]; // récup des params aprés le ? dans l'url
-                var nPersons = angular.fromJson(nJsonPersons);
 
-                for (var i = 0, len = nPersons.length; i < len; i++) {
+                // on boucle sur le fichier json pour trouver le mail et le mdp
+                for (var i = 0, len = nJsonPersons.persons.length; i < len; i++) {
 
-                    if ("mail=" + nPersons[i].mail + "&mdp=" + nPersons[i].mdp === nParams) {
+                    if (("mail=" + nJsonPersons.persons[i].mail + "&mdp=" + nJsonPersons.persons[i].mdp) === nParams) {
 
                         nReturn[0] = 200; // requête effectuée avec succès
-                        nReturn[1] = JSON.stringify([{"id_person": nPersons[i].id_person}]);
+                        nReturn[1] = nJsonPersons.persons[i];
                         break;
                     } // if
-                    console.log("mail=" + nPersons[i].mail + "&mdp=" + nPersons[i].mdp);
+                    console.log("mail=" + nJsonPersons.persons[i].mail + "&mdp=" + nJsonPersons.persons[i].mdp);
                 } // for
 
                 return nReturn;
@@ -77,21 +77,21 @@
                 console.log("person/id whenGET url params " + url.split("/")[1]);
 
                 var nReturn = new Array();
+                // valeur de retour par défaut: [http status, data]
                     nReturn.push(404);	// la page demandée n'existe pas
                     nReturn.push(null);
 
                 var nParams = url.split("/")[1];
-                var nPersons = angular.fromJson(nJsonPersons);
 
-                for (var i = 0, len = nPersons.length; i < len; i++) {
+                // on boucle sur le fichier json pour trouver l'id
+                for (var i = 0, len = nJsonPersons.persons.length; i < len; i++) {
 
-                    if (nPersons[i].id_person === nParams) {
+                    if (nJsonPersons.persons[i].id_person === nParams) {
 
                         nReturn[0] = 200; // requête effectuée avec succès
-                        nReturn[1] = JSON.stringify([{"id_person": nPersons[i].id_person}]);
+                        nReturn[1] = nJsonPersons.persons[i];
                         break;
                     } // if
-                    console.log("id_person=" + nPersons[i].id_person);
                 } // for
 
                 return nReturn;
