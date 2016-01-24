@@ -17,6 +17,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -29,6 +30,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 public class MarquePageController {
 
+	/* requete de recuperation des tags associes a un marque-page*/
+	protected final static String REQUETE_RECUP_TAGS = "select * "
+			+ "from tag "
+			+ "where id_marquepage=?";
+	
 	private static Log log = LogFactory.getLog(Application.class);
 
 	@Autowired
@@ -41,7 +47,6 @@ public class MarquePageController {
 	 * 
 	 * @return liste de MarquePage
 	 */
-	
 	@RequestMapping(method = RequestMethod.GET)
 	public @ResponseBody List<MarquePage> allMarquePages() {
 
@@ -73,14 +78,10 @@ public class MarquePageController {
 	@RequestMapping(method = RequestMethod.GET, value = "/{marquepageid}")
 	public MarquePage oneMarquePage(@PathVariable("marquepageid") long marquepageId) {
 
-		log.info("Appel webService oneMarquePage avec tagId =" + marquepageId);
+		log.info("Appel webService oneMarquePage avec marquepageid =" + marquepageId);
 
 		/* recuperation des tags associes au marque-page*/
-		String requeteRecupTags = "select * "
-				+ "from tag "
-				+ "where id_marquepage=?";
-
-		List<Tag> tags = this.jdbcTemplate.query(requeteRecupTags, new RowMapper<Tag>() {
+		List<Tag> tags = this.jdbcTemplate.query(REQUETE_RECUP_TAGS, new RowMapper<Tag>() {
 			public Tag mapRow(ResultSet rs, int rowNum) throws SQLException {
 				Tag tag = new Tag();
 				tag.setIdTag(rs.getLong("id_tag"));
@@ -90,9 +91,7 @@ public class MarquePageController {
 				return tag;
 			}
 		}, marquepageId);
-		
-		
-		
+				
 		/* recuperation des marque-pages*/
 		String requete = "select * "
 				+ "from marquepage "
@@ -119,6 +118,7 @@ public class MarquePageController {
 	 * 
 	 * @param long
 	 * @return long
+	 * 
 	 */
 	@RequestMapping(method = RequestMethod.DELETE, value = "/{marquepageid}")
 	public long deleteMarquePage(@PathVariable("marquepageid") long marquepageId) {
@@ -139,6 +139,57 @@ public class MarquePageController {
 		
 		return marquepageId;
 	}
+	
+	
+	
+	/**
+	 * Recuperer les tags d'un marque-page 
+	 * 
+	 * @param long
+	 * @return List<Tag>
+	 * 
+	 */
+	@RequestMapping(method = RequestMethod.GET, value = "/{marquepageid}/tags")
+	public List<Tag> tagsDunMarquePage(@PathVariable("marquepageid") long marquepageId) {
+
+		log.info("Appel webService tagsDunMarquePage avec marquepageid =" + marquepageId);
+
+		List<Tag> tags = this.jdbcTemplate.query(REQUETE_RECUP_TAGS, new RowMapper<Tag>() {
+			public Tag mapRow(ResultSet rs, int rowNum) throws SQLException {
+				Tag tag = new Tag();
+				tag.setIdTag(rs.getLong("id_tag"));
+				tag.setIdMarquepage(rs.getLong("id_marquepage"));
+				tag.setIdCle(rs.getLong("id_cle"));
+				tag.setValeur(rs.getString("valeur"));
+				return tag;
+			}
+		}, marquepageId);
+	
+		return tags;
+	}
+	
+	
+	
+	/**
+	 * Modifier le lien d'un marque-page
+	 * 
+	 * @param long
+	 * @return long
+	 * 
+	 */
+	@RequestMapping(method = RequestMethod.PUT, value = "/{marquepageid}")
+	public @ResponseBody Long modifierLienMQP(@PathVariable("marquepageid") long marquepageId, @RequestParam(value="lien") String newLien) {
+
+		log.info("Appel webService modifierLienMQP");
+		
+		String requete = "update marquepage set lien = ? "
+				+ "where id_marquepage = ?";
+
+		this.jdbcTemplate.update(requete, newLien, marquepageId);
+		
+		return marquepageId;
+	}
+	
 	
 	
 	/**
