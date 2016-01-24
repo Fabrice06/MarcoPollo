@@ -19,7 +19,7 @@
                 id:nUrlArray[4]
             },
             function (pMarquePage) { // OK
-                console.log("marquepageDetailCtrl get query " + pMarquePage.lien);
+                console.log("marquepageDetailCtrl get query " + JSON.stringify(pMarquePage));
                 
             },
             function (pData, headers) { // échec

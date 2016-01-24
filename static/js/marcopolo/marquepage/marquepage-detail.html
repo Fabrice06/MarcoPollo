@@ -39,9 +39,6 @@
 				</div>
 
 				<br/>
-				
-				<p>{{marquepageDetailModel.tags}}</p>
-
 
 				<table class="table">
 					<thead>
@@ -89,7 +86,7 @@
 					</thead>
 
 					<tbody>
-						<tr data-ng-repeat="t in tags|filter:search|orderBy:predicate ='cle'">
+						<tr data-ng-repeat="t in marquepageDetailModel._embedded.tags|filter:search|orderBy:predicate ='cle'">
 							<td>{{t.cle}}</td>
 							<td>{{t.valeur}}</td>
 							<td class="last_column">
