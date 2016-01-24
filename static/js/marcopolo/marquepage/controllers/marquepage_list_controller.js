@@ -23,16 +23,17 @@
 
         // pour test ---------------------------------------------------
         var nUrlArray = $location.url().split('/');
-        var nIdPerson = nUrlArray[2];
-
         console.log("marquepageListCtrl url " + $location.url());
-        console.log("marquepageListCtrl nIdPerson " + nIdPerson);
 
         var nAddLink = "";
         var nProfilLink = "";
 
         //** Récuperation des informations de la ressource marquepagelist selectionnée*/
-        MarquepageList.query({personId:nIdPerson}, function (pMarquepageList) {
+        MarquepageList.query(
+            {
+                id:nUrlArray[2]
+            },
+            function (pMarquepageList) { // OK
                 console.log("marquepageListCtrl query " + JSON.stringify(pMarquepageList));
                 //console.log("marquepageListCtrl query lien pour onProfils " + pMarquepageList._links.persons.uri);
                 nProfilLink = pMarquepageList._links.persons.uri;
@@ -40,8 +41,7 @@
                 //console.log("marquepageListCtrl query lien pour onAdd " + pMarquepageList._links.self.uri);
                 nAddLink = pMarquepageList._links.self.uri;
             },
-            // échec
-            function (pData, headers) {
+            function (pData, headers) { // échec
                 console.log("marquepageListCtrl query échec");
             }
         );
