@@ -25,14 +25,14 @@
             </div>
 
             <div class="panel-body">
-                <form class="" id="my-contact-form" role="form" data-ng-model="formPersonDetail" name="updateLoginForm" novalidate>
+                <form class="" id="my-contact-form" role="form" data-ng-model="personDetailModel" name="updateLoginForm" novalidate>
 
-                    <div class="form-group" ng-class="{'has-success': updateLoginForm.useremail.$dirty && updateLoginForm.useremail.$valid,
-                    'has-error': updateLoginForm.useremail.$dirty && updateLoginForm.useremail.$invalid}">
+                    <div class="form-group" ng-class="{'has-success': personDetailModel.useremail.$dirty && personDetailModel.useremail.$valid,
+                    'has-error': personDetailModel.useremail.$dirty && personDetailModel.useremail.$invalid}">
                         <div>
                             <label for="useremail" class="control-label">Votre email</label>
-                            <input id="useremail" name="useremail" type="email" required class="form-control" ng-model="formPersonDetail.mail">
-                            <span  class="help-block" ng-show="updateLoginForm.useremail.$dirty" ng-messages="updateLoginForm.useremail.$error">
+                            <input id="useremail" name="useremail" type="email" required class="form-control" ng-model="personDetailModel.mail">
+                            <span  class="help-block" ng-show="personDetailModel.useremail.$dirty" ng-messages="personDetailModel.useremail.$error">
                                     <span ng-message="required">
                                         Ce champ est obligatoire
                                     </span>
@@ -54,8 +54,8 @@
                         </button>
                         <button type="button"
                                 class="btn btn-primary"
-                                ng-disabled="updateLoginForm.$invalid"
-                                ng-click="onSubmit(formPersonDetail)">Valider
+                                ng-disabled="personDetailModel.$invalid"
+                                ng-click="onSubmit(personDetailModel)">Valider
                         </button>
                     </div>
                 </form>

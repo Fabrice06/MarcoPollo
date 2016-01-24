@@ -8,7 +8,7 @@
     Person.$inject = ['$resource'];
     function Person ($resource) {
 
-        var nUrl= '/persons/:id';
+        var nUrl= '/persons/:personid';
         console.log("ressource Person " + nUrl);
 
         return $resource(nUrl, {}, { // return $resource('/users/:userId', {userId:'@id'}  ???

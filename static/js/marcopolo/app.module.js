@@ -48,7 +48,7 @@
 
 
         // person --------------------------------------------------------------------------
-        var nRegexPersons= 'persons/[0-9]{1,}';
+        var nRegexPersons= 'persons/[0-9]{1,}$';
 
             //$httpBackend.whenGET(new RegExp('persons\\?.*')).passThrough(); // vers le backend
             $httpBackend.whenGET(new RegExp('persons\\?.*')).respond(function (method, url) { // traitement FE sans BE
@@ -111,7 +111,7 @@
 
 
         // marquepage ----------------------------------------------------------------------
-        var nRegexMarquepages= 'marquepages/[0-9]{1,}';
+        var nRegexMarquepages= 'marquepages/[0-9]{1,}$';
 
             //$httpBackend.whenGET(new RegExp('persons/[0-9]{1,}/marquepages$')).passThrough(); // vers le backend
             $httpBackend.whenGET(new RegExp('persons/[0-9]{1,}/marquepages$')).respond(function (method, url) { // traitement FE sans BE
@@ -170,7 +170,7 @@
             $httpBackend.whenPUT(new RegExp('marquepages/[0-9]{1,}\\?.*')).passThrough(); // vers le backend
 
         // tag --------------------------------------------------------------------------
-        var nRegexTags= 'tags/[0-9]{1,}';
+        var nRegexTags= 'tags/[0-9]{1,}$';
 
             //$httpBackend.whenGET(new RegExp('marquepages/[0-9]{1,}/tags$')).passThrough(); // vers le backend
             $httpBackend.whenGET(new RegExp('marquepages/[0-9]{1,}/tags$')).respond(function (method, url) { // traitement FE sans BE

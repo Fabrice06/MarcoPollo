@@ -3,21 +3,43 @@
 
 	var myModuleController = angular.module('marcopolo');
 
-	myModuleController.controller('marquepageListCtrl',['$scope','Marquepage','$routeParams','$location', function($scope,Marquepage,$routeParams,$location){
+	myModuleController.controller('marquepageListCtrl',['$scope','MarquepageList','$routeParams','$location', function($scope,MarquepageList,$routeParams,$location){
 
 
-        //vince:
-        // pas de panoque: j'ai modifié ces lignes suivantes car il y avait des erreurs bloquantes dans la console.
+        // vince: -----------------------------------------------------
+        // pas de panique: j'ai modifié ces lignes suivantes car il y avait des erreurs bloquantes dans la console.
         // et j'avais besoin d'implanter les différents clics
 
-		//$scope.listMqp = Marquepage.query();
-      //
-		///* var test=$routeParams.id_marquepage
-      //$scope.data = MarquepageListService.get({id:test});
-      //$scope.unMqp = $scope.data;*/
-      //
-		//$scope.paramId = Marquepage.get();
-		//$scope.unMqp = $scope.paramId;
+            //$scope.listMqp = Marquepage.query();
+
+            ///* var test=$routeParams.id_marquepage
+            //$scope.data = MarquepageListService.get({id:test});
+            //$scope.unMqp = $scope.data;*/
+
+            //$scope.paramId = Marquepage.get();
+            //$scope.unMqp = $scope.paramId;
+        // vince: -----------------------------------------------------
+
+
+        // pour test ---------------------------------------------------
+        var nUrlArray = $location.url().split('/');
+        var nIdPerson = nUrlArray[2];
+
+        console.log("marquepageListCtrl url " + $location.url());
+        console.log("marquepageListCtrl nIdPerson " + nIdPerson);
+
+        //** Récuperation des informations de la ressource marquepagelist selectionnée*/
+        MarquepageList.query({personId:nIdPerson}, function (pMarquepageList) {
+                //console.log("marquepageListCtrl query " + JSON.stringify(pMarquepageList));
+                console.log("marquepageListCtrl query lien pour onProfils " + pMarquepageList._links.persons.uri);
+                console.log("marquepageListCtrl query lien pour onAdd " + pMarquepageList._links.self.uri);
+            },
+            // échec
+            function (pData, headers) {
+                console.log("marquepageListCtrl query échec");
+            }
+        );
+        // pour test ---------------------------------------------------
 
 
         // clic sur le bouton rechercher
@@ -30,6 +52,8 @@
         $scope.onAdd = function () {
 
             console.log("clic marquepageListCtrl ajouter en cours");
+            // pour test uniquement
+            $location.path('/persons/2/marquepages/new').replace();
         };
 
         // clic sur le bouton déconnexion

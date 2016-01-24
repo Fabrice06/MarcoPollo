@@ -15,14 +15,15 @@
         console.log("personDetailCtrl nId " + nId);
 
         //** Récuperation et affichage des informations de la ressource person selectionnée*/
-        $scope.formPersonDetail = Person.query({id:nId}, function (pPerson) {
-                console.log("personDetailCtrl get query " + pPerson.mail);
+        $scope.personDetailModel = Person.query(
+            {personid:nId},
+            function (pPerson) { // OK
+                console.log("personDetailCtrl query " + pPerson.mail);
                 // sauvegarde de la ressource person
                 CurrentPerson.setData(pPerson);
             },
-            // échec
-            function (pData, headers) {
-                console.log("personDetailCtrl get query échec");
+            function (pData, headers) { // Erreur
+                console.log("personDetailCtrl query échec");
             }
         );
 
@@ -41,14 +42,16 @@
             var nId = nUrlArray[nUriArray.length-1];
             console.log("personDetailCtrl onDelete nId " + nId);
 
-            Person.delete({id: nId}, function () {
-                    console.log("OK delete" + status);
+            Person.delete(
+                {personid: nId},
+                function () { // OK
+                    console.log("personDetailCtrl onDelete ok: " + status);
 
                     CurrentPerson.setData(null); // ça couine pas mais c'est valide???
                     $location.path('/').replace();
                 },
-                function (data, headers) { // Erreur
-                    console.log("personDetailCtrl onDelete delete echec");
+                function () { // Erreur
+                    console.log("personDetailCtrl onDelete échec");
                 }
             );
         };
@@ -67,13 +70,13 @@
             console.log("personDetailCtrl onSubmit nId " + nId);
 
             //User.update(
-            //    {id : nId}, // Params
+            //    {personid : nId}, // Params
             //    stTMp, // Data
             //    function (data, headers) { // OK
-            //        console.log("personDetailCtrl onSubmit update ok");
+            //        console.log("personDetailCtrl onSubmit ok");
             //    },
             //    function (data, headers) { // Erreur
-            //        console.log("personDetailCtrl onSubmit update echec");
+            //        console.log("personDetailCtrl onSubmit echec");
             //    }
             //);
 
