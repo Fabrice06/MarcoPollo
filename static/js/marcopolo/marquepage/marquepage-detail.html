@@ -1,3 +1,26 @@
+<div ng-controller="marquepageListCtrl">
+    <!-- composant HEADER -->
+	<div class="container my-header" id="">
+        <div class="row">
+            <div class="col-lg-5 col-sm-12 col-lg-offset-7 text-right">
+				<a href="" ng-click="onProfil()">mon profils</a>
+                <span>&NonBreakingSpace;|&NonBreakingSpace;</span>
+                <a href="" ng-click="onExit()">déconnexion</a>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-12">
+                <span class="fontsize-x2 color-blueaf">MarcoPolo</span>
+            </div>
+        </div>
+    </div>
+	
+	<br/>
+
+
+<div class="container">
+
 <form class="" id="my-contact-form" action="" method="post" novalidate="true" role="form">
 	<div class="form-group">
 
@@ -12,7 +35,7 @@
 
 				<div class="input-group input-group-lg">
 					<span class="input-group-addon" id="basic-addon1">@</span>
-					<input type="text" class="form-control" placeholder="Lien" aria-describedby="basic-addon1">
+					<input type="text" class="form-control input-Black" placeholder="Lien" aria-describedby="basic-addon1" value={{lien}}>
 				</div>
 
 				<br/>
@@ -23,53 +46,57 @@
 						<tr>
 							<th>
 								<div class="input-group">
-									<div class="input-group-btn">
-										<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">Clé
-											<span class="caret"></span>
+									<div class="input-group-btn btn-Gris">
+										
+										<button type="button" class="btn btn-default dropdown-toggle " data-toggle="dropdown" aria-expanded="false" disabled>Clé
 										</button>
-
-										<ul class="dropdown-menu" role="menu" name="dropdown">
-											<li><a href="#">Action</a></li>
-											<li><a href="#">Another action</a></li>
-											<li><a href="#">Something else here</a></li>
-											<li class="divider"></li>
-											<li><a href="#">Separated link</a></li>
-										</ul>
 									</div>
 
-									<input type="text" class="form-control" aria-label="...">
+										<input list="choixCle" type="text" class="form-control input-Black">
+											<datalist id="choixCle">
+												<option data-ng-repeat="c in cles" value="{{c.cle}}"></option>
+											</datalist>
+										
 								</div><!-- /input-group -->
 							</th>
 
 							<th>
 								<div class="input-group">
-									<div class="input-group-btn boutonBlanc">
+									<div class="input-group-btn btn-Gris">
 										<button type="button" class="btn btn-default dropdown-toggle " data-toggle="dropdown" aria-expanded="false" disabled>Valeur
 										</button>
 									</div>
 
 									
-									<input type="text" class="form-control" placeholder="" aria-label="...">
+									<input type="text" class="form-control input-Black" placeholder="" aria-label="...">
 									<!--		<input type="text" class="form-control" placeholder="Valeur" aria-label="...">  -->
 								</div><!-- /input-group -->
 							</th>
 
 							<th class="last_column">
-								<div class="btn-group">
-									<label class="btn btn-info" ng-model="radioModel" btn-radio="'Left'">+</label>
-								</div>
+								
+								<abbr title="add">
+									<button type="button" class="btn btn-default btn-md"
+										data-ng-click="">
+										<span class="icon-af icon-af icon-af-B-digital-plus"></span>
+									</button>
+								</abbr>
+								
 							</th>
 						</tr>
 					</thead>
 
 					<tbody>
-						<tr>
-							<td>Mark</td>
-							<td>Otto</td>
+						<tr data-ng-repeat="t in tags|filter:search|orderBy:predicate ='cle'">
+							<td>{{t.cle}}</td>
+							<td>{{t.valeur}}</td>
 							<td class="last_column">
-								<div class="btn-group">
-									<label class="btn btn-info" ng-model="radioModel" btn-radio="'Left'">-</label>
-								</div>
+								<abbr title="delete">
+									<button type="button" class="btn btn-default btn-md"
+										data-ng-click="">
+										<span class="icon-af icon-af-B-digital-cross"></span>
+									</button>
+								</abbr>
 							</td>
 						</tr>
 					</tbody>
@@ -83,3 +110,5 @@
 		</div><!-- panel  -->
 	</div>
 </form>
+	
+</div>

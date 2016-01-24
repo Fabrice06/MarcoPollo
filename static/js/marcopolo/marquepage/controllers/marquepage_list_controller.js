@@ -58,8 +58,10 @@
         $scope.onAdd = function () {
 
             console.log("clic marquepageListCtrl ajouter en cours");
+
             // pour test uniquement
             $location.path(nAddLink+'/new').replace();
+
         };
 
         // clic sur le bouton déconnexion

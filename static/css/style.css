@@ -27,3 +27,13 @@
 	color: #000000;
 	
 }
+
+.input-Black {
+	color: black;
+	font-weight : bold;
+}
+
+.btn-Gris {
+	color: #999;
+	background-color: #e9e5e6;
+}
