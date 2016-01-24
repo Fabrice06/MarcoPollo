@@ -8,6 +8,30 @@
 
     marquepageDetailCtrl.$inject = ['$scope', '$resource', '$location', 'Marquepage'];
     function marquepageDetailCtrl($scope, $resource, $location, Marquepage) {
+		
+
+        var nUrlArray = $location.url().split('/');
+
+        //** Récuperation et affichage des informations de la ressource person selectionnée*/
+        $scope.marquepageDetailModel = Marquepage.query(
+            {
+                uri:nUrlArray[3],
+                id:nUrlArray[4]
+            },
+            function (pMarquePage) { // OK
+                console.log("marquepageDetailCtrl get query " + pMarquePage.lien);
+                
+            },
+            function (pData, headers) { // échec
+                console.log("marquepageDetailCtrl get query échec");
+            }
+        );
+		
+		
+
+		
+		
+		
 
 		$scope.lien = "http://monLien.com";
 		
