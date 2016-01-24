@@ -30,9 +30,11 @@ public class TagController {
 
 	/**
 	 * Liste de tous les tags
+	 * Utilisé uniquement pour les tests
 	 * 
-	 * @return liste de Tag
+	 * @return List<Tag>
 	 */
+	
 	@RequestMapping(method = RequestMethod.GET)
 	public @ResponseBody List<Tag> allTags() {
 
@@ -44,24 +46,25 @@ public class TagController {
 		List<Tag> tags = this.jdbcTemplate.query(requete, new RowMapper<Tag>() {
 			public Tag mapRow(ResultSet rs, int rowNum) throws SQLException {
 				Tag tag = new Tag();
-				tag.setIdTag(rs.getInt("id_tag"));
-				tag.setIdMarquepage(rs.getInt("id_marquepage"));
-				tag.setIdCle(rs.getInt("id_cle"));
+				tag.setIdTag(rs.getLong("id_tag"));
+				tag.setIdMarquepage(rs.getLong("id_marquepage"));
+				tag.setIdCle(rs.getLong("id_cle"));
 				tag.setValeur(rs.getString("valeur"));
 				return tag;
 			}
 		});
 		return tags;
 	}
+	
 
 	/**
-	 * Acceder a un tag par son id
+	 * Recuperer un tag par son id
 	 * 
-	 * @param tagId
-	 * @return liste de Tag
+	 * @param long
+	 * @return Tag
 	 */
 	@RequestMapping(method = RequestMethod.GET, value = "/{tagid}")
-	public List<Tag> oneTag(@PathVariable("tagid") long tagId) {
+	public Tag oneTag(@PathVariable("tagid") long tagId) {
 
 		log.info("Appel webService oneTag avec tagId =" + tagId);
 
@@ -72,37 +75,41 @@ public class TagController {
 		List<Tag> tags = this.jdbcTemplate.query(requete, new RowMapper<Tag>() {
 			public Tag mapRow(ResultSet rs, int rowNum) throws SQLException {
 				Tag tag = new Tag();
-				tag.setIdTag(rs.getInt("id_tag"));
-				tag.setIdMarquepage(rs.getInt("id_marquepage"));
-				tag.setIdCle(rs.getInt("id_cle"));
+				tag.setIdTag(rs.getLong("id_tag"));
+				tag.setIdMarquepage(rs.getLong("id_marquepage"));
+				tag.setIdCle(rs.getLong("id_cle"));
 				tag.setValeur(rs.getString("valeur"));
 				return tag;
 			}
 		}, tagId);
-		return tags;
+		
+		return tags.get(0);
 	}
 
 	/**
 	 * Supprimer un tag par son id
 	 * 
-	 * @param tagId
+	 * @param Long
+	 * @return Long
 	 */
 	@RequestMapping(method = RequestMethod.DELETE, value = "/{tagid}")
-	public void deleteTag(@PathVariable("tagid") long tagId) {
+	public long deleteTag(@PathVariable("tagid") long tagId) {
 
 		log.info("Appel webService deleteTag avec tagId = " + tagId);
 		String requete = "delete "
 				+ "from tag "
 				+ "where id_tag=?";
 		this.jdbcTemplate.update(requete, tagId);
+		return tagId;
 	}
 
 	
 	/**
 	 * Creer un tag avec sa valeur
 	 * 
-	 * @param tagValeur
+	 * @param String
 	 */
+	/*
 	@RequestMapping(method = RequestMethod.POST, value = "/{tagvaleur}")
 	public void createTag(@PathVariable("tagvaleur") String tagValeur) {
 
@@ -114,5 +121,7 @@ public class TagController {
 		
 		this.jdbcTemplate.update(requete, tagValeur);
 	}
-
+	 */
+	
+	
 }

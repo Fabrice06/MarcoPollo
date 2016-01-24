@@ -3,6 +3,10 @@ package marcopolo.entity;
 import java.io.Serializable;
 
 
+/**
+ * Mapping de la table tag
+ *
+ */
 public class Tag implements Serializable {
 
 	private static final long serialVersionUID = 1L;
