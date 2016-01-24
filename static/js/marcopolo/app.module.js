@@ -64,7 +64,7 @@
                 // on boucle sur le fichier json pour trouver le mail et le mdp et retourner la ressource
                 for (var i = 0, len = nJsonPersons.data.length; i < len; i++) {
 
-                    if (("mail=" + nJsonPersons.data[i].mail + "&mdp=" + nJsonPersons.persons[i].mdp) === nParams) {
+                    if (("mail=" + nJsonPersons.data[i].mail + "&mdp=" + nJsonPersons.data[i].mdp) === nParams) {
 
                         nReturn[0] = 200; // requête effectuée avec succès
                         nReturn[1] = nJsonPersons.data[i];

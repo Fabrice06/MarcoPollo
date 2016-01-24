@@ -9,21 +9,20 @@
     function personDetailCtrl($scope, $location, Person, CurrentPerson) {
 
         var nUrlArray = $location.url().split('/');
-        var nId = nUrlArray[nUrlArray.length-1];
-
-        console.log("personDetailCtrl url " + $location.url());
-        console.log("personDetailCtrl nId " + nId);
 
         //** Récuperation et affichage des informations de la ressource person selectionnée*/
         $scope.personDetailModel = Person.query(
-            {personid:nId},
+            {
+                uri:nUrlArray[1],
+                id:nUrlArray[2]
+            },
             function (pPerson) { // OK
-                console.log("personDetailCtrl query mail " + pPerson.mail);
+                console.log("personDetailCtrl get query " + pPerson.mail);
                 // sauvegarde de la ressource person
                 CurrentPerson.setData(pPerson);
             },
-            function (pData, headers) { // Erreur
-                console.log("personDetailCtrl query échec");
+            function (pData, headers) { // échec
+                console.log("personDetailCtrl get query échec");
             }
         );
 
@@ -39,21 +38,22 @@
 
             // récup de l'id initial
             var nUriArray = CurrentPerson.getData._links.self.uri.split('/');
-            var nId = nUrlArray[nUriArray.length-1];
-            console.log("personDetailCtrl onDelete nId " + nId);
 
-            Person.delete(
-                {personid: nId},
-                function () { // OK
-                    console.log("personDetailCtrl onDelete ok: " + status);
-
-                    CurrentPerson.setData(null); // ça couine pas mais c'est valide???
-                    $location.path('/').replace();
-                },
-                function () { // Erreur
-                    console.log("personDetailCtrl onDelete échec");
-                }
-            );
+            //Person.delete(
+            //    {
+            //        uri:nUrlArray[1],
+            //        id:nUrlArray[2]
+            //    },
+            //    function () { // OK
+            //        console.log("personDetailCtrl onDelete ok: " + status);
+            //
+            //        CurrentPerson.setData(null); // ça couine pas mais c'est valide???
+            //        $location.path('/').replace();
+            //    },
+            //    function () { // Erreur
+            //        console.log("personDetailCtrl onDelete échec");
+            //    }
+            //);
         };
 
         // clic sur le bouton annuler

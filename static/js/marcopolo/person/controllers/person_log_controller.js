@@ -13,7 +13,11 @@
 
             //calls http://localhost:63342/static/persons?mail=MyMail&mdp=myMdp
             Person.query(
-                {mail:pPersonLog.mail, mdp:pPersonLog.mdp},
+                {
+                    uri:'/persons',
+                    mail:pPersonLog.mail,
+                    mdp:pPersonLog.mdp
+                },
                 function (pPerson) { // OK
                     console.log("personLogCtrl query path " + pPerson._links.marquepages.uri);
 
