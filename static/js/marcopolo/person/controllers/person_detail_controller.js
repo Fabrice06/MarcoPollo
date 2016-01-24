@@ -18,7 +18,7 @@
         $scope.personDetailModel = Person.query(
             {personid:nId},
             function (pPerson) { // OK
-                console.log("personDetailCtrl query " + pPerson.mail);
+                console.log("personDetailCtrl query mail " + pPerson.mail);
                 // sauvegarde de la ressource person
                 CurrentPerson.setData(pPerson);
             },

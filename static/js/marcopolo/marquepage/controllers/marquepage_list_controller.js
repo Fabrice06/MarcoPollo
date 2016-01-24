@@ -28,11 +28,17 @@
         console.log("marquepageListCtrl url " + $location.url());
         console.log("marquepageListCtrl nIdPerson " + nIdPerson);
 
+        var nAddLink = "";
+        var nProfilLink = "";
+
         //** Récuperation des informations de la ressource marquepagelist selectionnée*/
         MarquepageList.query({personId:nIdPerson}, function (pMarquepageList) {
-                //console.log("marquepageListCtrl query " + JSON.stringify(pMarquepageList));
-                console.log("marquepageListCtrl query lien pour onProfils " + pMarquepageList._links.persons.uri);
-                console.log("marquepageListCtrl query lien pour onAdd " + pMarquepageList._links.self.uri);
+                console.log("marquepageListCtrl query " + JSON.stringify(pMarquepageList));
+                //console.log("marquepageListCtrl query lien pour onProfils " + pMarquepageList._links.persons.uri);
+                nProfilLink = pMarquepageList._links.persons.uri;
+
+                //console.log("marquepageListCtrl query lien pour onAdd " + pMarquepageList._links.self.uri);
+                nAddLink = pMarquepageList._links.self.uri;
             },
             // échec
             function (pData, headers) {
@@ -53,7 +59,7 @@
 
             console.log("clic marquepageListCtrl ajouter en cours");
             // pour test uniquement
-            $location.path('/persons/2/marquepages/new').replace();
+            $location.path(nAddLink+'/new').replace();
         };
 
         // clic sur le bouton déconnexion
@@ -61,7 +67,7 @@
 
             console.log("clic marquepageListCtrl déconnexion en cours");
             // pour test uniquement
-            $location.path('/persons/2').replace();
+            $location.path(nProfilLink).replace();
         };
 
         // clic sur le bouton profil
