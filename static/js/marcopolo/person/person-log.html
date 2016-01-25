@@ -21,13 +21,13 @@
         </div>
 
         <div class="panel-body">
-            <form class="" id="my-contact-form" role="form" data-ng-model="personLogModel" name="loginForm" novalidate>
+            <form class="" id="my-contact-form" role="form" data-ng-model="personLogModel" name="personLogModelForm" novalidate>
 
-                <div class="form-group">
-                    <div>
+                <div class="form-group" ng-class="{'has-success': personLogModelForm.useremail.$dirty && personLogModelForm.useremail.$valid,
+                    'has-error': personLogModelForm.useremail.$dirty && personLogModelForm.useremail.$invalid}">
                         <label for="useremail" class="control-label">Votre email <sup class="color-red">* </sup></label>
                         <input id="useremail" name="useremail" type="email" required class="form-control" ng-model="personLogModel.mail">
-                        <span  class="help-block" ng-show="personLogModel.useremail.$dirty" ng-messages="personLogModel.useremail.$error">
+                        <span  class="help-block" ng-show="personLogModelForm.useremail.$dirty" ng-messages="personLogModelForm.useremail.$error">
                                 <span ng-message="required">
                                     Ce champ est obligatoire
                                 </span>
@@ -35,7 +35,6 @@
                                     Merci d'indiquer une adresse e-mail valide
                                 </span>
                             </span><br/>
-                    </div>
                 </div>
 
                 <div class="form-group">
@@ -49,12 +48,12 @@
                 <div class="text-right" >
                     <button type="button"
                             class="btn btn-primary"
-                            data-ng-disabled="personLogModel.useremail.$invalid"
+                            data-ng-disabled="personLogModelForm.useremail.$invalid"
                             ng-click="onCreate(personLogModel)">Nouvel utilisateur
                     </button>
                     <button type="button"
                             class="btn btn-primary"
-                            data-ng-disabled="personLogModel.$invalid"
+                            data-ng-disabled="personLogModelForm.$invalid"
                             ng-click="onSubmit(personLogModel)">Se connecter
                     </button>
                 </div>
