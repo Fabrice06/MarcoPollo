@@ -27,8 +27,11 @@
             }
         );
 		
-		
-
+		//test Cécile avec service Marquepage sur '/marquepages/:idMarquepage'
+       /* $scope.marquepageDetailModel = Marquepage.query(
+                {       
+                    id:nUrlArray[2]
+                });*/
 		
 		
 		

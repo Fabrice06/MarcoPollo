@@ -44,16 +44,7 @@
     </div>
     <br/>
     <br/>
-
-
-        <div>
-            <ul >
-                <li ng-repeat="p in listMqp"><span>{{p.id_marquepage}}</span></li>
-            </ul>
-        </div>
-  <!--      <div ng-model="unMqp">ID mqp : {{unMqp}}</div>   -->
-
-
+    
     <div class="col-lg-12 ">
         <div class="table-responsive">
             <table class="table table-hover" id="table_persons">
@@ -61,16 +52,21 @@
                     <tr>
                         <th >Liens</th>
                         <th class="last_column">Filtrer<span class="caret"></span></th>
+                        
                     </tr>
                 </thead>
+               
                 <tfoot>
                     <tr>
                         <td colspan="4">&nbsp;</td>
                     </tr>
                 </tfoot>
                 <tbody>
-                    <tr data-ng-repeat="p in listePersonnes|filter:search|orderBy:predicate ='name'">
-                        <td>{{p.lastName}}</td>
+                   
+                        <!-- <td>Un lien : {{completeFile.marquepages[1].lien}}</td> -->
+                      <tr data-ng-repeat="l in listMqp">   
+                        <td>Un lien : {{l.lien}}</td>
+                        
                         <td>
                             <abbr title="edit">
                                 <a class="btn btn-primary" ui-sref="person.Update({id: application.idApplication})">
@@ -85,6 +81,8 @@
                             </abbr>
                         </td>
                     </tr>
+                    
+                  <!--   <div ng-controller='marquepageDetailCtrl'><span >{{marquepageDetailModel._links.self.uri}}</span></div> -->
                 </tbody>
             </table>
         </div>
@@ -92,12 +90,3 @@
 </div>
 </div>
 
-<!--	<div><span>Fichier persons</span></div>
-	
- <div><span>Le nom est : {{unePersonne.lastName}}</span></div>
- 
- <ul class="listePersonnes">
-  <li ng-repeat="p in listePersonnes">
-    <span>{{p.lastName}} {{p.firstName}}</span>
-  </li>
-</ul>	-->
