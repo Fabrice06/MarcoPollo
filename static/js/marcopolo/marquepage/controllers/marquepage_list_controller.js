@@ -18,7 +18,7 @@
         $scope.listMqp = MarquepageList.query({
         	id:nUrlArray[2]
         });
-                
+        
         // pour test ---------------------------------------------------
 
         // clic sur le bouton rechercher

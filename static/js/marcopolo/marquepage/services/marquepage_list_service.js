@@ -12,7 +12,7 @@
             {},
             { // return $resource('/users/:userId', {userId:'@id'}  ???
             	'query': 	{method:'GET',		isArray: true},
-               // 'get': 	    {method:'GET',		isArray: false},
+                'get': 	    {method:'GET',		isArray: false},
                 'save': 	{method:'POST', 	isArray: false},
                 'update': 	{method:'PUT', 		isArray: false},
                 'delete': 	{method:'DELETE', 	isArray: false}

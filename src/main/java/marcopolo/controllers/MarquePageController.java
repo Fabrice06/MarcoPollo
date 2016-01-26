@@ -63,8 +63,7 @@ public class MarquePageController {
 				marquePage.setLien(rs.getString("lien"));
 				return marquePage;
 			}
-		});
-		
+		});		
 		return marquePages;
 	}
 	
@@ -138,8 +137,7 @@ public class MarquePageController {
 		this.jdbcTemplate.update(requete, marquepageId);
 		
 		return marquepageId;
-	}
-	
+	}	
 	
 	
 	/**

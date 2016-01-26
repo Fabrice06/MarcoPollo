@@ -6,14 +6,15 @@
         .controller('marquepageDetailCtrl', marquepageDetailCtrl);
 
 
-    marquepageDetailCtrl.$inject = ['$scope', '$resource', '$location', 'Marquepage'];
-    function marquepageDetailCtrl($scope, $resource, $location, Marquepage) {
+    marquepageDetailCtrl.$inject = ['$scope', '$resource', '$location', 'Marquepage','$routeParams'];
+    function marquepageDetailCtrl($scope, $resource, $location, Marquepage,$routeParams) {
 		
+    	$scope.mqpId = $routeParams.marquepageId;
+    	$scope.pId = $routeParams.personId; 
+        var nUrlArray = $location.url().split($scope.mqpId);
 
-        var nUrlArray = $location.url().split('/');
-
-        //** Récuperation et affichage des informations de la ressource person selectionnée*/
-        $scope.marquepageDetailModel = Marquepage.query(
+        //** Fabrice : Récuperation et affichage des informations de la ressource person selectionnée*/
+      /*  $scope.marquepageDetailModel = Marquepage.query(
             {
                 uri:nUrlArray[3],
                 id:nUrlArray[4]
@@ -25,15 +26,11 @@
             function (pData, headers) { // échec
                 console.log("marquepageDetailCtrl get query échec");
             }
-        );
+        );*/
 		
 		//test Cécile avec service Marquepage sur '/marquepages/:idMarquepage'
-       /* $scope.marquepageDetailModel = Marquepage.query(
-                {       
-                    id:nUrlArray[2]
-                });*/
-		
-		
+        
+        $scope.marquepageDetailModel = Marquepage.query({id1:$scope.pId,id2:$scope.mqpId});
 		
 
 		$scope.lien = "http://monLien.com";
