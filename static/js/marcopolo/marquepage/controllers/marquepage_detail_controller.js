@@ -11,7 +11,7 @@
 		
     	$scope.mqpId = $routeParams.marquepageId;
     	$scope.pId = $routeParams.personId; 
-        var nUrlArray = $location.url().split($scope.mqpId);
+        //var nUrlArray = $location.url().split($scope.mqpId);
 
         //** Fabrice : Récuperation et affichage des informations de la ressource person selectionnée*/
       /*  $scope.marquepageDetailModel = Marquepage.query(
