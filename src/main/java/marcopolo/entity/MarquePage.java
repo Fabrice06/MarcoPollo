@@ -12,7 +12,6 @@ public class MarquePage implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private long idMarquepage;
-	private long idPerson;
     private String lien;
     private ArrayList<Tag> listeDesTags;
     
@@ -24,7 +23,6 @@ public class MarquePage implements Serializable {
 			ArrayList<Tag> listdesTags) {
 		super();
 		this.idMarquepage = idMarquepage;
-		this.idPerson = idPerson;
 		this.lien = lien;
 		this.setListeDesTags(listdesTags);
 	}
@@ -34,8 +32,8 @@ public class MarquePage implements Serializable {
 	@Override
 	public String toString() {
 		return String.format(
-				"MarquePage [idMarquepage=%s, idPerson=%s, lien=%s]",
-				idMarquepage, idPerson, lien);
+				"MarquePage [idMarquepage=%s, lien=%s]",
+				idMarquepage, lien);
 	}
 
 	public long getIdMarquepage() {
@@ -46,14 +44,7 @@ public class MarquePage implements Serializable {
 		this.idMarquepage = idMarquepage;
 	}
 
-	public long getIdPerson() {
-		return idPerson;
-	}
-
-	public void setIdPerson(long idPerson) {
-		this.idPerson = idPerson;
-	}
-
+	
 	public String getLien() {
 		return lien;
 	}

@@ -59,7 +59,7 @@ public class MarquePageController {
 			public MarquePage mapRow(ResultSet rs, int rowNum) throws SQLException {
 				MarquePage marquePage = new MarquePage();
 				marquePage.setIdMarquepage(rs.getLong("id_marquepage"));
-				marquePage.setIdPerson(rs.getLong("id_person"));
+				//marquePage.setIdPerson(rs.getLong("id_person"));
 				marquePage.setLien(rs.getString("lien"));
 				return marquePage;
 			}
@@ -84,8 +84,8 @@ public class MarquePageController {
 			public Tag mapRow(ResultSet rs, int rowNum) throws SQLException {
 				Tag tag = new Tag();
 				tag.setIdTag(rs.getLong("id_tag"));
-				tag.setIdMarquepage(rs.getLong("id_marquepage"));
-				tag.setIdCle(rs.getLong("id_cle"));
+				//tag.setIdMarquepage(rs.getLong("id_marquepage"));
+				//tag.setIdCle(rs.getLong("id_cle"));
 				tag.setValeur(rs.getString("valeur"));
 				return tag;
 			}
@@ -100,7 +100,7 @@ public class MarquePageController {
 			public MarquePage mapRow(ResultSet rs, int rowNum) throws SQLException {
 				MarquePage marquePage = new MarquePage();
 				marquePage.setIdMarquepage(rs.getLong("id_marquepage"));
-				marquePage.setIdPerson(rs.getLong("id_person"));
+				//marquePage.setIdPerson(rs.getLong("id_person"));
 				marquePage.setLien(rs.getString("lien"));
 				marquePage.setListeDesTags((ArrayList<Tag>) tags);
 				return marquePage;
@@ -156,8 +156,8 @@ public class MarquePageController {
 			public Tag mapRow(ResultSet rs, int rowNum) throws SQLException {
 				Tag tag = new Tag();
 				tag.setIdTag(rs.getLong("id_tag"));
-				tag.setIdMarquepage(rs.getLong("id_marquepage"));
-				tag.setIdCle(rs.getLong("id_cle"));
+				//tag.setIdMarquepage(rs.getLong("id_marquepage"));
+				//tag.setIdCle(rs.getLong("id_cle"));
 				tag.setValeur(rs.getString("valeur"));
 				return tag;
 			}

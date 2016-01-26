@@ -12,10 +12,8 @@ public class Tag implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private long idTag;
-	private long idMarquepage;
-	private long idCle;
     private String valeur;
-    
+        
 	public Tag() {
 		
 	}
@@ -23,16 +21,14 @@ public class Tag implements Serializable {
 	public Tag(long idTag, long idMarquepage, long idCle, String valeur) {
 		super();
 		this.idTag = idTag;
-		this.idMarquepage = idMarquepage;
-		this.idCle = idCle;
 		this.valeur = valeur;
 	}
 		
 	@Override
 	public String toString() {
 		return String.format(
-				"Tag [idTag=%s, idMarquepage=%s, idCle=%s, valeur=%s]", idTag,
-				idMarquepage, idCle, valeur);
+				"Tag [idTag=%s, valeur=%s]", idTag,
+				 valeur);
 	}
 	
 	public long getIdTag() {
@@ -43,18 +39,6 @@ public class Tag implements Serializable {
 		this.idTag = idTag;
 	}
 
-	public long getIdMarquepage() {
-		return idMarquepage;
-	}
-	public void setIdMarquepage(long idMarquepage) {
-		this.idMarquepage = idMarquepage;
-	}
-	public long getIdCle() {
-		return idCle;
-	}
-	public void setIdCle(long idCle) {
-		this.idCle = idCle;
-	}
 	public String getValeur() {
 		return valeur;
 	}

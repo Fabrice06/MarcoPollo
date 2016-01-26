@@ -47,8 +47,8 @@ public class TagController {
 			public Tag mapRow(ResultSet rs, int rowNum) throws SQLException {
 				Tag tag = new Tag();
 				tag.setIdTag(rs.getLong("id_tag"));
-				tag.setIdMarquepage(rs.getLong("id_marquepage"));
-				tag.setIdCle(rs.getLong("id_cle"));
+				//tag.setIdMarquepage(rs.getLong("id_marquepage"));
+				//tag.setIdCle(rs.getLong("id_cle"));
 				tag.setValeur(rs.getString("valeur"));
 				return tag;
 			}
@@ -76,8 +76,8 @@ public class TagController {
 			public Tag mapRow(ResultSet rs, int rowNum) throws SQLException {
 				Tag tag = new Tag();
 				tag.setIdTag(rs.getLong("id_tag"));
-				tag.setIdMarquepage(rs.getLong("id_marquepage"));
-				tag.setIdCle(rs.getLong("id_cle"));
+				//tag.setIdMarquepage(rs.getLong("id_marquepage"));
+				//tag.setIdCle(rs.getLong("id_cle"));
 				tag.setValeur(rs.getString("valeur"));
 				return tag;
 			}
