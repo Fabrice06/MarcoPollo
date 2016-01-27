@@ -31,6 +31,7 @@
                     'has-error': personDetailModelForm.useremail.$dirty && personDetailModelForm.useremail.$invalid}">
                             <label for="useremail" class="control-label">Votre email</label>
                             <input id="useremail" name="useremail" type="email" required class="form-control" ng-model="personDetailModel.mail">
+                            <span class="help-block" ng-show="personDetailModelForm.useremail.$pristine || personDetailModelForm.useremail.$valid">&emsp;</span>
                             <span  class="help-block" ng-show="personDetailModelForm.useremail.$dirty" ng-messages="personDetailModelForm.useremail.$error">
                                     <span ng-message="required">
                                         Ce champ est obligatoire
@@ -38,7 +39,7 @@
                                     <span ng-message="email">
                                         Merci d'indiquer une adresse e-mail valide
                                     </span>
-                                </span><br/>                       
+                            </span><br/>                       
                     </div>
 
                     <div class="text-right" >
