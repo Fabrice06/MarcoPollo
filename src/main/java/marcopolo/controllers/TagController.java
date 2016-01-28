@@ -1,15 +1,23 @@
 package marcopolo.controllers;
 
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
 import marcopolo.Application;
+import marcopolo.entity.MarquePage;
 import marcopolo.entity.Tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.mvc.ControllerLinkBuilder;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -46,7 +54,6 @@ public class TagController {
 		List<Tag> tags = this.jdbcTemplate.query(requete, new RowMapper<Tag>() {
 			public Tag mapRow(ResultSet rs, int rowNum) throws SQLException {
 				Tag tag = new Tag();
-				tag.setIdTag(rs.getLong("id_tag"));
 				tag.setValeur(rs.getString("valeur"));
 				return tag;
 			}
@@ -56,34 +63,42 @@ public class TagController {
 	
 
 	/**
-	 * Recuperer un tag par son id
+	 * Recuperer un tag par son id (Hateoas)
 	 * 
 	 * @param long
 	 * @return Tag
 	 */
 	@RequestMapping(method = RequestMethod.GET, value = "/{tagid}")
-	public Tag oneTag(@PathVariable("tagid") long tagId) {
+	public HttpEntity<Tag> oneTag(@PathVariable("tagid") long tagId) {
 
 		log.info("Appel webService oneTag avec tagId =" + tagId);
 
-		String requete = "select * "
-				+ "from tag "
-				+ "where id_tag=?";
+		
+		// récuperer la clé associé au tag //
+		String nSql = "select * "
+				+ "from tag, cle "
+				+ "where tag.id_cle = cle.id_cle "
+				+ "and tag.id_tag = ?";
 
-		List<Tag> tags = this.jdbcTemplate.query(requete, new RowMapper<Tag>() {
+		List<Tag> tags = this.jdbcTemplate.query(nSql, new RowMapper<Tag>() {
 			public Tag mapRow(ResultSet rs, int rowNum) throws SQLException {
 				Tag tag = new Tag();
-				tag.setIdTag(rs.getLong("id_tag"));
-				//tag.setIdMarquepage(rs.getLong("id_marquepage"));
-				//tag.setIdCle(rs.getLong("id_cle"));
 				tag.setValeur(rs.getString("valeur"));
+				tag.setCle(rs.getString("cle"));
+				Long nIdMarquepage = rs.getLong("id_marquepage");
+				tag.add(linkTo(methodOn(TagController.class).oneTag(tagId)).withSelfRel());
+				tag.add(ControllerLinkBuilder.linkTo(ControllerLinkBuilder.methodOn(MarquePageController.class).oneMarquePage(nIdMarquepage)).withRel("marquepages"));
 				return tag;
 			}
 		}, tagId);
 		
-		return tags.get(0);
+		Tag tag = tags.get(0);
+		
+		return new ResponseEntity<Tag>(tag, HttpStatus.OK);
 	}
 
+	
+	
 	/**
 	 * Supprimer un tag par son id
 	 * 
