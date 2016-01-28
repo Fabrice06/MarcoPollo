@@ -35,7 +35,7 @@
 
         // clic sur le bouton supprimer
         $scope.onDelete = function () {
-
+        	alert('Cet adresse e-mail a été supprimée');
             // récup de l'id initial
             var nUriArray = CurrentPerson.getData._links.self.uri.split('/');
 
@@ -57,13 +57,13 @@
         };
 
         // clic sur le bouton annuler
-        $scope.onCancel = function () {
+        $scope.onCancel = function () {        	
             //console.log("personDetailCtrl cancel " + CurrentPerson.getData._links.marquepages.uri);
             $location.path(CurrentPerson.getData._links.marquepages.uri).replace();
         };
 
         $scope.onSubmit = function (pPersonDetail) {
-
+        	alert('Votre adresse e-mail a bien été mise à jour');
             // récup de l'id initial
             var nUriArray = CurrentPerson.getData._links.self.uri.split('/');
             var nId = nUrlArray[nUriArray.length-1];
