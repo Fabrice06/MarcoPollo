@@ -1,5 +1,8 @@
 package marcopolo.controllers;
 
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -12,16 +15,11 @@ import marcopolo.entity.Tag;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.*;
 import org.springframework.http.HttpEntity;
-import org.springframework.http.ResponseEntity;
 import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.Controller;
-
+import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
-
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -60,14 +58,12 @@ public class MarquePageController {
 
 		log.info("Appel webService allMarquePages");
 
-		String requete = "select id_marquepage, id_person, lien "
+		String requete = "select * "
 				+ "from marquepage";
 
 		List<MarquePage> marquePages = this.jdbcTemplate.query(requete, new RowMapper<MarquePage>() {
 			public MarquePage mapRow(ResultSet rs, int rowNum) throws SQLException {
 				MarquePage marquePage = new MarquePage();
-				marquePage.setIdMarquepage(rs.getLong("id_marquepage"));
-				//marquePage.setIdPerson(rs.getLong("id_person"));
 				marquePage.setLien(rs.getString("lien"));
 				return marquePage;
 			}
@@ -83,16 +79,19 @@ public class MarquePageController {
 	 * @return ResponseEntity<MarquePage> (Hateoas)
 	 */
 	@RequestMapping(method = RequestMethod.GET, value = "/{marquepageid}")
-	 public HttpEntity<MarquePage> oneMarquePage(@PathVariable("marquepageid") long marquepageId) {
+	 public HttpEntity<MarquePage> oneMarquePage(@PathVariable("marquepageid") Long marquepageId) {
 
 		log.info("Appel webService oneMarquePage avec marquepageid =" + marquepageId);
 
 		/* recuperation des tags associes au marque-page*/
 		List<Tag> tags = this.jdbcTemplate.query(REQUETE_RECUP_TAGS, new RowMapper<Tag>() {
+			
 			public Tag mapRow(ResultSet rs, int rowNum) throws SQLException {
 				Tag tag = new Tag();
-				tag.setIdTag(rs.getLong("id_tag"));
 				tag.setValeur(rs.getString("valeur"));
+				
+				tag.setCle(rs.getString("cle"));
+				
 				return tag;
 			}
 		}, marquepageId);
@@ -105,11 +104,12 @@ public class MarquePageController {
 				+ "where id_marquepage=?";
 
 		List<MarquePage> marquePages = this.jdbcTemplate.query(requete, new RowMapper<MarquePage>() {
+			
 			public MarquePage mapRow(ResultSet rs, int rowNum) throws SQLException {
 				MarquePage marquePage = new MarquePage();
-				marquePage.setIdMarquepage(rs.getLong("id_marquepage"));
 				marquePage.setLien(rs.getString("lien"));
 				marquePage.setListeDesTags((ArrayList<Tag>) tags);
+				marquePage.add(linkTo(methodOn(MarquePageController.class).oneMarquePage(marquepageId)).withSelfRel());
 				return marquePage;
 			}
 		}, marquepageId);
@@ -118,9 +118,7 @@ public class MarquePageController {
 		
 		// recuperation du seul (normalement) marque-page de la liste
 		MarquePage marquePage = marquePages.get(0);
-		
-		marquePage.add(linkTo(methodOn(MarquePageController.class).allMarquePages()).withSelfRel());
-		
+				
 		return new ResponseEntity<MarquePage>(marquePage, HttpStatus.OK);
 	}
 	
@@ -169,9 +167,7 @@ public class MarquePageController {
 		List<Tag> tags = this.jdbcTemplate.query(REQUETE_RECUP_TAGS, new RowMapper<Tag>() {
 			public Tag mapRow(ResultSet rs, int rowNum) throws SQLException {
 				Tag tag = new Tag();
-				tag.setIdTag(rs.getLong("id_tag"));
-				//tag.setIdMarquepage(rs.getLong("id_marquepage"));
-				//tag.setIdCle(rs.getLong("id_cle"));
+				
 				tag.setValeur(rs.getString("valeur"));
 				return tag;
 			}

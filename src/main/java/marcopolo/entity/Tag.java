@@ -1,48 +1,42 @@
 package marcopolo.entity;
 
+import org.springframework.hateoas.ResourceSupport;
+
 
 /**
- * Mapping de la table tag
+ * Ressource tag
  *
  */
 
-public class Tag {
-	
-	private long idTag;
+public class Tag extends ResourceSupport {
+		
     private String valeur;
-    private Cle cle;
+    private String cle;
         
 	public Tag() {
 		
 	}
 
-	public Tag(long idTag, String valeur, Cle cle) {
+	public Tag(String valeur, String cle) {
 		super();
-		this.idTag = idTag;
 		this.valeur = valeur;
 		this.cle = cle;
 	}
 		
-	/*@Override
-	public String toString() {
-		return String.format(
-		//"Tag [idTag=%s, valeur=%s]", idTag, valeur);
-		"Tag [valeur=%s]", valeur);
-	}*/
-	
-	public long getIdTag() {
-		return idTag;
-	}
-
-	public void setIdTag(long idTag) {
-		this.idTag = idTag;
-	}
 
 	public String getValeur() {
 		return valeur;
 	}
 	public void setValeur(String valeur) {
 		this.valeur = valeur;
+	}
+
+	public String getCle() {
+		return cle;
+	}
+
+	public void setCle(String cle) {
+		this.cle = cle;
 	}
     
 }

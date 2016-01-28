@@ -1,6 +1,5 @@
 package marcopolo.entity;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
 import org.springframework.hateoas.ResourceSupport;
@@ -13,8 +12,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
  */
 
 public class MarquePage extends ResourceSupport {
-
-	private long idMarquepage;
+	
     private String lien;
     private ArrayList<Tag> listeDesTags;
     
@@ -22,30 +20,11 @@ public class MarquePage extends ResourceSupport {
 		
 	}
 
-	//@JsonCreator
-	public MarquePage(long idMarquepage, String lien,
-			ArrayList<Tag> listdesTags) {
+	@JsonCreator
+	public MarquePage(String lien,ArrayList<Tag> listdesTags) {
 		super();
-		this.idMarquepage = idMarquepage;
 		this.lien = lien;
 		this.setListeDesTags(listdesTags);
-	}
-
-
-
-	/*@Override
-	public String toString() {
-		return String.format(
-		//"MarquePage [idMarquepage=%s, lien=%s]",idMarquepage, lien);
-		"MarquePage [lien=%s]", lien);
-	}*/
-
-	public long getIdMarquepage() {
-		return idMarquepage;
-	}
-
-	public void setIdMarquepage(long idMarquepage) {
-		this.idMarquepage = idMarquepage;
 	}
 
 	
@@ -65,7 +44,5 @@ public class MarquePage extends ResourceSupport {
 		this.listeDesTags = listeDesTags;
 	}
 
-
-
-	
+		
 }
