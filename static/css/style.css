@@ -37,3 +37,12 @@
 	color: #999;
 	background-color: #e9e5e6;
 }
+
+.panel_sans_padding {
+	padding-left: 0px;
+	padding-right: 0px;
+}
+
+.panel_new_user{
+	margin-top: 20px;
+}
