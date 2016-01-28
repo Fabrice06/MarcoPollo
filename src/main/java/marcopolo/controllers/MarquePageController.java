@@ -12,8 +12,16 @@ import marcopolo.entity.Tag;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.*;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Controller;
+
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -72,10 +80,10 @@ public class MarquePageController {
 	 * Recuperer un marque-page par son id
 	 * 
 	 * @param long
-	 * @return MarquePage
+	 * @return ResponseEntity<MarquePage> (Hateoas)
 	 */
 	@RequestMapping(method = RequestMethod.GET, value = "/{marquepageid}")
-	public MarquePage oneMarquePage(@PathVariable("marquepageid") long marquepageId) {
+	 public HttpEntity<MarquePage> oneMarquePage(@PathVariable("marquepageid") long marquepageId) {
 
 		log.info("Appel webService oneMarquePage avec marquepageid =" + marquepageId);
 
@@ -84,13 +92,13 @@ public class MarquePageController {
 			public Tag mapRow(ResultSet rs, int rowNum) throws SQLException {
 				Tag tag = new Tag();
 				tag.setIdTag(rs.getLong("id_tag"));
-				//tag.setIdMarquepage(rs.getLong("id_marquepage"));
-				//tag.setIdCle(rs.getLong("id_cle"));
 				tag.setValeur(rs.getString("valeur"));
 				return tag;
 			}
 		}, marquepageId);
-				
+		
+		log.info("tags.size()=" + tags.size());
+		
 		/* recuperation des marque-pages*/
 		String requete = "select * "
 				+ "from marquepage "
@@ -100,14 +108,20 @@ public class MarquePageController {
 			public MarquePage mapRow(ResultSet rs, int rowNum) throws SQLException {
 				MarquePage marquePage = new MarquePage();
 				marquePage.setIdMarquepage(rs.getLong("id_marquepage"));
-				//marquePage.setIdPerson(rs.getLong("id_person"));
 				marquePage.setLien(rs.getString("lien"));
 				marquePage.setListeDesTags((ArrayList<Tag>) tags);
 				return marquePage;
 			}
 		}, marquepageId);
 		
-		return marquePages.get(0);
+		log.info("marquePages.size()=" + marquePages.size());
+		
+		// recuperation du seul (normalement) marque-page de la liste
+		MarquePage marquePage = marquePages.get(0);
+		
+		marquePage.add(linkTo(methodOn(MarquePageController.class).allMarquePages()).withSelfRel());
+		
+		return new ResponseEntity<MarquePage>(marquePage, HttpStatus.OK);
 	}
 	
 	/**

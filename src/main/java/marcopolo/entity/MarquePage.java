@@ -3,14 +3,17 @@ package marcopolo.entity;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import org.springframework.hateoas.ResourceSupport;
+
+import com.fasterxml.jackson.annotation.JsonCreator;
+
 /**
  * Mapping de la table marquepage
  *
  */
-public class MarquePage implements Serializable {
 
-	private static final long serialVersionUID = 1L;
-	
+public class MarquePage extends ResourceSupport {
+
 	private long idMarquepage;
     private String lien;
     private ArrayList<Tag> listeDesTags;
@@ -19,7 +22,8 @@ public class MarquePage implements Serializable {
 		
 	}
 
-	public MarquePage(long idMarquepage, long idPerson, String lien,
+	//@JsonCreator
+	public MarquePage(long idMarquepage, String lien,
 			ArrayList<Tag> listdesTags) {
 		super();
 		this.idMarquepage = idMarquepage;
@@ -29,12 +33,12 @@ public class MarquePage implements Serializable {
 
 
 
-	@Override
+	/*@Override
 	public String toString() {
 		return String.format(
-				"MarquePage [idMarquepage=%s, lien=%s]",
-				idMarquepage, lien);
-	}
+		//"MarquePage [idMarquepage=%s, lien=%s]",idMarquepage, lien);
+		"MarquePage [lien=%s]", lien);
+	}*/
 
 	public long getIdMarquepage() {
 		return idMarquepage;
