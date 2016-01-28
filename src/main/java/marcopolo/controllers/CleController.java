@@ -1,6 +1,6 @@
 package marcopolo.controllers;
 
-import marcopolo.Application;
+//import marcopolo.Application;
 import marcopolo.entity.Cle;
 import marcopolo.entity.Person;
 
@@ -27,7 +27,7 @@ public class CleController {
 	
 	private static long idProv = 0;
 
-	private static Log log = LogFactory.getLog(Application.class);
+	//private static Log log = LogFactory.getLog(Application.class);
 	@Autowired
 	JdbcTemplate jdbcTemplate;
 	
@@ -44,7 +44,7 @@ public class CleController {
 	@RequestMapping(method = RequestMethod.GET, value = "")
 	public List<Cle> allCle() {
 		
-		log.info("Appel webService allCle");
+		//log.info("Appel webService allCle");
            	   	   				
 		List<Cle> cles = this.jdbcTemplate.query(
         "select id_cle, cle from cle",
@@ -63,7 +63,7 @@ public class CleController {
 	@RequestMapping(method = RequestMethod.GET, value = "/cle/{cleId}")
 	public List<Cle> oneCle(@PathVariable("cleId") long cleId) {
 		
-		log.info("Appel webService oneCle avec cleId = " + cleId);
+		//log.info("Appel webService oneCle avec cleId = " + cleId);
 			
 		String requete =  "select * from cle where id_cle=?";
 			  
@@ -84,7 +84,7 @@ public class CleController {
 	@RequestMapping(method = RequestMethod.DELETE,value= "/delete/{cleId}")
 	public void deleteWithId(@PathVariable("cleId") long cleId) {
 		
-		log.info("Appel webService deleteWithId avec cleId = " + cleId);
+		//log.info("Appel webService deleteWithId avec cleId = " + cleId);
 	
 		String requete =  "delete from cle where id_cle=?";
 		
@@ -99,7 +99,7 @@ public class CleController {
 		idProv++; //provisoire le temps de récupérer dernier id de la BD
 		
 		
-		log.info("Appel webService createCle avec cle = " + cle);
+		//log.info("Appel webService createCle avec cle = " + cle);
 		
 		this.jdbcTemplate.update(
 		"insert into cle (id_cle, cle) values (seq_cle.nextval,?)", cle);
