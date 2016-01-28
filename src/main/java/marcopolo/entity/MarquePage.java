@@ -4,10 +4,8 @@ import java.util.ArrayList;
 
 import org.springframework.hateoas.ResourceSupport;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-
 /**
- * Mapping de la table marquepage
+ * Ressource marquepage
  *
  */
 
@@ -20,7 +18,6 @@ public class MarquePage extends ResourceSupport {
 		
 	}
 
-	@JsonCreator
 	public MarquePage(String lien,ArrayList<Tag> listdesTags) {
 		super();
 		this.lien = lien;

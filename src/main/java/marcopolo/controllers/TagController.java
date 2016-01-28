@@ -8,7 +8,6 @@ import java.sql.SQLException;
 import java.util.List;
 
 import marcopolo.Application;
-import marcopolo.entity.MarquePage;
 import marcopolo.entity.Tag;
 
 import org.apache.commons.logging.Log;
