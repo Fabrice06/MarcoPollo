@@ -3,11 +3,15 @@ package marcopolo.entity;
 import static javax.persistence.GenerationType.AUTO;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+
+import org.springframework.hateoas.ResourceSupport;
+
 
 
 //@Entity
@@ -21,8 +25,7 @@ import javax.persistence.Table;
  * <b>Représente une personne identifié par son mail et son mdp.</b>
  * 
  */
-
-public class Person implements Serializable {
+public class Person extends ResourceSupport implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -30,13 +33,14 @@ public class Person implements Serializable {
 	/**
      * Id unique de la personne
      * <p><b>Attention:</b><br>
-     * l'increment de l'id personne est gére en BDD.
+     * l'increment de l'id personne est gére en BDD par la séquence seq_person.
      * </p>
      */
+	/*
 	@Id
     @GeneratedValue(strategy=AUTO, generator="SEQ_PERSON") 
 	private long idPerson;
-	
+	*/
 	/**
      * Mail de la personne lui servant de login
      */
@@ -45,7 +49,11 @@ public class Person implements Serializable {
     /**
      * Mdp de la personne 
      */
-    private String mdp;
+    //private String mdp;
+    
+    //private ArrayList<MarquePage> listMarquePages;
+    
+    //private ArrayList<Preference> listPreferences;
     
     /**
      * <b>Constructeur avec parametre</b>
@@ -62,9 +70,11 @@ public class Person implements Serializable {
      * @param mdp
      *      Mot de passe de la personne, de type String.
      */
-	public Person(String mail, String mdp) {
+	public Person(String mail ) {
         this.mail = mail;
-        this.mdp = mdp;
+        //this.mdp = mdp;
+        //this.listMarquePages = listMarquePages;
+        //this.listPreferences = listPreferences;
     }
 	
 	 /**
@@ -77,35 +87,73 @@ public class Person implements Serializable {
         
     }
 
+	/**
+     * Retourne l'id de la personne.
+     *
+     * @return L'id personne, de type long.
+     */
+	/*
 	public long getId() {
 		return this.idPerson;
-	}
+	}*/
 
+	/**
+     * Change l'id de la personne.
+     *
+     * @param idPerson
+     *      id de la personne, de type long.
+     */
+	
+	/*
 	public void setId(long idPerson) {
 		this.idPerson = idPerson;
-	}
+	}*/
 	
+	/**
+     * Retourne le mail de la personne.
+     *
+     * @return Le mail de la personne, de type String.
+     */
 	public String getMail() {
 		return this.mail;
 	}
 
+	/**
+     * Change le mail de la personne.
+     *
+     * @param mail
+     *      mail de la personne, de type String.
+     */
 	public void setMail(String mail) {
 		this.mail = mail;
 	}
 
+	/**
+     * Retourne le mot de passe (mdp) de la personne.
+     *
+     * @return Le mail de la personne, de type String.
+     */
+	/*
 	public String getMdp() {
 		return this.mdp;
-	}
+	}*/
 
+	/**
+     * Change le mot de passe de la personne.
+     *
+     * @param mdp
+     *      mdp de la personne, de type String.
+     */
+	/*
 	public void setMdp(String mdp) {
 		this.mdp = mdp;
-	}
+	}*/
 	
 	@Override
     public String toString() {
         return String.format(
-                "Person[idPerson=%d, mail='%s', mdp='%s']",
-                idPerson, mail, mdp);
+                "Person[mail='%s']",
+                 mail);
     }
 	
 }
