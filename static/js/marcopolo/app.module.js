@@ -76,31 +76,31 @@
 //                return nReturn;
 //            });
 
-            //$httpBackend.whenGET(new RegExp(nRegexPersons)).passThrough(); // vers le backend
-            $httpBackend.whenGET(new RegExp(nRegexPersons)).respond(function (method, url) { // traitement FE sans BE
-
-                var nReturn = new Array();
-                // valeur de retour par défaut: [http status, data]
-                    nReturn.push(404);	// la page demandée n'existe pas
-                    nReturn.push(null);
-
-                var nParams = url;
-                console.log("persons/id whenGET url params " + nParams);
-
-                // on boucle sur le fichier json pour trouver le _links.self.uri et retourner le backend
-                for (var i = 0, len = nJsonPersons.data.length; i < len; i++) {
-
-                    if (nJsonPersons.data[i]._links.self.uri === nParams) {
-
-                        nReturn[0] = 200; // requête effectuée avec succès
-                        nReturn[1] = nJsonPersons.data[i];
-                        break;
-                    } // if
-                    console.log("uri = " + nJsonPersons.data[i]._links.self.uri);
-                } // for
-
-                return nReturn;
-            });
+            $httpBackend.whenGET(new RegExp(nRegexPersons)).passThrough(); // vers le backend
+            //$httpBackend.whenGET(new RegExp(nRegexPersons)).respond(function (method, url) { // traitement FE sans BE
+            //
+            //    var nReturn = new Array();
+            //    // valeur de retour par défaut: [http status, data]
+            //        nReturn.push(404);	// la page demandée n'existe pas
+            //        nReturn.push(null);
+            //
+            //    var nParams = url;
+            //    console.log("persons/id whenGET url params " + nParams);
+            //
+            //    // on boucle sur le fichier json pour trouver le _links.self.uri et retourner le backend
+            //    for (var i = 0, len = nJsonPersons.data.length; i < len; i++) {
+            //
+            //        if (nJsonPersons.data[i]._links.self.uri === nParams) {
+            //
+            //            nReturn[0] = 200; // requête effectuée avec succès
+            //            nReturn[1] = nJsonPersons.data[i];
+            //            break;
+            //        } // if
+            //        console.log("uri = " + nJsonPersons.data[i]._links.self.uri);
+            //    } // for
+            //
+            //    return nReturn;
+            //});
 
             $httpBackend.whenPUT(new RegExp('persons/[0-9]{1,}\\?.*')).passThrough(); // vers le backend
             $httpBackend.whenPOST(new RegExp('persons\\?.*')).passThrough(); // vers le backend

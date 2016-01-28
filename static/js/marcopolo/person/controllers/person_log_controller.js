@@ -14,16 +14,27 @@
             //calls http://localhost:63342/static/persons?mail=MyMail&mdp=myMdp
             Person.query(
                 {
-                    uri:'/persons',
+                    uri:'persons',
                     mail:pPersonLog.mail,
                     mdp:pPersonLog.mdp
                 },
                 function (pPerson) { // OK
-                    console.log("personLogCtrl query path " + pPerson._links.marquepages.uri);
+
+                    console.log("personLogCtrl query ok");
 
                     // remplace aprés le # dans la barre d'adresse
-                    $location.path(pPerson._links.marquepages.uri).replace();
+                    for	(var index = 0; index < pPerson.links.length; index++) {
 
+                        if ("marquepages" === pPerson.links[index].rel) {
+
+                            var nUrl = pPerson.links[index].href;
+                            var nPort = $location.port(nUrl);
+                            var nPathArray = nUrl.split(nPort);
+                            $location.url(nPathArray[1]).replace();
+
+                            break;
+                        } // if
+                    } // for
                 },
                 function (pData, headers) { // Erreur
                     console.log("personLogCtrl query échec");
