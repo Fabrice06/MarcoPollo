@@ -22,8 +22,8 @@
           name="mqpForm"
           data-ng-model="mqpNewModel"
           id="my-contact-form"
-          action=""
-          method="post"
+          
+          
           novalidate="true"
           role="form">
         <div class="form-group">
@@ -43,7 +43,8 @@
                         <span class="input-group-addon" id="basic-addon1">@</span>
                         <input name="mqpUrl"
                                type="text"
-                               ng-model="url"
+							   ng-model="mqpNewModel.url"
+                               
                                class="form-control"
                                aria-describedby="basic-addon1"
                                required>
@@ -124,9 +125,9 @@
                     <div class="text-right">
                         <button ng-disabled="mqpForm.$invalid"
                                 ng-click="valider(mqpNewModel)"
-                                type="submit"
+                                type="button"
                                 name="submit-btn"
-                                value="1"
+                                
                                 class="btn btn-primary">Valider</button>
                     </div>
 

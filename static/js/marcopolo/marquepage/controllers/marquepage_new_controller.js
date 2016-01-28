@@ -9,13 +9,13 @@
     function marquepageNewCtrl($scope, $resource, $location, Marquepage) {
         
         var mqp = '';
-        var url = '';
+        var url = 'URLI';
         var tags = new Array(); 
         var tag = '';
         var cle = '';
         var valeur ='';
         
-        $scope.mqp = {url:'url', tags:[]};
+        $scope.mqpNewModel = {url: url, tags:[]};
         $scope.tag = {cle:'', valeur:''};
         
         
@@ -23,9 +23,13 @@
             $scope.tag.cle="hello";  
         };
         
-        /*
-        $scope.valider() = function(mqp) {
-            Marquepage.save(
+        
+        $scope.valider = function(mqp) {
+			console.log(mqp.url);
+		}
+           
+			
+			/* Marquepage.save(
                 {
                     uri:'/persons',
                     mail:pPersonLog.mail,
