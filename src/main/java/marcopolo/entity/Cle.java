@@ -34,10 +34,11 @@ public class Cle {
      * l'increment de l'id clé est gére en BDD par la séquence seq_cle.
      * </p>
      */
+	/*
 	@Id
     @GeneratedValue(strategy=AUTO, generator="SEQ_CLE") 
 	private long idCle;
-	
+	*/
 	/**
      * libellé (clé) de la clé 
      */
@@ -70,10 +71,11 @@ public class Cle {
 	public Cle()  {
         
     }
-
+	
+	/*
 	public long getId() {
 		return idCle;
-	}
+	}*/
 
 	/**
      * Change l'idCle de la cle.
@@ -81,10 +83,10 @@ public class Cle {
      * @param idCle
      *      id de la personne, de type Long.
      */
-	
+	/*
 	public void setId(long idCle) {
 		this.idCle = idCle;
-	}
+	}*/
 
 	public String getCle() {
 		return cle;
@@ -104,8 +106,8 @@ public class Cle {
 	@Override
     public String toString() {
         return String.format(
-                "Cle[id=%d, cle='%s']",
-                idCle, cle);
+                "cle='%s']",
+                 cle);
     }
 	
 }

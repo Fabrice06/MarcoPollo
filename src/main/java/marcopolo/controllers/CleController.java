@@ -51,7 +51,7 @@ public class CleController {
         new RowMapper<Cle>() {
             public Cle mapRow(ResultSet rs, int rowNum) throws SQLException {
                 Cle cle = new Cle();
-				cle.setId(rs.getInt("id_cle"));
+				//cle.setId(rs.getInt("id_cle"));
                 cle.setCle(rs.getString("cle"));
                 return cle;
             }
@@ -71,7 +71,7 @@ public class CleController {
         new RowMapper<Cle>() {
             public Cle mapRow(ResultSet rs, int rowNum) throws SQLException {
 				Cle cle = new Cle();
-				cle.setId(rs.getInt("id_cle"));
+				//cle.setId(rs.getInt("id_cle"));
                 cle.setCle(rs.getString("cle"));
                 return cle;
             }
