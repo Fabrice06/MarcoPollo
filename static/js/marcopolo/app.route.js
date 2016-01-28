@@ -40,17 +40,6 @@
         //    controller: 'personNewCtrl'
         //})
 
-        //.when('/marquepages/new', {
-		.when('/mqp', {
-            templateUrl: 'js/marcopolo/marquepage/marquepage-new.html',
-            controller: 'marquepageNewCtrl'
-        })
-
-        //.when('/marquepages/:marquepageId', {
-		.when('/mqpD', {
-            templateUrl: 'js/marcopolo/marquepage/marquepage-detail.html',
-            controller: 'marquepageDetailCtrl'
-        })
 		
         .otherwise({
             redirectTo: '/'

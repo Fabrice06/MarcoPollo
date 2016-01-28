@@ -35,7 +35,7 @@
 
 				<div class="input-group input-group-lg">
 					<span class="input-group-addon" id="basic-addon1">@</span>
-					<input type="text" class="form-control input-Black" placeholder="Lien" aria-describedby="basic-addon1" value={{marquepageDetailModel}}>
+					<input type="text" class="form-control input-Black" placeholder="Lien" aria-describedby="basic-addon1" value={{marquepageDetailModel.lien}}>
 					
 					
 				</div>
@@ -88,7 +88,7 @@
 					</thead>
 
 					<tbody>
-						<tr data-ng-repeat="t in marquepageDetailModel._embedded.tags|filter:search|orderBy:predicate ='cle'">
+						<tr data-ng-repeat="t in marquepageDetailModel.listeDesTags|filter:search|orderBy:predicate ='cle'">
 							<td>{{t.cle}}</td>
 							<td>{{t.valeur}}</td>
 							<td class="last_column">
@@ -111,5 +111,7 @@
 		</div><!-- panel  -->
 	</div>
 </form>
+	
+</div>
 	
 </div>

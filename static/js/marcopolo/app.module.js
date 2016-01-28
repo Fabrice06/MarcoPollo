@@ -37,7 +37,7 @@
             });
 
             var nJsonMarquepagesDetail = null;
-            nJsonFileName = 'js/json/marquepage_detail_h.json';
+            nJsonFileName = 'js/json/marquepage_4.json';
             $httpBackend.whenGET(nJsonFileName).passThrough();
             $http.get(nJsonFileName).success(function (response) {
                 nJsonMarquepagesDetail = response;
@@ -112,7 +112,7 @@
 
         // marquepage ----------------------------------------------------------------------
         var nRegexMarquepages= 'marquepages/[0-9]{1,}$';
-            /**************GET tous les marquepages********************/
+
             //$httpBackend.whenGET(new RegExp('persons/[0-9]{1,}/marquepages$')).passThrough(); // vers le backend
             $httpBackend.whenGET(new RegExp('persons/[0-9]{1,}/marquepages$')).respond(function (method, url) { // traitement FE sans BE
 
@@ -122,7 +122,7 @@
                     nReturn[1] = null;
 
                 var nParams = url;
-               // console.log("marquepages/list whenGET url params " + nParams);
+                console.log("marquepages/list whenGET url params " + nParams);
 
                 // on boucle sur le fichier json pour trouver le _links.self.uri et retourner le backend
                 for (var i = 0, len = nJsonMarquepagesList.data.length; i < len; i++) {
@@ -130,93 +130,45 @@
                     if (nJsonMarquepagesList.data[i]._links.self.uri === nParams) {
 
                         nReturn[0] = 200; // requête effectuée avec succès
-                        //nReturn[1] = nJsonMarquepagesList.data[i];//retourne un objet = fichier complet
-                        nReturn[1] = nJsonMarquepagesList.data[i].marquepages;//retourne tableau de l'objet fichier
+                        nReturn[1] = nJsonMarquepagesList.data[i];
                         break;
                     } // if
-                    console.log("tableau marquepages = " + nJsonMarquepagesList.data[i].marquepages);
+                    console.log("uri =" + nJsonMarquepagesList.data[i]._links.self.uri);
                 } // for
 
                 return nReturn;
             });
-            
-            /**************GET Détail marquepage********************/
-          
+
             //$httpBackend.whenGET(new RegExp(nRegexMarquepages)).passThrough(); // vers le backend
-            $httpBackend.whenGET(new RegExp('/persons/[0-9]{1,}/marquepages/[0-9]{1,}')).respond(function (method, url) { // traitement FE sans BE
+            $httpBackend.whenGET(new RegExp(nRegexMarquepages)).respond(function (method, url) { // traitement FE sans BE
 
-            	var nReturn = new Array();
-            	// valeur de retour par défaut: [http status, data]
-            	nReturn[0] = 200; 
-            	nReturn[1] = null;
+                var nReturn = new Array();
+                // valeur de retour par défaut: [http status, data]
+                nReturn[0] = 200; // requête effectuée avec succès
+                nReturn[1] = nJsonMarquepagesDetail;
 
-            	/*var nParams = url;
-            	console.log('url='+ nParams);*/
-            	
-            	var firstPartUrl = url.substring(0,22);
-            	console.log('1url='+ firstPartUrl);
-            	var secondPartUrl = url.substring(10,24);
-            	console.log('2url='+ secondPartUrl);
+//                var nParams = url;
+//                console.log("marquepages/id whenGET url params " + nParams);
+//
+//                // on boucle sur le fichier json pour trouver le _links.self.uri et retourner le backend
+//                for (var i = 0, len = nJsonMarquepagesDetail.data.length; i < len; i++) {
+//
+//                    if (nJsonMarquepagesDetail.data[i]._links.self.uri === nParams) {
+//
+//                        nReturn[0] = 200; // requête effectuée avec succès
+//                        nReturn[1] = nJsonMarquepagesDetail.data[i];
+//                        break;
+//                    } // if
+//                    console.log("uri = " + nJsonMarquepagesDetail.data[i]._links.self.uri);
+//                } // for
+				
+				console.log(nJsonMarquepagesDetail);
 
-            	// on boucle sur le fichier json pour trouver le _links.self.uri et retourner le backend
-            	for (var i = 0, len = nJsonMarquepagesList.data.length; i < len; i++) {
-            		console.log("entrée boucle for ");
-
-            		if (nJsonMarquepagesList.data[i]._links.self.uri === firstPartUrl) {                    	
-            			console.log("uri paramètre persons = " + nJsonMarquepagesList.data[i]._links.self.uri);
-            			
-            			var tabMqpPerPerson=[];
-            			tabMqpPerPerson = nJsonMarquepagesList.data[i].marquepages;
-            			console.log("tab = " + tabMqpPerPerson);
-
-            			for(var j = 0, len =tabMqpPerPerson.length; j < len; j++){
-
-            				if(tabMqpPerPerson[j]._links.self.uri === secondPartUrl){
-            					console.log("uri paramètre marquepages  = " + tabMqpPerPerson[j]._links.self.uri);
-            					console.log('2url=' + secondPartUrl);
-
-            					nReturn[0] = 200; 
-            					nReturn[1] = tabMqpPerPerson[j].lien;            					
-            					console.log('valeur du lien récupéré=' + nReturn[1]);
-            				}
-            			}
-            			break;
-            		} 
-            	} 
-            	return nReturn;
-            	console.log('valeur du retour de la méthode=' + nReturn);
-            	
+                return nReturn;
             });
 
             $httpBackend.whenPOST(new RegExp('marquepages/[0-9]{1,}/marquepages\\?.*')).passThrough(); // vers le backend
-            
-            /**************DELETE un marquepage dans la liste des marquepages********************/
-            //$httpBackend.whenDELETE(new RegExp(nRegexMarquepages)).passThrough(); // vers le backend
-            $httpBackend.whenDELETE(new RegExp(nRegexPersons + nRegexMarquepages)).respond(function (method, url) {
-            var nReturn = new Array();
-                // valeur de retour par défaut: [http status, data]
-                    nReturn[0] = 200; // requête effectuée avec succès
-                    nReturn[1] = null;
-
-                var nParams = url;
-               // console.log("marquepages/list whenGET url params " + nParams);
-
-                // on boucle sur le fichier json pour trouver le _links.self.uri et retourner le backend
-                for (var i = 0, len = nJsonMarquepagesList.data.length; i < len; i++) {
-
-                    if (nJsonMarquepagesList.data[i].marquepages._links.self.uri === nParams) {
-
-                        nReturn[0] = 200; // requête effectuée avec succès
-                        
-                        nReturn[1] = nJsonMarquepagesList.data[i].marquepages._links.self.uri;//retourne tableau de l'objet fichier
-                        break;
-                    } // if
-                   
-                } // for
-
-                return nReturn;
-            });
-
+            $httpBackend.whenDELETE(new RegExp(nRegexMarquepages)).passThrough(); // vers le backend
             $httpBackend.whenPUT(new RegExp('marquepages/[0-9]{1,}\\?.*')).passThrough(); // vers le backend
 
         // tag --------------------------------------------------------------------------
