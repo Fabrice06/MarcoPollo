@@ -1,85 +1,138 @@
-<form class="" name="mqpForm" id="my-contact-form" action="" method="post" novalidate="true" role="form">
-	<div class="form-group">
+<div>
+    <!-- composant HEADER -->
+	<div class="container my-header" id="">
+        <div class="row">
+            <div class="col-lg-5 col-sm-12 col-lg-offset-7 text-right">
+				<a href="" ng-click="onProfil()">mon profils</a>
+                <span>&NonBreakingSpace;|&NonBreakingSpace;</span>
+                <a href="" ng-click="onExit()">déconnexion</a>
+            </div>
+        </div>
 
-		<div class="panel panel-info">
-			<div class="panel-heading">
-				<h3 class="panel-title">Mon MarquePage
-					<span class="icon-af icon-af icon-af icon-af icon-af-C-metier-meridiens pull-right"></span>
-				</h3>
-			</div>
+        <div class="row">
+            <div class="col-xs-12">
+                <span class="fontsize-x2 color-blueaf">MarcoPolo</span>
+            </div>
+        </div>
+    </div>
+	
+	<br/>
 
-			<div class="panel-body">
+    <form class=""
+          name="mqpForm"
+          data-ng-model="mqpNewModel"
+          id="my-contact-form"
+          
+          
+          novalidate="true"
+          role="form">
+        <div class="form-group">
 
-				<div class="input-group input-group-lg"
-                     ng-class="{'has-success' : mqpForm.mqpUrl.$dirty && mqpForm.mqpUrl.$valid,
-                               'has-error': mqpForm.mqpUrl.$dirty && mqpForm.mqpUrl.$invalid}" >
-					<span class="input-group-addon" id="basic-addon1">@</span>
-					<input name="mqpUrl" type="text" class="form-control" aria-describedby="basic-addon1" required>
-                    <span ng-show="mqpForm.mqpUrl.$dirty" ng-messages="mqpForm.mqpUrl.$error">
-                        <span class="help-block" ng-message="required">
-                            Ce champ est obligatoire
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Mon Nouveau MarquePage
+                        <span class="icon-af icon-af icon-af icon-af icon-af-C-metier-meridiens pull-right"></span>
+                    </h3>
+                </div>
+
+                <div class="panel-body">
+
+                    <div class="input-group input-group-lg"
+                         ng-class="{'has-success' : mqpForm.mqpUrl.$dirty && mqpForm.mqpUrl.$valid,
+                                   'has-error': mqpForm.mqpUrl.$dirty && mqpForm.mqpUrl.$invalid}" >
+                        <span class="input-group-addon" id="basic-addon1">@</span>
+                        <input name="mqpUrl"
+                               type="text"
+							   ng-model="mqpNewModel.url"
+                               
+                               class="form-control"
+                               aria-describedby="basic-addon1"
+                               required>
+                        <span ng-show="mqpForm.mqpUrl.$dirty"
+                              ng-messages="mqpForm.mqpUrl.$error">
+                            <span class="help-block"
+                                  ng-message="required">
+                                Ce champ est obligatoire
+                            </span>
+                            <span class="help-block"
+                                  ng-message="url">
+                                Ce champ doit être une URL
+                            </span>
                         </span>
-                        <span class="help-block" ng-message="url">
-                            Ce champ doit être une URL
-                        </span>
-					</span>
-				</div>
+                    </div>
 
-				<br/>
+                    <br/>
 
-				<table class="table">
-					<thead>
-						<tr>
-							<th>
-								<div class="input-group">
-									<div class="input-group-btn">
-										<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Clé
-											<span class="caret"></span>
-										</button>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>
+                                    <div class="input-group">
+                                        
+										<div class="input-group-btn btn-Gris">
 
-										<ul class="dropdown-menu" role="menu">
-											<li><a href="#">Action</a></li>
-											<li><a href="#">Another action</a></li>
-											<li><a href="#">Something else here</a></li>
-											<li role="separator" class="divider"></li>
-											<li><a href="#">Separated link</a></li>
-										</ul>
-									</div>
+                                            <button type="button"
+                                                    class="btn btn-default dropdown-toggle "
+                                                    data-toggle="dropdown"
+                                                    aria-expanded="false"
+                                                    disabled>Clé
+                                            </button>
+                                        </div>
 
-									<input type="text" class="form-control" aria-label="...">
-								</div><!-- /input-group -->
-							</th>
+                                        <input type="text"
+                                               ng-model="tag.cle"
+                                               class="form-control"
+                                               aria-label="...">
+                                    </div><!-- /input-group -->
+                                </th>
 
-							<th>
-								<div class="input-group">
-									<div class="input-group-btn boutonBlanc">
-										<button type="button" class="btn btn-default dropdown-toggle " data-toggle="dropdown" aria-expanded="false" disabled>Valeur
-										</button>
-									</div>
+                                <th>
+                                    <div class="input-group">
+                                        <div class="input-group-btn boutonBlanc">
+                                            <button type="button"
+                                                    class="btn btn-default dropdown-toggle "
+                                                    data-toggle="dropdown"
+                                                    aria-expanded="false"
+                                                    disabled>Valeur
+                                            </button>
+                                        </div>
 
-									<input type="text" class="form-control" placeholder="" aria-label="...">
-									<!--		<input type="text" class="form-control" placeholder="Valeur" aria-label="...">  -->
-								</div><!-- /input-group -->
-							</th>
-                            
-							<th class="last_column">
-								<div class="btn-group">
-									<label class="btn btn-info" ng-model="radioModel" btn-radio="'Left'">+</label>
-								</div>
-							</th>
-						</tr>
-					</thead>
+                                        <input type="text"
+                                               ng-model="tag.valeur"
+                                               class="form-control"
+                                               placeholder=""
+                                               aria-label="...">
+                                        <!--		<input type="text" class="form-control" placeholder="Valeur" aria-label="...">  -->
+                                    </div><!-- /input-group -->
+                                </th>
 
-					<tbody>
-					
-					</tbody>
-				</table>
+                                <th class="last_column">
+                                    <div class="btn-group"
+                                         ng-click="ajoutTag()">
+                                        <label class="btn btn-info"
+                                               ng-model="radioModel"
+                                               btn-radio="'Left'">+</label>
+                                    </div>
+                                </th>
+                            </tr>
+                        </thead>
 
-				<div class="text-right">
-					<button ng-disabled="mqpForm.$invalid" type="submit" name="submit-btn" value="1" class="btn btn-primary">Valider</button>
-				</div>
+                        <tbody>
 
-			</div><!-- panel body -->
-		</div><!-- panel  -->
-	</div>
-</form>
+                        </tbody>
+                    </table>
+
+                    <div class="text-right">
+                        <button ng-disabled="mqpForm.$invalid"
+                                ng-click="valider(mqpNewModel)"
+                                type="button"
+                                name="submit-btn"
+                                
+                                class="btn btn-primary">Valider</button>
+                    </div>
+
+                </div><!-- panel body -->
+            </div><!-- panel  -->
+        </div>
+    </form>
+</div>

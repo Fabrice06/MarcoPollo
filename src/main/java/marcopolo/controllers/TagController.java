@@ -40,15 +40,13 @@ public class TagController {
 
 		log.info("Appel webService allTags");
 
-		String requete = "select id_tag, id_marquepage, id_cle, valeur "
+		String requete = "select * "
 				+ "from tag";
 
 		List<Tag> tags = this.jdbcTemplate.query(requete, new RowMapper<Tag>() {
 			public Tag mapRow(ResultSet rs, int rowNum) throws SQLException {
 				Tag tag = new Tag();
 				tag.setIdTag(rs.getLong("id_tag"));
-				tag.setIdMarquepage(rs.getLong("id_marquepage"));
-				tag.setIdCle(rs.getLong("id_cle"));
 				tag.setValeur(rs.getString("valeur"));
 				return tag;
 			}
@@ -76,8 +74,8 @@ public class TagController {
 			public Tag mapRow(ResultSet rs, int rowNum) throws SQLException {
 				Tag tag = new Tag();
 				tag.setIdTag(rs.getLong("id_tag"));
-				tag.setIdMarquepage(rs.getLong("id_marquepage"));
-				tag.setIdCle(rs.getLong("id_cle"));
+				//tag.setIdMarquepage(rs.getLong("id_marquepage"));
+				//tag.setIdCle(rs.getLong("id_cle"));
 				tag.setValeur(rs.getString("valeur"));
 				return tag;
 			}
