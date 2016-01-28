@@ -15,10 +15,22 @@
     
         // Récuperation des marquepages d'une personne
         
-        $scope.listMqp = MarquepageList.query({
-        	id:nUrlArray[2]
-        });
+        $scope.listMqp = MarquepageList.query({id:nUrlArray[2]}/*, function (pMarquepageList) { 
+        	// OK
         
+            //console.log("marquepageListCtrl query " + JSON.stringify(pMarquepageList));
+            console.log("marquepageListCtrl query lien pour onProfils " + pMarquepageList._links.persons.uri);
+            
+            nProfilLink = pMarquepageList._links.persons.uri;
+
+            //console.log("marquepageListCtrl query lien pour onAdd " + pMarquepageList._links.self.uri);
+            nAddLink = pMarquepageList._links.self.uri;
+        },
+        function (pData, headers) { // échec
+            console.log("marquepageListCtrl query échec");
+        }*/);
+
+
         // pour test ---------------------------------------------------
 
         // clic sur le bouton rechercher
@@ -27,15 +39,37 @@
             alert('clic marquepageListCtrl rechercher en cours');
         };
 
+        // bouton rechercher
+        $scope.search = "";     
+
         // clic sur le bouton ajouter
-        $scope.onAdd = function () {
+        $scope.onAdd = function () {         
 
-            console.log("clic marquepageListCtrl ajouter en cours");
-
-            // pour test uniquement
-            $location.path(nAddLink+'/new').replace();
+        	nAddLink = $location.url();
+        	console.log(nAddLink);
+        	$location.path(nAddLink +'/new').replace();
+        	console.log($location.path());
 
         };
+        
+        // clic sur le bouton éditer
+        $scope.onUpdate = function () {
+        	
+        	console.log("clic modif "); 
+        	nAddLink = $location.url();
+        	console.log(nAddLink);
+        	$location.path(nAddLink +'/:marquepageId').replace();
+        	console.log($location.path());
+        };
+
+     // clic sur le bouton supprimer
+        $scope.onDelete = function () {
+        	
+        	console.log("clic X ");        	
+        	$location.path($location.url()).replace();
+        	console.log($location.path());
+        };       
+
 
         // clic sur le bouton déconnexion
         $scope.onProfil = function () {

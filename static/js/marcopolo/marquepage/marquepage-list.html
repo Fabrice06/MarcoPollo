@@ -37,7 +37,7 @@
         <div class="col-sm-6">
             <div class="form-inline pull-right">
                 <button type="button" class="btn btn-default btn-sm" ng-click="onAdd()">
-                    <span class="icon-af icon-af-A-basic-plus25"></span>Ajouter
+                    <span class="icon-af icon-af-A-basic-plus25"></span>
                 </button>
             </div>
         </div>
@@ -61,21 +61,20 @@
                         <td colspan="4">&nbsp;</td>
                     </tr>
                 </tfoot>
-                <tbody>
-                   
-                        <!-- <td>Un lien : {{completeFile.marquepages[1].lien}}</td> -->
+                <tbody>               
+                        
                       <tr data-ng-repeat="l in listMqp">   
                         <td>Un lien : {{l.lien}}</td>
                         
                         <td>
                             <abbr title="edit">
-                                <a class="btn btn-primary" ui-sref="person.Update({id: application.idApplication})">
+                                <a class="btn btn-primary" ng-click="onUpdate()">
                                     <span class="icon-af icon-af-B-digital-crayon-editer"></span>
                                 </a>
                             </abbr>
                             <abbr title="delete">
                                 <button type="button" class="btn btn-default btn-md"
-                                    data-ng-click="applicationListController.deleteperson(person)">
+                                    ng-click="onDelete()">
                                     <span class="icon-af icon-af-B-digital-cross"></span>
                                 </button>
                             </abbr>
