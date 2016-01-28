@@ -23,6 +23,7 @@
             $scope.tag.cle="hello";  
         };
         
+        /*
         $scope.valider() = function(mqp) {
             Marquepage.save(
                 {
@@ -40,11 +41,14 @@
                 function (pData, headers) { // Erreur
                     console.log("personLogCtrl query échec");
                 }
+                
             );
+            
             // utiliser la methode .save() pour faire un POST
             
         };
-        
+        */
+                
         		
 		 // clic sur le bouton déconnexion
         $scope.onProfil = function () {
