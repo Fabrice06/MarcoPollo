@@ -67,11 +67,29 @@
         	console.log($location.path());
         };
 
-     // clic sur le bouton supprimer
-        $scope.onDelete = function () {
-        	
-        	console.log("clic X ");        	
-        	$location.path($location.url()).replace();
+        // clic sur le bouton supprimer
+        $scope.onDelete = function (findIdMqp) {
+
+        	console.log("clic X ");    
+        	//on recherche l'id du marquepage
+        	nAddLink = $location.url();
+        	console.log(nAddLink);
+        	var id =findIdMqp.links[2].href;
+        	console.log(id);
+        	var nIdArray = id.split('/');
+        	console.log('---------- identification id marquepage: ' + nIdArray[4]);
+
+        	//on supprime le marque page
+//        	var monchemin = nIdArray[3]  +('/')+ nIdArray[4];
+//        	
+//        	Marquepage.delete({uri:monchemin}
+//        	//, function (marquepage) { marquepage.$delete();         	}
+//        	);
+//        	console.log(' deleteMarquepage ');
+
+
+        	//on remet la liste sans le marque page
+        	$location.url().replace();
         	console.log($location.path());
         };       
 
