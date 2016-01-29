@@ -17,81 +17,85 @@
     </div>
 	
 	<br/>
+	
+	<div class="container">
 
-    <form class=""
-          name="mqpForm"
-          data-ng-model="mqpNewModel"
-          id="my-contact-form"
-          
-          
-          novalidate="true"
-          role="form">
-        <div class="form-group">
+		<form class=""
+			  name="mqpForm"
+			  data-ng-model="mqpNewModel"
+			  id="my-contact-form"
 
-            <div class="panel panel-info">
-                <div class="panel-heading">
-                    <h3 class="panel-title">Mon Nouveau MarquePage
-                        <span class="icon-af icon-af icon-af icon-af icon-af-C-metier-meridiens pull-right"></span>
-                    </h3>
-                </div>
 
-                <div class="panel-body">
+			  novalidate="true"
+			  role="form">
+			<div class="form-group">
 
-                    <div class="input-group input-group-lg"
-                         ng-class="{'has-success' : mqpForm.mqpUrl.$dirty && mqpForm.mqpUrl.$valid,
-                                   'has-error': mqpForm.mqpUrl.$dirty && mqpForm.mqpUrl.$invalid}" >
-                        <span class="input-group-addon" id="basic-addon1">@</span>
-                        <input name="mqpUrl"
-                               type="url"
-							   ng-model="mqpNewModel.url"
-                               
-                               class="form-control"
-                               aria-describedby="basic-addon1"
-                               required>
-                        <span ng-show="mqpForm.mqpUrl.$dirty"
-                              ng-messages="mqpForm.mqpUrl.$error">
-                            <span class="help-block"
-                                  ng-message="required">
-                                Ce champ est obligatoire
-                            </span>
-                            <span class="help-block"
-                                  ng-message="url">
-                                Ce champ doit être une URL
-                            </span>
-                        </span>
-                    </div>
-
-                    <br/>
-					
-									
-					<div class="input-group input-group-mg">
-						<span class="input-group-addon" 
-							  id="basic-addon1">Name
-						</span>
-						<input type="text" 
-							   class="form-control 
-									  input-Black" 
-							   placeholder="Nom" 
-							   aria-describedby="basic-addon1" 
-							   value="" 
-							   required>
+				<div class="panel panel-info">
+					<div class="panel-heading">
+						<h3 class="panel-title">Mon Nouveau MarquePage
+							<span class="icon-af icon-af icon-af icon-af icon-af-C-metier-meridiens pull-right"></span>
+						</h3>
 					</div>
 
-					<br/>
+					<div class="panel-body">
 
-                
+						<div class="input-group input-group-lg"
+							 ng-class="{'has-success' : mqpForm.mqpUrl.$dirty && mqpForm.mqpUrl.$valid,
+									   'has-error': mqpForm.mqpUrl.$dirty && mqpForm.mqpUrl.$invalid}" >
+							<span class="input-group-addon" id="basic-addon1">@</span>
+							<input name="mqpUrl"
+								   type="url"
+								   ng-model="mqpNewModel.url"
 
-                    <div class="text-right">
-                        <button ng-disabled="mqpForm.$invalid"
-                                ng-click="valider(mqpNewModel)"
-                                type="button"
-                                name="submit-btn"
-                                
-                                class="btn btn-primary">Valider</button>
-                    </div>
+								   class="form-control"
+								   aria-describedby="basic-addon1"
+								   required>
+							<span ng-show="mqpForm.mqpUrl.$dirty"
+								  ng-messages="mqpForm.mqpUrl.$error">
+								<span class="help-block"
+									  ng-message="required">
+									Ce champ est obligatoire
+								</span>
+								<span class="help-block"
+									  ng-message="url">
+									Ce champ doit être une URL
+								</span>
+							</span>
+						</div>
 
-                </div><!-- panel body -->
-            </div><!-- panel  -->
-        </div>
-    </form>
+						<br/>
+
+
+						<div class="input-group input-group-mg">
+							<span class="input-group-addon" 
+								  id="basic-addon1">Name
+							</span>
+							<input type="text" 
+								   class="form-control 
+										  input-Black" 
+								   placeholder="Nom" 
+								   aria-describedby="basic-addon1" 
+								   value="" 
+								   required>
+						</div>
+
+						<br/>
+
+
+
+						<div class="text-right">
+							<button ng-disabled="mqpForm.$invalid"
+									ng-click="valider(mqpNewModel)"
+									type="button"
+									name="submit-btn"
+
+									class="btn btn-primary">Valider</button>
+						</div>
+
+					</div><!-- panel body -->
+				</div><!-- panel  -->
+			</div>
+		</form>
+		
+	</div>
 </div>

@@ -3,8 +3,6 @@
 	<div class="container my-header" id="">
         <div class="row">
             <div class="col-lg-5 col-sm-12 col-lg-offset-7 text-right">
-				<a href="" ng-click="onProfil()">mon profils</a>
-                <span>&NonBreakingSpace;|&NonBreakingSpace;</span>
                 <a href="" ng-click="onExit()">déconnexion</a>
             </div>
         </div>
@@ -32,6 +30,15 @@
 			</div>
 
 			<div class="panel-body">
+				
+								<div class="input-group input-group-lg">
+					<span class="input-group-addon" id="basic-addon1">Name</span>
+					<input type="text" class="form-control input-Black" placeholder="Nom" aria-describedby="basic-addon1" value="" required>
+					
+					
+				</div>
+
+				<br/>
 
 				<div class="input-group input-group-lg">
 					<span class="input-group-addon" id="basic-addon1">@</span>
@@ -42,14 +49,7 @@
 
 				<br/>
 				
-				<div class="input-group input-group-mg">
-					<span class="input-group-addon" id="basic-addon1">Name</span>
-					<input type="text" class="form-control input-Black" placeholder="Nom" aria-describedby="basic-addon1" value="" required>
-					
-					
-				</div>
 
-				<br/>
 
 
 				<table class="table">
@@ -64,10 +64,10 @@
 										</button>
 									</div>
 
-										<input list="choixCle" type="text" class="form-control input-Black">
-											<datalist id="choixCle">
-												<option data-ng-repeat="c in cles" value="{{c.cle}}"></option>
-											</datalist>
+									<input list="choixCle" type="text" class="form-control input-Black">
+										<datalist id="choixCle">
+											<option data-ng-repeat="c in cles" value="{{c.cle}}"></option>
+										</datalist>
 										
 								</div><!-- /input-group -->
 							</th>
@@ -116,7 +116,8 @@
 
 				<div class="text-right">
 					<button type="submit" name="submit-btn" value="1" class="btn btn-primary" disabled>Annuler</button>
-					<button type="submit" name="submit-btn" value="1" class="btn btn-primary" disabled>Valider</button>
+					<button type="submit" name="submit-btn" value="1" class="btn btn-primary" disabled>Supprimer</button>
+					<button type="submit" name="submit-btn" value="1" class="btn btn-primary" disabled>Modifier</button>
 				</div>
 
 			</div><!-- panel body -->
