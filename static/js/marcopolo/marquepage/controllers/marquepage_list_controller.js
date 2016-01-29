@@ -53,12 +53,17 @@
         };
         
         // clic sur le bouton éditer
-        $scope.onUpdate = function () {
+        $scope.onUpdate = function (findIdMqp) {
         	
         	console.log("clic modif "); 
+        	
         	nAddLink = $location.url();
         	console.log(nAddLink);
-        	$location.path(nAddLink +'/:marquepageId').replace();
+        	var id =findIdMqp.links[2].href;
+        	var nIdArray = id.split('/');
+        	console.log('---------- identification id marquepage: ' + nIdArray[4]);
+        	
+        	$location.path(nAddLink +'/'+ nIdArray[4]).replace();
         	console.log($location.path());
         };
 
