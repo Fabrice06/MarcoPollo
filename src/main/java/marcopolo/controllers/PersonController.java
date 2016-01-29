@@ -64,7 +64,33 @@ public class PersonController {
 			return new ResponseEntity<Person>(persons.get(0),HttpStatus.OK);    
 		}
 		
-		// Renvoi liste marquepages de la personne avec id defini, self link -- manque liste tags ???
+		
+	/* Supprimer une personne  */
+	@RequestMapping(method = RequestMethod.DELETE,value= "/{personId}")
+	public void deleteWithId(@PathVariable("personId") long personId) {
+		
+		//log.info("Appel webService deleteWithId avec personId = " + personId);
+	
+		String requete =  "delete from person where id_person=?";
+		
+		this.jdbcTemplate.update(requete, personId);
+	}
+	
+	// Modifier une personne 
+			@RequestMapping(method = RequestMethod.PUT)
+			public void modifPerson(
+			        @RequestParam(value = "mail", required = true) String pMail,
+			        @RequestParam(value = "idPerson", required = true) String pIdPerson) {
+				
+			        String requete = "update person set mail = ? "
+							+ "where id_person = ?";
+
+					this.jdbcTemplate.update(requete, pMail, pIdPerson);
+					
+				
+			}
+		
+		// Renvoi liste marquepages de la personne avec id defini, self link -- manque liste tags avec lien pour chaque tag ???
 		
 		@RequestMapping(method = RequestMethod.GET, value = "/{personId}/marquepages")
 		public List<MarquePage> listMarquePagesById(@PathVariable("personId") long personId) {
