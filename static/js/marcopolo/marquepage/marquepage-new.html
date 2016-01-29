@@ -64,7 +64,7 @@
 					</div>
                     <br/>
                     
-                    <div class="input-group input-group-lg"
+                    <div class="input-group input-group-mg"
                          ng-class="{'has-success' : mqpForm.mqpUrl.$dirty && mqpForm.mqpUrl.$valid,
                                    'has-error': mqpForm.mqpUrl.$dirty && mqpForm.mqpUrl.$invalid}" >
                         <span class="input-group-addon" id="basic-addon1">@</span>
@@ -110,36 +110,7 @@
                     </div>
 
 
-						<br/>
-
-
-						<div class="input-group input-group-mg">
-							<span class="input-group-addon" 
-								  id="basic-addon1">Name
-							</span>
-							<input type="text" 
-								   class="form-control 
-										  input-Black" 
-								   placeholder="Nom" 
-								   aria-describedby="basic-addon1" 
-								   value="" 
-								   required>
-						</div>
-
-						<br/>
-
-
-
-						<div class="text-right">
-							<button ng-disabled="mqpForm.$invalid"
-									ng-click="valider(mqpNewModel)"
-									type="button"
-									name="submit-btn"
-
-									class="btn btn-primary">Valider</button>
-						</div>
-
-					</div><!-- panel body -->
+				<div><!-- panel body -->
 				</div><!-- panel  -->
 			</div>
 		</form>
