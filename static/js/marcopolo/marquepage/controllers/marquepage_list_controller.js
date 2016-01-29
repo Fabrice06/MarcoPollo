@@ -8,7 +8,7 @@
            
         // pour test ---------------------------------------------------
         var nUrlArray = $location.url().split('/');
-        //console.log("marquepageListCtrl url " + $location.url());
+        console.log("marquepageListCtrl url " + $location.url());
 
         var nAddLink = "";
         var nProfilLink = "";

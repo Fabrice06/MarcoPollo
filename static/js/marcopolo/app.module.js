@@ -50,8 +50,8 @@
         // person --------------------------------------------------------------------------
         var nRegexPersons= 'persons/[0-9]{1,}$';
 
-           //$httpBackend.whenGET(new RegExp('persons\\?.*')).passThrough(); // vers le backend
-            $httpBackend.whenGET(new RegExp('persons\\?.*')).respond(function (method, url) { // traitement FE sans BE
+           $httpBackend.whenGET(new RegExp('persons\\?.*')).passThrough(); // vers le backend
+           /* $httpBackend.whenGET(new RegExp('persons\\?.*')).respond(function (method, url) { // traitement FE sans BE
 
                 var nReturn = new Array();
                 // valeur de retour par défaut: [http status, data]
@@ -75,7 +75,7 @@
 
                 return nReturn;
             });
-
+*/
             $httpBackend.whenGET(new RegExp(nRegexPersons)).passThrough(); // vers le backend
             //$httpBackend.whenGET(new RegExp(nRegexPersons)).respond(function (method, url) { // traitement FE sans BE
             //
@@ -115,8 +115,8 @@
         
         /**************GET tous les marquepages********************/
 
-            //$httpBackend.whenGET(new RegExp('persons/[0-9]{1,}/marquepages$')).passThrough(); // vers le backend
-            $httpBackend.whenGET(new RegExp('persons/[0-9]{1,}/marquepages$')).respond(function (method, url) { // traitement FE sans BE
+            $httpBackend.whenGET(new RegExp('persons/[0-9]{1,}/marquepages$')).passThrough(); // vers le backend
+           /* $httpBackend.whenGET(new RegExp('persons/[0-9]{1,}/marquepages$')).respond(function (method, url) { // traitement FE sans BE
 
                 var nReturn = new Array();
                 // valeur de retour par défaut: [http status, data]
@@ -139,7 +139,7 @@
                 } // for
 
                 return nReturn;
-            });
+            });*/
 
             //$httpBackend.whenGET(new RegExp(nRegexMarquepages)).passThrough(); // vers le backend
             $httpBackend.whenGET(new RegExp(nRegexMarquepages)).respond(function (method, url) { // traitement FE sans BE

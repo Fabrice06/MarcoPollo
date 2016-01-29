@@ -37,7 +37,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 public class MarquePageController {
 
-	/* requete de recuperation des tags associes a un marque-page*/
+	 //requete de recuperation des tags associes a un marque-page
 	protected final static String REQUETE_RECUP_TAGS = "select * "
 			+ "from tag "
 			+ "where id_marquepage=?";
@@ -59,7 +59,7 @@ public class MarquePageController {
 
 		log.info("Appel webService oneMarquePage avec marquepageid =" + marquepageId);
 
-		/* recuperation des tags et clés associes au marque-page*/
+		// recuperation des tags et clés associes au marque-page
 		String nSql = "select tag.id_tag, tag.valeur, cle.cle "
                 + "from tag, cle "
                 + "where tag.id_cle=cle.id_cle "
@@ -79,7 +79,7 @@ public class MarquePageController {
 		
 		log.info("tags.size()=" + tags.size());
 		
-		/* recuperation des marque-pages*/
+		 //recuperation des marque-pages
 		String requete = "select * "
 				+ "from marquepage "
 				+ "where id_marquepage=?";
@@ -173,13 +173,13 @@ public class MarquePageController {
 
 		log.info("Appel webService deleteMarquePage avec marquepageId = " + marquepageId);
 		
-		/*Suppression des tags associes au marque-page*/
+		//Suppression des tags associes au marque-page
 		String suppressionDesTags = "delete "
 				+ "from tag "
 				+ "where id_marquepage=?";
 		this.jdbcTemplate.update(suppressionDesTags, marquepageId);
 		
-		/*Suppression du marque-page*/
+		//Suppression du marque-page
 		String requete = "delete "
 				+ "from marquepage "
 				+ "where id_marquepage=?";
@@ -220,7 +220,7 @@ public class MarquePageController {
 	 * 
 	 * @param String
 	 */
-	/*
+	
 	@RequestMapping(method = RequestMethod.POST, value = "/{marquepagelien}")
 	public void createMarquePage(@PathVariable("marquepagelien") String marquePageLien) {
 
@@ -232,6 +232,6 @@ public class MarquePageController {
 		
 		this.jdbcTemplate.update(requete, marquePageLien);
 	}
-	*/
+	
 	
 }
