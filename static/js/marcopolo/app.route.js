@@ -18,15 +18,15 @@
           templateUrl: 'js/marcopolo/marquepage/marquepage-list.html',
           controller: 'marquepageListCtrl'
         })
+		
+		.when('/persons/:personId/marquepages/new', {
+            templateUrl: 'js/marcopolo/marquepage/marquepage-new.html',
+            controller: 'marquepageNewCtrl'
+        })
 
         .when('/persons/:personId/marquepages/:marquepageId', {
             templateUrl: 'js/marcopolo/marquepage/marquepage-detail.html',
             controller: 'marquepageDetailCtrl'
-        })
-
-        .when('/persons/:personId/marquepages/new', {
-            templateUrl: 'js/marcopolo/marquepage/marquepage-new.html',
-            controller: 'marquepageNewCtrl'
         })
 
         .when('/persons/:personId', {

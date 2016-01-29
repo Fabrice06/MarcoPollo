@@ -42,7 +42,7 @@
                                    'has-error': mqpForm.mqpUrl.$dirty && mqpForm.mqpUrl.$invalid}" >
                         <span class="input-group-addon" id="basic-addon1">@</span>
                         <input name="mqpUrl"
-                               type="text"
+                               type="url"
 							   ng-model="mqpNewModel.url"
                                
                                class="form-control"
@@ -62,65 +62,24 @@
                     </div>
 
                     <br/>
+					
+									
+					<div class="input-group input-group-mg">
+						<span class="input-group-addon" 
+							  id="basic-addon1">Name
+						</span>
+						<input type="text" 
+							   class="form-control 
+									  input-Black" 
+							   placeholder="Nom" 
+							   aria-describedby="basic-addon1" 
+							   value="" 
+							   required>
+					</div>
 
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>
-                                    <div class="input-group">
-                                        
-										<div class="input-group-btn btn-Gris">
+					<br/>
 
-                                            <button type="button"
-                                                    class="btn btn-default dropdown-toggle "
-                                                    data-toggle="dropdown"
-                                                    aria-expanded="false"
-                                                    disabled>Clé
-                                            </button>
-                                        </div>
-
-                                        <input type="text"
-                                               ng-model="tag.cle"
-                                               class="form-control"
-                                               aria-label="...">
-                                    </div><!-- /input-group -->
-                                </th>
-
-                                <th>
-                                    <div class="input-group">
-                                        <div class="input-group-btn boutonBlanc">
-                                            <button type="button"
-                                                    class="btn btn-default dropdown-toggle "
-                                                    data-toggle="dropdown"
-                                                    aria-expanded="false"
-                                                    disabled>Valeur
-                                            </button>
-                                        </div>
-
-                                        <input type="text"
-                                               ng-model="tag.valeur"
-                                               class="form-control"
-                                               placeholder=""
-                                               aria-label="...">
-                                        <!--		<input type="text" class="form-control" placeholder="Valeur" aria-label="...">  -->
-                                    </div><!-- /input-group -->
-                                </th>
-
-                                <th class="last_column">
-                                    <div class="btn-group"
-                                         ng-click="ajoutTag()">
-                                        <label class="btn btn-info"
-                                               ng-model="radioModel"
-                                               btn-radio="'Left'">+</label>
-                                    </div>
-                                </th>
-                            </tr>
-                        </thead>
-
-                        <tbody>
-
-                        </tbody>
-                    </table>
+                
 
                     <div class="text-right">
                         <button ng-disabled="mqpForm.$invalid"
