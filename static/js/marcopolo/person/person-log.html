@@ -83,16 +83,16 @@
 		</div>		<!-- panel info -->
 		<div class="col-xs-4 ">
 			
-				<div class= "text-center">
+				<div class= "text-center panel_img_user">
 					<img src="img/newUser.png" alt="nouvel utilisateur" /><br/><br/>		
 				</div>		
 				<div ng-if="personLogModelForm.useremail.$invalid"></div>
 				
 				<div class="panel_new_user">
 					<ul>
-						<a ng-click="onCreate(personLogModel)">Vous n'avez pas encore de
-							compte?</a><br /><br/>			
-						<a ng-click="onLost(personLogModel)">J'ai oubli&eacute; mon mot de passe !</a>
+						<a ng-click="onCreate(personLogModel)"><b>Vous n'avez pas encore de
+							compte ?</b></a><br /><br/>			
+						<a ng-click="onLost(personLogModel)"><b>J'ai oubli&eacute; mon mot de passe !</b></a>
 					</ul>
 				</div>
 			

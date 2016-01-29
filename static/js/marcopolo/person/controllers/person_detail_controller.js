@@ -56,10 +56,23 @@
             //);
         };
 
-        // clic sur le bouton annuler
-        $scope.onCancel = function () {        	
+        // clic sur le bouton Retour à ma liste de mqp
+        $scope.onCancel = function (pPerson) {        	
+        	 // remplace aprés le # dans la barre d'adresse
+            for	(var index = 0; index < pPerson.links.length; index++) {
+
+                if ("marquepages" === pPerson.links[index].rel) {
+
+                    var nUrl = pPerson.links[index].href;
+                    var nPort = $location.port(nUrl);
+                    var nPathArray = nUrl.split(nPort);
+                    $location.url(nPathArray[1]).replace();
+
+                    break;
+                }
             //console.log("personDetailCtrl cancel " + CurrentPerson.getData._links.marquepages.uri);
-            $location.path(CurrentPerson.getData._links.marquepages.uri).replace();
+           // $location.path(CurrentPerson.getData._links.marquepages.uri).replace();
+            }
         };
 
         $scope.onSubmit = function (pPersonDetail) {
