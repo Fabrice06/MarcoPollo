@@ -116,6 +116,7 @@
         /**************GET tous les marquepages********************/
 
             $httpBackend.whenGET(new RegExp('persons/[0-9]{1,}/marquepages$')).passThrough(); // vers le backend
+
            /* $httpBackend.whenGET(new RegExp('persons/[0-9]{1,}/marquepages$')).respond(function (method, url) { // traitement FE sans BE
 
                 var nReturn = new Array();
@@ -140,6 +141,7 @@
 
                 return nReturn;
             });*/
+
 
             //$httpBackend.whenGET(new RegExp(nRegexMarquepages)).passThrough(); // vers le backend
             $httpBackend.whenGET(new RegExp(nRegexMarquepages)).respond(function (method, url) { // traitement FE sans BE
