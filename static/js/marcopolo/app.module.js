@@ -102,11 +102,14 @@
             //    return nReturn;
             //});
 
-            $httpBackend.whenPUT(new RegExp('persons/[0-9]{1,}\\?.*')).passThrough(); // vers le backend
+            //$httpBackend.whenPUT(new RegExp('persons/[0-9]{1,}\\?.*')).passThrough(); // vers le backend
+            $httpBackend.whenPUT(new RegExp(nRegexPersons)).passThrough(); // vers le backend            
+            
             $httpBackend.whenPOST(new RegExp('persons\\?.*')).passThrough(); // vers le backend
 
             // requêtes non prise en compte
             $httpBackend.whenGET(new RegExp('persons$')).passThrough(); // vers le backend
+            
             $httpBackend.whenDELETE(new RegExp(nRegexPersons)).passThrough(); // vers le backend
 
 

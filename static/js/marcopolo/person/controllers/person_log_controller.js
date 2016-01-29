@@ -18,7 +18,7 @@
                     mail:pPersonLog.mail,
                     mdp:pPersonLog.mdp
                 },
-                function (pPerson) { // OK
+                function (pPerson) { // OK pPerson est le retour du backEnd
 
                     console.log("personLogCtrl query ok");
 
