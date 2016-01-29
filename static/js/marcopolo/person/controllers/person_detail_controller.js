@@ -35,9 +35,6 @@
 
         // clic sur le bouton supprimer
         $scope.onDelete = function () {        	
-            // récup de l'id initial
-            var nUriArray = CurrentPerson.getData._links.self.uri.split('/');
-
             Person.delete(
                 {
                     uri:nUrlArray[1],
