@@ -14,10 +14,25 @@
         $scope.mqpNewModel = {url: url, nameMqp: nameMqp};
         
         $scope.validate = function(mqp) {
-			//console.log("Validating" + mqp.nameMqp + mqp.url);
-            // envoi Mqp en BD
-            // renvoi vers marcopolo/marquepage/marquepage-detail.html
-		};
+                Marquepage.save({
+                     uri:"marquepages", 
+                    lien:mqp.url,
+                    nom:mqp.nameMqp
+                    },
+                    // Ca se passe bien
+                    function (pMarquepage) {
+                      console.log("marquepageLogCtl Query OK");
+                    // recupérer l'id de la personne en splitant l'url courante
+                    // récupérer l'id du Mqp dans le Json suite au retour de la BD : idDuMqp
+                    // et rediriger vers l'url /persons/idPerson/marquepages/idDuMqp
+                    
+                    },
+                    // Ca se passe mal
+                    function (pData, headers) {
+                      console.log("marquepageLogCtl Query Echec");
+                    }
+              )
+        };
         
         $scope.cancel = function() {
             //console.log("Canceling" + $scope.mqpNewModel.nameMqp + $scope.mqpNewModel.url);
