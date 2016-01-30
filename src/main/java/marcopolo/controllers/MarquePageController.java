@@ -1,26 +1,20 @@
 package marcopolo.controllers;
 
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
-
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 import marcopolo.Application;
+import marcopolo.dao.MarquePageDAO;
+import marcopolo.dao.TagDAO;
 import marcopolo.entity.MarquePage;
 import marcopolo.entity.Tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -45,59 +39,18 @@ public class MarquePageController {
 		
 	/**
 	 * Recuperer un marque-page par son id
-	 * 
+	 * (Hateoas)
 	 * @param Long
-	 * @return ResponseEntity<MarquePage> (Hateoas)
+	 * @return ResponseEntity<MarquePage> 
 	 */
 	@RequestMapping(method = RequestMethod.GET, value = "/{marquepageid}")
 	 public HttpEntity<MarquePage> oneMarquePage(@PathVariable("marquepageid") Long marquepageId) {
 
 		log.info("Appel webService oneMarquePage avec marquepageid =" + marquepageId);
 
-		// recuperation des tags et clés associes au marque-page
-		String nSql = "select tag.id_tag, tag.valeur, cle.cle "
-                + "from tag, cle "
-                + "where tag.id_cle=cle.id_cle "
-                + "and tag.id_marquepage=?";
-		
-		List<Tag> tags = this.jdbcTemplate.query(nSql, new RowMapper<Tag>() {
-			
-			public Tag mapRow(ResultSet rs, int rowNum) throws SQLException {
-				Tag tag = new Tag();
-				Long nIdTag = rs.getLong("id_tag");
-				tag.setValeur(rs.getString("valeur"));
-				tag.setCle(rs.getString("cle"));
-				tag.add(ControllerLinkBuilder.linkTo(ControllerLinkBuilder.methodOn(TagController.class).oneTag(nIdTag)).withRel("self"));
-				return tag;
-			}
-		}, marquepageId);
-		
-		log.info("tags.size()=" + tags.size());
-		
-
-		 //recuperation des marque-pages
-
-		String requete = "select * "
-				+ "from marquepage "
-				+ "where id_marquepage=?";
-
-		List<MarquePage> marquePages = this.jdbcTemplate.query(requete, new RowMapper<MarquePage>() {
-			
-			public MarquePage mapRow(ResultSet rs, int rowNum) throws SQLException {
-				MarquePage marquePage = new MarquePage();
-				marquePage.setNom(rs.getString("nom"));
-				marquePage.setLien(rs.getString("lien"));
-				marquePage.setTags((ArrayList<Tag>) tags);
-				marquePage.add(linkTo(methodOn(MarquePageController.class).oneMarquePage(marquepageId)).withSelfRel());
-				return marquePage;
-			}
-		}, marquepageId);
-		
-		log.info("marquePages.size()=" + marquePages.size());
-		
-		// recuperation du seul (normalement) marque-page de la liste
-		MarquePage marquePage = marquePages.get(0);
-				
+		MarquePageDAO marquePageDao = new MarquePageDAO(jdbcTemplate);
+		MarquePage marquePage = marquePageDao.getMqpWithId(marquepageId);
+						
 		return new ResponseEntity<MarquePage>(marquePage, HttpStatus.OK);
 	}
 	
@@ -111,27 +64,13 @@ public class MarquePageController {
 	 * 
 	 */
 	@RequestMapping(method = RequestMethod.GET, value = "/{marquepageid}/tags")
-	public List<Tag> tagsDunMarquePage(@PathVariable("marquepageid") long marquepageId) {
+	public List<Tag> tagsDunMarquePage(@PathVariable("marquepageid") long idMqp) {
 
-		log.info("Appel webService tagsDunMarquePage avec marquepageid =" + marquepageId);
+		log.info("Appel webService tagsDunMarquePage avec id MQP =" + idMqp);
 
-		String nSql = "select tag.id_tag, tag.valeur, cle.cle "
-                + "from tag, cle "
-                + "where tag.id_cle=cle.id_cle "
-                + "and tag.id_marquepage=?";
-		
-		List<Tag> tags = this.jdbcTemplate.query(nSql, new RowMapper<Tag>() {
-			public Tag mapRow(ResultSet rs, int rowNum) throws SQLException {
-				Tag tag = new Tag();
-				Long nIdTag = rs.getLong("id_tag");
-				tag.setValeur(rs.getString("valeur"));
-				tag.setCle(rs.getString("cle"));
-				tag.add(ControllerLinkBuilder.linkTo(ControllerLinkBuilder.methodOn(TagController.class).oneTag(nIdTag)).withRel("self"));
-				return tag;
-			}
-		}, marquepageId);
+		TagDAO tagDao = new TagDAO(jdbcTemplate);
+		return tagDao.getTagsWithIdMqp(idMqp);
 	
-		return tags;
 	}
 	
 		
@@ -139,21 +78,19 @@ public class MarquePageController {
 	/**
 	 * Modifier le lien d'un marque-page
 	 * 
-	 * @param long
-	 * @return long
+	 * @param Long
+	 * @return Long
 	 * 
 	 */
 	@RequestMapping(method = RequestMethod.PUT, value = "/{marquepageid}")
-	public @ResponseBody Long modifierLienMQP(@PathVariable("marquepageid") long marquepageId, @RequestParam(value="lien") String newLien) {
+	public @ResponseBody Long modifierLienMQP(@PathVariable("marquepageid") Long idMqp, @RequestParam(value="lien") String newLien) {
 
 		log.info("Appel webService modifierLienMQP");
 		
-		String requete = "update marquepage set lien = ? "
-				+ "where id_marquepage = ?";
-
-		this.jdbcTemplate.update(requete, newLien, marquepageId);
-		
-		return marquepageId;
+		MarquePageDAO marquePageDao = new MarquePageDAO(jdbcTemplate);
+		marquePageDao.updateLien(idMqp, newLien);
+				
+		return idMqp;
 	}
 	
 	
@@ -169,74 +106,70 @@ public class MarquePageController {
 	 * 
 	 */
 	@RequestMapping(method = RequestMethod.DELETE, value = "/{marquepageid}")
-	public Long deleteMarquePage(@PathVariable("marquepageid") Long marquepageId) {
+	public Long deleteMarquePage(@PathVariable("marquepageid") Long idMqp) {
 
-		log.info("Appel webService deleteMarquePage avec marquepageId = " + marquepageId);
+		log.info("Appel webService deleteMarquePage avec id marquepage =" + idMqp);
 		
-		//Suppression des tags associes au marque-page
-		String suppressionDesTags = "delete "
-				+ "from tag "
-				+ "where id_marquepage=?";
-		this.jdbcTemplate.update(suppressionDesTags, marquepageId);
+		//delete tags
+		TagDAO tagDao = new TagDAO(jdbcTemplate);
+		tagDao.deleteTagsWithIdMqp(idMqp);
 		
-		//Suppression du marque-page
-		String requete = "delete "
-				+ "from marquepage "
-				+ "where id_marquepage=?";
-		this.jdbcTemplate.update(requete, marquepageId);
-		
-		return marquepageId;
+		//delete marque-page
+		MarquePageDAO marquePageDao = new MarquePageDAO(jdbcTemplate);
+		marquePageDao.deleteMQP(idMqp);
+				
+		return idMqp;
 	}	
 	
 	
-	///////////////////////////////////////////////////////////////
-	//  non utilisé (a supprimer a la fin)
-	///////////////////////////////////////////////////////////////
-	
-	
-	/**
-	 * Liste de tous les marque-pages
-	 * Utilisé uniquement pour les tests
-	 * 
-	 * @return liste de MarquePage
-	 */
-	@RequestMapping(method = RequestMethod.GET)
-	public @ResponseBody List<MarquePage> allMarquePages() {
-
-		log.info("Appel webService allMarquePages");
-
-		String requete = "select * "
-				+ "from marquepage";
-
-		List<MarquePage> marquePages = this.jdbcTemplate.query(requete, new RowMapper<MarquePage>() {
-			public MarquePage mapRow(ResultSet rs, int rowNum) throws SQLException {
-				MarquePage marquePage = new MarquePage();
-				marquePage.setLien(rs.getString("lien"));
-				return marquePage;
-			}
-		});		
-		return marquePages;
-	}
-	
-	
-	
-	/**
-	 * Creer un marque-page avec son lien
-	 * 
-	 * @param String
-	 */
-	
-	@RequestMapping(method = RequestMethod.POST, value = "/{marquepagelien}")
-	public void createMarquePage(@PathVariable("marquepagelien") String marquePageLien) {
-
-		log.info("Appel webService createMarquePage avec marquePageLien = " + marquePageLien);
-		
-		String requete = "insert "
-				+ "into marquepage (id_marquepage, lien) "
-				+ "values (seq_marquepage.nextval ,?)";
-		
-		this.jdbcTemplate.update(requete, marquePageLien);
-	}
-	
-	
+//	///////////////////////////////////////////////////////////////
+//	//  non utilisé (a supprimer a la fin)
+//	///////////////////////////////////////////////////////////////
+//	
+//	
+//	/**
+//	 * Liste de tous les marque-pages
+//	 * Utilisé uniquement pour les tests
+//	 * 
+//	 * @return liste de MarquePage
+//	 */
+//	@RequestMapping(method = RequestMethod.GET)
+//	public @ResponseBody List<MarquePage> allMarquePages() {
+//
+//		log.info("Appel webService allMarquePages");
+//
+//		String requete = "select * "
+//				+ "from marquepage";
+//
+//		List<MarquePage> marquePages = this.jdbcTemplate.query(requete, new RowMapper<MarquePage>() {
+//			public MarquePage mapRow(ResultSet rs, int rowNum) throws SQLException {
+//				MarquePage marquePage = new MarquePage();
+//				marquePage.setLien(rs.getString("lien"));
+//				return marquePage;
+//			}
+//		});		
+//		return marquePages;
+//	}
+//	
+//	
+//	
+//	/**
+//	 * Creer un marque-page avec son lien
+//	 * 
+//	 * @param String
+//	 */
+//	
+//	@RequestMapping(method = RequestMethod.POST, value = "/{marquepagelien}")
+//	public void createMarquePage(@PathVariable("marquepagelien") String marquePageLien) {
+//
+//		log.info("Appel webService createMarquePage avec marquePageLien = " + marquePageLien);
+//		
+//		String requete = "insert "
+//				+ "into marquepage (id_marquepage, lien) "
+//				+ "values (seq_marquepage.nextval ,?)";
+//		
+//		this.jdbcTemplate.update(requete, marquePageLien);
+//	}
+//	
+//	
 }

@@ -1,11 +1,12 @@
 package marcopolo.entity;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.hateoas.ResourceSupport;
 
 /**
- * Ressource marquepage
+ * modele marquepage
  *
  */
 
@@ -13,12 +14,12 @@ public class MarquePage extends ResourceSupport {
 	
 	private String nom;
     private String lien;
-    private ArrayList<Tag> tags;
+    private List<Tag> tags;
     
 	public MarquePage() {
 		
 	}
-	
+		
 	public String getLien() {
 		return lien;
 	}
@@ -27,11 +28,11 @@ public class MarquePage extends ResourceSupport {
 		this.lien = lien;
 	}
 
-	public ArrayList<Tag> getTags() {
+	public List<Tag> getTags() {
 		return tags;
 	}
 
-	public void setTags(ArrayList<Tag> tags) {
+	public void setTags(List<Tag> tags) {
 		this.tags = tags;
 	}
 

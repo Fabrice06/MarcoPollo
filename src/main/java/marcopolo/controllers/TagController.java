@@ -95,30 +95,30 @@ public class TagController {
 	//////////////////////////////////////////////
 	// services provisoires pour test, a supprimer
 	//////////////////////////////////////////////
-	/**
-	 * Liste de tous les tags
-	 * Utilisé uniquement pour les tests
-	 * 
-	 * @return List<Tag>
-	 */
-	
-	@RequestMapping(method = RequestMethod.GET)
-	public @ResponseBody List<Tag> allTags() {
-
-		log.info("Appel webService allTags");
-
-		String requete = "select * "
-				+ "from tag";
-
-		List<Tag> tags = this.jdbcTemplate.query(requete, new RowMapper<Tag>() {
-			public Tag mapRow(ResultSet rs, int rowNum) throws SQLException {
-				Tag tag = new Tag();
-				tag.setValeur(rs.getString("valeur"));
-				return tag;
-			}
-		});
-		return tags;
-	}
+//	/**
+//	 * Liste de tous les tags
+//	 * Utilisé uniquement pour les tests
+//	 * 
+//	 * @return List<Tag>
+//	 */
+//	
+//	@RequestMapping(method = RequestMethod.GET)
+//	public @ResponseBody List<Tag> allTags() {
+//
+//		log.info("Appel webService allTags");
+//
+//		String requete = "select * "
+//				+ "from tag";
+//
+//		List<Tag> tags = this.jdbcTemplate.query(requete, new RowMapper<Tag>() {
+//			public Tag mapRow(ResultSet rs, int rowNum) throws SQLException {
+//				Tag tag = new Tag();
+//				tag.setValeur(rs.getString("valeur"));
+//				return tag;
+//			}
+//		});
+//		return tags;
+//	}
 	
 	
 	
