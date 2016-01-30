@@ -1,89 +1,86 @@
 <div ng-controller="marquepageListCtrl">
-    <!-- composant HEADER -->
+	<!-- composant HEADER -->
 	<div class="container my-header" id="">
-        <div class="row">
-            <div class="col-lg-5 col-sm-12 col-lg-offset-7 text-right">
-				<a href="" ng-click="onProfil()">mon profil</a>
-                <span>&NonBreakingSpace;|&NonBreakingSpace;</span>
-                <a href="" ng-click="onExit()">déconnexion</a>
-            </div>
-        </div>
+		<div class="row">
+			<div class="col-lg-5 col-sm-12 col-lg-offset-7 text-right">
+				<a href="" ng-click="onProfil()">mon profil</a> <span>&NonBreakingSpace;|&NonBreakingSpace;</span>
+				<a href="" ng-click="onExit()">déconnexion</a>
+			</div>
+		</div>
 
-        <div class="row">
-            <div class="col-xs-12">
-                <span class="fontsize-x2 color-blueaf">MarcoPolo</span>
-            </div>
-        </div>
-    </div>
-	
-	<br/>
-	
-<div class="container">
-    <div>
-        <div class="col-sm-6">
-            <form class="form-inline pull-left">
-                <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Recherche">
-                    <span class="input-group-btn">
-                       <button class="btn btn-default" type="submit" ng-click="onSearch()">
-                           <span class="icon-af icon-af-B-digital-loupe-recherche"></span>
-                       </button>
-                    </span>
-                </div>
-            </form>
-        </div>
+		<div class="row">
+			<div class="col-xs-12">
+				<span class="fontsize-x2 color-blueaf">MarcoPolo</span>
+			</div>
+		</div>
+	</div>
 
+	<br />
 
-        <div class="col-sm-6">
-            <div class="form-inline pull-right">
-                <button type="button" class="btn btn-default btn-sm" ng-click="onAdd()">
-                    <span class="icon-af icon-af-A-basic-plus25"></span>
-                </button>
-            </div>
-        </div>
-    </div>
-    <br/>
-    <br/>
-    
-    <div class="col-lg-12 ">
-        <div class="table-responsive">
-            <table class="table table-hover" >
-                <thead>
-                    <tr>
-                        <th >Liens</th>
-                        <th class="last_column">Filtrer<span class="caret"></span></th>
-                        
-                    </tr>
-                </thead>
-               
-                <tfoot>
-                    <tr>
-                        <td colspan="4">&nbsp;</td>
-                    </tr>
-                </tfoot>
-                <tbody>               
-                        
-                      <tr data-ng-repeat="l in listMqp">   
-                        <td ng-click="openLink(l)"><a>{{l.lien}}</a></td>
-                        
-                        <td>
-                            <abbr title="edit">
-                                <a class="btn btn-primary" ng-click="onUpdate(l)">
-                                    <span class="icon-af icon-af-B-digital-crayon-editer"></span>
-                                </a>
-                            </abbr>
-                            <abbr title="delete">
-                                <button type="button" class="btn btn-default btn-md" 
-                                    ng-click="onDelete(l)">
-                                    <span class="icon-af icon-af-B-digital-cross"></span>
-                                </button>
-                            </abbr>
-                        </td>
-                    </tr>                 
-                </tbody>
-            </table>
-        </div>
-    </div>
-</div>
+	<div class="container">
+		<div>
+			<div class="col-sm-6">
+				<form class="form-inline pull-left">
+					<div class="input-group">
+						<input type="text" class="form-control" placeholder="Recherche">
+						<span class="input-group-btn">
+							<button class="btn btn-default" type="submit"
+								ng-click="onSearch()">
+								<span class="icon-af icon-af-B-digital-loupe-recherche"></span>
+							</button>
+						</span>
+					</div>
+				</form>
+			</div>
+			<div class="col-sm-6">
+				<div class="form-inline pull-right">
+					<button type="button" class="btn btn-default btn-sm" ng-click="onAdd()">
+						<a >
+						 <span class="icon-af icon-af-A-basic-plus25"></span>
+						</a>Ajouter
+					</button>
+				</div>
+			</div>
+		</div>
+		<br /> <br />
+
+		<div class="col-lg-12 ">
+			<div class="table-responsive">
+				<table class="table table-hover">
+					<thead>
+						<tr>
+							<th>Noms</th>
+							<th>Liens</th>
+							<th class="last_column">Filtrer<span class="caret"></span></th>
+						</tr>
+					</thead>
+
+					<tfoot>
+						<tr>
+							<td colspan="4">&nbsp;</td>
+						</tr>
+					</tfoot>
+					<tbody>
+
+						<tr data-ng-repeat="l in listMqp">
+							<td><a>{{l.nom}}</a></td>
+							<td ng-click="openLink(l)"><a>{{l.lien}}</a></td>
+
+							<td><abbr title="edit"> <a class="btn btn-primary"
+									ng-click="onUpdate(l)"> <span
+										class="icon-af icon-af-B-digital-crayon-editer"></span>
+								</a>
+							</abbr> <abbr title="delete">
+									<button type="button" class="btn btn-default btn-md"
+										ng-click="onDelete(l)">
+										<span class="icon-af icon-af-B-digital-cross"></span>
+									</button>
+							</abbr></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
 </div>
 
