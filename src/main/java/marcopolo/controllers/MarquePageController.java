@@ -36,11 +36,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/marquepages")
 
 public class MarquePageController {
-
-	 //requete de recuperation des tags associes a un marque-page
-	protected final static String REQUETE_RECUP_TAGS = "select * "
-			+ "from tag "
-			+ "where id_marquepage=?";
 	
 	private static Log log = LogFactory.getLog(Application.class);
 
@@ -51,7 +46,7 @@ public class MarquePageController {
 	/**
 	 * Recuperer un marque-page par son id
 	 * 
-	 * @param long
+	 * @param Long
 	 * @return ResponseEntity<MarquePage> (Hateoas)
 	 */
 	@RequestMapping(method = RequestMethod.GET, value = "/{marquepageid}")
@@ -79,7 +74,9 @@ public class MarquePageController {
 		
 		log.info("tags.size()=" + tags.size());
 		
+
 		 //recuperation des marque-pages
+
 		String requete = "select * "
 				+ "from marquepage "
 				+ "where id_marquepage=?";
@@ -88,8 +85,9 @@ public class MarquePageController {
 			
 			public MarquePage mapRow(ResultSet rs, int rowNum) throws SQLException {
 				MarquePage marquePage = new MarquePage();
+				marquePage.setNom(rs.getString("nom"));
 				marquePage.setLien(rs.getString("lien"));
-				marquePage.setListeDesTags((ArrayList<Tag>) tags);
+				marquePage.setTags((ArrayList<Tag>) tags);
 				marquePage.add(linkTo(methodOn(MarquePageController.class).oneMarquePage(marquepageId)).withSelfRel());
 				return marquePage;
 			}
@@ -136,7 +134,7 @@ public class MarquePageController {
 		return tags;
 	}
 	
-	
+		
 	
 	/**
 	 * Modifier le lien d'un marque-page
@@ -159,17 +157,19 @@ public class MarquePageController {
 	}
 	
 	
+	
+	
 	/**
 	 * Supprimer un marque-page par son id
 	 * On supprime les tags associes à ce marque-page
 	 * puis on supprime le marque-page
 	 * 
-	 * @param long
-	 * @return long
+	 * @param Long
+	 * @return Long
 	 * 
 	 */
 	@RequestMapping(method = RequestMethod.DELETE, value = "/{marquepageid}")
-	public long deleteMarquePage(@PathVariable("marquepageid") long marquepageId) {
+	public Long deleteMarquePage(@PathVariable("marquepageid") Long marquepageId) {
 
 		log.info("Appel webService deleteMarquePage avec marquepageId = " + marquepageId);
 		
@@ -187,6 +187,11 @@ public class MarquePageController {
 		
 		return marquepageId;
 	}	
+	
+	
+	///////////////////////////////////////////////////////////////
+	//  non utilisé (a supprimer a la fin)
+	///////////////////////////////////////////////////////////////
 	
 	
 	/**

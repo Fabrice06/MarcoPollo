@@ -11,19 +11,13 @@ import org.springframework.hateoas.ResourceSupport;
 
 public class MarquePage extends ResourceSupport {
 	
+	private String nom;
     private String lien;
-    private ArrayList<Tag> listeDesTags;
+    private ArrayList<Tag> tags;
     
 	public MarquePage() {
 		
 	}
-
-	public MarquePage(String lien,ArrayList<Tag> listdesTags) {
-		super();
-		this.lien = lien;
-		this.setListeDesTags(listdesTags);
-	}
-
 	
 	public String getLien() {
 		return lien;
@@ -33,13 +27,23 @@ public class MarquePage extends ResourceSupport {
 		this.lien = lien;
 	}
 
-	public ArrayList<Tag> getListeDesTags() {
-		return listeDesTags;
+	public ArrayList<Tag> getTags() {
+		return tags;
 	}
 
-	public void setListeDesTags(ArrayList<Tag> listeDesTags) {
-		this.listeDesTags = listeDesTags;
+	public void setTags(ArrayList<Tag> tags) {
+		this.tags = tags;
 	}
+
+	public String getNom() {
+		return nom;
+	}
+
+	public void setNom(String nom) {
+		this.nom = nom;
+	}
+
+	
 
 		
 }

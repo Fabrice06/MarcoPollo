@@ -35,32 +35,7 @@ public class TagController {
 	@Autowired
 	JdbcTemplate jdbcTemplate;
 
-	/**
-	 * Liste de tous les tags
-	 * Utilisé uniquement pour les tests
-	 * 
-	 * @return List<Tag>
-	 */
 	
-	@RequestMapping(method = RequestMethod.GET)
-	public @ResponseBody List<Tag> allTags() {
-
-		log.info("Appel webService allTags");
-
-		String requete = "select * "
-				+ "from tag";
-
-		List<Tag> tags = this.jdbcTemplate.query(requete, new RowMapper<Tag>() {
-			public Tag mapRow(ResultSet rs, int rowNum) throws SQLException {
-				Tag tag = new Tag();
-				tag.setValeur(rs.getString("valeur"));
-				return tag;
-			}
-		});
-		return tags;
-	}
-	
-
 	/**
 	 * Recuperer un tag par son id (Hateoas)
 	 * 
@@ -71,7 +46,6 @@ public class TagController {
 	public HttpEntity<Tag> oneTag(@PathVariable("tagid") long tagId) {
 
 		log.info("Appel webService oneTag avec tagId =" + tagId);
-
 		
 		// récuperer la clé associé au tag //
 		String nSql = "select * "
@@ -108,32 +82,44 @@ public class TagController {
 	public long deleteTag(@PathVariable("tagid") long tagId) {
 
 		log.info("Appel webService deleteTag avec tagId = " + tagId);
+		
 		String requete = "delete "
 				+ "from tag "
 				+ "where id_tag=?";
 		this.jdbcTemplate.update(requete, tagId);
+		
 		return tagId;
 	}
 
 	
+	//////////////////////////////////////////////
+	// services provisoires pour test, a supprimer
+	//////////////////////////////////////////////
 	/**
-	 * Creer un tag avec sa valeur
+	 * Liste de tous les tags
+	 * Utilisé uniquement pour les tests
 	 * 
-	 * @param String
+	 * @return List<Tag>
 	 */
-	/*
-	@RequestMapping(method = RequestMethod.POST, value = "/{tagvaleur}")
-	public void createTag(@PathVariable("tagvaleur") String tagValeur) {
+	
+	@RequestMapping(method = RequestMethod.GET)
+	public @ResponseBody List<Tag> allTags() {
 
-		log.info("Appel webService createTag avec tagValeur = " + tagValeur);
-		
-		String requete = "insert "
-				+ "into tag (id_tag, valeur) "
-				+ "values (seq_tag.nextval ,?)";
-		
-		this.jdbcTemplate.update(requete, tagValeur);
+		log.info("Appel webService allTags");
+
+		String requete = "select * "
+				+ "from tag";
+
+		List<Tag> tags = this.jdbcTemplate.query(requete, new RowMapper<Tag>() {
+			public Tag mapRow(ResultSet rs, int rowNum) throws SQLException {
+				Tag tag = new Tag();
+				tag.setValeur(rs.getString("valeur"));
+				return tag;
+			}
+		});
+		return tags;
 	}
-	 */
+	
 	
 	
 }

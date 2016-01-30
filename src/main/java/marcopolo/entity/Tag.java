@@ -17,13 +17,6 @@ public class Tag extends ResourceSupport {
 		
 	}
 
-	public Tag(String valeur, String cle) {
-		super();
-		this.valeur = valeur;
-		this.cle = cle;
-	}
-		
-
 	public String getValeur() {
 		return valeur;
 	}
