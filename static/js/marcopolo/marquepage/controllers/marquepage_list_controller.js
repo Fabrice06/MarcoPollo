@@ -3,7 +3,7 @@
 
 	var myModuleController = angular.module('marcopolo');
 
-	myModuleController.controller('marquepageListCtrl',['$scope','MarquepageList','Marquepage','$routeParams','$location', function($scope,MarquepageList,Marquepage,$routeParams,$location){
+	myModuleController.controller('marquepageListCtrl',['$scope','MarquepageList','Marquepage','$routeParams','$location','$window', function($scope,MarquepageList,Marquepage,$routeParams,$location,$window){
 
            
         // pour test ---------------------------------------------------
@@ -30,10 +30,14 @@
             console.log("marquepageListCtrl query échec");
         }*/);
 
-
        
         // bouton rechercher
-        $scope.search = "";     
+        $scope.search = ""; 
+        
+        //aciver les liens pour ouverture dans une autre fenêtre
+        $scope.openLink = function(nAddLink){
+            $window.location.href = nAddLink.lien; //You should have http here.
+            }
 
         // clic sur le bouton ajouter
         $scope.onAdd = function () {         
@@ -42,7 +46,6 @@
         	console.log(nAddLink);
         	$location.path(nAddLink +'/new').replace();
         	console.log($location.path());
-
         };
         
         // clic sur le bouton éditer
