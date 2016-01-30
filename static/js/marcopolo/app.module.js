@@ -146,8 +146,8 @@
             });*/
 
 
-            //$httpBackend.whenGET(new RegExp(nRegexMarquepages)).passThrough(); // vers le backend
-            $httpBackend.whenGET(new RegExp(nRegexMarquepages)).respond(function (method, url) { // traitement FE sans BE
+            $httpBackend.whenGET(new RegExp(nRegexMarquepages)).passThrough(); // vers le backend
+    /*        $httpBackend.whenGET(new RegExp(nRegexMarquepages)).respond(function (method, url) { // traitement FE sans BE
 
                 var nReturn = new Array();
                 // valeur de retour par défaut: [http status, data]
@@ -172,7 +172,7 @@
 				console.log(nJsonMarquepagesDetail);
 
                 return nReturn;
-            });
+            });*/
 
             $httpBackend.whenPOST(new RegExp('marquepages/[0-9]{1,}/marquepages\\?.*')).passThrough(); // vers le backend
             $httpBackend.whenDELETE(new RegExp(nRegexMarquepages)).passThrough(); // vers le backend
@@ -181,8 +181,8 @@
         // tag --------------------------------------------------------------------------
         var nRegexTags= 'tags/[0-9]{1,}$';
 
-            //$httpBackend.whenGET(new RegExp('marquepages/[0-9]{1,}/tags$')).passThrough(); // vers le backend
-            $httpBackend.whenGET(new RegExp('marquepages/[0-9]{1,}/tags$')).respond(function (method, url) { // traitement FE sans BE
+            $httpBackend.whenGET(new RegExp('marquepages/[0-9]{1,}/tags$')).passThrough(); // vers le backend
+           /* $httpBackend.whenGET(new RegExp('marquepages/[0-9]{1,}/tags$')).respond(function (method, url) { // traitement FE sans BE
 
                 console.log("marquepages/[0-9]{1,}/tags whenGET url params " + url.split("/")[1]);
 
@@ -205,7 +205,7 @@
                 //} // for
 
                 return nReturn;
-            });
+            });*/
 
             //$httpBackend.whenGET(new RegExp(nRegexTags)).passThrough(); // vers le backend
             $httpBackend.whenGET(new RegExp(nRegexTags)).respond(function (method, url) { // traitement FE sans BE

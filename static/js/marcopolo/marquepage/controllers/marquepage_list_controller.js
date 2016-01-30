@@ -31,21 +31,14 @@
         }*/);
 
 
-        // pour test ---------------------------------------------------
-
-        // clic sur le bouton rechercher
-        $scope.onSearch = function () {
-
-            alert('clic marquepageListCtrl rechercher en cours');
-        };
-
+       
         // bouton rechercher
         $scope.search = "";     
 
         // clic sur le bouton ajouter
         $scope.onAdd = function () {         
 
-        	nAddLink = $location.url();
+        	var nAddLink = $location.url();
         	console.log(nAddLink);
         	$location.path(nAddLink +'/new').replace();
         	console.log($location.path());
@@ -70,31 +63,33 @@
         // clic sur le bouton supprimer
         $scope.onDelete = function (findIdMqp) {
 
-        	console.log("clic X ");    
-        	//on recherche l'id du marquepage
-        	nAddLink = $location.url();
-        	console.log(nAddLink);
+        	console.log("clic X ");  
+       	        	
+        	//on récupère l'id de la personne passé en paramètre de l'url        	
+        	$scope.nPersonId = $routeParams.personId;
+        	//var requestUri = 'persons/'+ $scope.nPersonId +'/marquepages';
+        	var requestUri = 'marquepages';
+			console.log('---------- requestUri: ' + requestUri);
+        	
+        	//on récupère l'id du marquepage sélectionné   	
         	var id =findIdMqp.links[2].href;
-        	console.log(id);
+        	console.log('url du marquepage ' + id);        	
         	var nIdArray = id.split('/');
-        	console.log('---------- identification id marquepage: ' + nIdArray[4]);
+        	var mqpToDelete = nIdArray[4];        	
+        	console.log('---------- identification id marquepage: ' + nIdArray[4]);        	
 
-        	//on supprime le marque page
-//        	var monchemin = nIdArray[3]  +('/')+ nIdArray[4];
-//        	
-//        	Marquepage.delete({uri:monchemin}
-//        	//, function (marquepage) { marquepage.$delete();         	}
-//        	);
-//        	console.log(' deleteMarquepage ');
-
-
-        	//on remet la liste sans le marque page
-        	$location.url().replace();
-        	console.log($location.path());
-        };       
-
-
-        // clic sur le bouton déconnexion
+			//on passe en tant que paramètre la deuxième partie de l'URL courante + l'id du marquepage 
+			//nécessaire pour faire appel au HEADER du service $resource "Marquepage"
+			var mqpToDelete = nIdArray[4];
+			Marquepage.delete({uri:requestUri, id:mqpToDelete},function (success){
+				//en cas de succès on met à jour la liste dans la vue
+				$scope.listMqp.splice(findIdMqp, 1);
+				console.log('route du marquepage supprimé : ' + id);
+			});
+        }; 
+      
+	
+	// clic sur le bouton déconnexion
         $scope.onProfil = function () {
 
             console.log("clic marquepageListCtrl déconnexion en cours");
