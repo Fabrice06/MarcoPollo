@@ -1,15 +1,25 @@
 <div>
     <!-- composant HEADER -->
-	<div class="container my-header" id="">
-        <div class="row">
-            <div class="col-lg-5 col-sm-12 col-lg-offset-7 text-right">
-                <a href="" ng-click="onExit()">déconnexion</a>
+	<div 
+         class="container my-header" 
+         id="">
+        <div 
+             class="row">
+            <div 
+                 class="col-lg-5 col-sm-12 col-lg-offset-7 text-right">
+                <a 
+                   href="" 
+                   ng-click="onExit()">déconnexion
+                </a>
             </div>
         </div>
 
-        <div class="row">
+        <div 
+             class="row">
             <div class="col-xs-12">
-                <span class="fontsize-x2 color-blueaf">MarcoPolo</span>
+                <span 
+                      class="fontsize-x2 color-blueaf">MarcoPolo
+                </span>
             </div>
         </div>
     </div>
@@ -17,114 +27,220 @@
 	<br/>
 
 
-<div class="container">
+    <div 
+         class="container">
 
-<form class="" id="my-contact-form" action="" method="post" novalidate="true" role="form">
-	<div class="form-group">
+        <div 
+             class="panel panel-info col-xs-8 panel_sans_padding">
+                <div 
+                     class="panel-heading">
+                    <h3 
+                        class="panel-title">Mon Marquepage
+                    </h3>
+                </div>
 
-		<div class="panel panel-info">
-			<div class="panel-heading">
-				<h3 class="panel-title">Mon MarquePage
-					<span class="icon-af icon-af icon-af icon-af icon-af-C-metier-meridiens pull-right"></span>
-				</h3>
-			</div>
+                <div 
+                     class="panel-body">
 
-			<div class="panel-body">
-				
-								<div class="input-group input-group-lg">
-					<span class="input-group-addon" id="basic-addon1">Name</span>
-					<input type="text" class="form-control input-Black" placeholder="Nom" aria-describedby="basic-addon1" value="" required>
-					
-					
-				</div>
+                        <form 
+                              class="" 
+                              id="my-contact-form" 
+                              role="form"
+                              data-ng-model="marquepageDetailModel" 
+                              name="marquepageDetailModelForm"                             
+                              ng-submit="onValidate()"
+                              novalidate>
 
-				<br/>
+                            <div
+                                 class="form-group">
+                                
+                                <label 
+                                       for="useremail" 
+                                       class="control-label">Nom du marquepage :
+                                </label> 
+                                <input 
+                                       id="name" 
+                                       name="name" 
+                                       type="text" 
+                                       required 
+                                       class="form-control"
+                                       ng-model="marquepageDetailModel.name"> 
+                                
+                                <div 
+                                     ng-messages="marquepageDetailModelForm.name.$error"
+                                     
+                                     ng-if="marquepageDetailModelForm.$submitted">
+                                       <div ng-message="required">Champ requis</div> 
+                                </div>
+                                     
+                            </div>
+                            
+                            <br/>
 
-				<div class="input-group input-group-lg">
-					<span class="input-group-addon" id="basic-addon1">@</span>
-					<input type="text" class="form-control input-Black" placeholder="Lien" aria-describedby="basic-addon1" value={{marquepageDetailModel.lien}} required>
-					
-					
-				</div>
+                            <div 
+                                 class="form-group">
+                               
+                                <label 
+                                       for="lien" 
+                                       class="control-label">Lien du marquepage :   
 
-				<br/>
-				
+                                </label> 
+                                <input 
+                                       id="lien" 
+                                       name="lien" 
+                                       type="text"
+                                       required class="form-control" 
+                                       ng-model="marquepageDetailModel.lien">
+                                <div 
+                                     ng-messages="marquepageDetailModelForm.lien.$error"
+                                   
+                                     ng-if="marquepageDetailModelForm.$submitted">
+                                    <div ng-message="alert">Champ requis</div>
+                                </div>
+                                                         
+                            </div>
+
+                            <table 
+                                   class="table">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            <div 
+                                                 class="input-group">
+                                                <div 
+                                                     class="input-group-btn btn-Gris">
+
+                                                    <button 
+                                                            type="button" 
+                                                            class="btn btn-default dropdown-toggle" 
+                                                            data-toggle="dropdown" 
+                                                            aria-expanded="false" 
+                                                            disabled>Clé
+                                                    </button>
+                                                    
+                                                </div>
+
+                                                <input 
+                                                       list="choixCle" 
+                                                       type="text" 
+                                                       class="form-control input-Black">
+                                                    
+                                                <datalist 
+                                                          id="choixCle">
+                                                    <option 
+                                                            data-ng-repeat="c in cles" 
+                                                            value="{{c.cle}}">
+                                                    </option>
+                                                    
+                                                </datalist>
+
+                                            </div><!-- /input-group -->
+                                            
+                                        </th>
+
+                                        <th>
+                                            <div 
+                                                 class="input-group">
+                                                <div 
+                                                     class="input-group-btn btn-Gris">
+                                                    
+                                                    <button 
+                                                            type="button" 
+                                                            class="btn btn-default dropdown-toggle" 
+                                                            data-toggle="dropdown" 
+                                                            aria-expanded="false" 
+                                                            disabled>Valeur
+                                                    </button>
+                                                    
+                                                </div>
 
 
+                                                <input 
+                                                       type="text" 
+                                                       class="form-control input-Black" 
+                                                       placeholder="" 
+                                                       aria-label="...">
+                                                <!--		<input type="text" class="form-control" placeholder="Valeur" aria-label="...">  -->
+                                            </div><!-- /input-group -->
+                                        </th>
 
-				<table class="table">
-					<thead>
-						
-						<tr>
-							<th>
-								<div class="input-group">
-									<div class="input-group-btn btn-Gris">
-										
-										<button type="button" class="btn btn-default dropdown-toggle " data-toggle="dropdown" aria-expanded="false" disabled>Clé
-										</button>
-									</div>
+                                        <th 
+                                            class="last_column">
 
-									<input list="choixCle" type="text" class="form-control input-Black">
-										<datalist id="choixCle">
-											<option data-ng-repeat="c in cles" value="{{c.cle}}"></option>
-										</datalist>
-										
-								</div><!-- /input-group -->
-							</th>
+                                            <abbr 
+                                                  title="add">
+                                                
+                                                <button 
+                                                        type="button" 
+                                                        class="btn btn-default btn-md"
+                                                        data-ng-click="">
+                                                
+                                                    <span 
+                                                          class="icon-af icon-af icon-af-B-digital-plus">
+                                                    </span>
+                                                
+                                                </button>
+                                            </abbr>
+                                        </th>
+                                    </tr>
+                                </thead>
 
-							<th>
-								<div class="input-group">
-									<div class="input-group-btn btn-Gris">
-										<button type="button" class="btn btn-default dropdown-toggle " data-toggle="dropdown" aria-expanded="false" disabled>Valeur
-										</button>
-									</div>
+                                <tbody>
+                                    <tr 
+                                        data-ng-repeat="t in marquepageDetailModel.listeDesTags|filter:search|orderBy:predicate ='cle'">
+                                        
+                                        <td>{{t.cle}}</td>
+                                        <td>{{t.valeur}}</td>
+                                        <td 
+                                            class="last_column">
+                                            
+                                            <abbr 
+                                                  title="delete">
+                                                
+                                                <button 
+                                                        type="button" 
+                                                        class="btn btn-default btn-md"
+                                                        data-ng-click="">
+                                                    
+                                                    <span 
+                                                          class="icon-af icon-af-B-digital-cross">
+                                                    </span>
+                                                    
+                                                </button>
+                                            </abbr>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
 
-									
-									<input type="text" class="form-control input-Black" placeholder="" aria-label="...">
-									<!--		<input type="text" class="form-control" placeholder="Valeur" aria-label="...">  -->
-								</div><!-- /input-group -->
-							</th>
+                            <div 
+                                 class="text-right">
+                                <button 
+                                        type="button" 
+                                        name="submit-btn" 
+                                        class="btn btn-primary"
+                                        ng-click="">Annuler
+                                </button>
+                                <button 
+                                        type="button" 
+                                        name="submit-btn" 
+                                        class="btn btn-primary"
+                                        ng-click="">Supprimer
+                                </button>
+                                <button 
+                                        type="submit" 
+                                        name="submit-btn" 
+                                        class="btn btn-primary" >Modifier
+                                </button>
+                          
+                            </div>
+                    
+                    </form>
+           
+            </div>
+            
+        </div>
 
-							<th class="last_column">
-								
-								<abbr title="add">
-									<button type="button" class="btn btn-default btn-md"
-										data-ng-click="">
-										<span class="icon-af icon-af icon-af-B-digital-plus"></span>
-									</button>
-								</abbr>
-								
-							</th>
-						</tr>
-					</thead>
+    </div>
 
-					<tbody>
-						<tr data-ng-repeat="t in marquepageDetailModel.listeDesTags|filter:search|orderBy:predicate ='cle'">
-							<td>{{t.cle}}</td>
-							<td>{{t.valeur}}</td>
-							<td class="last_column">
-								<abbr title="delete">
-									<button type="button" class="btn btn-default btn-md"
-										data-ng-click="">
-										<span class="icon-af icon-af-B-digital-cross"></span>
-									</button>
-								</abbr>
-							</td>
-						</tr>
-					</tbody>
-				</table>
-
-				<div class="text-right">
-					<button type="submit" name="submit-btn" value="1" class="btn btn-primary" disabled>Annuler</button>
-					<button type="submit" name="submit-btn" value="1" class="btn btn-primary" disabled>Supprimer</button>
-					<button type="submit" name="submit-btn" value="1" class="btn btn-primary" disabled>Modifier</button>
-				</div>
-
-			</div><!-- panel body -->
-		</div><!-- panel  -->
-	</div>
-</form>
-	
-</div>
-	
 </div>
