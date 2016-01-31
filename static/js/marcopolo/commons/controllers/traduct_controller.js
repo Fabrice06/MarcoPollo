@@ -40,7 +40,7 @@
 	
 	angular
         .module('marcopolo')
-		.controller('globalCtrl', function ($scope, $translate) {
+		.controller('traductCtrl', function ($scope, $translate) {
 			$scope.changeLanguage = function (key) {
 				$translate.use(key);
 			};

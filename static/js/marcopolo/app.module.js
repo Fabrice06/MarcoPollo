@@ -9,7 +9,7 @@
             'ngRoute',
             'ngResource',
             'ngMessages',
-
+            'pascalprecht.translate',
             'ngMockE2E'
         ])
         .run(mockBackend);
