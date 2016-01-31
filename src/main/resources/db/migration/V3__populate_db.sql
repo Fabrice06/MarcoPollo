@@ -60,6 +60,8 @@ INSERT INTO marquepage VALUES (10, 5, 'derrière les nuages', 'je ne suis pas un
 INSERT INTO tag VALUES (11, 1, 1000, 'un ami ...');
 INSERT INTO tag VALUES (12, 6, 1001, '2016');
 INSERT INTO tag VALUES (13, 7, 1001, 'avec des fleurs');
+INSERT INTO tag VALUES (14, 6, 1001, '2017');
+INSERT INTO tag VALUES (15, 6, 1001, '2018');
 
 
 --Insertion de données externes dans la table preference

@@ -1,16 +1,18 @@
 package marcopolo.entity;
 
-import java.util.List;
-
 import org.springframework.hateoas.ResourceSupport;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
- * Modele tag
+ * Representation of tag
  *
  */
 
 public class Tag extends ResourceSupport {
 
+	private Long idTag;
+	private Long idMqp;
 	private String valeur;
 	private String cle;
 	
@@ -34,5 +36,29 @@ public class Tag extends ResourceSupport {
 	public void setCle(String cle) {
 		this.cle = cle;
 	}
+
+
+	@JsonIgnore
+	public Long getIdTag() {
+		return idTag;
+	}
+
+
+	public void setIdTag(Long idTag) {
+		this.idTag = idTag;
+	}
+
+	@JsonIgnore
+	public Long getIdMqp() {
+		return idMqp;
+	}
+
+
+	public void setIdMqp(Long idMqp) {
+		this.idMqp = idMqp;
+	}
+
+
+
 
 }

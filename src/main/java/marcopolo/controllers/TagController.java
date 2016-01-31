@@ -1,19 +1,16 @@
 package marcopolo.controllers;
 
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
 import marcopolo.Application;
+import marcopolo.dao.TagDAO;
 import marcopolo.entity.Tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +22,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * Tag resource controller
+ *
+ */
 @RestController
 @RequestMapping("/tags")
 
@@ -37,35 +38,19 @@ public class TagController {
 
 	
 	/**
-	 * Recuperer un tag par son id (Hateoas)
+	 * GET request for /tags/{tagid}
+	 * Get one tag
 	 * 
-	 * @param long
+	 * @param (Long) id marque-page
 	 * @return Tag
 	 */
 	@RequestMapping(method = RequestMethod.GET, value = "/{tagid}")
-	public HttpEntity<Tag> oneTag(@PathVariable("tagid") long tagId) {
+	public HttpEntity<Tag> getTag(@PathVariable("tagid") long idTag) {
 
-		log.info("Appel webService oneTag avec tagId =" + tagId);
+		log.info("Appel webService getTag avec idTag =" + idTag);
 		
-		// récuperer la clé associé au tag //
-		String nSql = "select * "
-				+ "from tag, cle "
-				+ "where tag.id_cle = cle.id_cle "
-				+ "and tag.id_tag = ?";
-
-		List<Tag> tags = this.jdbcTemplate.query(nSql, new RowMapper<Tag>() {
-			public Tag mapRow(ResultSet rs, int rowNum) throws SQLException {
-				Tag tag = new Tag();
-				tag.setValeur(rs.getString("valeur"));
-				tag.setCle(rs.getString("cle"));
-				Long nIdMarquepage = rs.getLong("id_marquepage");
-				tag.add(linkTo(methodOn(TagController.class).oneTag(tagId)).withSelfRel());
-				tag.add(ControllerLinkBuilder.linkTo(ControllerLinkBuilder.methodOn(MarquePageController.class).oneMarquePage(nIdMarquepage)).withRel("marquepages"));
-				return tag;
-			}
-		}, tagId);
-		
-		Tag tag = tags.get(0);
+		TagDAO tagDao = new TagDAO(jdbcTemplate);
+		Tag tag = tagDao.getTag(idTag);
 		
 		return new ResponseEntity<Tag>(tag, HttpStatus.OK);
 	}
@@ -73,52 +58,53 @@ public class TagController {
 	
 	
 	/**
-	 * Supprimer un tag par son id
+	 * DELETE request for /tags/{tagid}
+	 * Delete one tag
 	 * 
-	 * @param Long
-	 * @return Long
+	 * @param (Long) id tag
+	 * @return (Long) id tag
 	 */
 	@RequestMapping(method = RequestMethod.DELETE, value = "/{tagid}")
-	public long deleteTag(@PathVariable("tagid") long tagId) {
+	public long deleteTag(@PathVariable("tagid") long idTag) {
 
-		log.info("Appel webService deleteTag avec tagId = " + tagId);
+		log.info("Appel webService deleteTag avec tagId = " + idTag);
 		
-		String requete = "delete "
-				+ "from tag "
-				+ "where id_tag=?";
-		this.jdbcTemplate.update(requete, tagId);
+		TagDAO tagDao = new TagDAO(jdbcTemplate);
+		tagDao.deleteTag(idTag);
 		
-		return tagId;
+		return idTag;
 	}
 
 	
+	
+	
 	//////////////////////////////////////////////
-	// services provisoires pour test, a supprimer
+	// services provisoires pour test, a supprimer 
 	//////////////////////////////////////////////
-//	/**
-//	 * Liste de tous les tags
-//	 * Utilisé uniquement pour les tests
-//	 * 
-//	 * @return List<Tag>
-//	 */
-//	
-//	@RequestMapping(method = RequestMethod.GET)
-//	public @ResponseBody List<Tag> allTags() {
-//
-//		log.info("Appel webService allTags");
-//
-//		String requete = "select * "
-//				+ "from tag";
-//
-//		List<Tag> tags = this.jdbcTemplate.query(requete, new RowMapper<Tag>() {
-//			public Tag mapRow(ResultSet rs, int rowNum) throws SQLException {
-//				Tag tag = new Tag();
-//				tag.setValeur(rs.getString("valeur"));
-//				return tag;
-//			}
-//		});
-//		return tags;
-//	}
+	/**
+	 * Liste de tous les tags
+	 * Utilisé uniquement pour les tests
+	 * 
+	 * @return List<Tag>
+	 */
+	
+	@RequestMapping(method = RequestMethod.GET)
+	public @ResponseBody List<Tag> allTags() {
+
+		log.info("Appel webService allTags");
+
+		String requete = "select * "
+				+ "from tag";
+
+		List<Tag> tags = this.jdbcTemplate.query(requete, new RowMapper<Tag>() {
+			public Tag mapRow(ResultSet rs, int rowNum) throws SQLException {
+				Tag tag = new Tag();
+				tag.setValeur(rs.getString("valeur"));
+				return tag;
+			}
+		});
+		return tags;
+	}
 	
 	
 	

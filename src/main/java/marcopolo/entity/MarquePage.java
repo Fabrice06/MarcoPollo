@@ -1,17 +1,19 @@
 package marcopolo.entity;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.hateoas.ResourceSupport;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
- * modele marquepage
+ * Representation of marquepage
  *
  */
 
 public class MarquePage extends ResourceSupport {
 	
+	private Long idMarquepage;
 	private String nom;
     private String lien;
     private List<Tag> tags;
@@ -42,6 +44,15 @@ public class MarquePage extends ResourceSupport {
 
 	public void setNom(String nom) {
 		this.nom = nom;
+	}
+
+	@JsonIgnore
+	public Long getIdMarquepage() {
+		return idMarquepage;
+	}
+
+	public void setIdMarquepage(Long idMarquepage) {
+		this.idMarquepage = idMarquepage;
 	}
 
 	

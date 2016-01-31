@@ -31,12 +31,18 @@ public class MarquePageDAO {
 	 *
 	 */
 	public class MarquePageMapper implements RowMapper<MarquePage> {
+		
 		public MarquePage mapRow(ResultSet rs, int rowNum)
 				throws SQLException {
+			
 			MarquePage marquePage = new MarquePage();
 			marquePage.setNom(rs.getString("nom"));
 			marquePage.setLien(rs.getString("lien"));
-						
+			marquePage.setIdMarquepage(rs.getLong("id_marquepage"));
+			// add Hateoas link  
+			marquePage.add(linkTo(
+					methodOn(MarquePageController.class)
+							.getMqp(marquePage.getIdMarquepage())).withSelfRel());
 			return marquePage;
 		}
 	}
@@ -56,15 +62,6 @@ public class MarquePageDAO {
 
 		MarquePage marquePage = this.jdbcTemplate.queryForObject(sql, new Object[]{idMqp},
 				new MarquePageMapper());
-		
-		// add Tags to marquePage 
-		TagDAO tag = new TagDAO(jdbcTemplate);
-		marquePage.setTags(tag.getTagsWithIdMqp(idMqp));
-		
-		// add Hateoas link to marquePage 
-		marquePage.add(linkTo(
-				methodOn(MarquePageController.class)
-						.oneMarquePage(idMqp)).withSelfRel());
 				
 		return marquePage;
 

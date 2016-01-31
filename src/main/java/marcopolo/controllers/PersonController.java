@@ -110,7 +110,7 @@ public class PersonController {
 	                Long idMarquePage = rs.getLong("id_marquepage");
 	                marquepage.add(ControllerLinkBuilder.linkTo(ControllerLinkBuilder.methodOn(PersonController.class).listMarquePagesById(id)).withRel("self"));
 	                marquepage.add(ControllerLinkBuilder.linkTo(ControllerLinkBuilder.methodOn(PersonController.class).onePerson(id)).withRel("persons"));
-	                marquepage.add(ControllerLinkBuilder.linkTo(ControllerLinkBuilder.methodOn(MarquePageController.class).tagsDunMarquePage(idMarquePage)).withRel("marquepageById"));
+	                marquepage.add(ControllerLinkBuilder.linkTo(ControllerLinkBuilder.methodOn(MarquePageController.class).getTagsMqp(idMarquePage)).withRel("marquepageById"));
 	                return marquepage;
 	            }
 	        }, personId);
