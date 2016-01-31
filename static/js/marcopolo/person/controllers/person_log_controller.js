@@ -67,6 +67,10 @@
                 // direct vers marquepages-list
                 $location.path('/persons/' + pIdPerson + '/marquepages').replace();
             };
+            $scope.onTestD = function () {
+                // direct vers sandbox
+                $location.path('/yapafoto').replace();
+            };
         // pour test uniquement ---------------------------------------------------
     } // function
 

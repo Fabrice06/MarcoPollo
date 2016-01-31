@@ -34,11 +34,10 @@
           controller: 'personDetailCtrl'
         })
 
-        // pas nécessaire sur person
-        //.when('/persons/new', {
-        //    templateUrl: 'js/marcopolo/person/person-new.html',
-        //    controller: 'personNewCtrl'
-        //})
+            // bac à sable de vince
+        .when('/yapafoto', {
+            templateUrl: 'js/marcopolo/yapafoto/yapafoto.html'
+        })
 
 		
         .otherwise({
