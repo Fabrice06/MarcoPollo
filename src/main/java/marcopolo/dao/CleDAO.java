@@ -15,8 +15,6 @@ import org.springframework.jdbc.core.RowMapper;
 
 public class CleDAO extends DAO<Cle> {
 
-private static Log log = LogFactory.getLog(Application.class);
-	
 	private final JdbcTemplate jdbcTemplate;
 
 	@Autowired
@@ -86,11 +84,7 @@ private static Log log = LogFactory.getLog(Application.class);
 		return null;
 	}
 
-	@Override
-	public Cle update(Cle obj) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 
 	@Override
 	public void delete(Long id) {

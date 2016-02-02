@@ -94,8 +94,6 @@ public class TagDAO {
 		this.jdbcTemplate.update(sql, idTag);
 				
 	 }
-
-	 
 	
 	
 	/**
