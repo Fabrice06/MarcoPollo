@@ -141,47 +141,36 @@ public class TagDAO {
 	
 	
 	
-	public Long addTag(Long idMqp, String valeur, String cle) throws DataAccessException {
+	public Long addTag(Long idMqp, String cle, String valeur) {
 		 
-		// verify if cle already exists
-		String searchIdCle = "select id_cle "
-				+ "from cle "
-				+ "where cle=?";
+		log.debug("cle=" + cle);
+		log.debug("valeur=" + valeur);
 		
-		List<Long> idCleList = this.jdbcTemplate.query(searchIdCle, new RowMapper<Long>() {
-			public Long mapRow(ResultSet rs, int rowNum) throws SQLException {
+		// verify if cle already exists
+		CleDAO cleDao = new CleDAO(jdbcTemplate);
+		
+		Long idCle = cleDao.findCleWithCle(cle);
+		
+		// if cle doesnt exists
+		if (idCle == null) {
+			// create a new Cle and get id
+			idCle = cleDao.create(cle);
+		}	
+					
+		// insert tag in DB
+		String sql = "insert "
+					+ "into tag (id_tag, id_marquepage, id_cle, valeur, ) "
+					+ "values (seq_tag.nextval ,?, ?, ?)";
+			 
+		this.jdbcTemplate.update(sql, idMqp, idCle, valeur);
+		  		
+		// get last id_tag inserted
+		String sqlGetLastIdInserted = "CALL SCOPE_IDENTITY()";
 				
-				return rs.getLong("id_cle");
-			}
-		}, cle);
-
-		if (idCleList.isEmpty()) {
-			log.info("idCle doesnt exists");
-			//TODO
-			// insert cle in table Cle
-		  return null;
-		  
-		  // list contains exactly 1 element
-		} else if ( idCleList.size() == 1 ) { 
-			  Long idCle = idCleList.get(0);
-			  log.info("idCle=" + idCle);
-			  
-			  // insert tag in DB
-			String sql = "insert "
-						+ "into tag (id_tag, id_marquepage, id_cle, valeur, ) "
-						+ "values (seq_tag.nextval ,?, idCle, ?)";
-				 
-			this.jdbcTemplate.update(sql, idMqp, valeur);
-		  
-			// list contains more than 1 elements
-		} else {  
-			log.error("cle is not unique in table Cle !"); 
-			//TODO
-			return null;
-		}
-									
-		//TODO
-		return null;
+		Long LastIdInserted = this.jdbcTemplate.queryForObject(sqlGetLastIdInserted, Long.class);
+		log.info("LastIdTagInserted=" + LastIdInserted);
+				
+		return LastIdInserted;
 		
 		
 	 }

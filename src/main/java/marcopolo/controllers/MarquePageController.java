@@ -147,7 +147,7 @@ public class MarquePageController {
 
 		TagDAO tagDao = new TagDAO(jdbcTemplate);
 		
-		return tagDao.addTag(idMqp, valeur, cle);
+		return tagDao.addTag(idMqp, cle, valeur);
 	
 	}
 	
