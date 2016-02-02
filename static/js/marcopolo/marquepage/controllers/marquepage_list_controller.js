@@ -35,9 +35,20 @@
         $scope.search = ""; 
         
         //aciver les liens pour ouverture dans une autre fenêtre
-        $scope.openLink = function(nAddLink){
-            $window.location.href = nAddLink.lien; //You should have http here.
-            }
+        $scope.openLink = function(nAddLink){        	
+        	//$window.location.href = nAddLink.lien; 
+        	var protocole = nAddLink.lien.substring(0,4);
+        	if (protocole == 'http'){
+        		window.open(nAddLink.lien);
+        	//ouverture d'un fichier n'est possible que si
+        	//le fichier est stocké dans la BD et non son URL
+        	}else if(protocole == 'file'){
+        		location.assign(nAddLink.lien);
+
+        	}else{
+        		window.open('http://' + nAddLink.lien);
+        	}
+        }
 
         // clic sur le bouton ajouter
         $scope.onAdd = function () {         
