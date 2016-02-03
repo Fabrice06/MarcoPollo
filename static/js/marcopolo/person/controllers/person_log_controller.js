@@ -45,7 +45,37 @@
         // clic sur le bouton se connecter
         $scope.onCreate = function (pPersonLog) {
             // pour test uniquement
-            alert('personLogCtrl onCreate en cours');
+            //alert('personLogCtrl onCreate en cours');
+            Person.save(
+                    {
+                        uri:'persons',
+                        mail:pPersonLog.mail,
+                        mdp:pPersonLog.mdp
+                    },
+                    pPersonLog
+                    ,
+                    function (pPerson) { // OK pPerson est le retour du backEnd
+
+                        console.log("personLogCtrl query ok");
+
+                        // remplace aprés le # dans la barre d'adresse
+                        for	(var index = 0; index < pPerson.links.length; index++) {
+
+                            if ("marquepages" === pPerson.links[index].rel) {
+
+                                var nUrl = pPerson.links[index].href;
+                                var nPort = $location.port(nUrl);
+                                var nPathArray = nUrl.split(nPort);
+                                $location.url(nPathArray[1]).replace();
+
+                                break;
+                            } // if
+                        } // for
+                    },
+                    function (pData, headers) { // Erreur
+                        console.log("personLogCtrl query échec");
+                    }
+                );
         };
 
         // clic sur le liem mot de passe perdu
