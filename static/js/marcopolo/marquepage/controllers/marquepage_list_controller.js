@@ -106,9 +106,9 @@
 	// clic sur le bouton déconnexion
         $scope.onProfil = function () {
 
-            console.log("clic marquepageListCtrl déconnexion en cours");
-            // pour test uniquement
-            $location.path(nProfilLink).replace();
+            console.log("clic marquepageListCtrl déconnexion en cours"); 
+            nProfilLink = nUrlArray[1]+'/'+nUrlArray[2];
+            $location.path(nProfilLink).replace();           
         };
 
         // clic sur le bouton profil
