@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -45,7 +46,7 @@ public class PersonController {
 			
 			//log.info("Appel webService createPerson avec personMail = " + pMail + " " + pMdp);
 			
-			String nSql = "insert into person values (seq_person.nextval,?,?)";
+			String nSql = "insert into person (id_person, mail, mdp) values (seq_person.nextval,?,?)";
 			
 			this.jdbcTemplate.update(nSql,pMail, pMdp);
 			String requete =  "select* from person where mail=? and mdp=?";
@@ -77,18 +78,27 @@ public class PersonController {
 	}
 	
 	// Modifier une personne 
-			@RequestMapping(method = RequestMethod.PUT)
-			public void modifPerson(
-			        @RequestParam(value = "mail", required = true) String pMail,
-			        @RequestParam(value = "idPerson", required = true) String pIdPerson) {
-				
-			        String requete = "update person set mail = ? "
-							+ "where id_person = ?";
-
-					this.jdbcTemplate.update(requete, pMail, pIdPerson);
-					
-				
-			}
+//			@RequestMapping(method = RequestMethod.PUT)
+//			public void modifPerson(
+//			        @RequestParam(value = "mail", required = true) String pMail,
+//			        @RequestParam(value = "idPerson", required = true) String pIdPerson) {
+//				
+//			        String requete = "update person set mail = ? "
+//							+ "where id_person = ?";
+//
+//					this.jdbcTemplate.update(requete, pMail, pIdPerson);
+//					
+//				
+//			}
+	
+	//Méthode Chantal uri = persons/id et param = mail modifie
+	@RequestMapping(method = RequestMethod.PUT,value= "/{personId}")
+	public @ResponseBody void updatePerson(@PathVariable("personId") long personId, @RequestParam(value="mail") String mailModifie) {
+        String requete = "update person set mail = ? "
+                + "where id_person = ?";
+       
+        this.jdbcTemplate.update(requete, mailModifie, personId);		
+	}
 		
 		// Renvoi liste marquepages de la personne avec id defini, self link -- manque liste tags avec lien pour chaque tag ???
 		

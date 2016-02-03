@@ -73,8 +73,9 @@
             }
         };
 
-        $scope.onSubmit = function (pPersonDetail) {
-        	alert('Votre adresse e-mail a bien été mise à jour');
+        $scope.onUpdate = function (pPersonDetail) {
+        	
+        	//alert('Votre adresse e-mail a bien été mise à jour');
             // récup de l'id initial
 //            var nUriArray = CurrentPerson.getData._links.self.uri.split('/');
 //            var nId = nUrlArray[nUriArray.length-1];
@@ -82,10 +83,12 @@
             
             Person.update(
                     {
-                    	uri:nUrlArray[1],                        
-                        mail:pPersonDetail.mail,
-                        id:nUrlArray[2]
+                    	uri : nUrlArray[1],  
+                    	id : nUrlArray[2],
+                    	mail : pPersonDetail.mail                        
                     },
+                    pPersonDetail
+                    ,
                     function (pPerson) { // OK
 
                         console.log("pPersonDetail update ok");
@@ -102,7 +105,7 @@
 
                                 break;
                             } // if
-                        } // for
+                        } // for                    
                     },
                     function (pData, headers) { // Erreur
                         console.log("pPersonDetail update échec, mail : "+pPersonDetail.mail);
