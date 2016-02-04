@@ -38,9 +38,9 @@ public class PersonController {
 	@Autowired
 	JdbcTemplate jdbcTemplate;
 
-	// Créer une personne ---fini--
+	// 9. Créer une personne ---fini--
 	@RequestMapping(method = RequestMethod.POST)
-	public HttpEntity<Person> createPerson(
+	public HttpEntity<Person> addPerson(
 	        @RequestParam(value = "mail", required = true) String pMail,
 	        @RequestParam(value = "mdp", required = true) String pMdp) {
 		
@@ -66,23 +66,31 @@ public class PersonController {
 	}
 		
 		
-	/* Supprimer une personne  */
+	/* 15. Supprimer une personne  */
 	@RequestMapping(method = RequestMethod.DELETE,value= "/{personId}")
-	public void deleteWithId(@PathVariable("personId") long personId) {
+	public void deletePerson(@PathVariable("personId") long personId) {
 		
 		//log.info("Appel webService deleteWithId avec personId = " + personId);
 	
 		String requete =  "delete from person where id_person=?";
 		
+		String requete2 =  "delete from marquepage where id_person=?";
+		
+		String requete3 =  "delete from person where id_person=?";
+		
+		
+		
+		
 		this.jdbcTemplate.update(requete, personId);
 	}
 	
 
-	// Modifier une personne ------ à finir retour sur modéle du GET
-	@RequestMapping(method = RequestMethod.PUT)
-	public HttpEntity<Person> modifPerson(
-	        @RequestParam(value = "mail", required = true) String pMail,
-	        @RequestParam(value = "idPerson", required = true) String pIdPerson) {
+	// 10. Modifier une personne 
+	@RequestMapping(method = RequestMethod.PUT,value="/{personId}")
+	public HttpEntity<Person> updatePerson(
+			@PathVariable("personId") long personId,
+	        @RequestParam(value = "mail", required = true) String pMail){
+	        //@RequestParam(value = "idPerson", required = true) String pIdPerson) {
 		
 			ArrayList persons = new ArrayList();
 		
@@ -100,12 +108,12 @@ public class PersonController {
         				person.add(ControllerLinkBuilder.linkTo(ControllerLinkBuilder.methodOn(PersonController.class).listMarquePagesById(id)).withRel("marquepages"));
                         return person;
                 	}	
-			},pMail, pIdPerson);
+			},pMail, personId);
 			
 			return new ResponseEntity<Person>((Person) persons.get(0),HttpStatus.OK);	
 	}	
 		
-	// Renvoi liste marquepages de la personne avec id defini, self link -- manque liste tags avec lien pour chaque tag ???
+	// 12. Renvoi liste marquepages de la personne avec id defini, self link -- manque liste tags avec lien pour chaque tag ???
 	
 	@RequestMapping(method = RequestMethod.GET, value = "/{personId}/marquepages")
 	public List<MarquePage> listMarquePagesById(@PathVariable("personId") long personId) {
