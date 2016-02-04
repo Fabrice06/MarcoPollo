@@ -3,8 +3,10 @@
 	<div 
          class="container my-header" 
          id="">
+		
         <div 
              class="row">
+			
             <div 
                  class="col-lg-5 col-sm-12 col-lg-offset-7 text-right">
                 <a 
@@ -31,7 +33,7 @@
          class="container">
 
         <div 
-             class="panel panel-info col-xs-8 panel_sans_padding">
+             class="panel panel-info col-xs-12 panel_sans_padding">
                 <div 
                      class="panel-heading">
                     <h3 
@@ -52,10 +54,12 @@
                               novalidate>
 
                             <div
-                                 class="form-group">
+                                 class="form-group"
+								 ng-class="{'has-success': marquepageDetailModelForm.name.$dirty && marquepageDetailModelForm.name.$valid,
+			                    'has-error': marquepageDetailModelForm.name.$dirty && marquepageDetailModelForm.name.$invalid }">
                                 
                                 <label 
-                                       for="useremail" 
+                                       for="name" 
                                        class="control-label">Nom du marquepage :
                                 </label> 
                                 <input 
@@ -66,19 +70,31 @@
                                        class="form-control"
                                        ng-model="marquepageDetailModel.name"> 
                                 
-                                <div 
-                                     ng-messages="marquepageDetailModelForm.name.$error"
-                                     
-                                     ng-if="marquepageDetailModelForm.$submitted">
-                                       <div ng-message="required">Champ requis</div> 
+                                <div
+									 class="help-block"
+									 ng-show="marquepageDetailModelForm.name.$pristine || marquepageDetailModelForm.name.$valid">&emsp;
+								</div>
+									 
+								
+								<div 
+									 class="help-block"
+									 ng-show="marquepageDetailModelForm.name.$dirty"
+									 ng-messages="marquepageDetailModelForm.name.$error">
+								
+									<div 
+										ng-message="required">Champ requis
+									</div> 
+									
                                 </div>
                                      
                             </div>
                             
-                            <br/>
+                            
 
                             <div 
-                                 class="form-group">
+                                 class="form-group"
+								 ng-class="{'has-success': marquepageDetailModelForm.lien.$dirty && marquepageDetailModelForm.lien.$valid,
+			                    'has-error': marquepageDetailModelForm.lien.$dirty && marquepageDetailModelForm.lien.$invalid }">
                                
                                 <label 
                                        for="lien" 
@@ -88,14 +104,24 @@
                                 <input 
                                        id="lien" 
                                        name="lien" 
-                                       type="text"
+                                       type="url"
                                        required class="form-control" 
                                        ng-model="marquepageDetailModel.lien">
-                                <div 
-                                     ng-messages="marquepageDetailModelForm.lien.$error"
-                                   
-                                     ng-if="marquepageDetailModelForm.$submitted">
-                                    <div ng-message="alert">Champ requis</div>
+								
+								 <div
+									 class="help-block"
+									 ng-show="marquepageDetailModelForm.lien.$pristine || marquepageDetailModelForm.lien.$valid">&emsp;
+								</div>
+                               
+								<div 
+									 class="help-block"
+									 ng-show="marquepageDetailModelForm.lien.$dirty"
+                                     ng-messages="marquepageDetailModelForm.lien.$error">
+                                    
+									<div 
+										 ng-message="required">Champ requis
+									</div>
+									
                                 </div>
                                                          
                             </div>
