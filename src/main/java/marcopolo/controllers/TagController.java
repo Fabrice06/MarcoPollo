@@ -50,7 +50,7 @@ public class TagController {
 		log.info("Appel webService getTag avec idTag =" + idTag);
 		
 		TagDAO tagDao = new TagDAO(jdbcTemplate);
-		Tag tag = tagDao.getTag(idTag);
+		Tag tag = tagDao.find(idTag);
 		
 		return new ResponseEntity<Tag>(tag, HttpStatus.OK);
 	}
@@ -70,7 +70,7 @@ public class TagController {
 		log.info("Appel webService deleteTag avec tagId = " + idTag);
 		
 		TagDAO tagDao = new TagDAO(jdbcTemplate);
-		tagDao.deleteTag(idTag);
+		tagDao.delete(idTag);
 		
 		return idTag;
 	}

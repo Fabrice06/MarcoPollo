@@ -12,13 +12,13 @@ INSERT INTO cle VALUES (8, 'color');
 
 
 --Insertion de données externes dans la table cle valeurs custom
-INSERT INTO cle VALUES (1000, 'description');
-INSERT INTO cle VALUES (1001, 'projets');
+INSERT INTO cle VALUES (seq_cle.nextval, 'description');
+INSERT INTO cle VALUES (seq_cle.nextval, 'projets');
 
 
 --Insertion de données externes dans la table langue
-INSERT INTO langue VALUES (1, 'français');
-INSERT INTO langue VALUES (2, 'english');
+INSERT INTO langue VALUES (seq_langue.nextval, 'français');
+INSERT INTO langue VALUES (seq_langue.nextval, 'english');
 
 
 --Insertion de données externes dans la table traduction valeurs prédéfinies traduites
@@ -34,44 +34,42 @@ INSERT INTO traduction VALUES (2, 8);
 
 
 --Insertion de données externes dans la table person
-INSERT INTO person VALUES (1, 1, 'français@mail.fr', 'français');
-INSERT INTO person VALUES (2, 2, 'english@mail.fr', 'english');
-INSERT INTO person VALUES (3, 1, 'bob@mail.fr', 'bob');
-INSERT INTO person VALUES (4, 2, 'max@mail.fr', 'max');
-INSERT INTO person VALUES (5, 1, 'riton@mail.fr', 'riton');
+INSERT INTO person VALUES (seq_person.nextval, 1, 'français@mail.fr', 'français');
+INSERT INTO person VALUES (seq_person.nextval, 2, 'english@mail.fr', 'english');
+INSERT INTO person VALUES (seq_person.nextval, 1, 'bob@mail.fr', 'bob');
+INSERT INTO person VALUES (seq_person.nextval, 2, 'max@mail.fr', 'max');
+INSERT INTO person VALUES (seq_person.nextval, 1, 'riton@mail.fr', 'riton');
 
 
 --Insertion de données externes dans la table marquepage
-INSERT INTO marquepage VALUES (1, 1, 'google', 'http://www.google.fr');
-INSERT INTO marquepage VALUES (2, 1, 'cours android', 'www.lri.fr/~keller/Enseignement/Orsay/LP-SRSI-AF/android.html');
-INSERT INTO marquepage VALUES (3, 2, 'idée déco', 'www.philippesaucourt.com');
-INSERT INTO marquepage VALUES (4, 3, 'cours réseau', 'http://lacour.xavier.free.fr/');
-INSERT INTO marquepage VALUES (5, 4, 'gitlab', 'https://gitlab.com/users/sign_in');
+INSERT INTO marquepage VALUES (seq_marquepage.nextval, 1, 'google', 'http://www.google.fr');
+INSERT INTO marquepage VALUES (seq_marquepage.nextval, 1, 'cours android', 'www.lri.fr/~keller/Enseignement/Orsay/LP-SRSI-AF/android.html');
+INSERT INTO marquepage VALUES (seq_marquepage.nextval, 2, 'idée déco', 'www.philippesaucourt.com');
+INSERT INTO marquepage VALUES (seq_marquepage.nextval, 3, 'cours réseau', 'http://lacour.xavier.free.fr/');
+INSERT INTO marquepage VALUES (seq_marquepage.nextval, 4, 'gitlab', 'https://gitlab.com/users/sign_in');
 
-INSERT INTO marquepage VALUES (6, 4, '2014', 'file://escapade.html');
-INSERT INTO marquepage VALUES (7, 4, 'loterie', 'file://pasDeChance.pdf');
-INSERT INTO marquepage VALUES (8, 5, 'festival du vent', 'file://mêmePasMal.txt');
-INSERT INTO marquepage VALUES (9, 5, 'projet marcopolo', 'file://et_qu_on_veux_y_arriver_quand_même.html');
-INSERT INTO marquepage VALUES (10, 5, 'derrière les nuages', 'je ne suis pas un lien valide');
+INSERT INTO marquepage VALUES (seq_marquepage.nextval, 4, '2014', 'file://escapade.html');
+INSERT INTO marquepage VALUES (seq_marquepage.nextval, 4, 'loterie', 'file://pasDeChance.pdf');
+INSERT INTO marquepage VALUES (seq_marquepage.nextval, 5, 'festival du vent', 'file://mêmePasMal.txt');
+INSERT INTO marquepage VALUES (seq_marquepage.nextval, 5, 'projet marcopolo', 'file://et_qu_on_veux_y_arriver_quand_même.html');
+INSERT INTO marquepage VALUES (seq_marquepage.nextval, 5, 'derrière les nuages', 'je ne suis pas un lien valide');
 
 
 --Insertion de données externes dans la table tag
 
-INSERT INTO tag VALUES (11, 1, 1000, 'un ami ...');
-INSERT INTO tag VALUES (12, 6, 1001, '2016');
-INSERT INTO tag VALUES (13, 7, 1001, 'avec des fleurs');
-INSERT INTO tag VALUES (14, 6, 1001, '2017');
-INSERT INTO tag VALUES (15, 6, 1001, '2018');
+INSERT INTO tag VALUES (seq_tag.nextval, 1, 1000, 'un ami ...');
+INSERT INTO tag VALUES (seq_tag.nextval, 6, 1001, '2016');
+INSERT INTO tag VALUES (seq_tag.nextval, 7, 1001, 'avec des fleurs');
 
 
 --Insertion de données externes dans la table preference
-INSERT INTO preference VALUES (1, 1, 1, 1);
-INSERT INTO preference VALUES (2, 1, 3, 2);
-INSERT INTO preference VALUES (3, 2, 2, 1);
-INSERT INTO preference VALUES (4, 2, 4, 2);
-INSERT INTO preference VALUES (5, 3, 1, 1);
-INSERT INTO preference VALUES (6, 3, 3, 2);
-INSERT INTO preference VALUES (7, 4, 2, 1);
-INSERT INTO preference VALUES (8, 4, 4, 2);
-INSERT INTO preference VALUES (9, 5, 1, 1);
-INSERT INTO preference VALUES (10, 5, 3, 2);
+INSERT INTO preference VALUES (seq_preference.nextval, 1, 1, 1);
+INSERT INTO preference VALUES (seq_preference.nextval, 1, 3, 2);
+INSERT INTO preference VALUES (seq_preference.nextval, 2, 2, 1);
+INSERT INTO preference VALUES (seq_preference.nextval, 2, 4, 2);
+INSERT INTO preference VALUES (seq_preference.nextval, 3, 1, 1);
+INSERT INTO preference VALUES (seq_preference.nextval, 3, 3, 2);
+INSERT INTO preference VALUES (seq_preference.nextval, 4, 2, 1);
+INSERT INTO preference VALUES (seq_preference.nextval, 4, 4, 2);
+INSERT INTO preference VALUES (seq_preference.nextval, 5, 1, 1);
+INSERT INTO preference VALUES (seq_preference.nextval, 5, 3, 2);
