@@ -51,3 +51,7 @@
 .panel_img_user{
 	margin-top: 20px;
 }
+
+.panel-title-loginError{
+	color: #FF0000;
+}

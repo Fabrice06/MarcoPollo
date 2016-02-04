@@ -9,6 +9,15 @@
 			<span class="fontsize-x2 color-blueaf">MarcoPolo</span>
 		</div>
 	</div>
+	
+	<div class="row">
+    	<div class="col-xs-2 text-right">
+        	<a href="#">EN</a>
+            <span>&NonBreakingSpace;/&NonBreakingSpace;</span>
+            <a href="#">FR</a>
+        </div>
+	</div>
+	
 </div>
 
 <br />
@@ -19,13 +28,18 @@
 		envies !</p>
 	<br />
 
-	<form class="" id="my-contact-form" role="form"
+	<form 
+		class="" id="my-contact-form" role="form"
 		data-ng-model="personLogModel" name="personLogModelForm" novalidate>
 
-		<div class="panel panel-info col-xs-8 panel_sans_padding">
+		<div class="panel panel-info col-xs-8 panel_sans_padding"
+ 			 ng-class="{'panel-danger':incorrectLogin,'panel-info':!incorrectLogin}"> 
 			<div class="panel-heading">
-				<h3 class="panel-title">Identifiez-vous et acc&eacute;dez
-					&agrave; la liste de vos marque-pages</h3>
+				<h3 ng-show="!incorrectLogin" class="panel-title">Identifiez-vous
+					et acc&eacute;dez &agrave; la liste de vos marque-pages</h3>
+<!-- 				<h3 ng-show="incorrectLogin" class="panel-title panel-title-loginError"> -->
+					<h3 ng-show="incorrectLogin" class="panel-title">
+					Le login et/ou mot de passe est incorrect</h3>
 			</div>
 
 			<div class="panel-body">
@@ -48,11 +62,24 @@
 					</span>
 				</div>
 
-				<div class="form-group">
+				<div class="form-group"
+					ng-class="{'has-success': personLogModelForm.usermdp.$dirty && personLogModelForm.usermdp.$valid,
+			                    'has-error': personLogModelForm.usermdp.$dirty && personLogModelForm.usermdp.$invalid}">
 					<div class="">
 						<label for="usermdp" class="control-label">Mot de passe
-							&emsp;</label> <input id="usermdp" name="usermdp" type="password"
-							required class="form-control" ng-model="personLogModel.mdp">
+							&emsp;</label> 
+							<input id="usermdp" name="usermdp" type="password"
+							required class="form-control" ng-model="personLogModel.mdp" ng-minlength="3" ng-maxlength="20">
+							<span class="help-block"
+								ng-show="personLogModelForm.usermdp.$dirty"
+								ng-messages="personLogModelForm.usermdp.$error"> 
+								<span ng-message="minlength"> 
+									Le mot de passe doit contenir au minimum 3 caract&egrave;res 
+								</span>
+								<span ng-message="maxlength">
+									Le mot de passe doit contenir au maximum 20 caract&egrave;res 
+								</span>
+							</span>
 					</div>
 				</div>
 
@@ -82,19 +109,18 @@
 		<div class="col-xs-4 ">
 
 			<div class="text-center panel_img_user">
-				<img src="img/newUser.png" alt="nouvel utilisateur" /><br />
-				<br />
+				<img src="img/newUser.png" alt="nouvel utilisateur" /><br /> <br />
 			</div>
 			<div ng-if="personLogModelForm.useremail.$invalid"></div>
 
 			<div class="panel_new_user">
 				<ul>
-					<a ng-click="onCreate(personLogModel)"><b>Vous n'avez pas
-							encore de compte ?</b></a>
+					<a href="" ng-click="onCreate(personLogModel)"><b>Vous
+							n'avez pas encore de compte ?</b></a>
 					<br />
 					<br />
-					<a ng-click="onLost(personLogModel)"><b>J'ai oubli&eacute;
-							mon mot de passe !</b></a>
+					<a href="" ng-click="onLost(personLogModel)"><b>J'ai
+							oubli&eacute; mon mot de passe !</b></a>
 				</ul>
 			</div>
 
