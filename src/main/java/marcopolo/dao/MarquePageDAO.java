@@ -8,19 +8,16 @@ import java.sql.SQLException;
 import java.util.List;
 
 import marcopolo.controllers.MarquePageController;
-import marcopolo.dao.TagDAO.TagMapper;
 import marcopolo.entity.MarquePage;
-import marcopolo.entity.Tag;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
 public class MarquePageDAO extends DAO<MarquePage> {
-
 	
-	
-	private final JdbcTemplate jdbcTemplate;
+	@Autowired
+private final JdbcTemplate jdbcTemplate;
 
 	@Autowired
 	public MarquePageDAO(JdbcTemplate jdbcTemplate) {
@@ -65,11 +62,28 @@ public class MarquePageDAO extends DAO<MarquePage> {
 		String sql = "select * " 
 					+ "from marquepage "
 					+ "where id_marquepage=?";
-
-		MarquePage marquePage = this.jdbcTemplate.queryForObject(sql, new Object[]{idMqp},
+		
+		List<MarquePage> marquePageList = this.jdbcTemplate.query(sql, new Object[]{idMqp},
 				new MarquePageMapper());
 				
-		return marquePage;
+		// id_marquepage not found
+		if (marquePageList.isEmpty()) {
+			log.info("id_marquepage does not exists");
+			return null; 
+			
+		// list contains exactly 1 element
+		} else if (marquePageList.size() == 1 ) { 
+			log.info("id_marquepage=" + marquePageList.get(0));
+			// add Tags to marquePage 
+			TagDAO tag = new TagDAO(jdbcTemplate);
+			marquePageList.get(0).setTags(tag.getTagsWithIdMqp(idMqp));
+			 return marquePageList.get(0); 
+
+		// list contains more than 1 element
+		} else {
+			log.error("Table marquepage : id_marquepage is not unique");
+			return null;
+		}
 	}
 		
 	
@@ -81,6 +95,7 @@ public class MarquePageDAO extends DAO<MarquePage> {
 	 * 
 	 */
 	public void updateLien(Long idMqp, String newLien) {
+		
 		String sql = "update marquepage set lien = ? "
 				+ "where id_marquepage = ?";
 
@@ -129,15 +144,16 @@ public class MarquePageDAO extends DAO<MarquePage> {
 	
 	
 	
-//	///////////////////////////////////////////////////////////////
-//	//  utilisé pour test uniquement, a supprimer a la fin
-//	///////////////////////////////////////////////////////////////
+	//
+	//  utilisé pour test uniquement
+	//
 	
 	/**
 	 * 
 	 * Find all MarquePage 
 	 * 
-	 * @param 
+	 * test only
+	 * 
 	 * @return List<MarquePage>
 	 * 
 	 */
@@ -152,4 +168,5 @@ public class MarquePageDAO extends DAO<MarquePage> {
 			
 		return marquePages;
 	}
+	
 }

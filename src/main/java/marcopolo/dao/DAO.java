@@ -12,9 +12,9 @@ public abstract class DAO<T> {
 	protected static Log log = LogFactory.getLog(Application.class);
 	
 	/**
-	 * get object with its id
+	 * get object
 	 * @param id
-	 * @return
+	 * @return object
 	 */
 	public abstract T find(Long id);
 	
@@ -36,7 +36,7 @@ public abstract class DAO<T> {
 	
 	
 	/**
-	 * delete data in DB
+	 * delete object
 	 * @param id
 	 */
 	public abstract void delete(Long id);

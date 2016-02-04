@@ -52,10 +52,6 @@ public class MarquePageController {
 		MarquePageDAO marquePageDao = new MarquePageDAO(jdbcTemplate);
 		MarquePage marquePage = marquePageDao.find(idMqp);
 		
-		// add Tags to marquePage 
-		TagDAO tag = new TagDAO(jdbcTemplate);
-		marquePage.setTags(tag.getTagsWithIdMqp(idMqp));
-				
 		return new ResponseEntity<MarquePage>(marquePage, HttpStatus.OK);
 	}
 	
@@ -76,7 +72,6 @@ public class MarquePageController {
 		TagDAO tagDao = new TagDAO(jdbcTemplate);
 		
 		return tagDao.getTagsWithIdMqp(idMqp);
-	
 	}
 		
 	
@@ -146,7 +141,6 @@ public class MarquePageController {
 		TagDAO tagDao = new TagDAO(jdbcTemplate);
 		
 		return tagDao.addTag(idMqp, cle, valeur);
-	
 	}
 	
 	
@@ -168,7 +162,6 @@ public class MarquePageController {
 		MarquePageDAO marquePageDao = new MarquePageDAO(jdbcTemplate);
 		
 		return marquePageDao.addMqp(lien, nom);
-		
 	}
 	
 	
@@ -193,8 +186,6 @@ public class MarquePageController {
 		
 		return marquePageDao.findAll();
 	}
-	
-	
-	
+
 
 }
