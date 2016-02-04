@@ -7,6 +7,7 @@
 
     personLogCtrl.$inject = ['$scope', '$location', 'Person'];
     function personLogCtrl($scope, $location, Person) {
+    	$scope.incorrectLogin = false;
 
         // clic sur le bouton se connecter
         $scope.onSubmit = function (pPersonLog) {
@@ -37,6 +38,7 @@
                     } // for
                 },
                 function (pData, headers) { // Erreur
+                	$scope.incorrectLogin = true;
                     console.log("personLogCtrl query échec");
                 }
             );
