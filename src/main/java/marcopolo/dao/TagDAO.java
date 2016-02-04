@@ -7,25 +7,17 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-import marcopolo.Application;
 import marcopolo.controllers.MarquePageController;
 import marcopolo.controllers.TagController;
-import marcopolo.dao.MarquePageDAO.MarquePageMapper;
-import marcopolo.entity.MarquePage;
 import marcopolo.entity.Tag;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
 import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
-public class TagDAO {
+public class TagDAO extends DAO<Tag> {
 
-	private static Log log = LogFactory.getLog(Application.class);
-	
 	private final JdbcTemplate jdbcTemplate;
 
 	@Autowired
@@ -65,7 +57,8 @@ public class TagDAO {
 	 * 
 	 * @return Tag
 	 */
-	 public Tag getTag(Long idTag) {
+	@Override
+	public Tag find(Long idTag) {
 		 
 		String sql = "select * "
 				+ "from tag, cle "
@@ -73,8 +66,7 @@ public class TagDAO {
 				+ "and tag.id_tag = ?";
 
 		return this.jdbcTemplate.queryForObject(sql, new Object[]{idTag},
-				new TagMapper());
-				
+				new TagMapper());		
 	 }
 	
 	 
@@ -85,14 +77,14 @@ public class TagDAO {
 	 * 
 	 * @return Tag
 	 */
-	 public void deleteTag(Long idTag) {
+	 @Override
+	 public void delete(Long idTag) {
 		 
 		String sql = "delete "
 					+ "from tag "
 					+ "where id_tag=?";
 		
-		this.jdbcTemplate.update(sql, idTag);
-				
+		this.jdbcTemplate.update(sql, idTag);			
 	 }
 	
 	
@@ -118,7 +110,6 @@ public class TagDAO {
 		log.info("tags.size()=" + tags.size());
 		
 		return tags;
-
 	}
 	
 	 
@@ -162,14 +153,10 @@ public class TagDAO {
 			 
 		this.jdbcTemplate.update(sql, idMqp, idCle, valeur);
 		  		
-		// get last id_tag inserted
-		String sqlGetLastIdInserted = "CALL SCOPE_IDENTITY()";
-				
-		Long LastIdInserted = this.jdbcTemplate.queryForObject(sqlGetLastIdInserted, Long.class);
+		// get last id_tag inserted			
+		Long LastIdInserted = this.jdbcTemplate.queryForObject(SQL_GET_LAST_ID_INSERTED, Long.class);
 		log.info("LastIdTagInserted=" + LastIdInserted);
 				
 		return LastIdInserted;
-		
-		
 	 }
 }
