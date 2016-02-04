@@ -35,8 +35,7 @@ public class MarquePageController {
 
 	@Autowired
 	JdbcTemplate jdbcTemplate;
-
-		
+	
 	/**
 	 * GET request for /marquepages/{idMqp}
 	 * 
@@ -112,9 +111,6 @@ public class MarquePageController {
 
 		log.info("Appel webService deleteMqp avec id marquepage =" + idMqp);
 		
-		//delete tags
-		TagDAO tagDao = new TagDAO(jdbcTemplate);
-		tagDao.deleteTagsWithIdMqp(idMqp);
 		
 		//delete marque-page
 		MarquePageDAO marquePageDao = new MarquePageDAO(jdbcTemplate);

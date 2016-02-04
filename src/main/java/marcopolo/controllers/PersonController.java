@@ -1,6 +1,10 @@
 package marcopolo.controllers;
 
 //import marcopolo.Application;
+import marcopolo.Application;
+import marcopolo.dao.MarquePageDAO;
+import marcopolo.dao.PersonDAO;
+import marcopolo.dao.PreferenceDAO;
 import marcopolo.entity.Cle;
 import marcopolo.entity.MarquePage;
 import marcopolo.entity.Person;
@@ -34,35 +38,22 @@ import org.springframework.web.bind.annotation.PathVariable;
 @RequestMapping("/persons")
 public class PersonController {
 
-	//private static Log log = LogFactory.getLog(Application.class);
+	private static Log log = LogFactory.getLog(Application.class);
 	@Autowired
 	JdbcTemplate jdbcTemplate;
 
 	// 9. Créer une personne ---fini--
 	@RequestMapping(method = RequestMethod.POST)
-	public HttpEntity<Person> addPerson(
+	public Person addPerson(
 	        @RequestParam(value = "mail", required = true) String pMail,
 	        @RequestParam(value = "mdp", required = true) String pMdp) {
 		
-		//log.info("Appel webService createPerson avec personMail = " + pMail + " " + pMdp);
+		log.info("Appel webService createPerson avec personMail = " + pMail + " " + pMdp);
 		
-		String nSql = "insert into person (id_person, mail, mdp) values (seq_person.nextval,?,?)";
-		
-		this.jdbcTemplate.update(nSql,pMail, pMdp);
-		String requete =  "select* from person where mail=? and mdp=?";
-		        List<Person> persons = this.jdbcTemplate.query(requete,	
-		                new RowMapper<Person>() {
-		                    public Person mapRow(ResultSet rs, int rowNum) throws SQLException {
-		        				Person person = new Person();
-		                        person.setMail(rs.getString("mail"));
-		        				Long id = rs.getLong("id_person");
-		        				 person.add(ControllerLinkBuilder.linkTo(ControllerLinkBuilder.methodOn(PersonController.class).onePerson(id)).withRel("self"));
-		        				 person.add(ControllerLinkBuilder.linkTo(ControllerLinkBuilder.methodOn(PersonController.class).listMarquePagesById(id)).withRel("marquepages"));
-		                        return person;
-		                    }
-		        },pMail,pMdp);
+		PersonDAO myPersonDAO = new PersonDAO(jdbcTemplate);
+//		myPersonDAO.addPerson(pMail, pMdp);
        
-		return new ResponseEntity<Person>(persons.get(0),HttpStatus.OK);    
+		return myPersonDAO.addPerson(pMail, pMdp);    
 	}
 		
 		
@@ -71,17 +62,16 @@ public class PersonController {
 	public void deletePerson(@PathVariable("personId") long personId) {
 		
 		//log.info("Appel webService deleteWithId avec personId = " + personId);
-	
-		String requete =  "delete from person where id_person=?";
-		
-		String requete2 =  "delete from marquepage where id_person=?";
-		
-		String requete3 =  "delete from person where id_person=?";
 		
 		
+		MarquePageDAO myMqpDAO = new MarquePageDAO(jdbcTemplate);
+		myMqpDAO.deleteByIdPerson(personId);
 		
+		PreferenceDAO myPrefDAO = new PreferenceDAO(jdbcTemplate);
+		myPrefDAO.deleteByIdPerson(personId);
 		
-		this.jdbcTemplate.update(requete, personId);
+		PersonDAO myPersonDAO = new PersonDAO(jdbcTemplate);
+		myPersonDAO.deletePerson(personId);
 	}
 	
 
@@ -104,7 +94,7 @@ public class PersonController {
                         person.setMail(rs.getString("mail"));
         				Long id = rs.getLong("id_person");
         				persons.add(person);
-        				person.add(ControllerLinkBuilder.linkTo(ControllerLinkBuilder.methodOn(PersonController.class).onePerson(id)).withRel("self"));
+        				person.add(ControllerLinkBuilder.linkTo(ControllerLinkBuilder.methodOn(PersonController.class).getPerson(id)).withRel("self"));
         				person.add(ControllerLinkBuilder.linkTo(ControllerLinkBuilder.methodOn(PersonController.class).listMarquePagesById(id)).withRel("marquepages"));
                         return person;
                 	}	
@@ -137,7 +127,7 @@ public class PersonController {
                 
                 //Links
                 marquepage.add(ControllerLinkBuilder.linkTo(ControllerLinkBuilder.methodOn(PersonController.class).listMarquePagesById(id)).withRel("self"));
-                marquepage.add(ControllerLinkBuilder.linkTo(ControllerLinkBuilder.methodOn(PersonController.class).onePerson(id)).withRel("persons"));
+                marquepage.add(ControllerLinkBuilder.linkTo(ControllerLinkBuilder.methodOn(PersonController.class).getPerson(id)).withRel("persons"));
                 //marquepage.add(ControllerLinkBuilder.linkTo(ControllerLinkBuilder.methodOn(MarquePageController.class).tagsDunMarquePage(idMarquePage)).withRel("marquepageById"));
                 return marquepage;
             }
@@ -150,26 +140,12 @@ public class PersonController {
 		// Renvoi le mail de la personne avec id donné, self link --fini--
 		
 		@RequestMapping(method = RequestMethod.GET, value = "/{personId}")
-		public Person onePerson(@PathVariable("personId") long personId) {
+		public Person getPerson(@PathVariable("personId") long personId) {
 			
 			//log.info("Appel webService onePerson avec personId = " + personId);
-				
-			String requete =  "select * from person where id_person=?";
-				  
-			List<Person> persons = this.jdbcTemplate.query(requete,	
-	        new RowMapper<Person>() {
-	            public Person mapRow(ResultSet rs, int rowNum) throws SQLException {
-					Person person = new Person();
-					//person.setId(rs.getInt("id_person"));
-	                person.setMail(rs.getString("mail"));
-	                //person.setMdp(rs.getString("mdp"));
-	                Long id = rs.getLong("id_person");
-	                person.add(ControllerLinkBuilder.linkTo(ControllerLinkBuilder.methodOn(PersonController.class).onePerson(id)).withRel("self"));
-	                person.add(ControllerLinkBuilder.linkTo(ControllerLinkBuilder.methodOn(PersonController.class).listMarquePagesById(id)).withRel("marquepages"));
-	                return person;
-	            }
-	        }, personId);
-			return persons.get(0);	
+			
+			PersonDAO myPersonDAO = new PersonDAO(jdbcTemplate);
+			return (myPersonDAO.getPerson(personId));
 		}
 	
 	// Récuperer une personne 
@@ -191,7 +167,7 @@ public class PersonController {
 				        				Person person = new Person();
 				                        person.setMail(rs.getString("mail"));
 				        				Long id = rs.getLong("id_person");
-				        				 person.add(ControllerLinkBuilder.linkTo(ControllerLinkBuilder.methodOn(PersonController.class).onePerson(id)).withRel("self"));
+				        				 person.add(ControllerLinkBuilder.linkTo(ControllerLinkBuilder.methodOn(PersonController.class).getPerson(id)).withRel("self"));
 				        				 person.add(ControllerLinkBuilder.linkTo(ControllerLinkBuilder.methodOn(PersonController.class).listMarquePagesById(id)).withRel("marquepages"));
 				                        return person;
 				                    }
