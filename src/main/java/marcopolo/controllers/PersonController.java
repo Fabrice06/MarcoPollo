@@ -39,31 +39,31 @@ public class PersonController {
 	JdbcTemplate jdbcTemplate;
 
 	// Créer une personne ---fini--
-		@RequestMapping(method = RequestMethod.POST)
-		public HttpEntity<Person> createPerson(
-		        @RequestParam(value = "mail", required = true) String pMail,
-		        @RequestParam(value = "mdp", required = true) String pMdp) {
-			
-			//log.info("Appel webService createPerson avec personMail = " + pMail + " " + pMdp);
-			
-			String nSql = "insert into person (id_person, mail, mdp) values (seq_person.nextval,?,?)";
-			
-			this.jdbcTemplate.update(nSql,pMail, pMdp);
-			String requete =  "select* from person where mail=? and mdp=?";
-			        List<Person> persons = this.jdbcTemplate.query(requete,	
-			                new RowMapper<Person>() {
-			                    public Person mapRow(ResultSet rs, int rowNum) throws SQLException {
-			        				Person person = new Person();
-			                        person.setMail(rs.getString("mail"));
-			        				Long id = rs.getLong("id_person");
-			        				 person.add(ControllerLinkBuilder.linkTo(ControllerLinkBuilder.methodOn(PersonController.class).onePerson(id)).withRel("self"));
-			        				 person.add(ControllerLinkBuilder.linkTo(ControllerLinkBuilder.methodOn(PersonController.class).listMarquePagesById(id)).withRel("marquepages"));
-			                        return person;
-			                    }
-			        },pMail,pMdp);
-	       
-			return new ResponseEntity<Person>(persons.get(0),HttpStatus.OK);    
-		}
+	@RequestMapping(method = RequestMethod.POST)
+	public HttpEntity<Person> createPerson(
+	        @RequestParam(value = "mail", required = true) String pMail,
+	        @RequestParam(value = "mdp", required = true) String pMdp) {
+		
+		//log.info("Appel webService createPerson avec personMail = " + pMail + " " + pMdp);
+		
+		String nSql = "insert into person (id_person, mail, mdp) values (seq_person.nextval,?,?)";
+		
+		this.jdbcTemplate.update(nSql,pMail, pMdp);
+		String requete =  "select* from person where mail=? and mdp=?";
+		        List<Person> persons = this.jdbcTemplate.query(requete,	
+		                new RowMapper<Person>() {
+		                    public Person mapRow(ResultSet rs, int rowNum) throws SQLException {
+		        				Person person = new Person();
+		                        person.setMail(rs.getString("mail"));
+		        				Long id = rs.getLong("id_person");
+		        				 person.add(ControllerLinkBuilder.linkTo(ControllerLinkBuilder.methodOn(PersonController.class).onePerson(id)).withRel("self"));
+		        				 person.add(ControllerLinkBuilder.linkTo(ControllerLinkBuilder.methodOn(PersonController.class).listMarquePagesById(id)).withRel("marquepages"));
+		                        return person;
+		                    }
+		        },pMail,pMdp);
+       
+		return new ResponseEntity<Person>(persons.get(0),HttpStatus.OK);    
+	}
 		
 		
 	/* Supprimer une personne  */
@@ -77,133 +77,143 @@ public class PersonController {
 		this.jdbcTemplate.update(requete, personId);
 	}
 	
-	// Modifier une personne 
-//			@RequestMapping(method = RequestMethod.PUT)
-//			public void modifPerson(
-//			        @RequestParam(value = "mail", required = true) String pMail,
-//			        @RequestParam(value = "idPerson", required = true) String pIdPerson) {
-//				
-//			        String requete = "update person set mail = ? "
-//							+ "where id_person = ?";
-//
-//					this.jdbcTemplate.update(requete, pMail, pIdPerson);
-//					
-//				
-//			}
+
+	// Modifier une personne ------ à finir retour sur modéle du GET
+	@RequestMapping(method = RequestMethod.PUT)
+	public HttpEntity<Person> modifPerson(
+	        @RequestParam(value = "mail", required = true) String pMail,
+	        @RequestParam(value = "idPerson", required = true) String pIdPerson) {
+		
+			ArrayList persons = new ArrayList();
+		
+	        String requete = "update person set mail = ? "
+					+ "where id_person = ?";
+
+	         this.jdbcTemplate.update(requete,
+				new RowMapper<Person>() {
+                	public Person mapRow(ResultSet rs, int rowNum) throws SQLException {
+        				Person person = new Person();
+                        person.setMail(rs.getString("mail"));
+        				Long id = rs.getLong("id_person");
+        				persons.add(person);
+        				person.add(ControllerLinkBuilder.linkTo(ControllerLinkBuilder.methodOn(PersonController.class).onePerson(id)).withRel("self"));
+        				person.add(ControllerLinkBuilder.linkTo(ControllerLinkBuilder.methodOn(PersonController.class).listMarquePagesById(id)).withRel("marquepages"));
+                        return person;
+                	}	
+			},pMail, pIdPerson);
+			
+			return new ResponseEntity<Person>((Person) persons.get(0),HttpStatus.OK);	
+	}	
+		
+	// Renvoi liste marquepages de la personne avec id defini, self link -- manque liste tags avec lien pour chaque tag ???
 	
-	//Méthode Chantal uri = persons/id et param = mail modifie
-	@RequestMapping(method = RequestMethod.PUT,value= "/{personId}")
-	public @ResponseBody void updatePerson(@PathVariable("personId") long personId, @RequestParam(value="mail") String mailModifie) {
-        String requete = "update person set mail = ? "
-                + "where id_person = ?";
-       
-        this.jdbcTemplate.update(requete, mailModifie, personId);		
-	}
+	@RequestMapping(method = RequestMethod.GET, value = "/{personId}/marquepages")
+	public List<MarquePage> listMarquePagesById(@PathVariable("personId") long personId) {
 		
-		// Renvoi liste marquepages de la personne avec id defini, self link -- manque liste tags avec lien pour chaque tag ???
+		//log.info("Appel webService onePerson avec personId = " + personId);
+			
+		String requete =  "select * from marquepage where id_person=?";
+			  
+		List<MarquePage> marquePages = this.jdbcTemplate.query(requete,	
+        new RowMapper<MarquePage>() {
+            public MarquePage mapRow(ResultSet rs, int rowNum) throws SQLException {
+            	
+            	MarquePage marquepage = new MarquePage();
+            	Long id = rs.getLong("id_person");
+                Long idMarquePage = rs.getLong("id_marquepage");
+                //ArrayList listeDesTags= MarquePageController.tagsDunMarquePage(idMarquePage);
+            	
+            	//set marquepage
+                marquepage.setLien(rs.getString("lien"));
+                //marquepage.setListeDesTags(listeDesTags);
+                
+                //Links
+                marquepage.add(ControllerLinkBuilder.linkTo(ControllerLinkBuilder.methodOn(PersonController.class).listMarquePagesById(id)).withRel("self"));
+                marquepage.add(ControllerLinkBuilder.linkTo(ControllerLinkBuilder.methodOn(PersonController.class).onePerson(id)).withRel("persons"));
+                //marquepage.add(ControllerLinkBuilder.linkTo(ControllerLinkBuilder.methodOn(MarquePageController.class).tagsDunMarquePage(idMarquePage)).withRel("marquepageById"));
+                return marquepage;
+            }
+        }, personId);
+		return marquePages;	
+	}	
+
+	
+	
+		// Renvoi le mail de la personne avec id donné, self link --fini--
 		
-		@RequestMapping(method = RequestMethod.GET, value = "/{personId}/marquepages")
-		public List<MarquePage> listMarquePagesById(@PathVariable("personId") long personId) {
+		@RequestMapping(method = RequestMethod.GET, value = "/{personId}")
+		public Person onePerson(@PathVariable("personId") long personId) {
 			
 			//log.info("Appel webService onePerson avec personId = " + personId);
 				
-			String requete =  "select * from marquepage where id_person=?";
+			String requete =  "select * from person where id_person=?";
 				  
-			List<MarquePage> marquePages = this.jdbcTemplate.query(requete,	
-	        new RowMapper<MarquePage>() {
-	            public MarquePage mapRow(ResultSet rs, int rowNum) throws SQLException {
-	            	MarquePage marquepage = new MarquePage();
+			List<Person> persons = this.jdbcTemplate.query(requete,	
+	        new RowMapper<Person>() {
+	            public Person mapRow(ResultSet rs, int rowNum) throws SQLException {
+					Person person = new Person();
 					//person.setId(rs.getInt("id_person"));
-	                marquepage.setLien(rs.getString("lien"));
+	                person.setMail(rs.getString("mail"));
 	                //person.setMdp(rs.getString("mdp"));
 	                Long id = rs.getLong("id_person");
-	                Long idMarquePage = rs.getLong("id_marquepage");
-	                marquepage.add(ControllerLinkBuilder.linkTo(ControllerLinkBuilder.methodOn(PersonController.class).listMarquePagesById(id)).withRel("self"));
-	                marquepage.add(ControllerLinkBuilder.linkTo(ControllerLinkBuilder.methodOn(PersonController.class).onePerson(id)).withRel("persons"));
-	                marquepage.add(ControllerLinkBuilder.linkTo(ControllerLinkBuilder.methodOn(MarquePageController.class).getTagsMqp(idMarquePage)).withRel("marquepageById"));
-	                return marquepage;
+	                person.add(ControllerLinkBuilder.linkTo(ControllerLinkBuilder.methodOn(PersonController.class).onePerson(id)).withRel("self"));
+	                person.add(ControllerLinkBuilder.linkTo(ControllerLinkBuilder.methodOn(PersonController.class).listMarquePagesById(id)).withRel("marquepages"));
+	                return person;
 	            }
 	        }, personId);
-			return marquePages;	
-		}	
-	
-	
-	
-	// Renvoi le mail de la personne avec id donné, self link --fini--
-	
-	@RequestMapping(method = RequestMethod.GET, value = "/{personId}")
-	public Person onePerson(@PathVariable("personId") long personId) {
-		
-		//log.info("Appel webService onePerson avec personId = " + personId);
-			
-		String requete =  "select * from person where id_person=?";
-			  
-		List<Person> persons = this.jdbcTemplate.query(requete,	
-        new RowMapper<Person>() {
-            public Person mapRow(ResultSet rs, int rowNum) throws SQLException {
-				Person person = new Person();
-				//person.setId(rs.getInt("id_person"));
-                person.setMail(rs.getString("mail"));
-                //person.setMdp(rs.getString("mdp"));
-                Long id = rs.getLong("id_person");
-                person.add(ControllerLinkBuilder.linkTo(ControllerLinkBuilder.methodOn(PersonController.class).onePerson(id)).withRel("self"));
-                person.add(ControllerLinkBuilder.linkTo(ControllerLinkBuilder.methodOn(PersonController.class).listMarquePagesById(id)).withRel("marquepages"));
-                return person;
-            }
-        }, personId);
-		return persons.get(0);	
-	}
+			return persons.get(0);	
+		}
 	
 	// Récuperer une personne 
-		@RequestMapping(method = RequestMethod.GET)
-		public HttpEntity<Person> logPerson(
-		        @RequestParam(value = "mail", required = true) String pMail,
-		        @RequestParam(value = "mdp", required = true) String pMdp) {
+			@RequestMapping(method = RequestMethod.GET)
+			public HttpEntity<Person> logPerson(
+			        @RequestParam(value = "mail", required = true) String pMail,
+			        @RequestParam(value = "mdp", required = true) String pMdp) {
+				
+				//log.info("Appel webService createPerson avec personMail = " + pMail + " " + pMdp);
+				
+				//String nSql = "insert into person values (seq_person.nextval,?,?)";
+				
+				//this.jdbcTemplate.update(nSql,pMail, pMdp);
+				
+				String requete =  "select* from person where mail=? and mdp=?";
+				        List<Person> persons = this.jdbcTemplate.query(requete,	
+				                new RowMapper<Person>() {
+				                    public Person mapRow(ResultSet rs, int rowNum) throws SQLException {
+				        				Person person = new Person();
+				                        person.setMail(rs.getString("mail"));
+				        				Long id = rs.getLong("id_person");
+				        				 person.add(ControllerLinkBuilder.linkTo(ControllerLinkBuilder.methodOn(PersonController.class).onePerson(id)).withRel("self"));
+				        				 person.add(ControllerLinkBuilder.linkTo(ControllerLinkBuilder.methodOn(PersonController.class).listMarquePagesById(id)).withRel("marquepages"));
+				                        return person;
+				                    }
+				        },pMail,pMdp);
+		       
+				return new ResponseEntity<Person>(persons.get(0),HttpStatus.OK);    
+			}
 			
-			//log.info("Appel webService createPerson avec personMail = " + pMail + " " + pMdp);
-			
-			//String nSql = "insert into person values (seq_person.nextval,?,?)";
-			
-			//this.jdbcTemplate.update(nSql,pMail, pMdp);
-			
-			String requete =  "select* from person where mail=? and mdp=?";
-			        List<Person> persons = this.jdbcTemplate.query(requete,	
-			                new RowMapper<Person>() {
-			                    public Person mapRow(ResultSet rs, int rowNum) throws SQLException {
-			        				Person person = new Person();
-			                        person.setMail(rs.getString("mail"));
-			        				Long id = rs.getLong("id_person");
-			        				 person.add(ControllerLinkBuilder.linkTo(ControllerLinkBuilder.methodOn(PersonController.class).onePerson(id)).withRel("self"));
-			        				 person.add(ControllerLinkBuilder.linkTo(ControllerLinkBuilder.methodOn(PersonController.class).listMarquePagesById(id)).withRel("marquepages"));
-			                        return person;
-			                    }
-			        },pMail,pMdp);
-	       
-			return new ResponseEntity<Person>(persons.get(0),HttpStatus.OK);    
-		}
-			
-	// Renvoi les clés de la personne avec id donné, self link 
-	
-	@RequestMapping(method = RequestMethod.GET, value = "/{personId}/cles")
-	public List<Cle> findClesByIdPerson(@PathVariable("personId") long personId) {
+		// Renvoi les clés de la personne avec id donné, self link 
+		
+		@RequestMapping(method = RequestMethod.GET, value = "/{personId}/cles")
+		public List<Cle> findClesByIdPerson(@PathVariable("personId") long personId) {
 
-		//log.info("Appel webService onePerson avec personId = " + personId);
-			
-		String requete =  "select distinct cle from marquepage mp,tag tg,cle cl "
-							+ "where mp.id_marquepage=tg.id_marquepage "
-							+ "and tg.id_cle=cl.id_cle "
-							+ "and mp.id_person=?";
-			  
-		List<Cle> cles = this.jdbcTemplate.query(requete,	
-        new RowMapper<Cle>() {
-            public Cle mapRow(ResultSet rs, int rowNum) throws SQLException {
-				Cle cle = new Cle();
-                cle.setCle(rs.getString("cle"));
-                return cle;
-            }
-        }, personId);
-		return cles;	
-	}
+			//log.info("Appel webService onePerson avec personId = " + personId);
+				
+			String requete =  "select distinct cle from marquepage mp,tag tg,cle cl "
+								+ "where mp.id_marquepage=tg.id_marquepage "
+								+ "and tg.id_cle=cl.id_cle "
+								+ "and mp.id_person=?";
+				  
+			List<Cle> cles = this.jdbcTemplate.query(requete,	
+	        new RowMapper<Cle>() {
+	            public Cle mapRow(ResultSet rs, int rowNum) throws SQLException {
+					Cle cle = new Cle();
+	                cle.setCle(rs.getString("cle"));
+	                return cle;
+	            }
+	        }, personId);
+			return cles;	
+		}
 
 	
 }
