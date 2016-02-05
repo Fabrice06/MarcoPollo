@@ -52,7 +52,6 @@ public class PersonController {
 		log.info("Appel webService createPerson avec personMail = " + pMail + " " + pMdp);
 		
 		PersonDAO myPersonDAO = new PersonDAO(jdbcTemplate);
-//		myPersonDAO.addPerson(pMail, pMdp);
        
 		return myPersonDAO.addPerson(pMail, pMdp);    
 	}
@@ -77,13 +76,17 @@ public class PersonController {
 	
 	// 10. Modifier une personne 
 	@RequestMapping(method = RequestMethod.PUT,value="/{personId}")
-	public HttpEntity<Person> updatePerson(
+	public Person updatePerson(
 			@PathVariable("personId") long personId,
 	        @RequestParam(value = "mail", required = true) String pMail){
-	        //@RequestParam(value = "idPerson", required = true) String pIdPerson) {
 		
-			ArrayList persons = new ArrayList();
-		
+			//ArrayList persons = new ArrayList();
+			
+			PersonDAO myPersonDAO = new PersonDAO(jdbcTemplate);
+		       
+			return myPersonDAO.updatePerson(personId, pMail);    
+			
+			/*
 	        String requete = "update person set mail = ? "
 					+ "where id_person = ?";
 
@@ -101,6 +104,7 @@ public class PersonController {
 			},pMail, personId);
 			
 			return new ResponseEntity<Person>((Person) persons.get(0),HttpStatus.OK);	
+			*/
 	}	
 		
 	// 12. Renvoi liste marquepages de la personne avec id defini, self link -- manque liste tags avec lien pour chaque tag ???

@@ -17,6 +17,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.mvc.ControllerLinkBuilder;
+import org.springframework.http.HttpEntity;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
@@ -171,6 +172,17 @@ public Person getPersonByMailId(String mail, String mdp) {
 		MarquePageDAO myMarquePageDAO = new MarquePageDAO(jdbcTemplate);
 		
 		return myMarquePageDAO.find(LastIdMarquePageInserted); 
+	}
+
+	public Person updatePerson(long personId, String pMail) {
+		
+		String sql = "update person set mail = ? "
+				+ "where id_person = ?";
+				
+		this.jdbcTemplate.update(sql,pMail, personId);
+		
+		return getPerson(personId); 
+		
 	}
 	
 	
