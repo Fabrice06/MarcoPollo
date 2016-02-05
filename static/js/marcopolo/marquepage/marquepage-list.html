@@ -22,10 +22,9 @@
 			<div class="col-sm-6">
 				<form class="form-inline pull-left">
 					<div class="input-group">
-						<input type="text" class="form-control" placeholder="Recherche">
+						<input type="text" class="form-control" ng-model="search"  id="search" placeholder="Recherche">
 						<span class="input-group-btn">
-							<button class="btn btn-default" type="submit"
-								ng-click="onSearch()">
+							<button class="btn btn-default" type="submit" ng-click="onSearch()">
 								<span class="icon-af icon-af-B-digital-loupe-recherche"></span>
 							</button>
 						</span>
@@ -61,14 +60,12 @@
 						</tr>
 					</tfoot>
 					<tbody>
-
-						<tr data-ng-repeat="l in listMqp">
+						<tr data-ng-repeat="l in listMqp|filter:search">
 							<td><a>{{l.nom}}</a></td>
-							<td ng-click="openLink(l)"><a>{{l.lien}}</a></td>
+							<td ng-click="openLink(l)"><a href="">{{l.lien}}</a></td>
 
-							<td><abbr title="edit"> <a class="btn btn-primary"
-									ng-click="onUpdate(l)"> <span
-										class="icon-af icon-af-B-digital-crayon-editer"></span>
+							<td><abbr title="edit">
+									 <a class="btn btn-primary" ng-click="onUpdate(l)"><span class="icon-af icon-af-B-digital-crayon-editer"></span></a>
 								</a>
 							</abbr> <abbr title="delete">
 									<button type="button" class="btn btn-default btn-md"
