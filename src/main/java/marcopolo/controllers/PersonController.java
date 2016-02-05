@@ -75,7 +75,6 @@ public class PersonController {
 		myPersonDAO.deletePerson(personId);
 	}
 	
-
 	// 10. Modifier une personne 
 	@RequestMapping(method = RequestMethod.PUT,value="/{personId}")
 	public HttpEntity<Person> updatePerson(
