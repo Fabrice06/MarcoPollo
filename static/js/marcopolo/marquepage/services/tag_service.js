@@ -4,7 +4,7 @@
     angular.module('marcopolo')
         .factory('Tag', Tag);
 
-    Marquepage.$inject = ['$resource'];
+    Tag.$inject = ['$resource'];
     function Tag ($resource) {
 
         return $resource(
