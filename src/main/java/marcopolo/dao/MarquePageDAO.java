@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import marcopolo.controllers.MarquePageController;
+import marcopolo.controllers.PersonController;
 import marcopolo.entity.MarquePage;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -205,6 +206,11 @@ private final JdbcTemplate jdbcTemplate;
 		for (MarquePage mqp : marquePageList) {
 			
 			mqp.setTags(tagDAO.getTagsWithIdMqp(mqp.getIdMarquepage()));
+			
+			mqp.add(linkTo(methodOn(PersonController.class).getPerson(personId)).withRel("persons"));
+			mqp.add(linkTo(methodOn(MarquePageController.class).getTagsMqp(mqp.getIdMarquepage())).withRel("marquepageById"));
+			
+			
 		}
 		
 		
