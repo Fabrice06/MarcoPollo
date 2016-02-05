@@ -15,21 +15,13 @@
     
         // Récuperation des marquepages d'une personne
         
-        $scope.listMqp = MarquepageList.query({id:nUrlArray[2]}/*, function (pMarquepageList) { 
-        	// OK
-        
-            //console.log("marquepageListCtrl query " + JSON.stringify(pMarquepageList));
-            console.log("marquepageListCtrl query lien pour onProfils " + pMarquepageList._links.persons.uri);
-            
-            nProfilLink = pMarquepageList._links.persons.uri;
-
-            //console.log("marquepageListCtrl query lien pour onAdd " + pMarquepageList._links.self.uri);
-            nAddLink = pMarquepageList._links.self.uri;
-        },
-        function (pData, headers) { // échec
+        $scope.listMqp = MarquepageList.query({id:nUrlArray[2]},function (success){
+        	window.alert("Success");
+        	
+        },function (pData, headers) { // échec
+        	window.alert("Connexion impossible");
             console.log("marquepageListCtrl query échec");
-        }*/);
-
+        });
        
         // bouton rechercher
         $scope.search = ""; 
@@ -39,12 +31,7 @@
         	//$window.location.href = nAddLink.lien; 
         	var protocole = nAddLink.lien.substring(0,4);
         	if (protocole == 'http'){
-        		window.open(nAddLink.lien);
-        	//ouverture d'un fichier n'est possible que si
-        	//le fichier est stocké dans la BD et non son URL
-        	}else if(protocole == 'file'){
-        		location.assign(nAddLink.lien);
-
+        		window.open(nAddLink.lien);        	
         	}else{
         		window.open('http://' + nAddLink.lien);
         	}
@@ -66,7 +53,7 @@
         	
         	nAddLink = $location.url();
         	console.log(nAddLink);
-        	var id =findIdMqp.links[2].href;
+        	var id =findIdMqp.links[1].href;
         	var nIdArray = id.split('/');
         	console.log('---------- identification id marquepage: ' + nIdArray[4]);
         	
@@ -86,7 +73,7 @@
 			console.log('---------- requestUri: ' + requestUri);
         	
         	//on récupère l'id du marquepage sélectionné   	
-        	var id =findIdMqp.links[2].href;
+        	var id =findIdMqp.links[1].href;
         	console.log('url du marquepage ' + id);        	
         	var nIdArray = id.split('/');
         	var mqpToDelete = nIdArray[4];        	

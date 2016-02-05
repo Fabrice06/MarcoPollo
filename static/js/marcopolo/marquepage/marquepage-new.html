@@ -49,10 +49,11 @@
                 <div class="panel-body">
 
                     
-                    <div class="input-group input-group-mg">
-						<span class="input-group-addon" 
-							  id="basic-addon1">Name
-						</span>
+                    <div class="form-group">
+                            <label 
+                                for="name" 
+                                class="control-label">Nom du marquepage :
+                            </label> 
 						<input type="text"
                                ng-model="mqpNewModel.nameMqp"
 							   class="form-control 
@@ -64,10 +65,13 @@
 					</div>
                     <br/>
                     
-                    <div class="input-group input-group-mg"
+                    <div class="form-group"
                          ng-class="{'has-success' : mqpForm.mqpUrl.$dirty && mqpForm.mqpUrl.$valid,
                                    'has-error': mqpForm.mqpUrl.$dirty && mqpForm.mqpUrl.$invalid}" >
-                        <span class="input-group-addon" id="basic-addon1">@</span>
+                            <label 
+                                for="lien" 
+                                class="control-label">Lien du marquepage :   
+                            </label> 
                         <input name="mqpUrl"
                                type="url"
 							   ng-model="mqpNewModel.url"
