@@ -8,8 +8,8 @@
     function Marquepage ($resource) {
 
         return $resource(
-        	//'/persons/:id1/marquepages/:id2',	
-            '/:uri/:id',
+        	'/persons/:id/marquepages',	
+     //      '/:uri/:id',  /:id2
         
             {},
             { // return $resource('/users/:userId', {userId:'@id'}  ???
