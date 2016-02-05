@@ -53,7 +53,7 @@
         	
         	nAddLink = $location.url();
         	console.log(nAddLink);
-        	var id =findIdMqp.links[1].href;
+        	var id =findIdMqp.links[0].href;
         	var nIdArray = id.split('/');
         	console.log('---------- identification id marquepage: ' + nIdArray[4]);
         	
@@ -73,7 +73,7 @@
 			console.log('---------- requestUri: ' + requestUri);
         	
         	//on récupère l'id du marquepage sélectionné   	
-        	var id =findIdMqp.links[1].href;
+        	var id =findIdMqp.links[0].href;
         	console.log('url du marquepage ' + id);        	
         	var nIdArray = id.split('/');
         	var mqpToDelete = nIdArray[4];        	
