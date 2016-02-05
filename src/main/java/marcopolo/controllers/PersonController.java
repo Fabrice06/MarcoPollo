@@ -2,6 +2,7 @@ package marcopolo.controllers;
 
 //import marcopolo.Application;
 import marcopolo.Application;
+import marcopolo.dao.CleDAO;
 import marcopolo.dao.MarquePageDAO;
 import marcopolo.dao.PersonDAO;
 import marcopolo.dao.PreferenceDAO;
@@ -142,38 +143,22 @@ public class PersonController {
 		@RequestMapping(method = RequestMethod.GET, value = "/{personId}")
 		public Person getPerson(@PathVariable("personId") long personId) {
 			
-			//log.info("Appel webService onePerson avec personId = " + personId);
+			log.info("Appel webService onePerson avec personId = " + personId);
 			
 			PersonDAO myPersonDAO = new PersonDAO(jdbcTemplate);
 			return (myPersonDAO.getPerson(personId));
 		}
 	
-	// Récuperer une personne 
+	// Récuperer une personne avec son mail et son mdp 
 			@RequestMapping(method = RequestMethod.GET)
-			public HttpEntity<Person> logPerson(
+			public Person getPersonByMailId(
 			        @RequestParam(value = "mail", required = true) String pMail,
 			        @RequestParam(value = "mdp", required = true) String pMdp) {
 				
-				//log.info("Appel webService createPerson avec personMail = " + pMail + " " + pMdp);
+					log.info("Appel webService createPerson avec personMail = " + pMail + " " + pMdp);
 				
-				//String nSql = "insert into person values (seq_person.nextval,?,?)";
-				
-				//this.jdbcTemplate.update(nSql,pMail, pMdp);
-				
-				String requete =  "select* from person where mail=? and mdp=?";
-				        List<Person> persons = this.jdbcTemplate.query(requete,	
-				                new RowMapper<Person>() {
-				                    public Person mapRow(ResultSet rs, int rowNum) throws SQLException {
-				        				Person person = new Person();
-				                        person.setMail(rs.getString("mail"));
-				        				Long id = rs.getLong("id_person");
-				        				 person.add(ControllerLinkBuilder.linkTo(ControllerLinkBuilder.methodOn(PersonController.class).getPerson(id)).withRel("self"));
-				        				 person.add(ControllerLinkBuilder.linkTo(ControllerLinkBuilder.methodOn(PersonController.class).listMarquePagesById(id)).withRel("marquepages"));
-				                        return person;
-				                    }
-				        },pMail,pMdp);
-		       
-				return new ResponseEntity<Person>(persons.get(0),HttpStatus.OK);    
+					PersonDAO myPersonDAO = new PersonDAO(jdbcTemplate);
+					return (myPersonDAO.getPersonByMailId(pMail,pMdp));    
 			}
 			
 		// Renvoi les clés de la personne avec id donné, self link 
@@ -181,8 +166,12 @@ public class PersonController {
 		@RequestMapping(method = RequestMethod.GET, value = "/{personId}/cles")
 		public List<Cle> findClesByIdPerson(@PathVariable("personId") long personId) {
 
-			//log.info("Appel webService onePerson avec personId = " + personId);
-				
+			log.info("Appel webService onePerson avec personId = " + personId);
+			
+			CleDAO myCleDAO = new CleDAO(jdbcTemplate);
+			return (myCleDAO.getPersonCles(personId)); 
+			
+			/*	
 			String requete =  "select distinct cle from marquepage mp,tag tg,cle cl "
 								+ "where mp.id_marquepage=tg.id_marquepage "
 								+ "and tg.id_cle=cl.id_cle "
@@ -196,9 +185,33 @@ public class PersonController {
 	                return cle;
 	            }
 	        }, personId);
-			return cles;	
+			return cles;
+			*/	
 		}
-
+//---------------------------------Pour Test à supprimmer ----------------------------------------------------------		
+		
+		/**
+	     * Service Rest qui retourne l'ensemble des personnes de la base.
+	     *
+	     */
+		@RequestMapping(method = RequestMethod.GET, value = "/all")
+		public List<Person> allPerson() {
+			
+			log.info("Appel webService allPerson");
+	           	   	   				
+			List<Person> persons = this.jdbcTemplate.query(
+	        "select id_person, mail, mdp from person",
+	        new RowMapper<Person>() {
+	            public Person mapRow(ResultSet rs, int rowNum) throws SQLException {
+	                Person person = new Person();
+					person.setId(rs.getInt("id_person"));
+	                person.setMail(rs.getString("mail"));
+	                person.setMdp(rs.getString("mdp"));
+	                return person;
+	            }
+	        });
+			return persons;	
+		}
 	
 }
 	    

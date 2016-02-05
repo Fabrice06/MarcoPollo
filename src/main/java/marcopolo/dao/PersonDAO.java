@@ -47,7 +47,7 @@ public class PersonDAO {
 			
 			Person person = new Person();
 			person.setId(rs.getLong("id_person"));
-			person.setLangue(rs.getString("nom"));
+			//person.setLangue(rs.getString("nom")); en stanby traitement langue
 			person.setMail(rs.getString("mail"));
 			person.setMdp(rs.getString("mdp"));
 			
@@ -69,10 +69,17 @@ public class PersonDAO {
 	
 	public Person getPerson(Long idPerson) {
 		
+		/* en Stanby traitement langue
 		String sql = "select * "
 				+ "from person p,langue l "
 				+ "where p.id_langue=l.id_langue "
 				+ "and id_person=?"; 
+		*/
+		
+		String sql = "select * "
+				+ "from person "
+				+ "where id_person=?";
+				
 		List<Person> personsList = this.jdbcTemplate.query(sql,new Object[]{idPerson},	
 		        new PersonMapper());
 		
@@ -93,6 +100,42 @@ public class PersonDAO {
 			return null;
 		}
 	}
+	
+public Person getPersonByMailId(String mail, String mdp) {
+		
+		/* en Stanby traitement langue
+		String sql = "select * "
+				+ "from person p,langue l "
+				+ "where p.id_langue=l.id_langue "
+				+ "and id_person=?"; 
+		*/
+		
+		String sql = "select * "
+				+ "from person "
+				+ "where mail=?"
+				+ "and mdp=?";
+				
+		List<Person> personsList = this.jdbcTemplate.query(sql,new Object[]{mail,mdp},	
+		        new PersonMapper());
+		
+		// person not found
+				if (personsList.isEmpty()) {
+					log.info("person does not exists");
+					return null; 
+					
+		// list contains exactly 1 element
+		} else if (personsList.size() == 1 ) { 
+			log.info("id_person=" + personsList.get(0));
+			
+			 return personsList.get(0); 
+
+		// list contains more than 1 element
+		} else {
+			log.error("Table person : person is not unique");
+			return null;
+		}
+	}
+
 
 	public Person addPerson(String mail, String mdp) {
 		
@@ -105,6 +148,7 @@ public class PersonDAO {
 		// get last id_person inserted
 		Long LastIdPersonInserted = this.jdbcTemplate.queryForObject(SQL_GET_LAST_ID_INSERTED, Long.class);
 		log.debug("LastIdPersonInserted=" + LastIdPersonInserted);
+		log.info("id_person=" + LastIdPersonInserted);
 		
 		return getPerson(LastIdPersonInserted); 
 	

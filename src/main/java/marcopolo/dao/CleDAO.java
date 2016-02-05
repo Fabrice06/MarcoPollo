@@ -1,12 +1,20 @@
 package marcopolo.dao;
 
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
+import marcopolo.controllers.MarquePageController;
+import marcopolo.controllers.TagController;
+import marcopolo.dao.PersonDAO.PersonMapper;
 import marcopolo.entity.Cle;
+import marcopolo.entity.Tag;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
@@ -17,6 +25,23 @@ public class CleDAO extends DAO<Cle> {
 	@Autowired
 	public CleDAO(JdbcTemplate jdbcTemplate) {
 		this.jdbcTemplate = jdbcTemplate;
+	}
+	
+	/**
+	 * mapping each row of the result sql request
+	 * to a Cle object
+	 *
+	 */
+	public class CleMapper implements RowMapper<Cle> {
+		
+		public Cle mapRow(ResultSet rs, int rowNum)
+				throws SQLException {
+			
+			Cle cle = new Cle();
+			cle.setCle(rs.getString("cle"));
+			
+			return cle;
+		}
 	}
 	
 	
@@ -72,6 +97,19 @@ public class CleDAO extends DAO<Cle> {
 		// return id_cle
 		return findCleWithCle(cle);
 		
+	}
+	
+	public List<Cle> getPersonCles(long idPerson) {
+		
+		String sql =  "select distinct cle from marquepage mp,tag tg,cle cl "
+				+ "where mp.id_marquepage=tg.id_marquepage "
+				+ "and tg.id_cle=cl.id_cle "
+				+ "and mp.id_person=?";
+		
+		List<Cle> clesList = this.jdbcTemplate.query(sql, new Object[]{idPerson},	
+		        new CleMapper());
+		
+		return clesList;
 	}
 	
 	
