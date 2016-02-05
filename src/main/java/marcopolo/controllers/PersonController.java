@@ -6,6 +6,7 @@ import marcopolo.dao.CleDAO;
 import marcopolo.dao.MarquePageDAO;
 import marcopolo.dao.PersonDAO;
 import marcopolo.dao.PreferenceDAO;
+import marcopolo.dao.TagDAO;
 import marcopolo.entity.Cle;
 import marcopolo.entity.MarquePage;
 import marcopolo.entity.Person;
@@ -85,26 +86,6 @@ public class PersonController {
 			PersonDAO myPersonDAO = new PersonDAO(jdbcTemplate);
 		       
 			return myPersonDAO.updatePerson(personId, pMail);    
-			
-			/*
-	        String requete = "update person set mail = ? "
-					+ "where id_person = ?";
-
-	         this.jdbcTemplate.update(requete,
-				new RowMapper<Person>() {
-                	public Person mapRow(ResultSet rs, int rowNum) throws SQLException {
-        				Person person = new Person();
-                        person.setMail(rs.getString("mail"));
-        				Long id = rs.getLong("id_person");
-        				persons.add(person);
-        				person.add(ControllerLinkBuilder.linkTo(ControllerLinkBuilder.methodOn(PersonController.class).getPerson(id)).withRel("self"));
-        				person.add(ControllerLinkBuilder.linkTo(ControllerLinkBuilder.methodOn(PersonController.class).listMarquePagesById(id)).withRel("marquepages"));
-                        return person;
-                	}	
-			},pMail, personId);
-			
-			return new ResponseEntity<Person>((Person) persons.get(0),HttpStatus.OK);	
-			*/
 	}	
 		
 	// 12. Renvoi liste marquepages de la personne avec id defini, self link -- manque liste tags avec lien pour chaque tag ???
@@ -112,7 +93,9 @@ public class PersonController {
 	@RequestMapping(method = RequestMethod.GET, value = "/{personId}/marquepages")
 	public List<MarquePage> listMarquePagesById(@PathVariable("personId") long personId) {
 		
-		//log.info("Appel webService onePerson avec personId = " + personId);
+		log.info("Appel webService onePerson avec personId = " + personId);
+		
+		TagDAO myTagDAO = new TagDAO(jdbcTemplate);
 			
 		String requete =  "select * from marquepage where id_person=?";
 			  
@@ -127,7 +110,8 @@ public class PersonController {
             	
             	//set marquepage
                 marquepage.setLien(rs.getString("lien"));
-                //marquepage.setListeDesTags(listeDesTags);
+                marquepage.setNom(rs.getString("nom"));
+                marquepage.setTags(myTagDAO.getTagsWithIdMqp(idMarquePage));
                 
                 //Links
                 marquepage.add(ControllerLinkBuilder.linkTo(ControllerLinkBuilder.methodOn(PersonController.class).listMarquePagesById(id)).withRel("self"));
