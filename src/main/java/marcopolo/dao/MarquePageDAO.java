@@ -189,5 +189,26 @@ private final JdbcTemplate jdbcTemplate;
 			
 		return marquePages;
 	}
+
+
+	public List<MarquePage> getPersonMqp(long personId) {
+		
+		TagDAO tagDAO = new TagDAO(jdbcTemplate);
+		
+		String sql = "select * " 
+				+ "from marquepage "
+				+ "where id_person=?";
+	
+	List<MarquePage> marquePageList = this.jdbcTemplate.query(sql, new Object[]{personId},
+		new MarquePageMapper());
+	
+		for (MarquePage mqp : marquePageList) {
+			
+			mqp.setTags(tagDAO.getTagsWithIdMqp(mqp.getIdMarquepage()));
+		}
+		
+		
+		return marquePageList;
+	}
 	
 }

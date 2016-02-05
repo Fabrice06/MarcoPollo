@@ -54,7 +54,7 @@ public class PersonDAO {
 			
 			// add Hateoas link 
 			person.add(linkTo(methodOn(PersonController.class).getPerson(person.getIdPerson())).withSelfRel());
-			person.add(ControllerLinkBuilder.linkTo(ControllerLinkBuilder.methodOn(PersonController.class).listMarquePagesById(person.getIdPerson())).withRel("marquepages"));
+			person.add(ControllerLinkBuilder.linkTo(ControllerLinkBuilder.methodOn(PersonController.class).getPersonMqp(person.getIdPerson())).withRel("marquepages"));
 			return person;
 		}
 	}

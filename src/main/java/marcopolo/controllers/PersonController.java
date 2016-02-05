@@ -91,10 +91,15 @@ public class PersonController {
 	// 12. Renvoi liste marquepages de la personne avec id defini, self link -- manque liste tags avec lien pour chaque tag ???
 	
 	@RequestMapping(method = RequestMethod.GET, value = "/{personId}/marquepages")
-	public List<MarquePage> listMarquePagesById(@PathVariable("personId") long personId) {
+	public List<MarquePage> getPersonMqp(@PathVariable("personId") long personId) {
 		
 		log.info("Appel webService onePerson avec personId = " + personId);
 		
+		MarquePageDAO myMarquePageDAO = new MarquePageDAO(jdbcTemplate);
+		return (myMarquePageDAO.getPersonMqp(personId));
+		
+		
+		/*
 		TagDAO myTagDAO = new TagDAO(jdbcTemplate);
 			
 		String requete =  "select * from marquepage where id_person=?";
@@ -106,7 +111,6 @@ public class PersonController {
             	MarquePage marquepage = new MarquePage();
             	Long id = rs.getLong("id_person");
                 Long idMarquePage = rs.getLong("id_marquepage");
-                //ArrayList listeDesTags= MarquePageController.tagsDunMarquePage(idMarquePage);
             	
             	//set marquepage
                 marquepage.setLien(rs.getString("lien"));
@@ -116,11 +120,11 @@ public class PersonController {
                 //Links
                 marquepage.add(ControllerLinkBuilder.linkTo(ControllerLinkBuilder.methodOn(PersonController.class).listMarquePagesById(id)).withRel("self"));
                 marquepage.add(ControllerLinkBuilder.linkTo(ControllerLinkBuilder.methodOn(PersonController.class).getPerson(id)).withRel("persons"));
-                //marquepage.add(ControllerLinkBuilder.linkTo(ControllerLinkBuilder.methodOn(MarquePageController.class).tagsDunMarquePage(idMarquePage)).withRel("marquepageById"));
                 return marquepage;
             }
         }, personId);
 		return marquePages;	
+		*/
 	}	
 
 		// Renvoi le mail de la personne avec id donné, self link --fini--
