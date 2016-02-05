@@ -1,9 +1,9 @@
-<div ng-controller="marquepageListCtrl">
+<div>
 	<!-- composant HEADER -->
 	<div class="container my-header" id="">
 		<div class="row">
 			<div class="col-lg-5 col-sm-12 col-lg-offset-7 text-right">
-				<a href="" ng-click="onProfil()">mon profil</a> <span>&NonBreakingSpace;|&NonBreakingSpace;</span>
+				<a href="" ng-click="onProfil()">{{'PROFILE' | translate}}</a> <span>&NonBreakingSpace;|&NonBreakingSpace;</span>
 				<a href="" ng-click="onExit()">déconnexion</a>
 			</div>
 		</div>
@@ -37,7 +37,7 @@
 					<button type="button" class="btn btn-default btn-sm" ng-click="onAdd()">
 						<a >
 						 <span class="icon-af icon-af-A-basic-plus25"></span>
-						</a>Ajouter
+						</a>{{'ADD' | translate}}
 					</button>
 				</div>
 			</div>

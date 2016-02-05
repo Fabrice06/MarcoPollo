@@ -86,7 +86,7 @@
 			console.log('---------- requestUri: ' + requestUri);
         	
         	//on récupère l'id du marquepage sélectionné   	
-        	var id =findIdMqp.links[2].href;
+        	var id =findIdMqp.links[1].href;
         	console.log('url du marquepage ' + id);        	
         	var nIdArray = id.split('/');
         	var mqpToDelete = nIdArray[4];        	

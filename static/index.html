@@ -53,15 +53,13 @@
 
 	</head>
 	
-	<body>
+	<body ng-controller="traductCtrl">
         <div ng-view></div>
 
-		<footer>
-			<a href="">Plan de notre site</a>
+		<footer >
+			<a href="">{{'PERSON_LOG_WHO' | translate}}</a>
 			<span>&NonBreakingSpace;|&NonBreakingSpace;</span>
-			<a href="">Qui sommes-nous ?</a>
-			<span>&NonBreakingSpace;|&NonBreakingSpace;</span>
-			<a href="mailto:marcopolo.admin@gmail.com">Contactez-nous</a>
+			<a href="mailto:marcopolo.admin@gmail.com">{{'PERSON_LOG_CONTACT' | translate}}</a>
 		</footer>
 
 
