@@ -112,11 +112,32 @@ private final JdbcTemplate jdbcTemplate;
 	@Override
 	public void delete(Long idMqp) {
 		
+		//delete tags
+		TagDAO tagDao = new TagDAO(jdbcTemplate);
+		tagDao.deleteTagsWithIdMqp(idMqp);
+				
 		String sql = "delete "
 				+ "from marquepage "
 				+ "where id_marquepage=?";
 		
 		this.jdbcTemplate.update(sql, idMqp);
+	}
+	
+	
+	public void deleteByIdPerson(Long idPerson) {
+		
+		String sql = "select * " 
+				+ "from marquepage "
+				+ "where id_person=?";
+	
+		List<MarquePage> MarquePageList = this.jdbcTemplate.query(sql, new Object[]{idPerson},
+		new MarquePageMapper());
+	
+	
+		for (MarquePage mqp : MarquePageList) {
+			delete(mqp.getIdMarquepage());
+		}
+		
 	}
 
 

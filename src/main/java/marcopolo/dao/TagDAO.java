@@ -128,8 +128,6 @@ public class TagDAO extends DAO<Tag> {
 		this.jdbcTemplate.update(sql, idMqp);
 	 }
 	
-	
-	
 	public Long addTag(Long idMqp, String cle, String valeur) {
 		 
 		log.debug("cle=" + cle);

@@ -50,7 +50,7 @@
                               role="form"
                               data-ng-model="marquepageDetailModel" 
                               name="marquepageDetailModelForm"                             
-                              ng-submit="onValidate()"
+                              ng-submit="onUpdate()"
                               novalidate>
 
                             <div
@@ -147,6 +147,8 @@
                                                 </div>
 
                                                 <input 
+													   name="cle"
+													   id="cle"
                                                        list="choixCle" 
                                                        type="text" 
                                                        class="form-control input-Black">
@@ -182,6 +184,8 @@
 
 
                                                 <input 
+													   name="valeur"
+													   id="valeur"
                                                        type="text" 
                                                        class="form-control input-Black" 
                                                        placeholder="" 
@@ -199,7 +203,7 @@
                                                 <button 
                                                         type="button" 
                                                         class="btn btn-default btn-md"
-                                                        data-ng-click="">
+                                                        data-ng-click="onAdd(marquepageDetailModel)">
                                                 
                                                     <span 
                                                           class="icon-af icon-af icon-af-B-digital-plus">
@@ -226,7 +230,7 @@
                                                 <button 
                                                         type="button" 
                                                         class="btn btn-default btn-md"
-                                                        data-ng-click="">
+                                                        data-ng-click="onDel(t)">
                                                     
                                                     <span 
                                                           class="icon-af icon-af-B-digital-cross">
@@ -245,18 +249,18 @@
                                         type="button" 
                                         name="submit-btn" 
                                         class="btn btn-primary"
-                                        ng-click="">Annuler
+                                        ng-click="onBack()">Annuler
                                 </button>
                                 <button 
                                         type="button" 
                                         name="submit-btn" 
                                         class="btn btn-primary"
-                                        ng-click="">Supprimer
+                                        ng-click="onDelete()">Supprimer
                                 </button>
                                 <button 
                                         type="submit" 
                                         name="submit-btn" 
-                                        class="btn btn-primary" >Modifier
+                                        class="btn btn-primary">Modifier
                                 </button>
                           
                             </div>
