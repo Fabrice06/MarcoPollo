@@ -25,9 +25,11 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  * <b>Représente une personne identifié par son mail et son mdp.</b>
  * 
  */
-public class Person extends ResourceSupport implements Serializable {
-	
-	private static final long serialVersionUID = 1L;
+//public class Person extends ResourceSupport implements Serializable {
+//	
+//	private static final long serialVersionUID = 1L;
+
+public class Person extends ResourceSupport {
 	
 	
 	/**

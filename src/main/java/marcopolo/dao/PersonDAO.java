@@ -30,7 +30,7 @@ public class PersonDAO {
 		this.jdbcTemplate = jdbcTemplate;
 	}
 	
-	protected static Log log = LogFactory.getLog(Application.class);
+	protected static Log log = LogFactory.getLog(PersonDAO.class);
 	
 	protected final static String SQL_GET_LAST_ID_INSERTED = "CALL SCOPE_IDENTITY()";
 	
@@ -152,6 +152,25 @@ public Person getPersonByMailId(String mail, String mdp) {
 		
 		return getPerson(LastIdPersonInserted); 
 	
+	}
+
+	public MarquePage addPersonMqp(long personId, String lien, String nom) {
+		
+		String sql = "insert "
+				+ "into marquepage (id_marquepage,id_person, lien, nom) "
+				+ "values (seq_marquepage.nextval, ?, ?, ?)";
+		
+		this.jdbcTemplate.update(sql,personId,lien,nom);	
+		        
+		
+		// get last id_marquepage inserted
+		Long LastIdMarquePageInserted = this.jdbcTemplate.queryForObject(SQL_GET_LAST_ID_INSERTED, Long.class);
+		
+		log.debug("LastIdMarquePageInserted=" + LastIdMarquePageInserted);
+		
+		MarquePageDAO myMarquePageDAO = new MarquePageDAO(jdbcTemplate);
+		
+		return myMarquePageDAO.find(LastIdMarquePageInserted); 
 	}
 	
 	

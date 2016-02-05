@@ -136,8 +136,6 @@ public class PersonController {
 		return marquePages;	
 	}	
 
-	
-	
 		// Renvoi le mail de la personne avec id donné, self link --fini--
 		
 		@RequestMapping(method = RequestMethod.GET, value = "/{personId}")
@@ -170,23 +168,20 @@ public class PersonController {
 			
 			CleDAO myCleDAO = new CleDAO(jdbcTemplate);
 			return (myCleDAO.getPersonCles(personId)); 
+		}
+		
+		// 16. Créer marquepage à partir de l'idPerson 
+		@RequestMapping(method = RequestMethod.POST, value = "/{personId}/marquepages")
+		public MarquePage addPersonMqp(
+				@PathVariable("personId") long personId,
+		        @RequestParam(value = "lien", required = true) String lien,
+		        @RequestParam(value = "nom", required = true) String nom) {
 			
-			/*	
-			String requete =  "select distinct cle from marquepage mp,tag tg,cle cl "
-								+ "where mp.id_marquepage=tg.id_marquepage "
-								+ "and tg.id_cle=cl.id_cle "
-								+ "and mp.id_person=?";
-				  
-			List<Cle> cles = this.jdbcTemplate.query(requete,	
-	        new RowMapper<Cle>() {
-	            public Cle mapRow(ResultSet rs, int rowNum) throws SQLException {
-					Cle cle = new Cle();
-	                cle.setCle(rs.getString("cle"));
-	                return cle;
-	            }
-	        }, personId);
-			return cles;
-			*/	
+			log.info("Appel webService addPersonMqp avec idPerson = " + personId + " " + lien + " " + nom );
+			
+			PersonDAO myPersonDAO = new PersonDAO(jdbcTemplate);
+	       
+			return myPersonDAO.addPersonMqp(personId, lien, nom );    
 		}
 //---------------------------------Pour Test à supprimmer ----------------------------------------------------------		
 		
