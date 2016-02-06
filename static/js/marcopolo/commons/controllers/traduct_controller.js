@@ -10,8 +10,7 @@
 				BUTTON_LANG_EN: 'English',
 				BUTTON_LANG_FR: 'French',
 				PERSON_LOG_TITLE: 'Get identified and retrieve your bookmarks list',
-				PERSON_LOG_MAIL: "Email address",
-				PERSON_LOG_REQUIRED: "This field is required",
+				PERSON_LOG_MAIL: "Email address",		
 				PERSON_LOG_VALID: "Thank you for indicating a valid email address",
 				PERSON_LOG_PASS: "Password",
 				PERSON_LOG_MESSAGE: "I forgot my password !",
@@ -23,6 +22,20 @@
 				PERSON_LOG_WHO: "About us",
 				PERSON_LOG_CONTACT: "Contact us",
 				PERSON_DETAIL_PROFILE: "Update my profile",
+                
+                MQP_DET_TITLE: 'My bookmark',
+                MQP_DET_NAME: 'Name of bookmark :',
+                MQP_DET_LINK: 'Link of bookmark :',
+                MQP_DET_KEY: 'Key',
+                MQP_DET_VALUE: 'Value',
+                
+                MQP_LIST_NAME: 'Names',
+                MQP_LIST_LINKS: 'Links',
+                MQP_LIST_FILTER: 'Filter',
+                
+                REQUIRED: "This field is required",
+                SEARCH: 'Search',
+                
 				ADD: "Add",
 				PROFILE: "My profile",				
 				LOGOUT: "Log out",
@@ -38,7 +51,6 @@
 				BUTTON_LANG_FR: 'Français',
 				PERSON_LOG_TITLE: 'Identifiez-vous et accédez à la liste de vos marque-pages',
 				PERSON_LOG_MAIL: "Adresse email",
-				PERSON_LOG_REQUIRED: "Ce champ est obligatoire",
 				PERSON_LOG_VALID: "Merci d'indiquer une adresse e-mail valide",
 				PERSON_LOG_PASS: "Mot de passe",
 				PERSON_LOG_MESSAGE: "J'ai oublié mon mot de passe !",
@@ -50,6 +62,20 @@
 				PERSON_LOG_WHO: "Qui sommes nous ?",
 				PERSON_LOG_CONTACT: "Contactez-nous",
 				PERSON_DETAIL_PROFILE: "Mettre à jour mon profil",
+                
+                MQP_DET_TITLE: 'Mon Marquepage',
+                MQP_DET_NAME: 'Nom du marquepage :',
+                MQP_DET_LINK: 'Lien du marquepage :',
+                MQP_DET_KEY: 'Clé',
+                MQP_DET_VALUE: 'Valeur',
+                
+                MQP_LIST_NAME: 'Noms',
+                MQP_LIST_LINKS: 'Liens',
+                MQP_LIST_FILTER: 'Filtrer',
+                
+                REQUIRED: "This field is required",
+                SEARCH: 'Recherche',
+                
 				ADD: "Ajouter",
 				PROFILE: "Mon profil",				
 				LOGOUT: "Déconnexion",

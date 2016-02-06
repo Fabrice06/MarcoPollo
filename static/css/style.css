@@ -18,7 +18,12 @@
 
 
 .last_column {
-	width: 10%;
+	width: 12%;
+	text-align: center;
+}
+
+.last_column2 {
+	width: 8%;
 	text-align: center;
 }
 

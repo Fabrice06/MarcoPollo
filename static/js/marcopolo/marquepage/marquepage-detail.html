@@ -10,8 +10,14 @@
             <div 
                  class="col-lg-5 col-sm-12 col-lg-offset-7 text-right">
                 <a 
+                   href="" ng-click="onProfil()">{{'PROFILE' | translate}}
+                </a> 
+                
+                <span>&NonBreakingSpace;|&NonBreakingSpace;</span>
+                
+                <a 
                    href="" 
-                   ng-click="onExit()">déconnexion
+                   ng-click="onExit()">{{'LOGOUT' | translate}}
                 </a>
             </div>
         </div>
@@ -37,7 +43,7 @@
                 <div 
                      class="panel-heading">
                     <h3 
-                        class="panel-title">Mon Marquepage
+                        class="panel-title">{{'MQP_DET_TITLE' | translate}}
 						<span class="icon-af icon-af icon-af icon-af icon-af-C-metier-meridiens pull-right"></span>
                     </h3>
                 </div>
@@ -51,39 +57,39 @@
                               role="form"
                               data-ng-model="marquepageDetailModel" 
                               name="marquepageDetailModelForm"                             
-                              ng-submit="onUpdate()"
+                              ng-submit="onUpdate(marquepageDetailModel)"
                               novalidate>
 
                             <div
                                  class="form-group"
-								 ng-class="{'has-success': marquepageDetailModelForm.name.$dirty && marquepageDetailModelForm.name.$valid,
-			                    'has-error': marquepageDetailModelForm.name.$dirty && marquepageDetailModelForm.name.$invalid }">
+								 ng-class="{'has-success': marquepageDetailModelForm.nom.$dirty && marquepageDetailModelForm.nom.$valid,
+			                    'has-error': marquepageDetailModelForm.nom.$dirty && marquepageDetailModelForm.nom.$invalid }">
                                 
                                 <label 
                                        for="name" 
-                                       class="control-label">Nom du marquepage :
+                                       class="control-label">{{'MQP_DET_NAME' | translate}}
                                 </label> 
                                 <input 
-                                       id="name" 
-                                       name="name" 
+                                       id="nom" 
+                                       name="nom" 
                                        type="text" 
                                        required 
                                        class="form-control"
-                                       ng-model="marquepageDetailModel.name"> 
+                                       ng-model="marquepageDetailModel.nom"> 
                                 
                                 <div
 									 class="help-block"
-									 ng-show="marquepageDetailModelForm.name.$pristine || marquepageDetailModelForm.name.$valid">&emsp;
+									 ng-show="marquepageDetailModelForm.nom.$pristine || marquepageDetailModelForm.nom.$valid">&emsp;
 								</div>
 									 
 								
 								<div 
 									 class="help-block"
-									 ng-show="marquepageDetailModelForm.name.$dirty"
-									 ng-messages="marquepageDetailModelForm.name.$error">
+									 ng-show="marquepageDetailModelForm.nom.$dirty"
+									 ng-messages="marquepageDetailModelForm.nom.$error">
 								
 									<div 
-										ng-message="required">Champ requis
+										ng-message="required">{{'REQUIRED' | translate}}
 									</div> 
 									
                                 </div>
@@ -99,7 +105,7 @@
                                
                                 <label 
                                        for="lien" 
-                                       class="control-label">Lien du marquepage :   
+                                       class="control-label">{{'MQP_DET_LINK' | translate}} 
 
                                 </label> 
                                 <input 
@@ -120,7 +126,7 @@
                                      ng-messages="marquepageDetailModelForm.lien.$error">
                                     
 									<div 
-										 ng-message="required">Champ requis
+										 ng-message="required">{{'REQUIRED' | translate}}
 									</div>
 									
                                 </div>
@@ -142,7 +148,7 @@
                                                             class="btn btn-default dropdown-toggle" 
                                                             data-toggle="dropdown" 
                                                             aria-expanded="false" 
-                                                            disabled>Clé
+                                                            disabled>{{'MQP_DET_KEY' | translate}}
                                                     </button>
                                                     
                                                 </div>
@@ -152,7 +158,8 @@
 													   id="cle"
                                                        list="choixCle" 
                                                        type="text" 
-                                                       class="form-control input-Black">
+                                                       class="form-control input-Black"
+                                                       ng-model="marquepageDetailModel.cle">
                                                     
                                                 <datalist 
                                                           id="choixCle">
@@ -178,7 +185,7 @@
                                                             class="btn btn-default dropdown-toggle" 
                                                             data-toggle="dropdown" 
                                                             aria-expanded="false" 
-                                                            disabled>Valeur
+                                                            disabled>{{'MQP_DET_VALUE' | translate}}
                                                     </button>
                                                     
                                                 </div>
@@ -190,13 +197,14 @@
                                                        type="text" 
                                                        class="form-control input-Black" 
                                                        placeholder="" 
-                                                       aria-label="...">
+                                                       aria-label="..."
+                                                       ng-model="marquepageDetailModel.valeur">
                                                 <!--		<input type="text" class="form-control" placeholder="Valeur" aria-label="...">  -->
                                             </div><!-- /input-group -->
                                         </th>
 
                                         <th 
-                                            class="last_column">
+                                            class="last_column2">
 
                                             <abbr 
                                                   title="add">
@@ -218,12 +226,12 @@
 
                                 <tbody>
                                     <tr 
-                                        data-ng-repeat="t in marquepageDetailModel.listeDesTags|filter:search|orderBy:predicate ='cle'">
+                                        data-ng-repeat="t in marquepageDetailModel.tags|filter:search|orderBy:predicate ='cle'">
                                         
                                         <td>{{t.cle}}</td>
                                         <td>{{t.valeur}}</td>
                                         <td 
-                                            class="last_column">
+                                            class="last_column2">
                                             
                                             <abbr 
                                                   title="delete">
@@ -250,18 +258,18 @@
                                         type="button" 
                                         name="submit-btn" 
                                         class="btn btn-primary"
-                                        ng-click="onBack()">Annuler
+                                        ng-click="onBack()">{{'CANCEL' | translate}}
                                 </button>
                                 <button 
                                         type="button" 
                                         name="submit-btn" 
                                         class="btn btn-primary"
-                                        ng-click="onDelete()">Supprimer
+                                        ng-click="onDelete()">{{'DELETE' | translate}}
                                 </button>
                                 <button 
                                         type="submit" 
                                         name="submit-btn" 
-                                        class="btn btn-primary">Modifier
+                                        class="btn btn-primary">{{'UPDATE' | translate}}
                                 </button>
                           
                             </div>
