@@ -11,6 +11,8 @@ import marcopolo.controllers.MarquePageController;
 import marcopolo.controllers.PersonController;
 import marcopolo.entity.MarquePage;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -18,13 +20,14 @@ import org.springframework.jdbc.core.RowMapper;
 public class MarquePageDAO extends DAO<MarquePage> {
 	
 	@Autowired
-private final JdbcTemplate jdbcTemplate;
+	private final JdbcTemplate jdbcTemplate;
 
 	@Autowired
 	public MarquePageDAO(JdbcTemplate jdbcTemplate) {
 		this.jdbcTemplate = jdbcTemplate;
 	}
 
+	private static Log log = LogFactory.getLog(MarquePageDAO.class);
 	
 	/**
 	 * 
@@ -90,35 +93,35 @@ private final JdbcTemplate jdbcTemplate;
 	
 	/**
 	 * 
-	 * update nom of one marque-page in DB
+	 * update nom and lien of one marque-page in DB
 	 * @param Long idMqp
-	 * @param String nom
+	 * @param String nom, String nom
 	 * 
 	 */
-	public void updateNom(Long idMqp, String nom) {
+	public void update(Long idMqp, String nom, String lien) {
 		
-		String sql = "update marquepage set nom = ? "
+		String sql = "update marquepage set nom = ?, lien = ? "
 				+ "where id_marquepage = ?";
 
-		this.jdbcTemplate.update(sql, nom, idMqp);
+		this.jdbcTemplate.update(sql, nom, lien, idMqp);
 	}
 	
 	
 	
-	/**
-	 * 
-	 * update lien of one marque-page in DB
-	 * @param Long idMqp
-	 * @param String newLien
-	 * 
-	 */
-	public void updateLien(Long idMqp, String newLien) {
-		
-		String sql = "update marquepage set lien = ? "
-				+ "where id_marquepage = ?";
-
-		this.jdbcTemplate.update(sql, newLien, idMqp);
-	}
+//	/**
+//	 * 
+//	 * update lien of one marque-page in DB
+//	 * @param Long idMqp
+//	 * @param String newLien
+//	 * 
+//	 */
+//	public void updateLien(Long idMqp, String newLien) {
+//		
+//		String sql = "update marquepage set lien = ? "
+//				+ "where id_marquepage = ?";
+//
+//		this.jdbcTemplate.update(sql, newLien, idMqp);
+//	}
 	
 	
 	/**

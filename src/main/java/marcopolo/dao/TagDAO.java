@@ -11,6 +11,8 @@ import marcopolo.controllers.MarquePageController;
 import marcopolo.controllers.TagController;
 import marcopolo.entity.Tag;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -25,7 +27,8 @@ public class TagDAO extends DAO<Tag> {
 		this.jdbcTemplate = jdbcTemplate;
 	}
 
-		
+	private static Log log = LogFactory.getLog(TagDAO.class);
+	
 	/**
 	 * mapping each row of the result sql request
 	 * to a Tag object

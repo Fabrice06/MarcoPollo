@@ -87,11 +87,11 @@ public class MarquePageController {
 			@RequestParam(value="lien") String lien,
 			@RequestParam(value="nom") String nom) {
 
-		log.info("Appel webService updateLienMqp");
+		log.info("Appel webService updateMqp");
 		
 		MarquePageDAO marquePageDao = new MarquePageDAO(jdbcTemplate);
-		marquePageDao.updateLien(idMqp, lien);
-		marquePageDao.updateNom(idMqp, nom);
+		
+		marquePageDao.update(idMqp, nom, lien);
 				
 		return idMqp;
 	}

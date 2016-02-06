@@ -6,6 +6,8 @@ import java.util.List;
 
 import marcopolo.entity.Cle;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -13,6 +15,8 @@ import org.springframework.jdbc.core.RowMapper;
 public class CleDAO extends DAO<Cle> {
 
 	private final JdbcTemplate jdbcTemplate;
+	
+	private static Log log = LogFactory.getLog(CleDAO.class);
 
 	@Autowired
 	public CleDAO(JdbcTemplate jdbcTemplate) {

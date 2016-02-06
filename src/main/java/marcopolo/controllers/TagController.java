@@ -1,6 +1,5 @@
 package marcopolo.controllers;
 
-import marcopolo.Application;
 import marcopolo.dao.TagDAO;
 import marcopolo.entity.Tag;
 
@@ -25,7 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 public class TagController {
 
-	private static Log log = LogFactory.getLog(Application.class);
+	private static Log log = LogFactory.getLog(TagController.class);
 
 	@Autowired
 	JdbcTemplate jdbcTemplate;
