@@ -1,35 +1,17 @@
 package marcopolo.entity;
 
-import static javax.persistence.GenerationType.AUTO;
-
-import java.io.Serializable;
-import java.util.ArrayList;
-
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
-
 import org.springframework.hateoas.ResourceSupport;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-//@Entity
-@Table(name="PERSON")
-@SequenceGenerator(
-    name="SEQ_PERSON",
-    sequenceName="SEQ_PERSON"
-)
+
 
 /**
  * <b>Représente une personne identifié par son mail et son mdp.</b>
  * 
  */
-public class Person extends ResourceSupport implements Serializable {
+public class Person extends ResourceSupport {
 	
-	private static final long serialVersionUID = 1L;
-
-//public class Person extends ResourceSupport {
 	
 	
 	/**
@@ -53,31 +35,11 @@ public class Person extends ResourceSupport implements Serializable {
     
     private String langue;
     
-    private ArrayList<MarquePage> listMarquePages;
+//    private ArrayList<MarquePage> listMarquePages;
+//    
+//    private ArrayList<Preference> listPreferences;
     
-    private ArrayList<Preference> listPreferences;
     
-    /**
-     * <b>Constructeur avec parametre</b>
-     * <p>
-     *     Permets la création d'une nouvelle personne avec un identifiant unique et:
-     *     <ul>
-     *         <li>un mail servant de login,</li>
-     *         <li>une mot de passe (mdp) pour s'identifier sur l'application</li>
-     *     </ul>
-     * </p>
-     *
-     * @param mail
-     *      Mail (login) de la personne, de type String.
-     * @param mdp
-     *      Mot de passe de la personne, de type String.
-     */
-	public Person(String mail ) {
-        this.mail = mail;
-        //this.mdp = mdp;
-        //this.listMarquePages = listMarquePages;
-        //this.listPreferences = listPreferences;
-    }
 	
 	 /**
      * <b>Constructeur par default</b>

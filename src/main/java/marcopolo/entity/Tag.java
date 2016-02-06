@@ -13,20 +13,12 @@ public class Tag extends ResourceSupport {
 
 	private Long idTag;
 	private Long idMqp;
-	private String valeur;
+	
 	private String cle;
+	private String valeur;
 	
 	public Tag() {
 
-	}
-
-		
-	public String getValeur() {
-		return valeur;
-	}
-
-	public void setValeur(String valeur) {
-		this.valeur = valeur;
 	}
 
 	public String getCle() {
@@ -36,6 +28,16 @@ public class Tag extends ResourceSupport {
 	public void setCle(String cle) {
 		this.cle = cle;
 	}
+	
+	public String getValeur() {
+		return valeur;
+	}
+
+	public void setValeur(String valeur) {
+		this.valeur = valeur;
+	}
+
+	
 
 
 	@JsonIgnore

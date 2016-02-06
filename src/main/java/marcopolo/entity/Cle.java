@@ -1,22 +1,7 @@
 package marcopolo.entity;
 
-import static javax.persistence.GenerationType.AUTO;
 
-import java.io.Serializable;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Lob;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
-
-//@Entity
-@Table(name="CLE")
-@SequenceGenerator(
-  name="SEQ_CLE",
-  sequenceName="SEQ_CLE"
-)
 
 /**
  * <b>Représente une clé identifié par un libellé.</b>
@@ -25,8 +10,7 @@ import javax.persistence.Table;
 
 public class Cle {
 
-	private static final long serialVersionUID = 1L;
-	
+		
 	
 	/**
      * Id unique de la clé

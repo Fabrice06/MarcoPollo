@@ -37,8 +37,8 @@ public class TagDAO extends DAO<Tag> {
 				throws SQLException {
 			
 			Tag tag = new Tag();
-			tag.setValeur(rs.getString("valeur"));
 			tag.setCle(rs.getString("cle"));
+			tag.setValeur(rs.getString("valeur"));
 			tag.setIdMqp(rs.getLong("id_marquepage"));
 			tag.setIdTag(rs.getLong("id_tag"));
 			//add Hateoas links

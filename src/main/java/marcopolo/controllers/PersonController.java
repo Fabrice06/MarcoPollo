@@ -1,46 +1,32 @@
 package marcopolo.controllers;
 
-//import marcopolo.Application;
-import marcopolo.Application;
+
+import java.util.List;
+
 import marcopolo.dao.CleDAO;
 import marcopolo.dao.MarquePageDAO;
 import marcopolo.dao.PersonDAO;
 import marcopolo.dao.PreferenceDAO;
-import marcopolo.dao.TagDAO;
 import marcopolo.entity.Cle;
 import marcopolo.entity.MarquePage;
 import marcopolo.entity.Person;
 
-import org.apache.commons.logging.Log; 
+import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
-import java.sql.ResultSet;
-import java.sql.SQLException;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.hateoas.mvc.ControllerLinkBuilder;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.PathVariable;
 
 @RestController
 @RequestMapping("/persons")
 public class PersonController {
 
-	private static Log log = LogFactory.getLog(Application.class);
+	private static Log log = LogFactory.getLog(PersonController.class);
+	
 	@Autowired
 	JdbcTemplate jdbcTemplate;
 
@@ -93,38 +79,13 @@ public class PersonController {
 	@RequestMapping(method = RequestMethod.GET, value = "/{personId}/marquepages")
 	public List<MarquePage> getPersonMqp(@PathVariable("personId") long personId) {
 		
-		log.info("Appel webService onePerson avec personId = " + personId);
+		log.info("Appel webService getPersonMqp avec personId = " + personId);
 		
 		MarquePageDAO myMarquePageDAO = new MarquePageDAO(jdbcTemplate);
 		return (myMarquePageDAO.getPersonMqp(personId));
 		
 		
-		/*
-		TagDAO myTagDAO = new TagDAO(jdbcTemplate);
-			
-		String requete =  "select * from marquepage where id_person=?";
-			  
-		List<MarquePage> marquePages = this.jdbcTemplate.query(requete,	
-        new RowMapper<MarquePage>() {
-            public MarquePage mapRow(ResultSet rs, int rowNum) throws SQLException {
-            	
-            	MarquePage marquepage = new MarquePage();
-            	Long id = rs.getLong("id_person");
-                Long idMarquePage = rs.getLong("id_marquepage");
-            	
-            	//set marquepage
-                marquepage.setLien(rs.getString("lien"));
-                marquepage.setNom(rs.getString("nom"));
-                marquepage.setTags(myTagDAO.getTagsWithIdMqp(idMarquePage));
-                
-                //Links
-                marquepage.add(ControllerLinkBuilder.linkTo(ControllerLinkBuilder.methodOn(PersonController.class).listMarquePagesById(id)).withRel("self"));
-                marquepage.add(ControllerLinkBuilder.linkTo(ControllerLinkBuilder.methodOn(PersonController.class).getPerson(id)).withRel("persons"));
-                return marquepage;
-            }
-        }, personId);
-		return marquePages;	
-		*/
+		
 	}	
 
 		// Renvoi le mail de la personne avec id donné, self link --fini--
@@ -174,30 +135,33 @@ public class PersonController {
 	       
 			return myPersonDAO.addPersonMqp(personId, lien, nom );    
 		}
+		
+		
+		
 //---------------------------------Pour Test à supprimmer ----------------------------------------------------------		
 		
-		/**
-	     * Service Rest qui retourne l'ensemble des personnes de la base.
-	     *
-	     */
-		@RequestMapping(method = RequestMethod.GET, value = "/all")
-		public List<Person> allPerson() {
-			
-			log.info("Appel webService allPerson");
-	           	   	   				
-			List<Person> persons = this.jdbcTemplate.query(
-	        "select id_person, mail, mdp from person",
-	        new RowMapper<Person>() {
-	            public Person mapRow(ResultSet rs, int rowNum) throws SQLException {
-	                Person person = new Person();
-					person.setId(rs.getInt("id_person"));
-	                person.setMail(rs.getString("mail"));
-	                person.setMdp(rs.getString("mdp"));
-	                return person;
-	            }
-	        });
-			return persons;	
-		}
+//		/**
+//	     * Service Rest qui retourne l'ensemble des personnes de la base.
+//	     *
+//	     */
+//		@RequestMapping(method = RequestMethod.GET, value = "/all")
+//		public List<Person> allPerson() {
+//			
+//			log.info("Appel webService allPerson");
+//	           	   	   				
+//			List<Person> persons = this.jdbcTemplate.query(
+//	        "select id_person, mail, mdp from person",
+//	        new RowMapper<Person>() {
+//	            public Person mapRow(ResultSet rs, int rowNum) throws SQLException {
+//	                Person person = new Person();
+//					person.setId(rs.getInt("id_person"));
+//	                person.setMail(rs.getString("mail"));
+//	                person.setMdp(rs.getString("mdp"));
+//	                return person;
+//	            }
+//	        });
+//			return persons;	
+//		}
 	
 }
 	    
