@@ -23,6 +23,8 @@
 				PERSON_LOG_CONTACT: "Contact us",
 				PERSON_DETAIL_PROFILE: "Update my profile",
                 
+                MQP_NEW_TITLE: 'My new bookmark',
+                
                 MQP_DET_TITLE: 'My bookmark',
                 MQP_DET_NAME: 'Name of bookmark :',
                 MQP_DET_LINK: 'Link of bookmark :',
@@ -34,6 +36,7 @@
                 MQP_LIST_FILTER: 'Filter',
                 
                 REQUIRED: "This field is required",
+                URL: 'This field must be an URL',
                 SEARCH: 'Search',
                 
 				ADD: "Add",
@@ -41,7 +44,8 @@
 				LOGOUT: "Log out",
 				CANCEL: "Cancel",
 				DELETE: "Delete",
-				UPDATE: "Update"
+				UPDATE: "Update",
+                CREATE: 'Create'
 			});
 			
 			$translateProvider.translations('fr', {
@@ -63,6 +67,8 @@
 				PERSON_LOG_CONTACT: "Contactez-nous",
 				PERSON_DETAIL_PROFILE: "Mettre à jour mon profil",
                 
+                MQP_NEW_TITLE: 'Mon nouveau Marquepage',
+                
                 MQP_DET_TITLE: 'Mon Marquepage',
                 MQP_DET_NAME: 'Nom du marquepage :',
                 MQP_DET_LINK: 'Lien du marquepage :',
@@ -73,7 +79,8 @@
                 MQP_LIST_LINKS: 'Liens',
                 MQP_LIST_FILTER: 'Filtrer',
                 
-                REQUIRED: "This field is required",
+                REQUIRED: "Ce champ est obligatoire",
+                URL: 'Ce champ doit être une URL',
                 SEARCH: 'Recherche',
                 
 				ADD: "Ajouter",
@@ -81,7 +88,8 @@
 				LOGOUT: "Déconnexion",
 				CANCEL: "Annuler",
 				DELETE: "Supprimer",
-				UPDATE: "Modifier"
+				UPDATE: "Modifier",
+                CREATE: 'Créer'
 			});
 			
 			$translateProvider.preferredLanguage('en');

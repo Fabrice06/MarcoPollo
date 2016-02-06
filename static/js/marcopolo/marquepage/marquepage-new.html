@@ -4,7 +4,7 @@
         <div class="row">
             <div class="col-lg-5 col-sm-12 col-lg-offset-7 text-right">
 
-                <a href="" ng-click="onExit()">déconnexion</a>
+                <a href="" ng-click="onExit()">{{'LOGOUT' | translate}}</a>
             </div>
         </div>
 
@@ -32,7 +32,7 @@
 
             <div class="panel panel-info">
                 <div class="panel-heading">
-                    <h3 class="panel-title">Mon Nouveau MarquePage
+                    <h3 class="panel-title">{{'MQP_NEW_TITLE' | translate}}
                         <span class="icon-af icon-af icon-af icon-af icon-af-C-metier-meridiens pull-right"></span>
                     </h3>
                 </div>
@@ -43,7 +43,7 @@
                     <div class="form-group">
                             <label 
                                 for="name" 
-                                class="control-label">Nom du marquepage :
+                                class="control-label">{{'MQP_DET_NAME' | translate}}
                             </label> 
 						<input type="text"
                                ng-model="mqpNewModel.nameMqp"
@@ -61,7 +61,7 @@
                                    'has-error': mqpForm.mqpUrl.$dirty && mqpForm.mqpUrl.$invalid}" >
                             <label 
                                 for="lien" 
-                                class="control-label">Lien du marquepage :   
+                                class="control-label">{{'MQP_DET_LINK' | translate}}  
                             </label> 
                         <input name="mqpUrl"
                                type="url"
@@ -74,11 +74,11 @@
                               ng-messages="mqpForm.mqpUrl.$error">
                             <span class="help-block"
                                   ng-message="required">
-                                Ce champ est obligatoire
+                                {{'REQUIRED' | translate}} 
                             </span>
                             <span class="help-block"
                                   ng-message="url">
-                                Ce champ doit être une URL
+                                {{'URL' | translate}} 
                             </span>
                         </span>
                     </div>
@@ -90,7 +90,7 @@
                                 type="button"
                                 name="submit-btn"
                                 class="btn btn-primary">
-                             Annuler
+                             {{'CANCEL' | translate}} 
                         </button>
                         
                         <button ng-disabled="mqpForm.$invalid"
@@ -98,7 +98,7 @@
                                 type="button"
                                 name="submit-btn"
                                 class="btn btn-primary">
-                            Créer
+                            {{'CREATE' | translate}} 
                         </button>
                         
 
