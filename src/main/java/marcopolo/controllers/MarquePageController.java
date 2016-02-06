@@ -2,7 +2,6 @@ package marcopolo.controllers;
 
 import java.util.List;
 
-import marcopolo.Application;
 import marcopolo.dao.MarquePageDAO;
 import marcopolo.dao.TagDAO;
 import marcopolo.entity.MarquePage;
@@ -31,7 +30,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 public class MarquePageController {
 	
-	private static Log log = LogFactory.getLog(Application.class);
+	private static Log log = LogFactory.getLog(MarquePageController.class);
 
 	@Autowired
 	JdbcTemplate jdbcTemplate;
@@ -77,20 +76,22 @@ public class MarquePageController {
 	/**
 	 * PUT request for /marquepages/{idMqp}
 	 * 
-	 * Update lien of one marque-page
+	 * Update lien and nom of one marque-page
 	 * 
-	 * @param Long
+	 * @param Long, String, String
 	 * @return Long
 	 * 
 	 */
 	@RequestMapping(method = RequestMethod.PUT, value = "/{idMqp}")
-	public @ResponseBody Long updateLienMqp(@PathVariable("idMqp") Long idMqp, 
-			@RequestParam(value="lien") String lien) {
+	public @ResponseBody Long updateMqp(@PathVariable("idMqp") Long idMqp, 
+			@RequestParam(value="lien") String lien,
+			@RequestParam(value="nom") String nom) {
 
 		log.info("Appel webService updateLienMqp");
 		
 		MarquePageDAO marquePageDao = new MarquePageDAO(jdbcTemplate);
 		marquePageDao.updateLien(idMqp, lien);
+		marquePageDao.updateNom(idMqp, nom);
 				
 		return idMqp;
 	}

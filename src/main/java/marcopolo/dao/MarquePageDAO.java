@@ -90,6 +90,23 @@ private final JdbcTemplate jdbcTemplate;
 	
 	/**
 	 * 
+	 * update nom of one marque-page in DB
+	 * @param Long idMqp
+	 * @param String nom
+	 * 
+	 */
+	public void updateNom(Long idMqp, String nom) {
+		
+		String sql = "update marquepage set nom = ? "
+				+ "where id_marquepage = ?";
+
+		this.jdbcTemplate.update(sql, nom, idMqp);
+	}
+	
+	
+	
+	/**
+	 * 
 	 * update lien of one marque-page in DB
 	 * @param Long idMqp
 	 * @param String newLien
