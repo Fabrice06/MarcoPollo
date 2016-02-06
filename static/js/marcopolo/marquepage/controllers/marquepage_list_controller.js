@@ -84,8 +84,7 @@
 			
 			Marquepage.delete({uri:requestUri,id:mqpToDelete},function (listMqp){
 				//en cas de succès on met à jour la liste dans la vue
-				$scope.listMqp.splice(findIdMqp,1);
-				
+				$scope.listMqp.splice($scope.listMqp.indexOf(findIdMqp),1);				
 				console.log('route du marquepage supprimé : ' + id);
 				
 			});
