@@ -16,7 +16,7 @@
         // Récuperation des marquepages d'une personne
         
         $scope.listMqp = MarquepageList.query({id:nUrlArray[2]},function (success){
-        	window.alert("Success");
+        
         	
         },function (pData, headers) { // échec
         	window.alert("Connexion impossible");
@@ -81,11 +81,13 @@
 
 			//on passe en tant que paramètre la deuxième partie de l'URL courante + l'id du marquepage 
 			//nécessaire pour faire appel au HEADER du service $resource "Marquepage"
-			var mqpToDelete = nIdArray[4];
-			Marquepage.delete({uri:requestUri, id:mqpToDelete},function (success){
+			
+			Marquepage.delete({uri:requestUri,id:mqpToDelete},function (listMqp){
 				//en cas de succès on met à jour la liste dans la vue
-				$scope.listMqp.splice(findIdMqp, 1);
+				$scope.listMqp.splice(findIdMqp,1);
+				
 				console.log('route du marquepage supprimé : ' + id);
+				
 			});
         }; 
       

@@ -172,8 +172,8 @@
 
                 return nReturn;
             });*/
-
-            $httpBackend.whenPOST(new RegExp('marquepages/[0-9]{1,}/marquepages\\?.*')).passThrough(); // vers le backend
+            $httpBackend.whenPOST(new RegExp('persons/[0-9]{1,}/marquepages\\?.*')).passThrough(); // vers le backend
+//            $httpBackend.whenPOST(new RegExp('marquepages/[0-9]{1,}/marquepages\\?.*')).passThrough(); // vers le backend
             $httpBackend.whenDELETE(new RegExp(nRegexMarquepages)).passThrough(); // vers le backend
             $httpBackend.whenPUT(new RegExp('marquepages/[0-9]{1,}\\?.*')).passThrough(); // vers le backend
 

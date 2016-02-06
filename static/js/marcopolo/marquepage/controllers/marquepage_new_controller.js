@@ -5,44 +5,36 @@
         .module('marcopolo')
         .controller('marquepageNewCtrl', marquepageNewCtrl);
 
-    marquepageNewCtrl.$inject = ['$scope', '$resource', '$location', 'Marquepage','$routeParams'];
-    function marquepageNewCtrl($scope, $resource, $location, Marquepage, $routeParams) {
+    marquepageNewCtrl.$inject = ['$scope', '$resource', '$location', 'MarquepageNew','$routeParams'];
+    function marquepageNewCtrl($scope, $resource, $location, MarquepageNew, $routeParams) {
         
-        var url = '';
-        var nameMqp = '';
+       /* var url = '';
+        var nameMqp = '';*/
         $scope.personId = $routeParams.personId;
-        console.log("jjjj"+$scope.personId);
-        $scope.mqpNewModel = {url: url, nameMqp: nameMqp};
+        console.log("récup idPerson "+$scope.personId);
+        //$scope.mqpNewModel = {url: url, nameMqp: nameMqp};
         
-        $scope.validate = function(mqp) {
-            console.log("id : "+personId+" lien : "+mqp.url+" nom : "+mqp.nameMqp);
-                Marquepage.save({
-                     // uri:"marquepages",
-                    id:$scope.personId,
-                    lien:mqp.url,
-                    nom:mqp.nameMqp
-                   
-                    },
-                    // Ca se passe bien
-                  //  function (pMarquepage) {
-                   //     console.log("marquepageLogCtl Query OK - creation d'un Mqp");
-                    //var jsonMqp = pMarquepage.links[1].href
-                    //var idMqpArray=jsonMqp.split('/');
-                    //var idMqp=idMqpArray[4];
-                    //console.log(idMqp);
-                    // reprendre l'url courante et remplacer "new" par l'id du Mqp créé
-                     //   var nDetLink = $location.url();
-        	       //    $location.path(nDetLink + idMqp).replace();
-                        // recupérer l'id de la personne en splitant l'url courante
-                        // récupérer l'id du Mqp dans le Json suite au retour de la BD : idDuMqp
-                        // et rediriger vers l'url /persons/idPerson/marquepages/idDuMqp
-                    
-                 //   },
-                    // Ca se passe mal
-                    function (pData, headers) {
-                      console.log("marquepageLogCtl Query Echec");
-                    }
-              )
+        $scope.validate = function(mqpNewModel) {
+
+        	console.log("id : "+ $scope.personId+" lien : "+mqpNewModel.url+" nom : "+mqpNewModel.nameMqp);
+
+        	MarquepageNew.save({ id1:$scope.personId},{lien:mqpNewModel.url, nom:mqpNewModel.nameMqp}, 
+        	//Ca se passe bien
+        	function (success) {
+        		//on récupère l'id du mqp créé
+        		var jsonMqp = success.links[0].href
+        		var idMqpArray=jsonMqp.split('/');
+        		var idMqp=idMqpArray[4];
+        		console.log(idMqp);
+
+        		//on redirige vers la page détail        		
+        		$location.path('/persons/'+$scope.personId+'/marquepages/'+idMqpArray[4]);
+        		console.log($location.path());
+        	},
+        	// Ca se passe mal
+        	function (pData, headers) {
+        		console.log("marquepageLogCtl Query Echec");
+        	})
         };
         
         $scope.cancel = function() {
@@ -51,10 +43,7 @@
             var nUrlArray=$location.url().split('/');
             var id = nUrlArray[2];
             $location.path('/persons/'+id+'/marquepages').replace();
-        };
-        
-        
-                
+        };                
         		
 		 // clic sur le bouton déconnexion
         $scope.onProfil = function () {
