@@ -39,7 +39,8 @@
          class="container">
 
         <div 
-             class="panel panel-info col-xs-12 panel_sans_padding">
+             class="panel panel-info col-xs-12 panel_sans_padding"
+             ng-class="{'panel-danger':invalidInfos,'panel-info':!invalidInfos}">
                 <div 
                      class="panel-heading">
                     <h3 
@@ -67,14 +68,14 @@
                                 
                                 <label 
                                        for="name" 
-                                       class="control-label">{{'MQP_DET_NAME' | translate}}
+                                       class="control-label bold">{{'MQP_DET_NAME' | translate}}
                                 </label> 
                                 <input 
                                        id="nom" 
                                        name="nom" 
                                        type="text" 
                                        required 
-                                       class="form-control"
+                                       class="form-control input-Black"
                                        ng-model="marquepageDetailModel.nom"> 
                                 
                                 <div
@@ -105,14 +106,15 @@
                                
                                 <label 
                                        for="lien" 
-                                       class="control-label">{{'MQP_DET_LINK' | translate}} 
+                                       class="control-label bold">{{'MQP_DET_LINK' | translate}} 
 
                                 </label> 
                                 <input 
                                        id="lien" 
                                        name="lien" 
                                        type="url"
-                                       required class="form-control" 
+                                       required 
+                                       class="form-control input-Black" 
                                        ng-model="marquepageDetailModel.lien">
 								
 								 <div
@@ -145,7 +147,7 @@
 
                                                     <button 
                                                             type="button" 
-                                                            class="btn btn-default dropdown-toggle" 
+                                                            class="btn btn-default dropdown-toggle bold" 
                                                             data-toggle="dropdown" 
                                                             aria-expanded="false" 
                                                             disabled>{{'MQP_DET_KEY' | translate}}
@@ -182,7 +184,7 @@
                                                     
                                                     <button 
                                                             type="button" 
-                                                            class="btn btn-default dropdown-toggle" 
+                                                            class="btn btn-default dropdown-toggle bold" 
                                                             data-toggle="dropdown" 
                                                             aria-expanded="false" 
                                                             disabled>{{'MQP_DET_VALUE' | translate}}

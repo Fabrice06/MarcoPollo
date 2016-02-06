@@ -27,6 +27,9 @@
         // ressource Tags
         var nTag = 'tags';
         
+        // Booléen de controle d'informations complétes
+        $scope.invalidInfos = false;
+        
 
         // Récuperation et affichage des informations de la ressource person selectionnée
         $scope.marquepageDetailModel = Marquepage.query(
@@ -80,8 +83,15 @@
             
             var lien = pMarquepageDetail.lien;
             var nom = pMarquepageDetail.nom;
+            var cle = pMarquepageDetail.cle;
+            var valeur = pMarquepageDetail.valeur;
+                
+            if (cle && valeur) {
+                $scope.onAdd(pMarquepageDetail);
+            }
             
-            if (lien && nom){
+            if (lien && nom) {
+                $scope.invalidInfos = false;
                 Marquepage.update (
                     {
                         uri:nMqp,
@@ -101,6 +111,7 @@
                 )
             }else{
                 console.log("Manque le champ nom ou lien");
+                $scope.invalidInfos = true;
             }
        
 		};

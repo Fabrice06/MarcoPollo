@@ -35,7 +35,10 @@
 
 .input-Black {
 	color: black;
-	font-weight : bold;
+}
+
+.bold {
+    font-weight : bold;
 }
 
 .btn-Gris {
