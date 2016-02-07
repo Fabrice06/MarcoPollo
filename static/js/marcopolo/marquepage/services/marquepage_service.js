@@ -48,7 +48,7 @@
         
             {},
             { 
-                'save': 	{method:'POST', params: {cle:'@cle' ,valeur:'@valeur'}, isArray: false}
+                'save': 	{method:'POST', params: {cle:'@cle' ,valeur:'@valeur', idLangue:'@idLangue'}, isArray: false}
             }
         );
 

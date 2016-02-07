@@ -27,6 +27,16 @@
         // ressource Tags
         var nTag = 'tags';
         
+        console.log("Langue : "+$scope.lang);
+        
+// A supprimer 
+        if (!$scope.lang) {
+            $scope.lang = 1;
+        }
+        
+        console.log("Langue : "+$scope.lang);
+        
+        
         // Booléen de controle d'informations complétes
         $scope.invalidInfos = false;
         
@@ -126,7 +136,8 @@
                 },
                 {
 					cle:pTag.cle,
-					valeur:pTag.valeur
+					valeur:pTag.valeur,
+                    idLangue:$scope.lang
 				},
 				function (success) {
 					console.log('marquepageDetailCtrl add Tag query ok id : ' + nIdMqp);
