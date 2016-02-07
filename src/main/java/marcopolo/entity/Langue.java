@@ -14,7 +14,6 @@ public class Langue extends ResourceSupport {
 
 	private Long idLangue;
 	private String nom;
-//	private List<Cle> cles;
 	
 	public Langue() {
 		
@@ -37,12 +36,5 @@ public class Langue extends ResourceSupport {
 		this.nom = nom;
 	}
 
-//	public List<Cle> getCles() {
-//		return cles;
-//	}
-//
-//	public void setCles(List<Cle> cles) {
-//		this.cles = cles;
-//	}
 
 } // class

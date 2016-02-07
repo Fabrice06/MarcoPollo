@@ -1,12 +1,8 @@
 package marcopolo.controllers;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.List;
 
-import marcopolo.dao.CleDAO;
 import marcopolo.dao.LangueDAO;
-import marcopolo.entity.Cle;
 //import marcopolo.dao.LangueDAO;
 import marcopolo.entity.Langue;
 
@@ -20,7 +16,6 @@ import org.springframework.http.ResponseEntity;
 //import org.springframework.http.HttpStatus;
 //import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.web.bind.annotation.PathVariable;
 //import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -54,20 +49,12 @@ public class LangueController {
 
         log.info("Appel webService allLangues");
 
-        String requete = "select * "
-                + "from langue";
-
-        List<Langue> nLangues = this.jdbcTemplate.query(requete, new RowMapper<Langue>() {
-            public Langue mapRow(ResultSet rs, int rowNum) throws SQLException {
-                Langue nLangue = new Langue();
-                nLangue.setIdLangue(rs.getLong("id_langue"));
-                nLangue.setNom(rs.getString("nom"));
-                return nLangue;
-            }
-        });
-        return nLangues;
+        LangueDAO nLangueDAO = new LangueDAO(jdbcTemplate);
+        
+        return nLangueDAO.getAllLangues();
     }
 
+    
     /**
      * GET request for /langues/{idLangue}
      * 
