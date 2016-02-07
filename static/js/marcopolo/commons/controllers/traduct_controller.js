@@ -4,7 +4,7 @@
     angular
         .module('marcopolo')
         .config(function ($translateProvider){
-			$translateProvider.translations('en', {
+			$translateProvider.translations('english', {
 				PERSON_LOG_WELCOME1: 'Welcome to Marco Polo',
 				PERSON_LOG_WELCOME: "Join us and handle your bookmarks in your own way !",
 				BUTTON_LANG_EN: 'English',
@@ -14,7 +14,7 @@
 				PERSON_LOG_VALID: "Thank you for indicating a valid email address",
 				PERSON_LOG_PASS: "Password",
 				PERSON_LOG_MESSAGE: "I forgot my password !",
-				PERSON_LOG_NEW: "Still don't have an account ?",
+				PERSON_LOG_NEW: "I want to create an account",
 				PERSON_LOG_CONNECT: "Log in",				
 				PERSON_LOG_LOGIN_ERROR: "login and/or password is not correct",				
 				PERSON_LOG_MINLENGTH: "The password must contain at least 3 caracters",
@@ -22,6 +22,7 @@
 				PERSON_LOG_WHO: "About us",
 				PERSON_LOG_CONTACT: "Contact us",
 				PERSON_DETAIL_PROFILE: "Update my profile",
+				PERSON_DETAIL_LANGUAGE: "Language",
                 
                 MQP_NEW_TITLE: 'My new bookmark',
                 
@@ -48,7 +49,7 @@
                 CREATE: 'Create'
 			});
 			
-			$translateProvider.translations('fr', {
+			$translateProvider.translations('french', {
 				PERSON_LOG_WELCOME1: 'Bienvenue sur Marcopolo',
 				PERSON_LOG_WELCOME: "Rejoignez-nous pour gérer vos marque-pages selon vos envies !",
 				BUTTON_LANG_EN: 'Anglais',
@@ -58,7 +59,7 @@
 				PERSON_LOG_VALID: "Merci d'indiquer une adresse e-mail valide",
 				PERSON_LOG_PASS: "Mot de passe",
 				PERSON_LOG_MESSAGE: "J'ai oublié mon mot de passe !",
-				PERSON_LOG_NEW: "Vous n'avez pas encore de compte ? ",
+				PERSON_LOG_NEW: "Je veux créer un compte ",
 				PERSON_LOG_CONNECT: "Je me connecte",				
 				PERSON_LOG_LOGIN_ERROR: "Le login et/ou mot de passe est incorrect",
 				PERSON_LOG_MINLENGTH: "Le mot de passe doit contenir au minimum 3 caract&egrave;res",
@@ -66,6 +67,7 @@
 				PERSON_LOG_WHO: "Qui sommes nous ?",
 				PERSON_LOG_CONTACT: "Contactez-nous",
 				PERSON_DETAIL_PROFILE: "Mettre à jour mon profil",
+				PERSON_DETAIL_LANGUAGE: "Langue",
                 
                 MQP_NEW_TITLE: 'Mon nouveau Marquepage',
                 
@@ -92,7 +94,7 @@
                 CREATE: 'Créer'
 			});
 			
-			$translateProvider.preferredLanguage('en');
+			$translateProvider.preferredLanguage('english');
 		});
 		
 /* <p>{{'TITLE' | translate}}</p>  ou  <p translate="TITLE"></p>  */

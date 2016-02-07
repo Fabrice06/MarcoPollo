@@ -5,8 +5,8 @@
         .module('marcopolo')
         .controller('personLogCtrl', personLogCtrl);
 
-    personLogCtrl.$inject = ['$scope', '$location', 'Person', '$translate'];
-    function personLogCtrl($scope, $location, Person, $translate) {
+    personLogCtrl.$inject = ['$scope', '$location', 'Person', '$translate','focus' ];
+    function personLogCtrl($scope, $location, Person, $translate, focus) {
     	$scope.incorrectLogin = false; 
 
         // clic sur le bouton se connecter
@@ -88,13 +88,16 @@
 	                );
         	}
         };
+        
+        $scope.doSomething = function() {
+        	focus('useremail');
+        };
 
         // clic sur le liem mot de passe perdu
         $scope.onLost = function(pPersonLog){
-            alert('Un mot de passe provisoire a été envoyé à votre adresse e-mail');
-        };
-
-
+            	alert('Un mot de passe provisoire a été envoyé à votre adresse e-mail');
+            };
+        
         // pour test uniquement ---------------------------------------------------
             $scope.onTestA = function (pIdPerson) {
                 // direct vers persons-detail
@@ -113,6 +116,22 @@
                 $location.path('/yapafoto').replace();
             };
         // pour test uniquement ---------------------------------------------------
-    } // function
+    } // function    
+    
+    angular
+    	.module('marcopolo')
+    	.factory('focus', function($timeout, $window) {
+    		return function(id) {
+	          // timeout makes sure that is invoked after any other event has been triggered.
+	          // e.g. click events that need to run before the focus or
+	          // inputs elements that are in a disabled state but are enabled when those events
+	          // are triggered.
+	          $timeout(function() {
+	            var element = $window.document.getElementById(id);
+	            if(element)
+	              element.focus();
+	          });
+    		};
+    	})
 
 })();

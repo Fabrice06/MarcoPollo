@@ -5,10 +5,12 @@
         .module('marcopolo')
         .controller('personDetailCtrl', personDetailCtrl);
 
-    personDetailCtrl.$inject = ['$scope', '$location', 'Person', 'CurrentPerson'];
-    function personDetailCtrl($scope, $location, Person, CurrentPerson) {
-
-        var nUrlArray = $location.url().split('/');
+    personDetailCtrl.$inject = ['$scope', '$location', 'Person', 'CurrentPerson', '$translate'];
+    function personDetailCtrl($scope, $location, Person, CurrentPerson, $translate) {
+    	
+    	$scope.langues = ['english', 'french'];
+    	   			
+    	var nUrlArray = $location.url().split('/');
 
         //** Récuperation et affichage des informations de la ressource person selectionnée*/
         $scope.personDetailModel = Person.query(
@@ -74,13 +76,7 @@
         };
 
         $scope.onUpdate = function (pPersonDetail) {
-        	
-        	//alert('Votre adresse e-mail a bien été mise à jour');
-            // récup de l'id initial
-//            var nUriArray = CurrentPerson.getData._links.self.uri.split('/');
-//            var nId = nUrlArray[nUriArray.length-1];
-//            console.log("personDetailCtrl onSubmit nId " + nId);
-            
+        	         
             Person.update(
                     {
                     	uri : nUrlArray[1],  
@@ -92,6 +88,7 @@
                     function (pPerson) { // OK
 
                         console.log("pPersonDetail update ok");
+                        alert('Votre profil a bien été mis à jour');                                             
 
                         // remplace aprés le # dans la barre d'adresse
                         for	(var index = 0; index < pPerson.links.length; index++) {
