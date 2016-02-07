@@ -38,7 +38,7 @@
     }; 
     
     
-     angular.module('marcopolo')
+    angular.module('marcopolo')
         .factory('Tag', Tag);
 
     Tag.$inject = ['$resource'];
@@ -48,11 +48,29 @@
             '/marquepages/:id/tags/:id2',
         
             {},
-            { // return $resource('/users/:userId', {userId:'@id'}  ???
+            { 
                 'save': 	{method:'POST', params: {cle:'@cle' ,valeur:'@valeur'}, isArray: false}
             }
         );
 
-    } // function
+    };
+    
+    angular.module('marcopolo')
+        .factory('Cle', Cle);
+
+    Cle.$inject = ['$resource'];
+    function Cle ($resource) {
+
+        return $resource(
+            '/cles?langue=:id',
+            {},
+            { 
+                'get': 	{method:'GET', isArray: true}
+            }
+        );
+
+    };
+    
+    
 
 })();

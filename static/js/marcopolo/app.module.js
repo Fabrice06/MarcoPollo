@@ -50,7 +50,11 @@
         // person --------------------------------------------------------------------------
         var nRegexPersons= 'persons/[0-9]{1,}$';
 
-           $httpBackend.whenGET(new RegExp('persons\\?.*')).passThrough(); // vers le backend
+        
+        $httpBackend.whenGET(new RegExp('cles*')).passThrough();
+        
+        
+        $httpBackend.whenGET(new RegExp('persons\\?.*')).passThrough(); // vers le backend
            /* $httpBackend.whenGET(new RegExp('persons\\?.*')).respond(function (method, url) { // traitement FE sans BE
 
                 var nReturn = new Array();

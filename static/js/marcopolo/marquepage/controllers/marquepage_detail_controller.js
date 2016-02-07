@@ -6,8 +6,8 @@
         .controller('marquepageDetailCtrl', marquepageDetailCtrl);
 
 
-    marquepageDetailCtrl.$inject = ['$scope', '$resource', '$location', 'Marquepage', 'Tag', '$route'];
-    function marquepageDetailCtrl($scope, $resource, $location, Marquepage, Tag, $route) {
+    marquepageDetailCtrl.$inject = ['$scope', '$resource', '$location', 'Marquepage', 'Tag', 'Cle', '$route'];
+    function marquepageDetailCtrl($scope, $resource, $location, Marquepage, Tag, Cle, $route) {
 		
         // Récupération en tableau de l'url coupé au /
         var nUrlArray = $location.url().split('/');
@@ -29,6 +29,9 @@
         
         // Booléen de controle d'informations complétes
         $scope.invalidInfos = false;
+        
+        var nLang = 1;
+        console.log('La langue est : '+ nLang);
         
 
         // Récuperation et affichage des informations de la ressource person selectionnée
@@ -177,29 +180,39 @@
         };
         
         
-        
+        $scope.cles = Cle.get (
+				{
+                    id:$scope.lang
+                },
+				function (success) {
+					console.log('marquepageDetailCtrl liste cle query ok');	
+				},
+				function (pData, header) {
+					console.log('marquepageDetailCtrl liste cle query échec');
+				}
+			)
         
         
         
 		
-		$scope.cles = [
-			{
-				"id_cle":1,
-				"cle": "nom"
-			},
-			{
-				"id_cle":2,
-				"cle": "description"
-			},
-			{
-				"id_cle":3,
-				"cle": "couleur"
-			},
-			 {
-				"id_cle":4,
-				"cle": "date"
-			}
-		];
+//		$scope.cles = [
+//			{
+//				"id_cle":1,
+//				"cle": "nom"
+//			},
+//			{
+//				"id_cle":2,
+//				"cle": "description"
+//			},
+//			{
+//				"id_cle":3,
+//				"cle": "couleur"
+//			},
+//			 {
+//				"id_cle":4,
+//				"cle": "date"
+//			}
+//		];
 		
 		
 		
