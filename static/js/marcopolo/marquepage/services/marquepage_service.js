@@ -8,7 +8,6 @@
     function Marquepage ($resource) {
 
         return $resource(
-        	//'/persons/:id1/marquepages/:id2',	
             '/:uri/:id', //nécessaire pour marquepageListCtrl et marquepageDetailCtrl
         
             {},
@@ -55,6 +54,7 @@
 
     };
     
+    
     angular.module('marcopolo')
         .factory('Cle', Cle);
 
@@ -65,12 +65,11 @@
             '/cles?langue=:id',
             {},
             { 
-                'get': 	{method:'GET', isArray: true}
+                'query': 	{method:'GET', isArray: true}
             }
         );
 
     };
     
     
-
 })();

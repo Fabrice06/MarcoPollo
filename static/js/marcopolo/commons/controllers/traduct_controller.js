@@ -105,8 +105,9 @@
 				UPDATE: "Modifier",
                 CREATE: 'Créer'
 			});
-			
-			$translateProvider.preferredLanguage('english');
+
+			$translateProvider.preferredLanguage('french');
+
 		});
 		
 /* <p>{{'TITLE' | translate}}</p>  ou  <p translate="TITLE"></p>  */
@@ -119,9 +120,9 @@
 				$translate.use(key);
                 
                 switch (key) {
-                    case 'fr': $scope.lang = 1;
+                    case 'french': $scope.lang = 1;
                         break;
-                    case 'en' : $scope.lang = 2;
+                    case 'english' : $scope.lang = 2;
                         break;
                     default: $scope.lang = 1;
                 }

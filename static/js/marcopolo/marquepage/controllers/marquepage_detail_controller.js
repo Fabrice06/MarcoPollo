@@ -30,9 +30,6 @@
         // Booléen de controle d'informations complétes
         $scope.invalidInfos = false;
         
-        var nLang = 1;
-        console.log('La langue est : '+ nLang);
-        
 
         // Récuperation et affichage des informations de la ressource person selectionnée
         $scope.marquepageDetailModel = Marquepage.query(
@@ -115,8 +112,7 @@
             }else{
                 console.log("Manque le champ nom ou lien");
                 $scope.invalidInfos = true;
-            }
-       
+            }    
 		};
         
         // clic sur le bouton ajouter un tag
@@ -134,11 +130,7 @@
 				},
 				function (success) {
 					console.log('marquepageDetailCtrl add Tag query ok id : ' + nIdMqp);
-                    $route.reload();
-                    
-                   // $scope.marquepageDetailModel.tags.push(pTag);
-                    //Traitement de réactualisation	à vérifier	
-					
+                    $route.reload();					
 				},
 				function (pData, header) {
 					console.log('marquepageDetailCtrl add Tag query échec');
@@ -164,8 +156,6 @@
 				function (success) {
 					console.log('marquepageDetailCtrl del Tag query ok id : ' + idTag);
                     $scope.marquepageDetailModel.tags.splice($scope.marquepageDetailModel.tags.indexOf(pTag),1);
-					//$scope.listeDesTags.splice(pTag, 1);
-                    //Traitement de réactualisation à vérifier
 				},
 				function (pData, header) {
 					console.log('marquepageDetailCtrl del Tag query échec');
@@ -173,61 +163,25 @@
 			)
 		};
         
-        // clicsur mon profil
+        // clic sur mon profil
         $scope.onProfil = function () {
             console.log("clic mon profil"); 
             $location.path(nPersons+"/"+nIdPerson).replace();           
         };
         
         
-        $scope.cles = Cle.get (
-				{
-                    id:$scope.lang
-                },
-				function (success) {
-					console.log('marquepageDetailCtrl liste cle query ok');	
-				},
-				function (pData, header) {
-					console.log('marquepageDetailCtrl liste cle query échec');
-				}
-			)
-        
-        
-        
-		
-//		$scope.cles = [
-//			{
-//				"id_cle":1,
-//				"cle": "nom"
-//			},
-//			{
-//				"id_cle":2,
-//				"cle": "description"
-//			},
-//			{
-//				"id_cle":3,
-//				"cle": "couleur"
-//			},
-//			 {
-//				"id_cle":4,
-//				"cle": "date"
-//			}
-//		];
-		
-		
-		
-
-       
-		
-		
-		
-		
-		
-		
-		
-		
-		
-        
+        $scope.cles = Cle.query (
+            {
+                id:$scope.lang
+            },
+            function (success) {
+                console.log('marquepageDetailCtrl liste cle query ok');	
+            },
+            function (pData, header) {
+                console.log('marquepageDetailCtrl liste cle query échec');
+            }
+        )     
+    
     } // function
 
 })();
