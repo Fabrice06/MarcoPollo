@@ -29,6 +29,11 @@
             controller: 'marquepageDetailCtrl'
         })
 
+        .when('/persons/new', {
+            templateUrl: 'js/marcopolo/person/person-new.html',
+            controller: 'personNewCtrl'
+        })
+
         .when('/persons/:personId', {
           templateUrl: 'js/marcopolo/person/person-detail.html',
           controller: 'personDetailCtrl'
