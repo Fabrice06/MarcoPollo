@@ -37,8 +37,8 @@
 
                         <label class="control-label">{{'PERSON_NEW_LANG' | translate}}</label>
                         <select class="form-control"
-                            ng-model="personLangModel"
-                            ng-options="language for language in languages">
+                            ng-model="personNewModel.langue"
+                            ng-options="language.nom for language in languages">
                         </select>
                     </div>
 

@@ -64,7 +64,6 @@
 						   <span class="help-block"
 						   		ng-show="personLogModelForm.useremail.$pristine || personLogModelForm.useremail.$valid">&emsp;
 						   </span>
-						   
 					       <span class="help-block"
 								 ng-show="personLogModelForm.useremail.$dirty"
 								 ng-messages="personLogModelForm.useremail.$error"> 
@@ -95,7 +94,10 @@
 								   ng-model="personLogModel.mdp" 
 								   ng-minlength="3" 
 								   ng-maxlength="20">
-								   
+
+                            <span class="help-block"
+                                  ng-show="personLogModelForm.usermdp.$pristine || personLogModelForm.usermdp.$valid">&emsp;
+						   </span>
 							<span class="help-block"
 								ng-show="personLogModelForm.usermdp.$dirty"
 								ng-messages="personLogModelForm.usermdp.$error"> 

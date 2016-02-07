@@ -81,10 +81,15 @@
                     </div>
                     
                     <label for="langue">{{'PERSON_DETAIL_LANGUAGE' | translate}}</label><br/>
-                    
-                    <select ng-model="personDetailModel.langue" 
-							ng-options="langue for langue in langues">
-					</select><br/>
+                    <select class="form-control"
+                            ng-model="personDetailModel.langue"
+                            ng-options="language.nom for language in languages">
+                    </select>
+                    <span class="help-block">&emsp;
+                    </span>
+                    <!--<select ng-model="personDetailModel.langue" -->
+							<!--ng-options="langue for langue in langues">-->
+					<!--</select><br/>-->
 
                     <div class="text-right" >
                     
@@ -103,7 +108,7 @@
                         <button type="button"
                                 class="btn btn-primary"
                                 ng-disabled="personDetailModelForm.$invalid"
-                                ng-click="changeLanguage(personDetailModel.langue);onUpdate(personDetailModel)">
+                                ng-click="onSubmit(personDetailModel)">
                                 {{'UPDATE' | translate}}
                         </button>
                         

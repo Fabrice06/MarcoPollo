@@ -5,11 +5,26 @@
         .module('marcopolo')
         .controller('personNewCtrl', personNewCtrl);
 
-    personNewCtrl.$inject = ['$scope', '$location', 'Person'];
-    function personNewCtrl($scope, $location, Person) {
+    personNewCtrl.$inject = ['$scope', '$location', 'Person', 'Language'];
+    function personNewCtrl($scope, $location, Person, Language) {
 
-        $scope.languages = ['english', 'français'];
-        $scope.personLangModel = $scope.languages[1];
+        //$scope.languages = ['english', 'français'];
+        console.log("personNewCtrl xxx " + $scope.lang);
+        //** Récupération et affichage des informations de la ressource language*/
+        $scope.languages = Language.query(
+            {
+                uri:'langues'
+            },
+            function (pLangues) { // OK
+                console.log("personNewCtrl Langues get query " + pLangues[0].nom);
+
+            },
+            function (pData, headers) { // échec
+                console.log("personNewCtrl Langues get query échec");
+            }
+        );
+
+        //$scope.personLangModel = $scope.languages[1];
 
         // clic sur le bouton déconnexion
         $scope.onExit = function () {

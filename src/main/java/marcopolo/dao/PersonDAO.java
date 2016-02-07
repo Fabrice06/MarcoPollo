@@ -20,167 +20,162 @@ import org.springframework.jdbc.core.RowMapper;
 
 public class PersonDAO {
 
-	@Autowired
-	private final JdbcTemplate jdbcTemplate;
+    @Autowired
+    private final JdbcTemplate jdbcTemplate;
 
-	@Autowired
-	public PersonDAO(JdbcTemplate jdbcTemplate) {
-		this.jdbcTemplate = jdbcTemplate;
-	}
-	
-	protected static Log log = LogFactory.getLog(PersonDAO.class);
-	
-	protected final static String SQL_GET_LAST_ID_INSERTED = "CALL SCOPE_IDENTITY()";
-	
-	/**
-	 * 
-	 * initialize a Person object
-	 * with the data of the sql request
-	 *
-	 */
-	public class PersonMapper implements RowMapper<Person> {
-		
-		public Person mapRow(ResultSet rs, int rowNum)
-				throws SQLException {
-			
-			Person person = new Person();
-			person.setId(rs.getLong("id_person"));
-			//person.setLangue(rs.getString("nom")); en stanby traitement langue
-			person.setMail(rs.getString("mail"));
-			person.setMdp(rs.getString("mdp"));
-			
-			// add Hateoas link 
-			person.add(linkTo(methodOn(PersonController.class).getPerson(person.getIdPerson())).withSelfRel());
-			person.add(ControllerLinkBuilder.linkTo(ControllerLinkBuilder.methodOn(PersonController.class).getPersonMqp(person.getIdPerson())).withRel("marquepages"));
-			return person;
-		}
-	}
-	
-	public void deletePerson(Long idPerson) {
-		
-		String sql = "delete "
-				+ "from person "
-				+ "where id_person=?";
-		
-		this.jdbcTemplate.update(sql, idPerson);
-	}
-	
-	public Person getPerson(Long idPerson) {
-		
-		/* en Stanby traitement langue
-		String sql = "select * "
-				+ "from person p,langue l "
-				+ "where p.id_langue=l.id_langue "
-				+ "and id_person=?"; 
-		*/
-		
-		String sql = "select * "
-				+ "from person "
-				+ "where id_person=?";
-				
-		List<Person> personsList = this.jdbcTemplate.query(sql,new Object[]{idPerson},	
-		        new PersonMapper());
-		
-		// id_person not found
-				if (personsList.isEmpty()) {
-					log.info("id_person does not exists");
-					return null; 
-					
-		// list contains exactly 1 element
-		} else if (personsList.size() == 1 ) { 
-			log.info("id_person=" + personsList.get(0));
-			
-			 return personsList.get(0); 
+    @Autowired
+    public PersonDAO(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
 
-		// list contains more than 1 element
-		} else {
-			log.error("Table person : id_person is not unique");
-			return null;
-		}
-	}
-	
-public Person getPersonByMailId(String mail, String mdp) {
-		
-		/* en Stanby traitement langue
-		String sql = "select * "
-				+ "from person p,langue l "
-				+ "where p.id_langue=l.id_langue "
-				+ "and id_person=?"; 
-		*/
-		
-		String sql = "select * "
-				+ "from person "
-				+ "where mail=?"
-				+ "and mdp=?";
-				
-		List<Person> personsList = this.jdbcTemplate.query(sql,new Object[]{mail,mdp},	
-		        new PersonMapper());
-		
-		// person not found
-				if (personsList.isEmpty()) {
-					log.info("person does not exists");
-					return null; 
-					
-		// list contains exactly 1 element
-		} else if (personsList.size() == 1 ) { 
-			log.info("id_person=" + personsList.get(0));
-			
-			 return personsList.get(0); 
+    protected static Log log = LogFactory.getLog(PersonDAO.class);
 
-		// list contains more than 1 element
-		} else {
-			log.error("Table person : person is not unique");
-			return null;
-		}
-	}
+    protected final static String SQL_GET_LAST_ID_INSERTED = "CALL SCOPE_IDENTITY()";
+
+    /**
+     * 
+     * initialize a Person object
+     * with the data of the sql request
+     *
+     */
+    public class PersonMapper implements RowMapper<Person> {
+
+        public Person mapRow(ResultSet rs, int rowNum)
+                throws SQLException {
+
+            Person person = new Person();
+            person.setId(rs.getLong("id_person"));
+            person.setLangue(rs.getString("nom"));
+            person.setMail(rs.getString("mail"));
+            //person.setMdp(rs.getString("mdp"));
+
+            // add Hateoas link 
+            person.add(linkTo(methodOn(PersonController.class).getPerson(person.getIdPerson())).withSelfRel());
+            person.add(ControllerLinkBuilder.linkTo(ControllerLinkBuilder.methodOn(PersonController.class).getPersonMqp(person.getIdPerson())).withRel("marquepages"));
+            return person;
+        }
+    }
 
 
-	public Person addPerson(String mail, String mdp) {
-		
-		String sql = "insert "
-				+ "into person (id_person, mail, mdp) "
-				+ "values (seq_person.nextval, ?, ?)";
-		
-		this.jdbcTemplate.update(sql, mail, mdp);
-		
-		// get last id_person inserted
-		Long LastIdPersonInserted = this.jdbcTemplate.queryForObject(SQL_GET_LAST_ID_INSERTED, Long.class);
-		log.debug("LastIdPersonInserted=" + LastIdPersonInserted);
-		log.info("id_person=" + LastIdPersonInserted);
-		
-		return getPerson(LastIdPersonInserted); 
-	
-	}
+    public void deletePerson(Long idPerson) {
 
-	public MarquePage addPersonMqp(long personId, String lien, String nom) {
-		
-		String sql = "insert "
-				+ "into marquepage (id_marquepage,id_person, lien, nom) "
-				+ "values (seq_marquepage.nextval, ?, ?, ?)";
-		
-		this.jdbcTemplate.update(sql,personId,lien,nom);	
-		        
-		
-		// get last id_marquepage inserted
-		Long LastIdMarquePageInserted = this.jdbcTemplate.queryForObject(SQL_GET_LAST_ID_INSERTED, Long.class);
-		
-		log.debug("LastIdMarquePageInserted=" + LastIdMarquePageInserted);
-		
-		MarquePageDAO myMarquePageDAO = new MarquePageDAO(jdbcTemplate);
-		
-		return myMarquePageDAO.find(LastIdMarquePageInserted); 
-	}
+        String sql = "delete "
+                + "from person "
+                + "where id_person=?";
 
-	public Person updatePerson(long personId, String pMail) {
-		
-		String sql = "update person set mail = ? "
-				+ "where id_person = ?";
-				
-		this.jdbcTemplate.update(sql,pMail, personId);
-		
-		return getPerson(personId); 
-		
-	}
-	
-	
+        this.jdbcTemplate.update(sql, idPerson);
+    }
+
+
+    public Person getPerson(Long idPerson) {
+
+        String sql = "select p.id_person, p.mail, l.nom "
+                + "from person p, langue l "
+                + "where p.id_langue=l.id_langue "
+                + "and p.id_person=?"; 
+
+        List<Person> personsList = this.jdbcTemplate.query(sql, new Object[]{idPerson}, new PersonMapper());
+
+        // id_person not found
+        if (personsList.isEmpty()) {
+            log.info("id_person does not exists");
+            return null; 
+
+            // list contains exactly 1 element
+        } else if (personsList.size() == 1 ) { 
+            log.info("id_person=" + personsList.get(0));
+
+            return personsList.get(0); 
+
+            // list contains more than 1 element
+        } else {
+            log.error("Table person : id_person is not unique");
+            return null;
+        }
+    }
+
+
+    public Person getPersonByMailId(final String pMail, final String pMdp) {
+
+        String sql = "select p.id_person, p.mail, l.nom "
+                + "from person p, langue l "
+                + "where p.id_langue=l.id_langue "
+                + "and p.mail=? and p.mdp=?"; 
+
+        List<Person> personsList = this.jdbcTemplate.query(sql, new Object[]{pMail, pMdp}, new PersonMapper());
+
+        // person not found
+        if (personsList.isEmpty()) {
+            log.info("person does not exists");
+            return null; 
+
+            // list contains exactly 1 element
+        } else if (personsList.size() == 1 ) { 
+            log.info("id_person=" + personsList.get(0));
+
+            return personsList.get(0); 
+
+            // list contains more than 1 element
+        } else {
+            log.error("Table person : person is not unique");
+            return null;
+        }
+    }
+
+
+    public Person addPerson(final String pMail, final String pMdp, final String pLangue) {
+
+        String nSql = "insert "
+                + "into person (id_person, id_langue, mail, mdp) "
+                //+ "values (seq_person.nextval, ?, ?)"
+                + "select seq_person.nextval, l.id_langue, ?, ? "
+                + "from langue l "
+                + "where l.nom=?";
+
+        this.jdbcTemplate.update(nSql, pMail, pMdp, pLangue);
+
+        // get last id_person inserted
+        Long LastIdPersonInserted = this.jdbcTemplate.queryForObject(SQL_GET_LAST_ID_INSERTED, Long.class);
+        log.debug("LastIdPersonInserted=" + LastIdPersonInserted);
+        log.info("id_person=" + LastIdPersonInserted);
+
+        return getPerson(LastIdPersonInserted); 
+
+    }
+
+    
+    public MarquePage addPersonMqp(long personId, String lien, String nom) {
+
+        String sql = "insert "
+                + "into marquepage (id_marquepage,id_person, lien, nom) "
+                + "values (seq_marquepage.nextval, ?, ?, ?)";
+
+        this.jdbcTemplate.update(sql,personId,lien,nom);	
+
+
+        // get last id_marquepage inserted
+        Long LastIdMarquePageInserted = this.jdbcTemplate.queryForObject(SQL_GET_LAST_ID_INSERTED, Long.class);
+
+        log.debug("LastIdMarquePageInserted=" + LastIdMarquePageInserted);
+
+        MarquePageDAO myMarquePageDAO = new MarquePageDAO(jdbcTemplate);
+
+        return myMarquePageDAO.find(LastIdMarquePageInserted); 
+    }
+
+    
+    public Person updatePerson(Long pPersonId, final String pMail, final String pMdp, final String pLangue) {
+
+        String nSql = "update person set mail = ?, ";
+        
+        if (!pMdp.isEmpty()) nSql = nSql + "mdp = ?, ";
+        
+        nSql = nSql + "id_langue = (select l.id_langue from langue l where l.nom=?) ";
+        nSql = nSql + "where id_person = ?";
+
+        this.jdbcTemplate.update(nSql, pMail, pMdp, pLangue, pPersonId);
+
+        return getPerson(pPersonId); 
+
+    }
 }

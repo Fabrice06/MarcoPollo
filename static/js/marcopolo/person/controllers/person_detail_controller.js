@@ -5,11 +5,23 @@
         .module('marcopolo')
         .controller('personDetailCtrl', personDetailCtrl);
 
-    personDetailCtrl.$inject = ['$scope', '$location', 'Person', 'CurrentPerson'];
-    function personDetailCtrl($scope, $location, Person, CurrentPerson) {
-    	
-    	$scope.langues = ['english', 'french'];
-    	   			
+    personDetailCtrl.$inject = ['$scope', '$location', 'Person', 'Language', 'CurrentPerson'];
+    function personDetailCtrl($scope, $location, Person, Language, CurrentPerson) {
+        
+        //** Récupération et affichage des informations de la ressource language*/
+        $scope.languages = Language.query(
+            {
+                uri:'langues'
+            },
+            function (pLangues) { // OK
+                console.log("personDetailCtrl Langues get query " + pLangues[0].nom);
+                //$scope.personLangModel = pLangues[0].nom;
+            },
+            function (pData, headers) { // échec
+                console.log("personDetailCtrl Langues get query échec");
+            }
+        );
+
     	var nUrlArray = $location.url().split('/');
 
         //** Récuperation et affichage des informations de la ressource person selectionnée*/
@@ -19,9 +31,16 @@
                 id:nUrlArray[2]
             },
             function (pPerson) { // OK
-                console.log("personDetailCtrl get query " + pPerson.mail);
+                console.log("personDetailCtrl get query " + pPerson.langue);//JSON.stringify(pPerson));
                 // sauvegarde de la ressource person
                 CurrentPerson.setData(pPerson);
+
+                for (var i = 0; i< $scope.languages.length; i++) {
+                    if ($scope.languages[i].nom === pPerson.langue) {
+                        $scope.personDetailModel.langue = $scope.languages[i];
+                        break;
+                    } // if
+                } // for
             },
             function (pData, headers) { // échec
                 console.log("personDetailCtrl get query échec");
@@ -75,39 +94,39 @@
             }
         };
 
-        $scope.onUpdate = function (pPersonDetail) {
+        $scope.onSubmit = function (pPersonDetail) {
         	         
             Person.update(
-                    {
-                    	uri : nUrlArray[1],  
-                    	id : nUrlArray[2],
-                    	mail : pPersonDetail.mail                        
-                    },
-                    pPersonDetail
-                    ,
-                    function (pPerson) { // OK
+                {
+                    uri : nUrlArray[1],
+                    id : nUrlArray[2],
+                    mail : pPersonDetail.mail
+                },
+                pPersonDetail
+                ,
+                function (pPerson) { // OK
 
-                        console.log("pPersonDetail update ok");
-                        alert('Votre profil a bien été mis à jour');                                             
+                    console.log("pPersonDetail update ok");
+                    alert('Votre profil a bien été mis à jour');
 
-                        // remplace aprés le # dans la barre d'adresse
-                        for	(var index = 0; index < pPerson.links.length; index++) {
+                    // remplace aprés le # dans la barre d'adresse
+                    for	(var index = 0; index < pPerson.links.length; index++) {
 
-                            if ("marquepages" === pPerson.links[index].rel) {
+                        if ("marquepages" === pPerson.links[index].rel) {
 
-                                var nUrl = pPerson.links[index].href;
-                                var nPort = $location.port(nUrl);
-                                var nPathArray = nUrl.split(nPort);
-                                $location.url(nPathArray[1]).replace();
+                            var nUrl = pPerson.links[index].href;
+                            var nPort = $location.port(nUrl);
+                            var nPathArray = nUrl.split(nPort);
+                            $location.url(nPathArray[1]).replace();
 
-                                break;
-                            } // if
-                        } // for                    
-                    },
-                    function (pData, headers) { // Erreur
-                        console.log("pPersonDetail update échec, mail : "+pPersonDetail.mail);
-                    }
-                );
+                            break;
+                        } // if
+                    } // for
+                },
+                function (pData, headers) { // Erreur
+                    console.log("pPersonDetail update échec, mail : "+pPersonDetail.mail);
+                }
+            );
 
             //User.update(
             //    {personid : nId}, // Params
