@@ -131,13 +131,15 @@ public class MarquePageController {
 	 */
 	@RequestMapping(method = RequestMethod.POST, value = "/{idMqp}/tags")
 	public Long addTag(@PathVariable("idMqp") Long idMqp, 
-			@RequestParam(value="cle") String cle, @RequestParam(value="valeur") String valeur) {
+			@RequestParam(value="cle") String cle, 
+			@RequestParam(value="valeur") String valeur,
+			@RequestParam(value="idLangue") Long idLangue) {
 
 		log.info("Appel webService addTag avec id MQP =" + idMqp);
 
 		TagDAO tagDao = new TagDAO(jdbcTemplate);
 		
-		return tagDao.addTag(idMqp, cle, valeur);
+		return tagDao.addTag(idMqp, cle, valeur, idLangue);
 	}
 	
 	
