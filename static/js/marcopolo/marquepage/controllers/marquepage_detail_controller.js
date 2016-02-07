@@ -129,24 +129,30 @@
         $scope.onAdd = function (pTag) {
 			console.log('clic marquepageDetailCtrl Add Tag');
             console.log("/"+nMqp+"/"+nIdMqp+"/"+nTag+"?cle="+pTag.cle+"&valeur="+pTag.valeur);
+            
+            if (pTag.cle && pTag.valeur){
+                Tag.save (
+                    {
+                        id:nIdMqp
+                    },
+                    {
+                        cle:pTag.cle,
+                        valeur:pTag.valeur,
+                        idLangue:$scope.lang
+                    },
+                    function (success) {
+                        console.log('marquepageDetailCtrl add Tag query ok id : ' + nIdMqp);
+                        $route.reload();					
+                    },
+                    function (pData, header) {
+                        console.log('marquepageDetailCtrl add Tag query échec');
+                    }
+                )
+            }else{
+                alert('Les deux champs sont obligatoire pour créer un nouveau tag');
+            }
 			
-            Tag.save (
-				{
-                    id:nIdMqp
-                },
-                {
-					cle:pTag.cle,
-					valeur:pTag.valeur,
-                    idLangue:$scope.lang
-				},
-				function (success) {
-					console.log('marquepageDetailCtrl add Tag query ok id : ' + nIdMqp);
-                    $route.reload();					
-				},
-				function (pData, header) {
-					console.log('marquepageDetailCtrl add Tag query échec');
-				}
-			)
+            
 		};
         
         // clic sur le bouton supprimer un tag
