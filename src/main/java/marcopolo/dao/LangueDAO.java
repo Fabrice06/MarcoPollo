@@ -7,19 +7,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-
-//import java.util.List;
-
-import marcopolo.controllers.LangueController;
 //import marcopolo.dao.PersonDAO.PersonMapper;
 import marcopolo.entity.Langue;
 //import marcopolo.entity.Person;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+//import java.util.List;
+import marcopolo.controllers.LangueController;
 
 /**
  * Langue data access object
@@ -56,6 +52,24 @@ public class LangueDAO extends DAO<Langue> {
         }
     }
 
+    
+    /**
+	 * 
+	 * Get all Langues
+	 * @param 
+	 * @return List<Langue>
+	 * 
+	 */
+	public List<Langue> getAllLangues() {
+		
+		String sql =  "select * "
+                + "from langue";
+		  
+		List<Langue> langueList = this.jdbcTemplate.query(sql, new LangueMapper());
+		
+		return langueList;
+	}
+	
     @Override
     public Langue find(Long id) {
         // TODO Auto-generated method stub
