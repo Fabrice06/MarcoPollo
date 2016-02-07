@@ -5,8 +5,8 @@
         .module('marcopolo')
         .controller('personDetailCtrl', personDetailCtrl);
 
-    personDetailCtrl.$inject = ['$scope', '$location', 'Person', 'CurrentPerson', '$translate'];
-    function personDetailCtrl($scope, $location, Person, CurrentPerson, $translate) {
+    personDetailCtrl.$inject = ['$scope', '$location', 'Person', 'CurrentPerson'];
+    function personDetailCtrl($scope, $location, Person, CurrentPerson) {
     	
     	$scope.langues = ['english', 'french'];
     	   			

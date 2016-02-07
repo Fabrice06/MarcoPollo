@@ -36,10 +36,9 @@
                         <input type="email" required class="form-control" ng-model="personNewModel.mail"/>
 
                         <label class="control-label">{{'PERSON_NEW_LANG' | translate}}</label>
-                        <select class="form-control" ng-model="personNewModel.lang">
-                            <option value="value1">Valeur 1</option>
-                            <option value="value2" selected>Valeur 2</option>
-                            <option value="value3">Valeur 3</option>
+                        <select class="form-control"
+                            ng-model="personLangModel"
+                            ng-options="language for language in languages">
                         </select>
                     </div>
 

@@ -1,6 +1,6 @@
 package marcopolo.entity;
 
-import java.util.List;
+//import java.util.List;
 
 import org.springframework.hateoas.ResourceSupport;
 
@@ -14,7 +14,7 @@ public class Langue extends ResourceSupport {
 
 	private Long idLangue;
 	private String nom;
-	private List<Cle> cles;
+//	private List<Cle> cles;
 	
 	public Langue() {
 		
@@ -33,16 +33,16 @@ public class Langue extends ResourceSupport {
 		return nom;
 	}
 
-	public void setNom(String nom) {
+	public void setNom(final String nom) {
 		this.nom = nom;
 	}
 
-	public List<Cle> getCles() {
-		return cles;
-	}
+//	public List<Cle> getCles() {
+//		return cles;
+//	}
+//
+//	public void setCles(List<Cle> cles) {
+//		this.cles = cles;
+//	}
 
-	public void setCles(List<Cle> cles) {
-		this.cles = cles;
-	}
-
-}
+} // class

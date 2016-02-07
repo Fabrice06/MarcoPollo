@@ -8,6 +8,8 @@
     personNewCtrl.$inject = ['$scope', '$location', 'Person'];
     function personNewCtrl($scope, $location, Person) {
 
+        $scope.languages = ['english', 'français'];
+        $scope.personLangModel = $scope.languages[1];
 
         // clic sur le bouton déconnexion
         $scope.onExit = function () {
