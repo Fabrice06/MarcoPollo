@@ -94,13 +94,15 @@ public class CleDAO extends DAO<Cle> {
 	 * @param String cle
 	 * @return Long id cle
 	 */
-	public Long create(String cle) {
+	public Long create(String cle, Long idLangue) {
+		
+		// Add cle to table Cle
 		String sql = "insert "
-				+ "into cle (id_cle, cle) "
-				+ "values (seq_cle.nextval, ?)";
+				+ "into cle (id_cle, cle, id_langue) "
+				+ "values (seq_cle.nextval, ?, ?)";
 		
-		this.jdbcTemplate.update(sql, cle);
-		
+		this.jdbcTemplate.update(sql, cle, idLangue);
+				
 		// return id_cle
 		return findIdCleWithCle(cle);
 		

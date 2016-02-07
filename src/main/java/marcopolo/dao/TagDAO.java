@@ -131,25 +131,24 @@ public class TagDAO extends DAO<Tag> {
 		this.jdbcTemplate.update(sql, idMqp);
 	 }
 	
-	public Long addTag(Long idMqp, String cle, String valeur) {
+	public Long addTag(Long idMqp, String cle, String valeur, Long idLangue) {
 		 
 		log.debug("cle=" + cle);
 		log.debug("valeur=" + valeur);
 		
 		// verify if cle already exists
 		CleDAO cleDao = new CleDAO(jdbcTemplate);
-		
 		Long idCle = cleDao.findIdCleWithCle(cle);
 		
 		// if cle doesnt exists
 		if (idCle == null) {
 			// create a new Cle and get id
-			idCle = cleDao.create(cle);
+			idCle = cleDao.create(cle, idLangue);
 		}	
 					
 		// insert tag in DB
 		String sql = "insert "
-					+ "into tag (id_tag, id_marquepage, id_cle, valeur, ) "
+					+ "into tag (id_tag, id_marquepage, id_cle, valeur) "
 					+ "values (seq_tag.nextval ,?, ?, ?)";
 			 
 		this.jdbcTemplate.update(sql, idMqp, idCle, valeur);
