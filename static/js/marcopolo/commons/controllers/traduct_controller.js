@@ -103,6 +103,16 @@
 		.controller('traductCtrl', function ($scope, $translate) {
 			$scope.changeLanguage = function (key) {
 				$translate.use(key);
+                
+                switch (key) {
+                    case 'fr': $scope.lang = 1;
+                        break;
+                    case 'en' : $scope.lang = 2;
+                        break;
+                    default: $scope.lang = 1;
+                }
+                
+                console.log('La langue est : '+key+' : '+ $scope.lang);
 			};
 		});
         
