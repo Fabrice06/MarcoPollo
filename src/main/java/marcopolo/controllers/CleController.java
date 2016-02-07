@@ -1,83 +1,77 @@
 package marcopolo.controllers;
 
+import java.util.List;
+
+import marcopolo.dao.CleDAO;
+import marcopolo.entity.Cle;
+import marcopolo.entity.Langue;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+/**
+ * Cle resource controller
+ *
+ */
 
 @RestController
 @RequestMapping("/cles")
+
 public class CleController {
 	
+	private static Log log = LogFactory.getLog(CleController.class);	
 	
-//	@Autowired
-//	JdbcTemplate jdbcTemplate;
-	
+	@Autowired
+	JdbcTemplate jdbcTemplate;
+	  
+
+	/**
+	 * GET request for /cles/{idCle}
+	 * 
+	 * Get one Cle
+	 * @param Long
+	 * @return ResponseEntity<Cle> 
+	 */
+	@RequestMapping(method = RequestMethod.GET, value = "/{idCle}")
+	public HttpEntity<Cle> getCle(@PathVariable("idCle") Long idCle) {
 		
+		log.info("webService getCle with idCle =" + idCle);
+		CleDAO cleDao = new CleDAO(jdbcTemplate);
+		Cle cle = cleDao.find(idCle);
+		
+		return new ResponseEntity<Cle>(cle, HttpStatus.OK);
+			
+	}
 	
-    
-//	/* Afficher toutes les clés  */
-//	@RequestMapping(method = RequestMethod.GET, value = "")
-//	public List<Cle> allCle() {
-//		
-//		//log.info("Appel webService allCle");
-//           	   	   				
-//		List<Cle> cles = this.jdbcTemplate.query(
-//        "select id_cle, cle from cle",
-//        new RowMapper<Cle>() {
-//            public Cle mapRow(ResultSet rs, int rowNum) throws SQLException {
-//                Cle cle = new Cle();
-//				//cle.setId(rs.getInt("id_cle"));
-//                cle.setCle(rs.getString("cle"));
-//                return cle;
-//            }
-//        });
-//		return cles;	
-//	}
-//	
-//	/* Afficher une clé  */
-//	@RequestMapping(method = RequestMethod.GET, value = "/cle/{cleId}")
-//	public List<Cle> oneCle(@PathVariable("cleId") long cleId) {
-//		
-//		//log.info("Appel webService oneCle avec cleId = " + cleId);
-//			
-//		String requete =  "select * from cle where id_cle=?";
-//			  
-//		List<Cle> cles = this.jdbcTemplate.query(requete,	
-//        new RowMapper<Cle>() {
-//            public Cle mapRow(ResultSet rs, int rowNum) throws SQLException {
-//				Cle cle = new Cle();
-//				//cle.setId(rs.getInt("id_cle"));
-//                cle.setCle(rs.getString("cle"));
-//                return cle;
-//            }
-//        }, cleId);
-//		return cles;	
-//	}
-//	
-//	
-//	/* Supprimer une clé  */
-//	@RequestMapping(method = RequestMethod.DELETE,value= "/delete/{cleId}")
-//	public void deleteWithId(@PathVariable("cleId") long cleId) {
-//		
-//		//log.info("Appel webService deleteWithId avec cleId = " + cleId);
-//	
-//		String requete =  "delete from cle where id_cle=?";
-//		
-//		this.jdbcTemplate.update(requete, cleId);
-//	}
-//	
-//	
-//	/* Créer une cle  */
-//	@RequestMapping(method = RequestMethod.POST,value= "/new/{cle}")
-//	public void createPerson(@PathVariable("cle") String cle) {
-//		
-//		idProv++; //provisoire le temps de récupérer dernier id de la BD
-//		
-//		
-//		//log.info("Appel webService createCle avec cle = " + cle);
-//		
-//		this.jdbcTemplate.update(
-//		"insert into cle (id_cle, cle) values (seq_cle.nextval,?)", cle);
-//	}
+	
+	/**
+	 * GET request for /cles?langue=:langue
+	 * 
+	 * Get Langues for one Cle
+	 * @param Long
+	 * @return List<Cle> 
+	 */
+	@RequestMapping(method = RequestMethod.GET, value = "")
+	public List<Cle> getClesForOneLangue(@RequestParam(value="langue") Long idLangue) {
+		
+		log.info("webService getClesForOneLangue with idLangue =" + idLangue);
+		
+		CleDAO cleDao = new CleDAO(jdbcTemplate);
+		List<Cle> cleList = cleDao.findClesForOneLangue(idLangue);
+		
+		return cleList;
+			
+	}
 	
 	
 }

@@ -38,13 +38,14 @@ CREATE TABLE langue (
 
 CREATE TABLE cle (
 	id_cle NUMBER(8) CONSTRAINT PK_cle PRIMARY KEY,
+	id_langue NUMBER(8) CONSTRAINT CIR_langue_in_cle REFERENCES langue,
 	cle VARCHAR2(60) not null UNIQUE
 );
 
-CREATE TABLE traduction (
-	id_langue NUMBER(8) CONSTRAINT CIR_languetrad REFERENCES langue,
-	id_cle NUMBER(8) CONSTRAINT CIR_cletrad REFERENCES cle
-);
+--CREATE TABLE traduction (
+--	id_langue NUMBER(8) CONSTRAINT CIR_languetrad REFERENCES langue,
+--	id_cle NUMBER(8) CONSTRAINT CIR_cletrad REFERENCES cle
+--);
 
 CREATE TABLE person (
 	id_person NUMBER(8) CONSTRAINT PK_person PRIMARY KEY,

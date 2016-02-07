@@ -17,6 +17,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
+/**
+ * MarquePage data access object
+ *
+ */
 public class MarquePageDAO extends DAO<MarquePage> {
 	
 	@Autowired

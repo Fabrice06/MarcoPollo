@@ -45,7 +45,7 @@ public class MarquePageController {
 	@RequestMapping(method = RequestMethod.GET, value = "/{idMqp}")
 	 public HttpEntity<MarquePage> getMqp(@PathVariable("idMqp") Long idMqp) {
 
-		log.info("Appel webService getMqp avec idMqp =" + idMqp);
+		log.info("webService getMqp with idMqp =" + idMqp);
 
 		MarquePageDAO marquePageDao = new MarquePageDAO(jdbcTemplate);
 		MarquePage marquePage = marquePageDao.find(idMqp);

@@ -1,9 +1,12 @@
 package marcopolo.dao;
 
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
+import marcopolo.controllers.CleController;
 import marcopolo.entity.Cle;
 
 import org.apache.commons.logging.Log;
@@ -12,6 +15,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
+/**
+ * Cle data access object
+ *
+ */
 public class CleDAO extends DAO<Cle> {
 
 	private final JdbcTemplate jdbcTemplate;
@@ -34,8 +41,11 @@ public class CleDAO extends DAO<Cle> {
 				throws SQLException {
 			
 			Cle cle = new Cle();
+			cle.setIdCle(rs.getLong("id_cle"));
 			cle.setCle(rs.getString("cle"));
-			
+			cle.setLangue(rs.getString("nom"));
+			// add Hateoas link  
+			cle.add(linkTo(methodOn(CleController.class).getCle(cle.getIdCle())).withSelfRel());
 			return cle;
 		}
 	}
@@ -47,11 +57,12 @@ public class CleDAO extends DAO<Cle> {
 	 * @return Long (id Cle)
 	 * 
 	 */
-	public Long findCleWithCle (String cle) {
+	public Long findIdCleWithCle (String cle) {
 		
 		String sql = "select id_cle "
-				+ "from cle "
-				+ "where cle=?";
+				+ "from cle c, langue l "
+				+ "where c.id_langue = l.id_langue "
+				+ "and cle=?";
 		
 		List<Long> idCleList = this.jdbcTemplate.query(sql, new RowMapper<Long>() {
 			
@@ -91,14 +102,16 @@ public class CleDAO extends DAO<Cle> {
 		this.jdbcTemplate.update(sql, cle);
 		
 		// return id_cle
-		return findCleWithCle(cle);
+		return findIdCleWithCle(cle);
 		
 	}
 	
 	public List<Cle> getPersonCles(long idPerson) {
 		
-		String sql =  "select distinct cle from marquepage mp,tag tg,cle cl "
+		String sql =  "select distinct cle "
+				+ "from marquepage mp,tag tg,cle cl, langue l "
 				+ "where mp.id_marquepage=tg.id_marquepage "
+				+ "and cl.id_langue = l.id_langue "
 				+ "and tg.id_cle=cl.id_cle "
 				+ "and mp.id_person=?";
 		
@@ -108,13 +121,47 @@ public class CleDAO extends DAO<Cle> {
 		return clesList;
 	}
 	
-	
+	/**
+	 * 
+	 * Find one Cle 
+	 * @param Long idCle
+	 * @return Cle
+	 * 
+	 */
 	@Override
-	public Cle find(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+	public Cle find(Long idCle) {
+		
+		String sql =  "select * "
+				+ "from cle c, langue l "
+				+ "where c.id_langue = l.id_langue "
+				+ "and id_cle=?";
+		  
+		List<Cle> cleList = this.jdbcTemplate.query(sql, new Object[]{idCle},
+				new CleMapper());
+		
+		return cleList.get(0);
 	}
 
+	
+	/**
+	 * 
+	 * Find cles for one Langue
+	 * @param Long idCle
+	 * @return List<Cle>
+	 * 
+	 */
+	public List<Cle> findClesForOneLangue(Long idLangue) {
+		
+		String sql =  "select * "
+				+ "from cle c, langue l "
+				+ "where c.id_langue = l.id_langue "
+				+ "and c.id_langue=?";
+		  
+		List<Cle> cleList = this.jdbcTemplate.query(sql, new Object[]{idLangue},
+				new CleMapper());
+		
+		return cleList;
+	}
 	
 
 	@Override

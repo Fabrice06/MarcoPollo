@@ -139,7 +139,7 @@ public class TagDAO extends DAO<Tag> {
 		// verify if cle already exists
 		CleDAO cleDao = new CleDAO(jdbcTemplate);
 		
-		Long idCle = cleDao.findCleWithCle(cle);
+		Long idCle = cleDao.findIdCleWithCle(cle);
 		
 		// if cle doesnt exists
 		if (idCle == null) {

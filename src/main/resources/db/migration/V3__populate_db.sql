@@ -1,36 +1,36 @@
 -- Script testé sur SQL Workbench --> résultats OK	vince 29 jan: internationalisation
 
---Insertion de données externes dans la table cle valeurs prédéfinies
-INSERT INTO cle VALUES (1, 'nom');
-INSERT INTO cle VALUES (2, 'name');
-INSERT INTO cle VALUES (3, 'lien');
-INSERT INTO cle VALUES (4, 'link');
-INSERT INTO cle VALUES (5, 'date de création');
-INSERT INTO cle VALUES (6, 'creation date');
-INSERT INTO cle VALUES (7, 'couleur');
-INSERT INTO cle VALUES (8, 'color');
-
-
---Insertion de données externes dans la table cle valeurs custom
-INSERT INTO cle VALUES (seq_cle.nextval, 'description');
-INSERT INTO cle VALUES (seq_cle.nextval, 'projets');
-
 
 --Insertion de données externes dans la table langue
 INSERT INTO langue VALUES (seq_langue.nextval, 'français');
 INSERT INTO langue VALUES (seq_langue.nextval, 'english');
 
 
---Insertion de données externes dans la table traduction valeurs prédéfinies traduites
-INSERT INTO traduction VALUES (1, 1);
-INSERT INTO traduction VALUES (1, 3);
-INSERT INTO traduction VALUES (1, 5);
-INSERT INTO traduction VALUES (1, 7);
+--Insertion de données externes dans la table cle valeurs prédéfinies
+INSERT INTO cle VALUES (1, 1, 'nom');
+INSERT INTO cle VALUES (2, 2, 'name');
+INSERT INTO cle VALUES (3, 1, 'lien');
+INSERT INTO cle VALUES (4, 2, 'link');
+INSERT INTO cle VALUES (5, 1, 'date de création');
+INSERT INTO cle VALUES (6, 2, 'creation date');
+INSERT INTO cle VALUES (7, 1, 'couleur');
+INSERT INTO cle VALUES (8, 2, 'color');
 
-INSERT INTO traduction VALUES (2, 2);
-INSERT INTO traduction VALUES (2, 4);
-INSERT INTO traduction VALUES (2, 6);
-INSERT INTO traduction VALUES (2, 8);
+
+--Insertion de données externes dans la table cle valeurs custom
+INSERT INTO cle VALUES (seq_cle.nextval, 1, 'description');
+INSERT INTO cle VALUES (seq_cle.nextval, 1, 'projets');
+
+
+--Insertion de données externes dans la table traduction valeurs prédéfinies traduites
+--INSERT INTO traduction VALUES (1, 1);
+--INSERT INTO traduction VALUES (1, 3);
+--INSERT INTO traduction VALUES (1, 5);
+--INSERT INTO traduction VALUES (1, 7);
+--INSERT INTO traduction VALUES (2, 2);
+--INSERT INTO traduction VALUES (2, 4);
+--INSERT INTO traduction VALUES (2, 6);
+--INSERT INTO traduction VALUES (2, 8);
 
 
 --Insertion de données externes dans la table person

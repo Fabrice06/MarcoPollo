@@ -1,97 +1,48 @@
 package marcopolo.entity;
 
+import org.springframework.hateoas.ResourceSupport;
 
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
- * <b>Représente une clé identifié par un libellé.</b>
- * 
+ * Representation of Cle
+ *
  */
+public class Cle extends ResourceSupport {
 
-public class Cle {
+	private Long idCle;
+	private String cle;
+	
+	// attribut nom de la table langue
+	private String langue;
 
-		
-	
-	/**
-     * Id unique de la clé
-     * <p><b>Attention:</b><br>
-     * l'increment de l'id clé est gére en BDD par la séquence seq_cle.
-     * </p>
-     */
-	/*
-	@Id
-    @GeneratedValue(strategy=AUTO, generator="SEQ_CLE") 
-	private long idCle;
-	*/
-	/**
-     * libellé (clé) de la clé 
-     */
-    private String cle;
-    
-    /**
-     * <b>Constructeur avec parametre</b>
-     * <p>
-     *     Permets la création d'une clé  avec un identifiant unique et:
-     *     <ul>
-     *         <li>un libellé (clé),</li>
-     *     </ul>
-     * </p>
-     *
-     * @param cle
-     *      libellé (cle) de la clé, de type String.
-     */
-    
-    public Cle(String cle) {
-        this.cle = cle;
-    }
-	
-    /**
-     * <b>Constructeur par default</b>
-     * <p>
-     *     Permets la création d'une nouvelle cle sans passer de parametres
-     * </p>
-     */
-    
-	public Cle()  {
-        
-    }
-	
-	/*
-	public long getId() {
-		return idCle;
-	}*/
+	public Cle() {
 
-	/**
-     * Change l'idCle de la cle.
-     *
-     * @param idCle
-     *      id de la personne, de type Long.
-     */
-	/*
-	public void setId(long idCle) {
-		this.idCle = idCle;
-	}*/
+	}
 
 	public String getCle() {
 		return cle;
 	}
 
-	/**
-     * Change le libellé (cle) de la clé.
-     *
-     * @param cle
-     *      libellé (cle) de la clé, de type String.
-     */
-	
 	public void setCle(String cle) {
 		this.cle = cle;
 	}
-	
-	@Override
-    public String toString() {
-        return String.format(
-                "cle='%s']",
-                 cle);
-    }
-	
+
+	@JsonIgnore
+	public long getIdCle() {
+		return idCle;
+	}
+
+	public void setIdCle(Long idCle) {
+		this.idCle = idCle;
+	}
+
+	public String getLangue() {
+		return langue;
+	}
+
+	public void setLangue(String langue) {
+		this.langue = langue;
+	}
+
 }
