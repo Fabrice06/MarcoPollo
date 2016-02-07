@@ -79,11 +79,10 @@
             $location.path(nProfilLink).replace();
         };
 
-        /* clic sur le bouton profil - fonction retirée
+        // clic sur le bouton deconnexion
         $scope.onExit = function () {
             $location.path('/').replace();
         };
-        */
         
     } // function
 
