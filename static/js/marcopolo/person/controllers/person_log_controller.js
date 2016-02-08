@@ -5,8 +5,8 @@
         .module('marcopolo')
         .controller('personLogCtrl', personLogCtrl);
 
-    personLogCtrl.$inject = ['$scope', '$location', 'Person', '$translate'];
-    function personLogCtrl($scope, $location, Person) {
+    personLogCtrl.$inject = ['$scope', '$location', 'Person', '$filter'];
+    function personLogCtrl($scope, $location, Person, $filter) {
     	//$scope.incorrectLogin = false;
 
         // clic sur le bouton se connecter
@@ -97,7 +97,8 @@
 
         // clic sur le lien mot de passe perdu
         $scope.onLost = function(pPersonLog){
-            	alert('Un mot de passe provisoire a été envoyé à votre adresse e-mail');
+			       	
+				alert($filter('translate')('PERSON_MESSAGE'));
             };
         
         // pour test uniquement ---------------------------------------------------

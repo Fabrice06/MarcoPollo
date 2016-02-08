@@ -23,6 +23,7 @@
 				PERSON_LOG_CONTACT: "Contact us",
 				PERSON_DETAIL_PROFILE: "Update my profile",
 				PERSON_DETAIL_LANGUAGE: "Language",
+				PERSON_MESSAGE: 'TEST ENGLISH',
 
                 PERSON_NEW_PROFILE: "Create your own profile",
                 PERSON_NEW_MDP: "Enter your new password",
@@ -74,6 +75,7 @@
 				PERSON_LOG_CONTACT: "Contactez-nous",
 				PERSON_DETAIL_PROFILE: "Mettre à jour mon profil",
 				PERSON_DETAIL_LANGUAGE: "Langue",
+				PERSON_MESSAGE: 'Un mot de passe provisoire a été envoyé à votre adresse e-mail',
 
                 PERSON_NEW_PROFILE: "Créez votre compte",
                 PERSON_NEW_MDP: "Nouveau mot de passe",
