@@ -25,7 +25,7 @@
        
         // bouton rechercher
         $scope.search = ""; 
-        
+               
         //aciver les liens pour ouverture dans une autre fenêtre
         $scope.openLink = function(nAddLink){        	
         	//$window.location.href = nAddLink.lien; 
