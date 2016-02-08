@@ -5,131 +5,96 @@
         .module('marcopolo')
         .controller('personNewCtrl', personNewCtrl);
 
-    personNewCtrl.$inject = ['$scope', '$location', 'Person', 'Language'];
-    function personNewCtrl($scope, $location, Person, Language) {
+    personNewCtrl.$inject = ['$scope', '$location', 'PersonZ', 'Crypto', 'Hateoas', 'Session', 'Language'];
+    function personNewCtrl($scope, $location, PersonZ, Crypto, Hateoas, Session, Language) {
 
-        //var xx = this;
+        Session.clear();
 
-        //$scope.languages = ['english', 'français'];
-        //console.log("personNewCtrl xxx " + $scope.lang);
         //** Récupération et affichage des informations de la ressource language*/
-        $scope.languages = Language.query(
-            {
-                uri:'langues'
-            },
-            function (pLangues) { // OK
-                console.log("personNewCtrl Langues get query " + pLangues[0].nom);
+        Language.query('/langues', {}).then(
+            function successCallback(pResponse) {
 
+                // this callback will be called asynchronously
+                // when the response is available
+                console.log("personNewCtrl query langues ok " + JSON.stringify(pResponse.data));
+                $scope.languages = pResponse.data;
             },
-            function (pData, headers) { // échec
-                console.log("personNewCtrl Langues get query échec");
+            function errorCallback(pResponse) {
+
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
+                console.log("personNewCtrl query langues échec");
             }
         );
 
-        //$scope.personLangModel = $scope.languages[1];
+        //function quitter() {
+        //    Session.clear();
+        //    $location.path('/').replace();
+        //}
 
         // clic sur le bouton déconnexion
         $scope.onExit = function () {
-
+            Session.clear();
             $location.path('/').replace();
         };
 
         // clic sur le bouton annuler
         $scope.onCancel = function () {
-
+            Session.clear();
             $location.path('/').replace();
         };
 
         // clic sur le bouton valider
         $scope.onSubmit = function (pPersonModel) {
-        	
-        	//alert('Votre adresse e-mail a bien été mise à jour');
-            // récup de l'id initial
-//            var nUriArray = CurrentPerson.getData._links.self.uri.split('/');
-//            var nId = nUrlArray[nUriArray.length-1];
-//            console.log("personDetailCtrl onSubmit nId " + nId);
-            
-            //Person.update(
-            //        {
-            //        	uri : nUrlArray[1],
-            //        	id : nUrlArray[2],
-            //        	mail : pPersonDetail.mail
-            //        },
-            //        pPersonDetail
-            //        ,
-            //        function (pPerson) { // OK
-            //
-            //            console.log("pPersonDetail update ok");
-            //
-            //            // remplace aprés le # dans la barre d'adresse
-            //            for	(var index = 0; index < pPerson.links.length; index++) {
-            //
-            //                if ("marquepages" === pPerson.links[index].rel) {
-            //
-            //                    var nUrl = pPerson.links[index].href;
-            //                    var nPort = $location.port(nUrl);
-            //                    var nPathArray = nUrl.split(nPort);
-            //                    $location.url(nPathArray[1]).replace();
-            //
-            //                    break;
-            //                } // if
-            //            } // for
-            //        },
-            //        function (pData, headers) { // Erreur
-            //            console.log("pPersonDetail update échec, mail : "+pPersonDetail.mail);
-            //        }
-            //    );
 
-            //User.update(
-            //    {personid : nId}, // Params
-            //    stTMp, // Data
-            //    function (data, headers) { // OK
-            //        console.log("personDetailCtrl onSubmit ok");
-            //    },
-            //    function (data, headers) { // Erreur
-            //        console.log("personDetailCtrl onSubmit echec");
-            //    }
-            //);
+            var nMail = pPersonModel.mail;
+            var nMdp = Crypto.SHA1(pPersonModel.confirm);
+            var nLangue = pPersonModel.langue;
 
-            //if (angular.isUndefined(pPersonLog)){
-            //    //alert('personLogCtrl onCreate en cours');
-            //}
-            //else {
-            //
-            //    Person.save(
-            //        {
-            //            uri:'persons',
-            //            mail:pPersonLog.mail,
-            //            mdp:pPersonLog.mdp
-            //        },
-            //        pPersonLog
-            //        ,
-            //        function (pPerson) { // OK pPerson est le retour du backEnd
-            //
-            //            console.log("personLogCtrl query ok");
-            //
-            //            // remplace aprés le # dans la barre d'adresse
-            //            for	(var index = 0; index < pPerson.links.length; index++) {
-            //
-            //                if ("marquepages" === pPerson.links[index].rel) {
-            //
-            //                    var nUrl = pPerson.links[index].href;
-            //                    var nPort = $location.port(nUrl);
-            //                    var nPathArray = nUrl.split(nPort);
-            //                    $location.url(nPathArray[1]).replace();
-            //
-            //                    break;
-            //                } // if
-            //            } // for
-            //        },
-            //        function (pData, headers) { // Erreur
-            //            console.log("personLogCtrl query échec");
-            //        }
-            //    );
-            //}
+            // faire un check regex ????
 
+            var nParams = {
+                mail: nMail,
+                mdp: nMdp,
+                langue: nLangue
+            };
+            console.log("personNewCtrl " + JSON.stringify(nParams));
+
+            PersonZ.save('/persons', nParams).then(
+                function successCallback(pResponse) { // OK pResponse est le retour du backEnd
+
+                    // this callback will be called asynchronously
+                    // when the response is available
+                    if (angular.isUndefined(pResponse.data.links)) {
+                        console.log("personNewCtrl query ok but Person don't exist");
+
+                    } else {
+                        console.log("personNewCtrl save ok " + JSON.stringify(pResponse.data));
+
+                        var nMail = Crypto.SHA1(pResponse.data.mail);
+                        console.log("personNewCtrl Crypto mail >" + nMail + "<");
+
+                        // ce service permets de conserver le mail et le mdp crypté pendant toute la session
+                        Session.setCurrent(nMail, nMdp);
+
+                        // ce service fourni directement les liens hateoas sous forme de clé/valeur
+                        Hateoas.setLinks(pResponse.data.links);
+                        var nUri = Hateoas.getUri("marquepages");
+
+                        // utilisation de la requête à usage unique
+                        //$location.url(Session.getSignedUri(nUri)).replace();
+                        $location.url(nUri).replace();
+                    } // else
+
+                },
+                function errorCallback(pResponse) {
+
+                    // called asynchronously if an error occurs
+                    // or server returns response with an error status.
+                    console.log("personNewCtrl save échec");
+                }
+            );
         };
-
     } // function
 
 })();
