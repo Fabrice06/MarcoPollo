@@ -53,7 +53,8 @@
 				CANCEL: "Cancel",
 				DELETE: "Delete",
 				UPDATE: "Update",
-                CREATE: 'Create'
+                CREATE: 'Create',
+                HELP: 'Help'
 			});
 			
 			$translateProvider.translations('french', {
@@ -105,7 +106,8 @@
 				CANCEL: "Annuler",
 				DELETE: "Supprimer",
 				UPDATE: "Modifier",
-                CREATE: 'Créer'
+                CREATE: 'Créer',
+                HELP: 'Aide'
 			});
 
 			$translateProvider.preferredLanguage('french');

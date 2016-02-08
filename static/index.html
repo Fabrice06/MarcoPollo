@@ -30,6 +30,8 @@
 
         <!-- Language -->
         <script type="text/javascript" src="js/marcopolo/language/services/language_service.js"></script>
+        <script type="text/javascript" src="js/marcopolo/commons/controllers/global_controller.js"></script>
+
 
         <!-- Person -->
         <script type="text/javascript" src="js/marcopolo/person/controllers/person_log_controller.js"></script>
@@ -83,7 +85,9 @@
 	<body ng-controller="traductCtrl">
         <div ng-view></div>
 
-		<footer >
+		<footer ng-controller="globalCtrl">
+            <a ng-click="onHelp()">{{'HELP' | translate}}</a>
+			<span>&nbsp;|&nbsp;</span>
 			<a href="js/marcopolo/commons/aboutUs.html">{{'PERSON_LOG_WHO' | translate}}</a>
 			<span>&nbsp;|&nbsp;</span>
 			<a href="mailto:marcopolo.admin@gmail.com">{{'PERSON_LOG_CONTACT' | translate}}</a>
