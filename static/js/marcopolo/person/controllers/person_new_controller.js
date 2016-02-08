@@ -8,8 +8,10 @@
     personNewCtrl.$inject = ['$scope', '$location', 'Person', 'Language'];
     function personNewCtrl($scope, $location, Person, Language) {
 
+        //var xx = this;
+
         //$scope.languages = ['english', 'français'];
-        console.log("personNewCtrl xxx " + $scope.lang);
+        //console.log("personNewCtrl xxx " + $scope.lang);
         //** Récupération et affichage des informations de la ressource language*/
         $scope.languages = Language.query(
             {

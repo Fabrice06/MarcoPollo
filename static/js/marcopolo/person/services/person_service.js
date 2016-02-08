@@ -22,12 +22,15 @@
     } // function
 
     // sauvegarde de la ressource: son utilisation reste à vérifier et à valider
-    function CurrentPerson () {
+    function CurrentPerson() {
+        var nPerson = {};
 
         return {
-            getData: {},
-            setData: function (pPerson) {
-                this.getData = pPerson;
+            get: function () {
+                return nPerson;
+            },
+            set: function (pPerson) {
+                nPerson = pPerson;
             }
         }
     } // function
