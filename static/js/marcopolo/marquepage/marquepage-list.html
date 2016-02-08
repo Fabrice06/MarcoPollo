@@ -110,7 +110,7 @@
 				<table class="table table-hover">
 					<thead>
 						<tr>
-							<th>{{'MQP_LIST_NAME' | translate}}</th>
+							<th> {{'MQP_LIST_NAME' | translate}}</th>
 							<th >{{'MQP_LIST_LINKS' | translate}}</th>
 							<th >{{'MQP_DET_KEY' | translate}}</th>
 							<th >{{'MQP_DET_VALUE' | translate}}</th>
@@ -123,12 +123,14 @@
 							<td colspan="5">&nbsp;</td>
 						</tr>
 					</tfoot>
-					<tbody>
-						<tr data-ng-repeat="l in listMqp|filter:search| orderBy:'nom'">
+					<tbody data-ng-repeat ="l in listMqp|filter:search| orderBy:'nom'">
+						<tr data-ng-repeat ="t in l.tags|filter:search">
 							<td>{{l.nom}}</td>
-							<td ng-click="openLink(l)"><a href="">{{l.lien}}</a></td>
-							<td>{{l.tags[0].cle}}</td>
-							<td>{{l.tags[0].valeur}}</td>
+							<td ng-click="openLink(l)"><a href="">{{l.lien}}</a></td>	
+							<td>{{t.cle}}</td>
+								<td>{{t.valeur}}</td>					
+							<!-- <td >{{l.tags[0].cle}} </br> {{l.tags[1].cle}} </br>{{l.tags[2].cle}} </td>							
+							<td>{{l.tags[0].valeur}}</br> {{l.tags[1].valeur}}</br> {{l.tags[2].valeur}}</td> -->
 							<td><abbr title="edit">
 									 <a class="btn btn-primary" ng-click="onUpdate(l)"><span class="icon-af icon-af-B-digital-crayon-editer"></span></a>
 								</a>
