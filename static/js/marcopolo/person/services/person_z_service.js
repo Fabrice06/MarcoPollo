@@ -2,10 +2,10 @@
     'use strict';
 
     angular.module('marcopolo')
-        .factory('Language', Language);
+        .factory('PersonZ', PersonZ);
 
-    Language.$inject = ['$http'];
-    function Language ($http) {
+    PersonZ.$inject = ['$http'];
+    function PersonZ ($http) {
 
         var dataFactory = {};
 
@@ -17,12 +17,29 @@
         //    return $http.get(urlBase + '/' + id);
         //};
 
+        dataFactory.save = function (pUrl, pParams) {
+            var nReq = {
+                method: 'POST',
+                url: pUrl,
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                params: {
+                    mail: pParams.mail,
+                    mdp: pParams.mdp,
+                    langue: pParams.langue
+                }
+            };
+            return $http(nReq);
+        };
+
         dataFactory.query = function (pUrl, pParams) {
             var nReq = {
                 method: 'GET',
                 url: pUrl,
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-                params: {}
+                params: {
+                    mail: pParams.mail,
+                    mdp: pParams.mdp
+                }
             };
             return $http(nReq);
         };
@@ -42,21 +59,5 @@
         return dataFactory;
 
     } // function
-
-    //Language.$inject = ['$resource'];
-    //function Language ($resource) {
-    //
-    //    return $resource(
-    //        '/:uri/:id',
-    //        {},
-    //        {
-    //            'query': 	{method:'GET', isArray: true},
-    //            'save': 	{method:'POST', isArray: false},
-    //            'update': 	{method:'PUT', isArray: false},
-    //            'delete': 	{method:'DELETE', isArray: false}
-    //        }
-    //    );
-    //
-    //} // function
 
 })();

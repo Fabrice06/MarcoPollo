@@ -5,60 +5,58 @@
         .module('marcopolo')
         .controller('personLogCtrl', personLogCtrl);
 
-    personLogCtrl.$inject = ['$scope', '$location', '$filter', 'Person', 'Crypto', 'Hateoas', 'Session'];
-    function personLogCtrl($scope, $location, $filter, Person, Crypto, Hateoas, Session) {
+    personLogCtrl.$inject = ['$scope', '$location', '$filter', 'PersonZ', 'Crypto', 'Hateoas', 'Session'];
+    function personLogCtrl($scope, $location, $filter, PersonZ, Crypto, Hateoas, Session) {
 
         Session.clear();
 
         // clic sur le bouton se connecter
         $scope.onSubmit = function (pPersonLog) {
 
-            var nMdp = Crypto.SHA1(pPersonLog.mdp);
-            console.log("personLogCtrl Crypto mdp >" + nMdp + "<");
+            var nMail = pPersonLog.mail;
+            //var nMdp = Crypto.SHA1(pPersonLog.mdp);
+            var nMdp = pPersonLog.mdp;
 
-            Person.query(
-                {
-                    uri:'persons',
-                    mail:pPersonLog.mail,
-                    mdp:pPersonLog.mdp
-                    //mdp:nMdp
-                },
-                function (pPerson) { // OK pPerson est le retour du backEnd
-                	if (angular.isUndefined(pPerson.links)){
-                		//$scope.incorrectLogin = true;
-                		console.log("personLogCtrl query ok but Person don't exist");
+            // faire un check regex ????
 
-                	} else {
-	                    console.log("personLogCtrl query ok");
+            var nParams = {
+                mail: nMail,
+                mdp: nMdp
+            };
+            console.log("personLogCtrl " + JSON.stringify(nParams));
 
-                        var nMail = Crypto.SHA1(pPersonLog.mail);
+            PersonZ.query('/persons', nParams).then(
+                function successCallback(pResponse) { // OK pResponse est le retour du backEnd
+
+                    // this callback will be called asynchronously
+                    // when the response is available
+                    if (angular.isUndefined(pResponse.data.links)) {
+                        console.log("personLogCtrl query ok but Person don't exist");
+
+                    } else {
+                        console.log("personLogCtrl save ok " + JSON.stringify(pResponse.data));
+
+                        var nMail = Crypto.SHA1(pResponse.data.mail);
                         console.log("personLogCtrl Crypto mail >" + nMail + "<");
+
                         // ce service permets de conserver le mail et le mdp crypté pendant toute la session
-                        Session.setMail(nMail);
-                        Session.setMdp(nMdp);
+                        Session.setCurrent(nMail, nMdp);
 
                         // ce service fourni directement les liens hateoas sous forme de clé/valeur
-                        Hateoas.set(pPerson.links);
-                        var nUrl = Hateoas.getUri("marquepages");
-                        // remplace aprés le # dans la barre d'adresse
-                        var nPort = $location.port(nUrl);
-                        var nPathArray = nUrl.split(nPort);
+                        Hateoas.setLinks(pResponse.data.links);
+                        var nUri = Hateoas.getUri("marquepages");
 
-                        // préparation de la requête à usage unique
-                            var nUri = nPathArray[1] + Session.getStamp();
-                            var nSignature = Crypto.HmacSHA1(nUri, nMdp);
-                            nUri = nUri + "&signature=" + nSignature;
+                        // utilisation de la requête à usage unique
+                        //$location.url(Session.getSignedUri(nUri)).replace();
 
-                            // nUri = /persons/1/marquepages?user=3626810c003760d1c278a356c450af9abe695ce9&timestamp=12341523&signature=3626810c003760d1c278a356c450
-                            console.log("personLogCtrl Crypto uri >" + nUri + "<");
-                            //$location.url(nUri).replace();
+                        $location.url(nUri).replace();
+                    } // else
 
-                        $location.url(nPathArray[1]).replace();
-
-                	}
                 },
-                function (pData, headers) { // Erreur
+                function errorCallback(pResponse) {
 
+                    // called asynchronously if an error occurs
+                    // or server returns response with an error status.
                     console.log("personLogCtrl query échec");
                 }
             );
