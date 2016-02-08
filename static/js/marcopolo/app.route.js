@@ -35,8 +35,13 @@
         })
 
         .when('/persons/:personId', {
-          templateUrl: 'js/marcopolo/person/person-detail.html',
-          controller: 'personDetailCtrl'
+            templateUrl: 'js/marcopolo/person/person-detail.html',
+            controller: 'personDetailCtrl'       
+        })
+        
+        .when('/help', {
+            templateUrl: 'js/marcopolo/commons/help.html',
+            controller: 'globalCtrl'
         })
 
             // bac à sable de vince

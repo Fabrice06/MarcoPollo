@@ -268,6 +268,7 @@
         });
 
         $httpBackend.whenPOST(new RegExp('cles\\?.*')).passThrough(); // vers le backend
+        $httpBackend.whenPOST(new RegExp('help*')).passThrough(); // vers le backend
 
         //$httpBackend.whenGET(new RegExp('/persons/[0-9]{1,}/cles').passThrough(); // vers le backend
         $httpBackend.whenGET(new RegExp('persons/[0-9]{1,}/cles')).respond(function (method, url) { // traitement FE sans BE
