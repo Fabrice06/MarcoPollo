@@ -53,7 +53,7 @@
         
         $httpBackend.whenGET(new RegExp('cles*')).passThrough();
 
-        $httpBackend.whenGET(new RegExp('langues$')).passThrough();
+        $httpBackend.whenGET(new RegExp('langues')).passThrough();
         
         $httpBackend.whenGET(new RegExp('persons\\?.*')).passThrough(); // vers le backend
            /* $httpBackend.whenGET(new RegExp('persons\\?.*')).respond(function (method, url) { // traitement FE sans BE

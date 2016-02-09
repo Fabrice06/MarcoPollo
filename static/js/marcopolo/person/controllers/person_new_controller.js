@@ -69,11 +69,8 @@
                     } else {
                         console.log("personNewCtrl save ok " + JSON.stringify(pResponse.data));
 
-                        var nMail = Crypto.SHA1(pResponse.data.mail);
-                        console.log("personNewCtrl Crypto mail >" + nMail + "<");
-
-                        // ce service permets de conserver le mail et le mdp crypté pendant toute la session
-                        Session.setCurrent(nMail, nMdp);
+                        // ce service permets de conserver l'id et le mdp crypté pendant toute la session
+                        Session.setCurrent(pResponse.data.idPerson, nMdp);
 
                         // ce service fourni directement les liens hateoas sous forme de clé/valeur
                         Hateoas.setLinks(pResponse.data.links);

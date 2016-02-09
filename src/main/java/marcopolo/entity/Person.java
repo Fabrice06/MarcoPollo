@@ -34,6 +34,8 @@ public class Person extends ResourceSupport {
     private String mdp;
 
     private String langue;
+    
+    private String stamp;
 
     //    private ArrayList<MarquePage> listMarquePages;
     //    
@@ -57,7 +59,6 @@ public class Person extends ResourceSupport {
      * @return L'id personne, de type long.
      */
 
-    @JsonIgnore
     public long getIdPerson() {
         return this.idPerson;
     }
@@ -126,8 +127,16 @@ public class Person extends ResourceSupport {
         return langue;
     }
 
-    public void setLangue(String langue) {
-        this.langue = langue;
+    public void setLangue(final String pLangue) {
+        this.langue = pLangue;
     }
 
+    public String getStamp() {
+        return stamp;
+    }
+
+    public void setStamp(final String pStamp) {
+        this.stamp = pStamp;
+    }
+    
 }

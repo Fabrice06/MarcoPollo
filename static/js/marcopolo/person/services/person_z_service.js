@@ -12,8 +12,8 @@
         dataFactory.save = function (pUrl, pParams) {
 
             // définition de la requête à usage unique
-            var nTimestamp = Date.now();
-            var nSignature = Session.getSignature(pUrl, pParams, nTimestamp);
+            //var nTimestamp = Date.now();
+            //var nSignature = Session.getSignature(pUrl, pParams, nTimestamp);
 
             var nReq = {
                 method: 'POST',
@@ -23,7 +23,7 @@
                     // requête à usage unique
                     //signature: nSignature,
                     //timestamp: nTimestamp,
-                    //user: Session.getMail(),
+                    //user: Session.getId(),
 
                     //params supplémentaires
                     // attention: l'ordre des params doit être le même que dans l'uri
@@ -51,7 +51,7 @@
                     // requête à usage unique
                     //signature: nSignature,
                     //timestamp: nTimestamp,
-                    //user: Session.getMail(),
+                    //user: Session.getId(),
 
                     //params supplémentaires
                     // attention: l'ordre des params doit être le même que dans l'uri
@@ -78,7 +78,7 @@
                     // requête à usage unique
                     //signature: nSignature,
                     //timestamp: nTimestamp,
-                    //user: Session.getMail()
+                    //user: Session.getId()
 
                     //params supplémentaires
                     // attention: l'ordre des params doit être le même que dans l'uri
@@ -104,7 +104,7 @@
                     // requête à usage unique
                     //signature: nSignature,
                     //timestamp: nTimestamp,
-                    //user: Session.getMail()
+                    //user: Session.getId()
 
                     //params supplémentaires
                     // attention: l'ordre des params doit être le même que dans l'uri

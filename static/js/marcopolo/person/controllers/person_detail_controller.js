@@ -65,7 +65,7 @@
         // clic sur le bouton supprimer
         $scope.onDelete = function () {
 alert("vraiment sûr?");
-            PersonZ.delete($location.url(), {}).then(
+            PersonZ.delete(Hateoas.getUri("self"), {}).then(
                 function successCallback(pResponse) { // OK pResponse est le retour du backEnd
 
                     // this callback will be called asynchronously
@@ -104,18 +104,15 @@ alert("vraiment sûr?");
             };
             console.log("personDetailCtrl " + JSON.stringify(nParams));
 
-            PersonZ.update($location.url(), nParams).then(
+            PersonZ.update(Hateoas.getUri("self"), nParams).then(
                 function successCallback(pResponse) { // OK pResponse est le retour du backEnd
 
                     // this callback will be called asynchronously
                     // when the response is available
                     console.log("personDetailCtrl onSubmit ok");
 
-                    var nMail = Crypto.SHA1(pResponse.data.mail);
-                    console.log("personNewCtrl Crypto mail >" + nMail + "<");
-
                     // ce service permets de conserver le mail et le mdp crypté pendant toute la session
-                    Session.setMail(nMail);
+                    Session.setId(pResponse.data.idPerson);
 
                     $location.url(Hateoas.getUri("marquepages")).replace();
 

@@ -109,7 +109,7 @@ public class PersonController {
         log.info("Appel webService createPerson avec personMail = " + pMail + " " + pMdp);
 
         PersonDAO myPersonDAO = new PersonDAO(jdbcTemplate);
-        return (myPersonDAO.getPersonByMailId(pMail, pMdp));    
+        return (myPersonDAO.getPersonByMailMdp(pMail, pMdp));    
     }
 
     // Renvoi les clés de la personne avec id donné, self link 

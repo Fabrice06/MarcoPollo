@@ -52,24 +52,24 @@ public class LangueDAO extends DAO<Langue> {
         }
     }
 
-    
+
     /**
-	 * 
-	 * Get all Langues
-	 * @param 
-	 * @return List<Langue>
-	 * 
-	 */
-	public List<Langue> getAllLangues() {
-		
-		String sql =  "select * "
+     * 
+     * Get all Langues
+     * @param 
+     * @return List<Langue>
+     * 
+     */
+    public List<Langue> getAllLangues() {
+
+        String sql =  "select * "
                 + "from langue";
-		  
-		List<Langue> langueList = this.jdbcTemplate.query(sql, new LangueMapper());
-		
-		return langueList;
-	}
-	
+
+        List<Langue> langueList = this.jdbcTemplate.query(sql, new LangueMapper());
+
+        return langueList;
+    }
+
     @Override
     public Langue find(Long id) {
         // TODO Auto-generated method stub

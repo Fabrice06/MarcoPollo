@@ -47,7 +47,8 @@ public class PersonDAO {
             person.setId(rs.getLong("id_person"));
             person.setLangue(rs.getString("nom"));
             person.setMail(rs.getString("mail"));
-            //person.setMdp(rs.getString("mdp"));
+            person.setMdp(rs.getString("mdp"));
+            person.setStamp(rs.getString("stamp"));
 
             // add Hateoas link 
             person.add(linkTo(methodOn(PersonController.class).getPerson(person.getIdPerson())).withSelfRel());
@@ -69,7 +70,7 @@ public class PersonDAO {
 
     public Person getPerson(Long idPerson) {
 
-        String nSql = "select p.id_person, p.mail, l.nom "
+        String nSql = "select p.id_person, p.mail, p.mdp, p.stamp, l.nom "
                 + "from person p, langue l "
                 + "where p.id_langue=l.id_langue "
                 + "and p.id_person=?"; 
@@ -97,9 +98,9 @@ public class PersonDAO {
     }
 
 
-    public Person getPersonByMailId(final String pMail, final String pMdp) {
+    public Person getPersonByMailMdp(final String pMail, final String pMdp) {
 
-        String sql = "select p.id_person, p.mail, l.nom "
+        String sql = "select p.id_person, p.mail, p.mdp, p.stamp, l.nom "
                 + "from person p, langue l "
                 + "where p.id_langue=l.id_langue "
                 + "and p.mail=? and p.mdp=?"; 
@@ -124,13 +125,40 @@ public class PersonDAO {
         }
     }
 
+    public Person getPersonById(final String pId) {
+
+        String sql = "select p.id_person, p.mail, p.mdp, p.stamp, l.nom "
+                + "from person p, langue l "
+                + "where p.id_langue=l.id_langue "
+                + "and p.id_person=?"; 
+
+        List<Person> personsList = this.jdbcTemplate.query(sql, new Object[]{pId}, new PersonMapper());
+
+        // person not found
+        if (personsList.isEmpty()) {
+            log.info("person does not exists");
+            return null; 
+
+            // list contains exactly 1 element
+        } else if (personsList.size() == 1 ) { 
+            log.info("id_person=" + personsList.get(0));
+
+            return personsList.get(0); 
+
+            // list contains more than 1 element
+        } else {
+            log.error("Table person : person is not unique");
+            return null;
+        }
+    }
+    
 
     public Person addPerson(final String pMail, final String pMdp, final String pLangue) {
 
         String nSql = "insert "
-                + "into person (id_person, id_langue, mail, mdp) "
+                + "into person (id_person, id_langue, mail, mdp, stamp) "
                 //+ "values (seq_person.nextval, ?, ?)"
-                + "select seq_person.nextval, l.id_langue, ?, ? "
+                + "select seq_person.nextval, l.id_langue, ?, ?, '0' "
                 + "from langue l "
                 + "where l.nom=?";
 
@@ -180,6 +208,18 @@ public class PersonDAO {
         this.jdbcTemplate.update(nSql, pMail, pLangue, pPersonId);
 
         return getPerson(pPersonId); 
+    }
+    
+    
+    public Person updateStampById(Long pPersonId, final String pTimestamp) {
 
+        String nSql = "update person set stamp = ? ";
+        nSql = nSql + "where id_person = ?";
+        
+        log.info("updateStampById=" + nSql);
+        
+        this.jdbcTemplate.update(nSql, pTimestamp, pPersonId);
+
+        return getPerson(pPersonId); 
     }
 }
