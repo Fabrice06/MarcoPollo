@@ -26,35 +26,138 @@
             <div class="panel-body">
                 <form class="" id="my-contact-form" role="form" data-ng-model="personNewModel" name="personNewModelForm" novalidate>
 
-                    <div class="form-group">
-                        <label class="control-label">{{'PERSON_NEW_MDP' | translate}}</label>
-                        <input class="form-control" ng-model="personNewModel.new"/>
+                    <div class="form-group"
+					 ng-class="{'has-success': personNewModelForm.mail.$dirty && personNewModelForm.mail.$valid,
+			                    'has-error': personNewModelForm.mail.$dirty && personNewModelForm.mail.$invalid}">
+                    
+	                    	<label class="control-label">{{'PERSON_LOG_MAIL' | translate}}</label>
+	                        <input type="email" required class="form-control" ng-model="personNewModel.mail" name="mail"/>
+	                        
+	                        <span class="help-block"
+						   		ng-show="personNewModelForm.mail.$pristine || personNewModelForm.mail.$valid">&emsp;
+						    </span>
+					        <span class="help-block"
+								  ng-show="personNewModelForm.mail.$dirty"
+								  ng-messages="personNewModelForm.mail.$error"> 
+								 
+								  <span ng-message="required">
+								 	 {{'REQUIRED' | translate}} 
+								  </span>
+								 
+								  <span ng-message="email"> 
+								 	 {{'PERSON_LOG_VALID' | translate}}
+								  </span>
+								 
+						    </span>
+	                 
+	                 </div>
+	                
+	                <div class="form-group"
+					 ng-class="{'has-success': personNewModelForm.mdp1.$dirty && personNewModelForm.mdp1.$valid,
+			                    'has-error': personNewModelForm.mdp1.$dirty && personNewModelForm.mdp1.$invalid}">
+                        
+	                        <label class="control-label">{{'PERSON_LOG_PASS' | translate}}</label>
+	                        <input class="form-control" 
+	                        	   ng-model="personNewModel.new" 
+	                        	   name="mdp1" 								   
+								   ng-minlength="3" 
+								   ng-maxlength="40"
+								   required/>
+	                        
+	                        <span class="help-block"
+                                  ng-show="personNewModelForm.mdp1.$pristine || personNewModelForm.mdp1.$valid">&emsp;
+						    </span>
+						    
+							<span class="help-block"
+								ng-show="personNewModelForm.mdp1.$dirty"
+								ng-messages="personNewModelForm.mdp1.$error">
+								
+								<span ng-message="required">
+								 	{{'REQUIRED' | translate}} 
+								 </span> 
+								
+								<span ng-message="minlength"> 
+									{{'PERSON_LOG_MINLENGTH' | translate}} 
+								</span>
+								
+								<span ng-message="maxlength">
+									{{'PERSON_LOG_MAXLENGTH' | translate}} 
+								</span>
+								
+							</span>
+	                        
+	                </div>
+	                
+	                <div class="form-group"
+					 ng-class="{'has-success': personNewModelForm.mdp2.$dirty && personNewModelForm.mdp2.$valid,
+			                    'has-error': personNewModelForm.mdp2.$dirty && personNewModelForm.mdp2.$invalid}">
 
-                        <label class="control-label">{{'PERSON_NEW_CONFIRM' | translate}}</label>
-                        <input class="form-control" ng-model="personNewModel.confirm"/>
+	                        <label class="control-label">{{'PERSON_NEW_CONFIRM' | translate}}</label>
+	                        <input class="form-control" 
+	                        	ng-model="personNewModel.confirm" name="mdp2"
+	                        	ng-minlength="3" 
+								ng-maxlength="40"
+								required/>
+	                        
+	                        <span class="help-block"
+                                  ng-show="personNewModelForm.mdp2.$pristine || personNewModelForm.mdp2.$valid">&emsp;
+						    </span>
+						    
+							<span class="help-block"
+								ng-show="personNewModelForm.mdp2.$dirty"
+								ng-messages="personNewModelForm.mdp2.$error">
+								
+								<span ng-message="required">
+								 	{{'REQUIRED' | translate}} 
+								 </span> 
+								
+								<span ng-message="minlength"> 
+									{{'PERSON_LOG_MINLENGTH' | translate}} 
+								</span>
+								
+								<span ng-message="maxlength">
+									{{'PERSON_LOG_MAXLENGTH' | translate}} 
+								</span>
+								
+							</span>
+	                        
+	                </div>
+	                
+	                <div class="form-group">
+<!-- 					 ng-class="{'has-success': personNewModelForm.language.$dirty && personNewModelForm.language.$valid, -->
+<!-- 			                    'has-error': personNewModelForm.language.$dirty && personNewModelForm.language.$invalid}"> -->
+                        
 
-                        <label class="control-label">{{'PERSON_NEW_MAIL' | translate}}</label>
-                        <input type="email" required class="form-control" ng-model="personNewModel.mail"/>
-
-                        <label class="control-label">{{'PERSON_NEW_LANG' | translate}}</label>
-                        <select class="form-control"
-                            ng-model="personNewModel.langue"
-                            ng-options="language.nom for language in languages">
-                        </select>
+	                        <label class="control-label">{{'PERSON_NEW_LANG' | translate}}</label>
+	                        <select class="form-control"
+	                            ng-model="personNewModel.langue"
+	                            ng-options="language.nom for language in languages"
+	                            name="language">
+	                        </select>
+                        
                     </div>
 
                     <div class="text-right" >
+                    
                         <button type="button"
                                 class="btn btn-primary"
                                 ng-click="onCancel()">{{'CANCEL' | translate}}
                         </button>
+                        
                         <button type="button"
                                 class="btn btn-primary"
-                                ng-click="onSubmit(personNewModel)">{{'UPDATE' | translate}}
+                                data-ng-disabled="personNewModelForm.$invalid"
+                                ng-click="onSubmit(personNewModel)">{{'CREATE' | translate}}
                         </button>
+                        
                     </div>
+                    
                 </form>
+                
             </div><!-- panel body -->
+            
         </div><!-- panel  -->
+        
     </div>
+    
 </div>

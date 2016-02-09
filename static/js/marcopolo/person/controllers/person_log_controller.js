@@ -7,55 +7,66 @@
 
     personLogCtrl.$inject = ['$scope', '$location', '$filter', 'PersonZ', 'Crypto', 'Hateoas', 'Session'];
     function personLogCtrl($scope, $location, $filter, PersonZ, Crypto, Hateoas, Session) {
-
+    	
         Session.clear();
+        
+        $scope.emptyLogin = false;
+        $scope.incorrectLogin = false;
+        
 
         // clic sur le bouton se connecter
         $scope.onSubmit = function (pPersonLog) {
+        	
+        	if (angular.isDefined(pPersonLog)){
 
-            var nMail = pPersonLog.mail;
-            var nMdp = Crypto.SHA1(pPersonLog.mdp);
-            //var nMdp = pPersonLog.mdp;
-
-            // faire un check regex ????
-
-            var nParams = {
-                mail: nMail,
-                mdp: nMdp
-            };
-            console.log("personLogCtrl " + JSON.stringify(nParams));
-
-            PersonZ.query('/persons', nParams).then(
-                function successCallback(pResponse) { // OK pResponse est le retour du backEnd
-
-                    // this callback will be called asynchronously
-                    // when the response is available
-                    if (angular.isUndefined(pResponse.data.links)) {
-                        console.log("personLogCtrl query ok but Person don't exist");
-
-                    } else {
-                        console.log("personLogCtrl save ok " + JSON.stringify(pResponse.data));
-
-                        var nMail = Crypto.SHA1(pResponse.data.mail);
-                        console.log("personLogCtrl Crypto mail >" + nMail + "<");
-
-                        // ce service permets de conserver le mail et le mdp crypté pendant toute la session
-                        Session.setCurrent(nMail, nMdp);
-
-                        // ce service fourni directement les liens hateoas sous forme de clé/valeur
-                        Hateoas.setLinks(pResponse.data.links);
-
-                        $location.url(Hateoas.getUri("marquepages")).replace();
-                    } // else
-
-                },
-                function errorCallback(pResponse) {
-
-                    // called asynchronously if an error occurs
-                    // or server returns response with an error status.
-                    console.log("personLogCtrl query échec");
-                }
-            );
+	            var nMail = pPersonLog.mail;
+	            var nMdp = Crypto.SHA1(pPersonLog.mdp);
+	            //var nMdp = pPersonLog.mdp;
+	
+	            // faire un check regex ????
+	
+	            var nParams = {
+	                mail: nMail,
+	                mdp: nMdp
+	            };
+	            console.log("personLogCtrl " + JSON.stringify(nParams));
+	
+	            PersonZ.query('/persons', nParams).then(
+	                function successCallback(pResponse) { // OK pResponse est le retour du backEnd
+	
+	                    // this callback will be called asynchronously
+	                    // when the response is available
+	                    if (angular.isUndefined(pResponse.data.links)) {
+	                        console.log("personLogCtrl query ok but Person don't exist");
+	                        $scope.incorrectLogin = true;
+	
+	                    } else {
+	                        console.log("personLogCtrl save ok " + JSON.stringify(pResponse.data));
+	
+	                        var nMail = Crypto.SHA1(pResponse.data.mail);
+	                        console.log("personLogCtrl Crypto mail >" + nMail + "<");
+	
+	                        // ce service permets de conserver le mail et le mdp crypté pendant toute la session
+	                        Session.setCurrent(nMail, nMdp);
+	
+	                        // ce service fourni directement les liens hateoas sous forme de clé/valeur
+	                        Hateoas.setLinks(pResponse.data.links);
+	
+	                        $location.url(Hateoas.getUri("marquepages")).replace();
+	                    } // else
+	
+	                },
+	                function errorCallback(pResponse) {
+	
+	                    // called asynchronously if an error occurs
+	                    // or server returns response with an error status.
+	                    console.log("personLogCtrl query échec");
+	                    $scope.incorrectLogin = true;
+	                }
+	            );
+        	} else {
+        		$scope.emptyLogin = true;
+        	}
         };
 
         // clic sur le bouton nouvel utilisateur
