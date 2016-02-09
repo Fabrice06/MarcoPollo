@@ -29,18 +29,23 @@
 		  id="my-contact-form"
 		  role="form"
 		  data-ng-model="personLogModel"
-		  name="personLogModelForm" novalidate>
+		  name="personLogModelForm"
+		  ng-submit="onSubmit(personLogModel)"
+		  novalidate>
 
 		<div class="panel panel-info col-xs-8 panel_sans_padding"
- 			 ng-class="{'panel-danger':incorrectLogin,'panel-info':!incorrectLogin}"> 
+ 			 ng-class="{'panel-danger':incorrectLogin || emptyLogin,'panel-info':!incorrectLogin || !emptyLogin}"> 
  			 
 			<div class="panel-heading">
 			
-				<h3 ng-show="!incorrectLogin" class="panel-title">
+				<h3 ng-show="!incorrectLogin && !emptyLogin" class="panel-title">
 					{{'PERSON_LOG_TITLE' | translate}}
 				</h3>
 				<h3 ng-show="incorrectLogin" class="panel-title">
 					{{'PERSON_LOG_LOGIN_ERROR' | translate}}
+				</h3>
+				<h3 ng-show="emptyLogin && !incorrectLogin" class="panel-title">
+					{{'PERSON_LOG_EMPTY_LOGIN_ERROR' | translate}}
 				</h3>
 				
 			</div>
@@ -93,14 +98,19 @@
 								   required class="form-control"
 								   ng-model="personLogModel.mdp" 
 								   ng-minlength="3" 
-								   ng-maxlength="20">
+								   ng-maxlength="40">
 
                             <span class="help-block"
                                   ng-show="personLogModelForm.usermdp.$pristine || personLogModelForm.usermdp.$valid">&emsp;
-						   </span>
+						    </span>
+						    
 							<span class="help-block"
 								ng-show="personLogModelForm.usermdp.$dirty"
-								ng-messages="personLogModelForm.usermdp.$error"> 
+								ng-messages="personLogModelForm.usermdp.$error">
+								
+								<span ng-message="required">
+								 	{{'REQUIRED' | translate}} 
+								 </span> 
 								
 								<span ng-message="minlength"> 
 									{{'PERSON_LOG_MINLENGTH' | translate}} 
@@ -116,10 +126,10 @@
 
 				<div class="text-right">
 				
-					<button type="button" 
-						class="btn btn-primary"
-						data-ng-disabled="personLogModelForm.$invalid"
-						ng-click="onSubmit(personLogModel)">
+					<button type="submit" 
+						class="btn btn-primary">
+<!-- 						data-ng-disabled="personLogModelForm.$invalid" -->
+						
 							{{'PERSON_LOG_CONNECT' | translate}}
 					</button>
 					
