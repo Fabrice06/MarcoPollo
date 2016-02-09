@@ -27,11 +27,19 @@
         
         $scope.aboutUs = function() {
         	console.log("clic globalCtrl aboutUs");
-            $rootScope.nUrlCourante = $location.path();
-            console.log("----------------" + $rootScope.nUrlCourante);
+            $rootScope.nUrlCourante2 = $location.path();
+            console.log("----------------" + $rootScope.nUrlCourante2);
             $location.path('/aboutUs').replace();
             
         };
+		
+		$scope.onExit2 = function() {
+            console.log("clic globalCtrl Exit Help");
+            
+            console.log("----------------" + $rootScope.nUrlCourante2);
+            $location.path($rootScope.nUrlCourante2).replace();
+        }
+        
         
     }
     
