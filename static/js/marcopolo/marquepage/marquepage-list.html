@@ -19,71 +19,32 @@
 
 	<div class="container">
 		<div>
-			<div class="col-sm-6">
+			<div class="col-sm-4">
 				<form class="form-inline pull-left">
 					<div class="input-group">
 					
 					<!--Code pour champ recherche-----------------------------------------------------------  -->	
 						
 						   <input type="text" class="form-control" ng-model="search"  id="search"  placeholder="{{'SEARCH' | translate}}">
-				 
-    
-                                   
- 
-          <!--Code pour menu déroulant Fabrice-----------------------------------------------------------  -->                         
-						  
-                       
-                          <!--   <tr>
-                                <th>
-                                    <div class="input-group">
-                                        <input placeholder="Recherche par clé"
-                                               name="cle"
-                                               id="cle"
-                                               list="choixCle" 
-                                               type="text" 
-                                               class="form-control"
-                                               ng-model="search">
-				                       <datalist id="choixCle">
-                                            <option data-ng-repeat="c in cles" value="{{c.cle}}">
-                                            </option>
-                                        </datalist>
-                                        
-                                        <div 
-                                             class="input-group-btn ">
-
-                                            <button 
-                                            		ng-click="onSearch()"
-                                                    type="submit" 
-                                                    class="btn btn-default" 
-                                                    data-toggle="dropdown" 
-                                                    aria-expanded="true" >{{'MQP_DET_KEY' | translate}}
-                                            </button>
-                                        </div> 
-                                    </div>
-                                </th>
-                                
-						        <th>
-                                    <div class="input-group"> 
-                                        <input placeholder="Recherche par valeur"
-                                               name="valeur"
-                                               id="valeur"
-                                               type="text" 
-                                               class="form-control input-Black" 
-                                               ng-model="marquepageDetailModel.valeur">
-
-										<div class="input-group-btn btn-Gris">
-											<button 
-												ng-click="onSearch()"
-												type="submit"
-												class="btn btn-default"
-												data-toggle="dropdown" 
-												aria-expanded="false" >{{'MQP_DET_VALUE'| translate}}
-											</button>
-										</div>
-									</div>
-                                </th>  -->
-						             
-			<!--Code pour champ recherche-----------------------------------------------------------  -->			
+				 	
+						
+						<span class="input-group-btn">
+							<button class="btn btn-default" type="submit" ng-click="">
+								<span class="icon-af icon-af-B-digital-loupe-recherche"></span>
+							</button>
+						</span>
+					</div>
+				</form>
+			</div>
+			
+			<div class="col-sm-4">
+				<form class="form-inline pull-left">
+					<div class="input-group">
+					
+					<!--Code pour champ recherche-----------------------------------------------------------  -->	
+						
+						   <input type="text" class="form-control" ng-model="search2"  id="search2"  placeholder="{{'SEARCH' | translate}}">
+				 	
 						
 						<span class="input-group-btn">
 							<button class="btn btn-default" type="submit" ng-click="onSearch()">
@@ -93,7 +54,8 @@
 					</div>
 				</form>
 			</div>
-			<div class="col-sm-6">
+			
+			<div class="col-sm-4">
 				<div class="form-inline pull-right">
 					<button type="button" class="btn btn-default btn-sm" ng-click="onAdd()">
 						<a >
@@ -124,7 +86,7 @@
 						</tr>
 					</tfoot>
 					<tbody data-ng-repeat ="l in listMqp|filter:search| orderBy:'nom'">
-						<tr data-ng-repeat ="t in l.tags|filter:search">
+						<tr data-ng-repeat ="t in l.tags|filter:search2">
 							<td>{{l.nom}}</td>
 							<td ng-click="openLink(l)"><a href="">{{l.lien}}</a></td>	
 							<td>{{t.cle}}</td>
