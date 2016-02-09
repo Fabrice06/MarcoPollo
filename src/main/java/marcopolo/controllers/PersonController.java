@@ -55,8 +55,8 @@ public class PersonController {
         MarquePageDAO myMqpDAO = new MarquePageDAO(jdbcTemplate);
         myMqpDAO.deleteByIdPerson(personId);
 
-        PreferenceDAO myPrefDAO = new PreferenceDAO(jdbcTemplate);
-        myPrefDAO.deleteByIdPerson(personId);
+//        PreferenceDAO myPrefDAO = new PreferenceDAO(jdbcTemplate);
+//        myPrefDAO.deleteByIdPerson(personId);
 
         PersonDAO myPersonDAO = new PersonDAO(jdbcTemplate);
         myPersonDAO.deletePerson(personId);
@@ -67,14 +67,15 @@ public class PersonController {
     public Person updatePerson(
             @PathVariable("personId") long personId,
             @RequestParam(value = "mail", required = true) String pMail,
-            @RequestParam(value = "mdp", required = false) String pMdp,
+            //@RequestParam(value = "mdp", required = false) String pMdp,
             @RequestParam(value = "langue", required = true) String pLangue){
 
         //ArrayList persons = new ArrayList();
 
         PersonDAO myPersonDAO = new PersonDAO(jdbcTemplate);
 
-        return myPersonDAO.updatePerson(personId, pMail, pMdp, pLangue);    
+        //return myPersonDAO.updatePerson(personId, pMail, pMdp, pLangue);
+        return myPersonDAO.updatePerson(personId, pMail, pLangue);
     }	
 
     // 12. Renvoi liste marquepages de la personne avec id defini, self link -- manque liste tags avec lien pour chaque tag ???

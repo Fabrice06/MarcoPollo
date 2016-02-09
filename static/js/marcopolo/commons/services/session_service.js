@@ -13,39 +13,62 @@
                 nSession['mail'] = pMail;
                 nSession['mdp'] = pMdp;
             },
-            getSignedUri: function (pUri) {
 
-                // préparation de la requête à usage unique du type
-                // nUri = /persons/1/marquepages?user=3626810c003760d1c278a356c450af9abe695ce9&timestamp=12341523&signature=3626810c003760d1c278a356c450
+            // création de la signature de l'uri
+            // pour préparer la requête à usage unique du type
+            // nUri = /persons/1/marquepages?user=3626810c003760d1c278a356c450af9abe695ce9&timestamp=12341523&signature=3626810c003760d1c278a356c450
+            getSignature: function (pUrl, pParams, pTimestamp) {
 
-                var nUri = pUri + "?user=" + nSession['mail'] + "&timestamp=" + Date.now();
-                nSession['signature'] = Crypto.HmacSHA1(nUri, nSession['mdp']);
-                nUri = nUri + "&signature=" + nSession['signature'];
+                var nUri = pUrl + "?user=" + nSession['mail'] + "&timestamp=" + pTimestamp;
 
-                console.log("Session factory getSignedUri " + nUri);
-                return nUri;
+                console.log("Session factory getSignature pParams.length " + pParams.length);
+
+                if (typeof pParams[0] != 'undefined') { // hint: le tableau est vide ?
+                //if (pParams.length >= 1) {
+                    // convert it into html form data by using $.param (jQuery function)
+                    nUri = nUri + "&" + $.param(pParams);
+                } // if
+
+                var nSignature = Crypto.HmacSHA1(nUri, nSession['mdp']);
+
+                console.log("Session factory getSignature uri " + nUri + "&signature=" + nSignature);
+
+                return nSignature;
             },
+
+            //// création de la signature de l'uri
+            //// pour préparer la requête à usage unique du type
+            //// nUri = /persons/1/marquepages?user=3626810c003760d1c278a356c450af9abe695ce9&timestamp=12341523&signature=3626810c003760d1c278a356c450
+            //getSignedUri: function (pUrl, pParams, pTimestamp) {
+            //
+            //    var nUri = pUrl + "?user=" + nSession['mail'] + "&timestamp=" + pTimestamp;
+            //
+            //    if (pParams.length >= 1) {
+            //        // convert it into html form data by using $.param (jQuery function)
+            //        nUri = nUri + "&" + $.param(pParams);
+            //    } // if
+            //
+            //    var nSignature = Crypto.HmacSHA1(nUri, nSession['mdp']);
+            //
+            //    console.log("Session factory getSignedUri uri " + nUri + "&signature=" + nSignature);
+            //
+            //    return nUri + "&signature=" + nSignature;
+            //},
+
             setMail: function (pMail) {
                 nSession['mail'] = pMail;
             },
-            //getMail: function () {
-            //    return nSession['mail'];
-            //},
-            //setMdp: function (pMdp) {
-            //    nSession['mdp'] = pMdp;
-            //},
-            //getMdp: function () {
-            //    return nSession['mdp'];
-            //},
-            //getStamp: function () {
-            //    var nStamp = "?session=" + nSession['mail'] + "&timestamp=" + Date.now();
-            //    return nStamp;
-            //},
+            getMail: function () {
+                return nSession['mail'];
+            },
+
+            getMdp: function () {
+                return nSession['mdp'];
+            },
 
             clear: function () {
                 nSession['mail'] = "";
                 nSession['mdp'] = "";
-                nSession['signature'] = "";
             }
         }
     } // function

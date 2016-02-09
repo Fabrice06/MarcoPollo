@@ -69,12 +69,14 @@ public class PersonDAO {
 
     public Person getPerson(Long idPerson) {
 
-        String sql = "select p.id_person, p.mail, l.nom "
+        String nSql = "select p.id_person, p.mail, l.nom "
                 + "from person p, langue l "
                 + "where p.id_langue=l.id_langue "
                 + "and p.id_person=?"; 
-
-        List<Person> personsList = this.jdbcTemplate.query(sql, new Object[]{idPerson}, new PersonMapper());
+        
+        log.info("getPerson=" + nSql);
+        
+        List<Person> personsList = this.jdbcTemplate.query(nSql, new Object[]{idPerson}, new PersonMapper());
 
         // id_person not found
         if (personsList.isEmpty()) {
@@ -164,16 +166,18 @@ public class PersonDAO {
     }
 
     
-    public Person updatePerson(Long pPersonId, final String pMail, final String pMdp, final String pLangue) {
+    public Person updatePerson(Long pPersonId, final String pMail, final String pLangue) {
 
         String nSql = "update person set mail = ?, ";
         
-        if (!pMdp.isEmpty()) nSql = nSql + "mdp = ?, ";
+        //if (!pMdp.isEmpty()) nSql = nSql + "mdp = ?, ";
         
         nSql = nSql + "id_langue = (select l.id_langue from langue l where l.nom=?) ";
         nSql = nSql + "where id_person = ?";
-
-        this.jdbcTemplate.update(nSql, pMail, pMdp, pLangue, pPersonId);
+        
+        log.info("updatePerson=" + nSql);
+        
+        this.jdbcTemplate.update(nSql, pMail, pLangue, pPersonId);
 
         return getPerson(pPersonId); 
 

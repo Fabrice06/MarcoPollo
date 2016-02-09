@@ -14,8 +14,8 @@
         $scope.onSubmit = function (pPersonLog) {
 
             var nMail = pPersonLog.mail;
-            //var nMdp = Crypto.SHA1(pPersonLog.mdp);
-            var nMdp = pPersonLog.mdp;
+            var nMdp = Crypto.SHA1(pPersonLog.mdp);
+            //var nMdp = pPersonLog.mdp;
 
             // faire un check regex ????
 
@@ -44,12 +44,8 @@
 
                         // ce service fourni directement les liens hateoas sous forme de clé/valeur
                         Hateoas.setLinks(pResponse.data.links);
-                        var nUri = Hateoas.getUri("marquepages");
 
-                        // utilisation de la requête à usage unique
-                        //$location.url(Session.getSignedUri(nUri)).replace();
-
-                        $location.url(nUri).replace();
+                        $location.url(Hateoas.getUri("marquepages")).replace();
                     } // else
 
                 },
@@ -66,43 +62,6 @@
         $scope.onNew = function () {
 
             $location.url("/persons/new").replace();
-
-        	//if (angular.isUndefined(pPersonLog)){
-        	//	//alert('personLogCtrl onCreate en cours');
-        	//}
-        	//else {
-        	//
-	        //    Person.save(
-	        //            {
-	        //                uri:'persons',
-	        //                mail:pPersonLog.mail,
-	        //                mdp:pPersonLog.mdp
-	        //            },
-	        //            pPersonLog
-	        //            ,
-	        //            function (pPerson) { // OK pPerson est le retour du backEnd
-            //
-	        //                console.log("personLogCtrl query ok");
-            //
-	        //                // remplace aprés le # dans la barre d'adresse
-	        //                for	(var index = 0; index < pPerson.links.length; index++) {
-            //
-	        //                    if ("marquepages" === pPerson.links[index].rel) {
-            //
-	        //                        var nUrl = pPerson.links[index].href;
-	        //                        var nPort = $location.port(nUrl);
-	        //                        var nPathArray = nUrl.split(nPort);
-	        //                        $location.url(nPathArray[1]).replace();
-            //
-	        //                        break;
-	        //                    } // if
-	        //                } // for
-	        //            },
-	        //            function (pData, headers) { // Erreur
-	        //                console.log("personLogCtrl query échec");
-	        //            }
-	        //        );
-        	//}
         };
         
         //$scope.doSomething = function() {

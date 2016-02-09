@@ -27,21 +27,19 @@
             }
         );
 
-        //function quitter() {
-        //    Session.clear();
-        //    $location.path('/').replace();
-        //}
-
-        // clic sur le bouton déconnexion
-        $scope.onExit = function () {
+        var goToIhmPersonLog = function () {
             Session.clear();
             $location.path('/').replace();
         };
 
+        // clic sur le bouton déconnexion
+        $scope.onExit = function () {
+            goToIhmPersonLog();
+        };
+
         // clic sur le bouton annuler
         $scope.onCancel = function () {
-            Session.clear();
-            $location.path('/').replace();
+            goToIhmPersonLog();
         };
 
         // clic sur le bouton valider
@@ -49,7 +47,7 @@
 
             var nMail = pPersonModel.mail;
             var nMdp = Crypto.SHA1(pPersonModel.confirm);
-            var nLangue = pPersonModel.langue;
+            var nLangue = pPersonModel.langue.nom;
 
             // faire un check regex ????
 
@@ -79,11 +77,8 @@
 
                         // ce service fourni directement les liens hateoas sous forme de clé/valeur
                         Hateoas.setLinks(pResponse.data.links);
-                        var nUri = Hateoas.getUri("marquepages");
 
-                        // utilisation de la requête à usage unique
-                        //$location.url(Session.getSignedUri(nUri)).replace();
-                        $location.url(nUri).replace();
+                        $location.url(Hateoas.getUri("marquepages")).replace();
                     } // else
 
                 },
