@@ -25,6 +25,14 @@
             $location.path($rootScope.nUrlCourante).replace();
         }
         
+        $scope.aboutUs = function() {
+        	console.log("clic globalCtrl aboutUs");
+            $rootScope.nUrlCourante = $location.path();
+            console.log("----------------" + $rootScope.nUrlCourante);
+            $location.path('/aboutUs').replace();
+            
+        };
+        
     }
     
     
