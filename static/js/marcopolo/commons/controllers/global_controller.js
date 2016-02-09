@@ -11,19 +11,35 @@
         ;
       
         $scope.onHelp = function() {
-			console.log("clic globalCtrl Help");
-            $rootScope.nUrlCourante = $location.path();
-            console.log("----------------" + $rootScope.nUrlCourante);
+			console.log("clic sur Help");
+            $rootScope.nHelpPreviousUrl = $location.path();
+            console.log("url d'où je viens : " + $rootScope.nHelpPreviousUrl);
             $location.path('/help').replace();
             
         };
         
         $scope.onExit = function() {
-            console.log("clic globalCtrl Exit Help");
+            console.log("clic sur Retour Help");
             
-            console.log("----------------" + $rootScope.nUrlCourante);
-            $location.path($rootScope.nUrlCourante).replace();
+            console.log("retour sur l'url précédente : " + $rootScope.nHelpPreviousUrl);
+            $location.path($rootScope.nHelpPreviousUrl).replace();
         }
+        
+        $scope.aboutUs = function() {
+        	console.log("clic sur aboutUs");
+            $rootScope.nAboutUsPreviousUrl = $location.path();
+            console.log("url d'où je viens : " + $rootScope.nAboutUsPreviousUrl);
+            $location.path('/aboutUs').replace();
+            
+        };
+		
+		$scope.onExit2 = function() {
+            console.log("clic sur Retour AboutUs");
+            
+            console.log("retour sur l'url précédente : " + $rootScope.nAboutUsPreviousUrl);
+            $location.path($rootScope.nAboutUsPreviousUrl).replace();
+        }
+        
         
     }
     

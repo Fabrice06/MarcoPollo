@@ -43,6 +43,11 @@
             templateUrl: 'js/marcopolo/commons/help.html',
             controller: 'globalCtrl'
         })
+        
+        .when('/aboutUs', {
+            templateUrl: 'js/marcopolo/commons/aboutUs.html',
+            controller: 'globalCtrl'
+        })
 
             // bac à sable de vince
         .when('/yapafoto', {
