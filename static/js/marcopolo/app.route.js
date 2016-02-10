@@ -39,8 +39,13 @@
             controller: 'personDetailCtrl'       
         })
         
-        .when('/help', {
-            templateUrl: 'js/marcopolo/commons/help.html',
+        .when('/help_fr', {
+            templateUrl: 'js/marcopolo/commons/helpfr.html',
+            controller: 'globalCtrl'
+        })
+		
+		.when('/help_en', {
+            templateUrl: 'js/marcopolo/commons/helpen.html',
             controller: 'globalCtrl'
         })
         

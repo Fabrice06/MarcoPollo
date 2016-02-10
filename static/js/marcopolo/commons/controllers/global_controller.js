@@ -14,7 +14,12 @@
 			console.log("clic sur Help");
             $rootScope.nHelpPreviousUrl = $location.path();
             console.log("url d'où je viens : " + $rootScope.nHelpPreviousUrl);
-            $location.path('/help').replace();
+			
+			if ($rootScope.lang == '2') {
+				$location.path('/help_en').replace();
+			}else {
+				$location.path('/help_fr').replace();
+			}
             
         };
         

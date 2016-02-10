@@ -121,19 +121,19 @@
 	
 	angular
         .module('marcopolo')
-		.controller('traductCtrl', function ($scope, $translate) {
+		.controller('traductCtrl', function ($scope, $translate, $rootScope) {
 			$scope.changeLanguage = function (key) {
 				$translate.use(key);
                 
                 switch (key) {
-                    case 'french': $scope.lang = 1;
+                    case 'french': $rootScope.lang = 1;
                         break;
-                    case 'english' : $scope.lang = 2;
+                    case 'english' : $rootScope.lang = 2;
                         break;
-                    default: $scope.lang = 1;
+                    default: $rootScope.lang = 1;
                 }
                 
-                console.log('La langue est : '+key+' : '+ $scope.lang);
+                console.log('La langue est : '+key+' : '+ $rootScope.lang);
 			};
 		});
         
