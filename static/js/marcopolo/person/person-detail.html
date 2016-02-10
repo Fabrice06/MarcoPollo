@@ -1,4 +1,4 @@
-<div ng-controller="personDetailCtrl">
+<div>
     <!-- composant HEADER -->
     <div class="container my-header" id="">
     
@@ -6,7 +6,7 @@
         
             <div class="col-lg-5 col-sm-12 col-lg-offset-7 text-right">
             
-                <a href="" ng-click="onExit()"><span class="icon-af icon-af-A-basic-power27">{{'LOGOUT' | translate}}</span></a>
+                <a href="" ng-click="personDetail.onExit()"><span class="icon-af icon-af-A-basic-power27">{{'LOGOUT' | translate}}</span></a>
                 
             </div>
             
@@ -83,7 +83,7 @@
                     <label for="langue">{{'PERSON_DETAIL_LANGUAGE' | translate}}</label><br/>
                     <select class="form-control"
                             ng-model="personDetailModel.langue"
-                            ng-options="language.nom for language in languages">
+                            ng-options="language.nom for language in personDetail.languages">
                     </select>
                     <span class="help-block">&emsp;
                     </span>
@@ -95,20 +95,20 @@
                     
                         <button type="button"
                                 class="btn btn-primary"
-                                ng-click="onCancel()">
+                                ng-click="personDetail.onCancel()">
                                 {{'CANCEL' | translate}}
                         </button>
                         
                         <button type="button"
                                 class="btn btn-primary"
-                                ng-click="onDelete()">
+                                ng-click="personDetail.onDelete()">
                                 {{'DELETE' | translate}}
                         </button>
                         
                         <button type="button"
                                 class="btn btn-primary"
                                 ng-disabled="personDetailModelForm.$invalid"
-                                ng-click="onSubmit(personDetailModel)">
+                                ng-click="personDetail.onSubmit(personDetailModel)">
                                 {{'UPDATE' | translate}}
                         </button>
                         

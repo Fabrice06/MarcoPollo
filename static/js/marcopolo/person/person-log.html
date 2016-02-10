@@ -3,9 +3,9 @@
     <div class="container my-header" id="">
         <div class="row">
             <div class="col-lg-5 col-sm-12 col-lg-offset-7 text-right">
-                <a href="" ng-click="changeLanguage('english')">{{'BUTTON_LANG_EN' | translate}}</a>
+                <a href="" ng-click="personLog.changeLanguage('english')">{{'BUTTON_LANG_EN' | translate}}</a>
                 <span>&NonBreakingSpace;|&NonBreakingSpace;</span>
-                <a href="" ng-click="changeLanguage('french')">{{'BUTTON_LANG_FR' | translate}}</a>
+                <a href="" ng-click="personLog.changeLanguage('french')">{{'BUTTON_LANG_FR' | translate}}</a>
             </div>
         </div>
 
@@ -20,58 +20,58 @@
 
     <div class="container">
 
-	<h4>{{'PERSON_LOG_WELCOME1' | translate}}</h4>
-	
-	<p>{{'PERSON_LOG_WELCOME' | translate}}</p>
-	<br />
+        <h4>{{'PERSON_LOG_WELCOME1' | translate}}</h4>
 
-	<form class=""
-		  id="my-contact-form"
-		  role="form"
-		  data-ng-model="personLogModel"
-		  name="personLogModelForm"
-		  ng-submit="onSubmit(personLogModel)"
-		  novalidate>
+        <p>{{'PERSON_LOG_WELCOME' | translate}}</p>
+        <br />
 
-		<div class="panel panel-info col-xs-8 panel_sans_padding"
- 			 ng-class="{'panel-danger':incorrectLogin || emptyLogin,'panel-info':!incorrectLogin || !emptyLogin}"> 
- 			 
-			<div class="panel-heading">
-			
-				<h3 ng-show="!incorrectLogin && !emptyLogin" class="panel-title">
-					{{'PERSON_LOG_TITLE' | translate}}
-				</h3>
-				<h3 ng-show="incorrectLogin" class="panel-title">
-					{{'PERSON_LOG_LOGIN_ERROR' | translate}}
-				</h3>
-				<h3 ng-show="emptyLogin && !incorrectLogin" class="panel-title">
-					{{'PERSON_LOG_EMPTY_LOGIN_ERROR' | translate}}
-				</h3>
-				
-			</div>
+        <form class=""
+              id="my-contact-form"
+              role="form"
+              data-ng-model="personLogModel"
+              name="personLogModelForm"
+              ng-submit="personLog.onSubmit(personLogModel)"
+              novalidate>
 
-			<div class="panel-body">
+            <div class="panel panel-info col-xs-8 panel_sans_padding"
+                 ng-class="{'panel-danger':personLog.incorrectLogin || personLog.emptyLogin,'panel-info':!personLog.incorrectLogin || !personLog.emptyLogin}">
+
+                <div class="panel-heading">
+
+                    <h3 ng-show="!personLog.incorrectLogin && !personLog.emptyLogin" class="panel-title">
+                        {{'PERSON_LOG_TITLE' | translate}}
+                    </h3>
+                    <h3 ng-show="personLog.incorrectLogin" class="panel-title">
+                        {{'PERSON_LOG_LOGIN_ERROR' | translate}}
+                    </h3>
+                    <h3 ng-show="personLog.emptyLogin && !personLog.incorrectLogin" class="panel-title">
+                        {{'PERSON_LOG_EMPTY_LOGIN_ERROR' | translate}}
+                    </h3>
+
+                </div>
+
+                <div class="panel-body">
 
 
-				<div class="form-group"
-					 ng-class="{'has-success': personLogModelForm.useremail.$dirty && personLogModelForm.useremail.$valid,
+                    <div class="form-group"
+                         ng-class="{'has-success': personLogModelForm.useremail.$dirty && personLogModelForm.useremail.$valid,
 			                    'has-error': personLogModelForm.useremail.$dirty && personLogModelForm.useremail.$invalid}">
-			                    
-					<label for="useremail" class="control-label">{{'PERSON_LOG_MAIL' | translate}}</label>
-					
-					<input id="useremail" 
-						   name="useremail"
-						   type="email" 
-						   required class="form-control"
-						   ng-model="personLogModel.mail"
-						   focus-me=focusInput> 
+
+                        <label for="useremail" class="control-label">{{'PERSON_LOG_MAIL' | translate}}</label>
+
+                        <input id="useremail"
+                               name="useremail"
+                               type="email"
+                               required class="form-control"
+                               ng-model="personLogModel.mail"
+                               focus-me=focusInput>
 						   
 						   <span class="help-block"
-						   		ng-show="personLogModelForm.useremail.$pristine || personLogModelForm.useremail.$valid">&emsp;
+                                 ng-show="personLogModelForm.useremail.$pristine || personLogModelForm.useremail.$valid">&emsp;
 						   </span>
 					       <span class="help-block"
-								 ng-show="personLogModelForm.useremail.$dirty"
-								 ng-messages="personLogModelForm.useremail.$error"> 
+                                 ng-show="personLogModelForm.useremail.$dirty"
+                                 ng-messages="personLogModelForm.useremail.$error">
 								 
 								 <span ng-message="required">
 								 	{{'REQUIRED' | translate}} 
@@ -82,31 +82,31 @@
 								 </span>
 								 
 						   </span>
-				</div>
+                    </div>
 
-				<div class="form-group"
-					 ng-class="{'has-success': personLogModelForm.usermdp.$dirty && personLogModelForm.usermdp.$valid,
+                    <div class="form-group"
+                         ng-class="{'has-success': personLogModelForm.usermdp.$dirty && personLogModelForm.usermdp.$valid,
 			                    'has-error': personLogModelForm.usermdp.$dirty && personLogModelForm.usermdp.$invalid}">
-			                    
-					<div class="">
-					
-						<label for="usermdp" class="control-label">{{'PERSON_LOG_PASS' | translate}}&emsp;</label> 
-						
-							<input id="usermdp" 
-								   name="usermdp" 
-								   type="password"
-								   required class="form-control"
-								   ng-model="personLogModel.mdp" 
-								   ng-minlength="3" 
-								   ng-maxlength="40">
+
+                        <div class="">
+
+                            <label for="usermdp" class="control-label">{{'PERSON_LOG_PASS' | translate}}&emsp;</label>
+
+                            <input id="usermdp"
+                                   name="usermdp"
+                                   type="password"
+                                   required class="form-control"
+                                   ng-model="personLogModel.mdp"
+                                   ng-minlength="3"
+                                   ng-maxlength="40">
 
                             <span class="help-block"
                                   ng-show="personLogModelForm.usermdp.$pristine || personLogModelForm.usermdp.$valid">&emsp;
 						    </span>
 						    
 							<span class="help-block"
-								ng-show="personLogModelForm.usermdp.$dirty"
-								ng-messages="personLogModelForm.usermdp.$error">
+                                  ng-show="personLogModelForm.usermdp.$dirty"
+                                  ng-messages="personLogModelForm.usermdp.$error">
 								
 								<span ng-message="required">
 								 	{{'REQUIRED' | translate}} 
@@ -121,71 +121,68 @@
 								</span>
 								
 							</span>
-					</div>
-				</div>
+                        </div>
+                    </div>
 
-				<div class="text-right">
-				
-					<button type="submit" 
-						class="btn btn-primary">
-<!-- 						data-ng-disabled="personLogModelForm.$invalid" -->
-						
-							{{'PERSON_LOG_CONNECT' | translate}}
-					</button>
-					
-				</div>
-				
-				<!-- Boutons de Tests -->
-				
-				<div class="text-right">
-				
-					<button type="button" class="btn btn-primary" ng-click="onTestA(1)">direct
-						persons-detail</button>
-					<button type="button" class="btn btn-primary" ng-click="onTestB(2)">direct
-						marquepages-detail</button>
-					<button type="button" class="btn btn-primary" ng-click="onTestC(1)">direct
-						marquepages-list</button>
-					<button type="button" class="btn btn-primary" ng-click="onTestC(3)">direct
-						marquepages-list vide</button>
-					<button type="button" class="btn btn-primary" ng-click="onTestD()">direct
-						vince</button>
-						
-				</div>
+                    <div class="text-right">
 
-			</div>
-			<!-- panel body -->
-		</div>
-		<!-- panel info -->
-		<div class="col-xs-4 ">
+                        <button type="submit"
+                                class="btn btn-primary">
+                            <!-- 						data-ng-disabled="personLogModelForm.$invalid" -->
 
-			<div class="text-center panel_img_user">
-			
-				<img src="img/newUser.png" 
-					 alt="nouvel utilisateur" />
-				<br/><br/>
-				
-			</div>
-			
-			<div ng-if="personLogModelForm.useremail.$invalid"></div>
+                            {{'PERSON_LOG_CONNECT' | translate}}
+                        </button>
 
-			<div class="panel_new_user">
-				<ul>				
-					<a href="" ng-click="onNew()">
-						<b>{{'PERSON_LOG_NEW' | translate}}</b>
-					</a>
-					<br/><br/>
-					
-					<a href="" 
-					   ng-click="onLost(personLogModel)">
-					   <b>{{'PERSON_LOG_MESSAGE' | translate}}</b>
-					</a>					
-				</ul>
-				
-			</div>
+                    </div>
 
-		</div>
-		
-	</form>
+                    <!-- Boutons de Tests -->
 
-</div>
+                    <div class="text-right">
+
+                        <button type="button" class="btn btn-primary" ng-click="personLog.onTestA(1)">direct
+                            persons-detail</button>
+                        <button type="button" class="btn btn-primary" ng-click="personLog.onTestB(2)">direct
+                            marquepages-detail</button>
+                        <button type="button" class="btn btn-primary" ng-click="personLog.onTestC(1)">direct
+                            marquepages-list</button>
+                        <button type="button" class="btn btn-primary" ng-click="personLog.onTestC(3)">direct
+                            marquepages-list vide</button>
+
+                    </div>
+
+                </div>
+                <!-- panel body -->
+            </div>
+            <!-- panel info -->
+            <div class="col-xs-4 ">
+
+                <div class="text-center panel_img_user">
+
+                    <img src="img/newUser.png"
+                         alt="nouvel utilisateur" />
+                    <br/><br/>
+
+                </div>
+
+                <div ng-if="personLogModelForm.useremail.$invalid"></div>
+
+                <div class="panel_new_user">
+                    <ul>
+                        <a href="" ng-click="personLog.onNew()">
+                            <b>{{'PERSON_LOG_NEW' | translate}}</b>
+                        </a>
+                        <br/><br/>
+
+                        <a href=""
+                           ng-click="personLog.onLost(personLogModel)">
+                            <b>{{'PERSON_LOG_MESSAGE' | translate}}</b>
+                        </a>
+                    </ul>
+
+                </div>
+
+            </div>
+
+        </form>
+    </div>
 </div>

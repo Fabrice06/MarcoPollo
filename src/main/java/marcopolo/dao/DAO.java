@@ -1,6 +1,5 @@
 package marcopolo.dao;
 
-import marcopolo.Application;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -9,7 +8,7 @@ public abstract class DAO<T> {
 	
 	protected final static String SQL_GET_LAST_ID_INSERTED = "CALL SCOPE_IDENTITY()";
 	
-	protected static Log log = LogFactory.getLog(Application.class);
+	protected static Log log = LogFactory.getLog(DAO.class);
 	
 	/**
 	 * get object

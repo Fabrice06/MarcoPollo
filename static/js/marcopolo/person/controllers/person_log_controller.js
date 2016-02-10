@@ -7,15 +7,23 @@
 
     personLogCtrl.$inject = ['$scope', '$location', '$filter', 'PersonZ', 'Crypto', 'Hateoas', 'Session'];
     function personLogCtrl($scope, $location, $filter, PersonZ, Crypto, Hateoas, Session) {
-    	
+
+        /* jshint validthis: true */
+        var vm = this;
+        vm.onSubmit = onSubmit;
+        vm.onNew = onNew;
+        vm.onLost = onLost;
+        vm.onTestA = onTestA;
+        vm.onTestB = onTestB;
+        vm.onTestC = onTestC;
+
         Session.clear();
-        
-        $scope.emptyLogin = false;
-        $scope.incorrectLogin = false;
-        
+
+        vm.emptyLogin = false;
+        vm.incorrectLogin = false;
 
         // clic sur le bouton se connecter
-        $scope.onSubmit = function (pPersonLog) {
+        function onSubmit(pPersonLog) {
         	
         	if (angular.isDefined(pPersonLog)){
 
@@ -38,7 +46,7 @@
 	                    // when the response is available
 	                    if (angular.isUndefined(pResponse.data.links)) {
 	                        console.log("personLogCtrl query ok but Person don't exist");
-	                        $scope.incorrectLogin = true;
+	                        vm.incorrectLogin = true;
 	
 	                    } else {
 	                        console.log("personLogCtrl save ok " + JSON.stringify(pResponse.data));
@@ -57,47 +65,44 @@
 	                    // called asynchronously if an error occurs
 	                    // or server returns response with an error status.
 	                    console.log("personLogCtrl query échec");
-	                    $scope.incorrectLogin = true;
+	                    vm.incorrectLogin = true;
 	                }
 	            );
         	} else {
-        		$scope.emptyLogin = true;
+        		vm.emptyLogin = true;
         	}
-        };
+        }
 
         // clic sur le bouton nouvel utilisateur
-        $scope.onNew = function () {
+        function onNew() {
 
             $location.url("/persons/new").replace();
-        };
+        }
         
         //$scope.doSomething = function() {
         //	focus('useremail');
         //};
 
         // clic sur le lien mot de passe perdu
-        $scope.onLost = function(pPersonLog){
+        function onLost(pPersonLog){
 			       	
             alert($filter('translate')('PERSON_MESSAGE'));
-        };
-        
+        }
+
+
         // pour test uniquement ---------------------------------------------------
-            $scope.onTestA = function (pIdPerson) {
+            function onTestA(pIdPerson) {
                 // direct vers persons-detail
                 $location.path('/persons/' + pIdPerson).replace();
-            };
-            $scope.onTestB = function (pIdPerson) {
+            }
+            function onTestB(pIdPerson) {
                 // direct vers marquepages-detail
                 $location.path('/persons/' + pIdPerson + '/marquepages/2').replace();
-            };
-            $scope.onTestC = function (pIdPerson) {
+            }
+            function onTestC(pIdPerson) {
                 // direct vers marquepages-list
                 $location.path('/persons/' + pIdPerson + '/marquepages').replace();
-            };
-            $scope.onTestD = function () {
-                // direct vers sandbox
-                $location.path('/yapafoto').replace();
-            };
+            }
         // pour test uniquement ---------------------------------------------------
     } // function    
     

@@ -46,7 +46,7 @@
             },
 
             clear: function () {
-                nSession['id'] = "";
+                nSession['id'] = "0";
                 nSession['mdp'] = "";
             }
         }

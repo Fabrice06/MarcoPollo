@@ -8,22 +8,34 @@
     personDetailCtrl.$inject = ['$scope', '$location', 'PersonZ', 'Language', 'Session', 'Hateoas', 'Crypto'];
     function personDetailCtrl($scope, $location, PersonZ, Language, Session, Hateoas, Crypto) {
 
-        //** Récupération et affichage des informations de la ressource language*/
-        Language.query('/langues', {}).then(
-            function successCallback(pResponse) {
+        /* jshint validthis: true */
+        var vm = this;
+        vm.queryLanguages = queryLanguages;
+        //vm.personDetailModel = personDetailModel;
+        vm.onCancel = onCancel;
+        vm.onSubmit = onSubmit;
+        vm.onDelete = onDelete;
+        vm.onExit = onExit;
 
-                // this callback will be called asynchronously
-                // when the response is available
-                console.log("personDetailCtrl query langues ok " + JSON.stringify(pResponse.data));
-                $scope.languages = pResponse.data;
-            },
-            function errorCallback(pResponse) {
 
-                // called asynchronously if an error occurs
-                // or server returns response with an error status.
-                console.log("personDetailCtrl query langues échec");
-            }
-        );
+        function queryLanguages() {
+            //** Récupération et affichage des informations de la ressource language*/
+            Language.query('/langues', {}).then(
+                function successCallback(pResponse) {
+
+                    // this callback will be called asynchronously
+                    // when the response is available
+                    console.log("personDetailCtrl query langues ok " + JSON.stringify(pResponse.data));
+                    vm.languages = pResponse.data;
+                },
+                function errorCallback(pResponse) {
+
+                    // called asynchronously if an error occurs
+                    // or server returns response with an error status.
+                    console.log("personDetailCtrl query langues échec");
+                }
+            );
+        }
 
 
         //** Récuperation et affichage des informations de la ressource person selectionnée*/
@@ -38,13 +50,15 @@
                 // ce service fourni directement les liens hateoas sous forme de clé/valeur
                 Hateoas.setLinks(pResponse.data.links);
 
-                // sélection de la langue
-                for (var i = 0; i< $scope.languages.length; i++) {
-                    if ($scope.languages[i].nom === pResponse.data.langue) {
-                        $scope.personDetailModel.langue = $scope.languages[i];
-                        break;
-                    } // if
-                } // for
+                queryLanguages();
+
+                //// sélection de la langue
+                //for (var i = 0; i < $scope.languages.length; i++) {
+                //    if ($scope.languages[i].nom === pResponse.data.langue) {
+                //        $scope.personDetailModel.langue = $scope.languages[i];
+                //        break;
+                //    } // if
+                //} // for
 
             },
             function errorCallback(pResponse) {
@@ -56,15 +70,15 @@
         );
 
         // clic sur le bouton déconnexion
-        $scope.onExit = function () {
+        function onExit() {
 
             Session.clear();
             $location.path('/').replace();
-        };
+        }
 
         // clic sur le bouton supprimer
-        $scope.onDelete = function () {
-alert("vraiment sûr?");
+        function onDelete() {
+            alert("vraiment sûr?");
             PersonZ.delete(Hateoas.getUri("self"), {}).then(
                 function successCallback(pResponse) { // OK pResponse est le retour du backEnd
 
@@ -83,15 +97,15 @@ alert("vraiment sûr?");
                     console.log("personDetailCtrl onDelete échec");
                 }
             );
-        };
+        }
 
         // clic sur le bouton Retour à ma liste de mqp
-        $scope.onCancel = function () {
+        function onCancel() {
 
             $location.url(Hateoas.getUri("marquepages")).replace();
-        };
+        }
 
-        $scope.onSubmit = function (pPersonDetail) {
+        function onSubmit(pPersonDetail) {
 
             var nMail = pPersonDetail.mail;
             var nLangue = pPersonDetail.langue.nom;
@@ -124,7 +138,7 @@ alert("vraiment sûr?");
                     console.log("personDetailCtrl onSubmit échec");
                 }
             );
-        };
+        }
 
     } // function
 

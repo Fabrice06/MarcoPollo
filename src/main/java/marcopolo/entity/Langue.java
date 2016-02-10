@@ -1,6 +1,5 @@
 package marcopolo.entity;
 
-//import java.util.List;
 
 import org.springframework.hateoas.ResourceSupport;
 
@@ -24,7 +23,7 @@ public class Langue extends ResourceSupport {
 		return idLangue;
 	}
 
-	public void setIdLangue(Long idLangue) {
+	public void setIdLangue(final Long idLangue) {
 		this.idLangue = idLangue;
 	}
 

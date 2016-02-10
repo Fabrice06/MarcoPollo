@@ -35,7 +35,7 @@ public class Person extends ResourceSupport {
 
     private String langue;
     
-    private String stamp;
+    private Long stamp;
 
     //    private ArrayList<MarquePage> listMarquePages;
     //    
@@ -131,11 +131,11 @@ public class Person extends ResourceSupport {
         this.langue = pLangue;
     }
 
-    public String getStamp() {
+    public Long getStamp() {
         return stamp;
     }
 
-    public void setStamp(final String pStamp) {
+    public void setStamp(Long pStamp) {
         this.stamp = pStamp;
     }
     

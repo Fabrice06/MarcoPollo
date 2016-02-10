@@ -48,7 +48,7 @@ public class PersonDAO {
             person.setLangue(rs.getString("nom"));
             person.setMail(rs.getString("mail"));
             person.setMdp(rs.getString("mdp"));
-            person.setStamp(rs.getString("stamp"));
+            person.setStamp(rs.getLong("stamp"));
 
             // add Hateoas link 
             person.add(linkTo(methodOn(PersonController.class).getPerson(person.getIdPerson())).withSelfRel());
@@ -125,7 +125,7 @@ public class PersonDAO {
         }
     }
 
-    public Person getPersonById(final String pId) {
+    public Person getPersonById(Long pId) {
 
         String sql = "select p.id_person, p.mail, p.mdp, p.stamp, l.nom "
                 + "from person p, langue l "
@@ -211,7 +211,7 @@ public class PersonDAO {
     }
     
     
-    public Person updateStampById(Long pPersonId, final String pTimestamp) {
+    public Person updateStampById(Long pPersonId, Long pTimestamp) {
 
         String nSql = "update person set stamp = ? ";
         nSql = nSql + "where id_person = ?";

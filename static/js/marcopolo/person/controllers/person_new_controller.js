@@ -8,6 +8,14 @@
     personNewCtrl.$inject = ['$scope', '$location', 'PersonZ', 'Crypto', 'Hateoas', 'Session', 'Language'];
     function personNewCtrl($scope, $location, PersonZ, Crypto, Hateoas, Session, Language) {
 
+        /* jshint validthis: true */
+        var vm = this;
+
+        vm.goToIhmPersonLog = goToIhmPersonLog;
+        vm.onExit = onExit;
+        vm.onCancel = onCancel;
+        vm.onSubmit = onSubmit;
+
         Session.clear();
 
         //** Récupération et affichage des informations de la ressource language*/
@@ -17,7 +25,7 @@
                 // this callback will be called asynchronously
                 // when the response is available
                 console.log("personNewCtrl query langues ok " + JSON.stringify(pResponse.data));
-                $scope.languages = pResponse.data;
+                vm.languages = pResponse.data;
             },
             function errorCallback(pResponse) {
 
@@ -27,23 +35,23 @@
             }
         );
 
-        var goToIhmPersonLog = function () {
+        function goToIhmPersonLog() {
             Session.clear();
             $location.path('/').replace();
-        };
+        }
 
         // clic sur le bouton déconnexion
-        $scope.onExit = function () {
+        function onExit() {
             goToIhmPersonLog();
-        };
+        }
 
         // clic sur le bouton annuler
-        $scope.onCancel = function () {
+        function onCancel() {
             goToIhmPersonLog();
-        };
+        }
 
         // clic sur le bouton valider
-        $scope.onSubmit = function (pPersonModel) {
+        function onSubmit(pPersonModel) {
 
             var nMail = pPersonModel.mail;
             var nMdp = Crypto.SHA1(pPersonModel.confirm);
@@ -86,7 +94,7 @@
                     console.log("personNewCtrl save échec");
                 }
             );
-        };
+        }
     } // function
 
 })();

@@ -8,7 +8,6 @@ import java.util.List;
 
 import marcopolo.dao.LangueDAO;
 import marcopolo.dao.PersonDAO;
-//import marcopolo.dao.LangueDAO;
 import marcopolo.entity.Langue;
 import marcopolo.entity.Person;
 import marcopolo.commons.HmacSha1Signature;
@@ -19,16 +18,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-//import org.springframework.http.HttpEntity;
-//import org.springframework.http.HttpStatus;
-//import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.PathVariable;
-//import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-//import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -46,6 +40,8 @@ public class LangueController {
     @Autowired
     JdbcTemplate jdbcTemplate;	
 
+    
+    
     /**
      * Liste de toutes les langues
      * 
@@ -53,43 +49,60 @@ public class LangueController {
      */
 
     @RequestMapping(method = RequestMethod.GET)
-    public @ResponseBody List<Langue> allLangues(
-            @RequestParam(value="user", required = true) String pId,
-            @RequestParam(value="timestamp", required = true) String pTimestamp,
+    public @ResponseBody HttpEntity<?> allLangues(
+            @RequestParam(value="user", required = true) Long pId,
+            @RequestParam(value="timestamp", required = true) Long pTimestamp,
             @RequestParam(value="signature", required = true) String pSignature ) {
 
-//        en attente
-//        String nUri= "/langues?user=" + pId +"&timestamp=" + pTimestamp;
-//        
-//        log.info("Appel webService allLangues nUri " + nUri);
-//
-//        PersonDAO myPersonDAO = new PersonDAO(jdbcTemplate);
-//        Person nPerson = myPersonDAO.getPersonById(pId); 
-//        
-//        String nMdp = nPerson.getMdp();
-//        String nHmac = HmacSha1Signature.calculate(nUri, nMdp);
-//        
-//        if (pSignature.equals(nHmac)) {
-//            
-//            Timestamp nPersonTimestamp = new Timestamp(Long.parseLong(nPerson.getStamp()));
-//            Timestamp nUriTimestamp = new Timestamp(Long.parseLong(pTimestamp));
-//             
-//            //a value greater than 0 if this Timestamp object is after the given argument.
-//            if (nUriTimestamp.compareTo(nPersonTimestamp) > 0) {
-//                
-//                // update person stamp
-//                nPerson = myPersonDAO.updateStampById(Long.parseLong(pId), pTimestamp); 
-//            }
-//        }
-//        log.info("Appel webService allLangues nHmac " + nHmac);
-//        log.info("Appel webService allLangues nHmac " + pSignature);
-//      en attente
+        // réponse par défaut
+        HttpEntity<?> nResponseEntity = ResponseEntity.badRequest().build();
+        
+        // pId=0 requête issue de l'ihm new person
+        if (0 == pId) {
+        
+            LangueDAO nLangueDAO = new LangueDAO(jdbcTemplate);
+            
+            // réponse retournée valide
+            nResponseEntity = ResponseEntity.ok(nLangueDAO.getAllLangues());
+            
+        } else {
+            
+            // recherche du propriétaire de la requête en fonction de son Id
+            PersonDAO myPersonDAO = new PersonDAO(jdbcTemplate);
+            Person nPerson = myPersonDAO.getPersonById(pId); 
         
         
-        LangueDAO nLangueDAO = new LangueDAO(jdbcTemplate);
-        
-        return nLangueDAO.getAllLangues();
-    }
+            // création de la signature avec les données issues de la bddd du propriétaire de la requête
+            String nUri= "/langues?user=" + pId + "&timestamp=" + pTimestamp;
+            String nHmac = HmacSha1Signature.calculate(nUri, nPerson.getMdp());
+    
+//            log.info("nUri " + nUri);
+//            log.info("nHmac " + nHmac);
+            
+            // comparaison des signatures
+            if (pSignature.equals(nHmac)) {
+                
+                Timestamp nPersonTimestamp = new Timestamp(nPerson.getStamp());
+                Timestamp nUriTimestamp = new Timestamp(pTimestamp);
+                
+                // comparaison des timestamp
+                // compareTo: a value greater than 0 if this Timestamp object is after the given argument.
+                if (nUriTimestamp.compareTo(nPersonTimestamp) > 0) {
+                    
+                    // update person stamp
+                    myPersonDAO.updateStampById(pId, pTimestamp);
+                    
+                    LangueDAO nLangueDAO = new LangueDAO(jdbcTemplate);
+                    
+                    // réponse retournée valide
+                    nResponseEntity = ResponseEntity.ok(nLangueDAO.getAllLangues());
+                } // if
+            } // if
+
+        } // if
+
+        return nResponseEntity;
+    } // HttpEntity<?>
 
     
     /**

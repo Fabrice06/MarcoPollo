@@ -1,9 +1,9 @@
-<div ng-controller="personNewCtrl">
+<div>
     <!-- composant HEADER -->
     <div class="container my-header" id="">
         <div class="row">
             <div class="col-lg-5 col-sm-12 col-lg-offset-7 text-right">
-                <a href="" ng-click="onExit()">
+                <a href="" ng-click="personNew.onExit()">
                 	<span class="icon-af icon-af-A-basic-power27">{{'LOGOUT' | translate}}</span></a>
             </div>
         </div>
@@ -131,7 +131,7 @@
 	                        <label class="control-label">{{'PERSON_NEW_LANG' | translate}}</label>
 	                        <select class="form-control"
 	                            ng-model="personNewModel.langue"
-	                            ng-options="language.nom for language in languages"
+	                            ng-options="language.nom for language in personNew.languages"
 	                            name="language">
 	                        </select>
                         
@@ -141,13 +141,13 @@
                     
                         <button type="button"
                                 class="btn btn-primary"
-                                ng-click="onCancel()">{{'CANCEL' | translate}}
+                                ng-click="personNew.onCancel()">{{'CANCEL' | translate}}
                         </button>
                         
                         <button type="button"
                                 class="btn btn-primary"
                                 data-ng-disabled="personNewModelForm.$invalid"
-                                ng-click="onSubmit(personNewModel)">{{'CREATE' | translate}}
+                                ng-click="personNew.onSubmit(personNewModel)">{{'CREATE' | translate}}
                         </button>
                         
                     </div>

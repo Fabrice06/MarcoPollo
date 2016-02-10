@@ -23,11 +23,10 @@ import marcopolo.controllers.LangueController;
  */
 public class LangueDAO extends DAO<Langue> {
 
+    
     private final JdbcTemplate jdbcTemplate;
-    //
-    //    private static Log log = LogFactory.getLog(CleDAO.class);
+    
 
-    @Autowired
     public LangueDAO(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
@@ -45,6 +44,7 @@ public class LangueDAO extends DAO<Langue> {
             Langue nLangue = new Langue();
             nLangue.setIdLangue(rs.getLong("id_langue"));
             nLangue.setNom(rs.getString("nom"));
+            
             // add Hateoas link  
             nLangue.add(linkTo(methodOn(LangueController.class).getLangue(nLangue.getIdLangue())).withSelfRel());
 

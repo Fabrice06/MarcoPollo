@@ -20,11 +20,9 @@
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'},
                 params: {
                     // requête à usage unique
-                    signature: nSignature,
+                    user: Session.getId(),
                     timestamp: nTimestamp,
-                    user: Session.getId()
-
-                    //params supplémentaires
+                    signature: nSignature
 
                 } // params
             };

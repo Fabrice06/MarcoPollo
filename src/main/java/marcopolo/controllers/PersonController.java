@@ -6,7 +6,6 @@ import java.util.List;
 import marcopolo.dao.CleDAO;
 import marcopolo.dao.MarquePageDAO;
 import marcopolo.dao.PersonDAO;
-import marcopolo.dao.PreferenceDAO;
 import marcopolo.entity.Cle;
 import marcopolo.entity.MarquePage;
 import marcopolo.entity.Person;
