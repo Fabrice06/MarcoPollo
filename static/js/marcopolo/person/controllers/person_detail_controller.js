@@ -124,6 +124,8 @@
 
                     // ce service permets de conserver le mail et le mdp crypté pendant toute la session
                     Session.setId(pResponse.data.idPerson);
+					
+					$scope.changeLangue(nLangue);
 
                     $location.url(Hateoas.getUri("marquepages")).replace();
 
