@@ -29,7 +29,7 @@ public class PersonController {
     @Autowired
     JdbcTemplate jdbcTemplate;
 
-    // 9. Créer une personne ---fini--
+    /* 9. Créer une personne */
     @RequestMapping(method = RequestMethod.POST)
     public Person addPerson(
             @RequestParam(value = "mail", required = true) String pMail,
@@ -48,36 +48,28 @@ public class PersonController {
     @RequestMapping(method = RequestMethod.DELETE,value= "/{personId}")
     public void deletePerson(@PathVariable("personId") long personId) {
 
-        //log.info("Appel webService deleteWithId avec personId = " + personId);
-
+        log.info("Appel webService deleteWithId avec personId = " + personId);
 
         MarquePageDAO myMqpDAO = new MarquePageDAO(jdbcTemplate);
         myMqpDAO.deleteByIdPerson(personId);
-
-//        PreferenceDAO myPrefDAO = new PreferenceDAO(jdbcTemplate);
-//        myPrefDAO.deleteByIdPerson(personId);
 
         PersonDAO myPersonDAO = new PersonDAO(jdbcTemplate);
         myPersonDAO.deletePerson(personId);
     }
 
-    // 10. Modifier une personne 
+    /* 10. Modifier une personne */
     @RequestMapping(method = RequestMethod.PUT,value="/{personId}")
     public Person updatePerson(
             @PathVariable("personId") long personId,
             @RequestParam(value = "mail", required = true) String pMail,
-            //@RequestParam(value = "mdp", required = false) String pMdp,
             @RequestParam(value = "langue", required = true) String pLangue){
 
-        //ArrayList persons = new ArrayList();
-
         PersonDAO myPersonDAO = new PersonDAO(jdbcTemplate);
-
-        //return myPersonDAO.updatePerson(personId, pMail, pMdp, pLangue);
+        
         return myPersonDAO.updatePerson(personId, pMail, pLangue);
     }	
 
-    // 12. Renvoi liste marquepages de la personne avec id defini, self link -- manque liste tags avec lien pour chaque tag ???
+    /* 12. Renvoi liste marquepages de la personne avec id defini */
 
     @RequestMapping(method = RequestMethod.GET, value = "/{personId}/marquepages")
     public List<MarquePage> getPersonMqp(@PathVariable("personId") long personId) {
@@ -88,8 +80,7 @@ public class PersonController {
         return (myMarquePageDAO.getPersonMqp(personId));
     }	
 
-    // Renvoi le mail de la personne avec id donné, self link --fini--
-
+    /* Récuperer une personne avec son id */
     @RequestMapping(method = RequestMethod.GET, value = "/{personId}")
     public Person getPerson(@PathVariable("personId") long personId) {
 
@@ -99,7 +90,7 @@ public class PersonController {
         return (myPersonDAO.getPerson(personId));
     }
 
-    // Récuperer une personne avec son mail et son mdp 
+    /* Récuperer une personne avec son mail et son mdp */
     @RequestMapping(method = RequestMethod.GET)
     public Person getPersonByMailId(
             @RequestParam(value = "mail", required = true) String pMail,
@@ -111,7 +102,7 @@ public class PersonController {
         return (myPersonDAO.getPersonByMailMdp(pMail, pMdp));    
     }
 
-    // Renvoi les clés de la personne avec id donné, self link 
+    /* Renvoi les clés de la personne avec id donné */
 
     @RequestMapping(method = RequestMethod.GET, value = "/{personId}/cles")
     public List<Cle> findClesByIdPerson(@PathVariable("personId") long personId) {
@@ -122,7 +113,7 @@ public class PersonController {
         return (myCleDAO.getPersonCles(personId)); 
     }
 
-    // 16. Créer marquepage à partir de l'idPerson 
+    /* 16. Créer marquepage à partir de l'idPerson */
     @RequestMapping(method = RequestMethod.POST, value = "/{personId}/marquepages")
     public MarquePage addPersonMqp(
             @PathVariable("personId") long personId,
@@ -135,32 +126,5 @@ public class PersonController {
 
         return myPersonDAO.addPersonMqp(personId, lien, nom );    
     }
-
-
-
-    //---------------------------------Pour Test à supprimmer ----------------------------------------------------------		
-
-    //		/**
-    //	     * Service Rest qui retourne l'ensemble des personnes de la base.
-    //	     *
-    //	     */
-    //		@RequestMapping(method = RequestMethod.GET, value = "/all")
-    //		public List<Person> allPerson() {
-    //			
-    //			log.info("Appel webService allPerson");
-    //	           	   	   				
-    //			List<Person> persons = this.jdbcTemplate.query(
-    //	        "select id_person, mail, mdp from person",
-    //	        new RowMapper<Person>() {
-    //	            public Person mapRow(ResultSet rs, int rowNum) throws SQLException {
-    //	                Person person = new Person();
-    //					person.setId(rs.getInt("id_person"));
-    //	                person.setMail(rs.getString("mail"));
-    //	                person.setMdp(rs.getString("mdp"));
-    //	                return person;
-    //	            }
-    //	        });
-    //			return persons;	
-    //		}
 
 }
