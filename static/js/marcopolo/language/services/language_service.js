@@ -20,7 +20,7 @@
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'},
                 params: {
                     // requête à usage unique
-                    user: Session.getId(),
+                    user: pParams.user,
                     timestamp: nTimestamp,
                     signature: nSignature
 

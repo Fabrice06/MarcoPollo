@@ -10,34 +10,34 @@
 
         /* jshint validthis: true */
         var vm = this;
-        vm.queryLanguages = queryLanguages;
+        vm.doQueryPerson = doQueryPerson;
         //vm.personDetailModel = personDetailModel;
         vm.onCancel = onCancel;
         vm.onSubmit = onSubmit;
         vm.onDelete = onDelete;
         vm.onExit = onExit;
 
+        //** Récupération et affichage des informations de la ressource language*/
+        Language.query('/langues', {user: 0}).then(
+            function successCallback(pResponse) {
 
-        function queryLanguages() {
-            //** Récupération et affichage des informations de la ressource language*/
-            Language.query('/langues', {}).then(
-                function successCallback(pResponse) {
+                // this callback will be called asynchronously
+                // when the response is available
+                console.log("personDetailCtrl query langues ok " + JSON.stringify(pResponse.data));
+                vm.languages = pResponse.data;
 
-                    // this callback will be called asynchronously
-                    // when the response is available
-                    console.log("personDetailCtrl query langues ok " + JSON.stringify(pResponse.data));
-                    vm.languages = pResponse.data;
-                },
-                function errorCallback(pResponse) {
+                doQueryPerson();
+            },
+            function errorCallback(pResponse) {
 
-                    // called asynchronously if an error occurs
-                    // or server returns response with an error status.
-                    console.log("personDetailCtrl query langues échec");
-                }
-            );
-        }
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
+                console.log("personDetailCtrl query langues échec");
+            }
+        );
 
 
+    function doQueryPerson() {
         //** Récuperation et affichage des informations de la ressource person selectionnée*/
         PersonZ.query($location.url(), {}).then(
             function successCallback(pResponse) {
@@ -50,16 +50,13 @@
                 // ce service fourni directement les liens hateoas sous forme de clé/valeur
                 Hateoas.setLinks(pResponse.data.links);
 
-                queryLanguages();
-
-                //// sélection de la langue
-                //for (var i = 0; i < $scope.languages.length; i++) {
-                //    if ($scope.languages[i].nom === pResponse.data.langue) {
-                //        $scope.personDetailModel.langue = $scope.languages[i];
-                //        break;
-                //    } // if
-                //} // for
-
+                // sélection de la langue
+                for (var i = 0; i < vm.languages.length; i++) {
+                    if (vm.languages[i].nom === pResponse.data.langue) {
+                        $scope.personDetailModel.langue = vm.languages[i];
+                        break;
+                    } // if
+                } // for
             },
             function errorCallback(pResponse) {
 
@@ -68,7 +65,7 @@
                 console.log("personDetailCtrl query person échec");
             }
         );
-
+    }
         // clic sur le bouton déconnexion
         function onExit() {
 

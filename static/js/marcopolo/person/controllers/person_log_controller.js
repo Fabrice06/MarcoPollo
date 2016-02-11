@@ -13,6 +13,7 @@
         vm.onSubmit = onSubmit;
         vm.onNew = onNew;
         vm.onLost = onLost;
+        vm.changeLangue = changeLangue;
         vm.onTestA = onTestA;
         vm.onTestB = onTestB;
         vm.onTestC = onTestC;
@@ -105,7 +106,11 @@
             }
         // pour test uniquement ---------------------------------------------------
     } // function    
-    
+
+    function changeLangue(pLangue){
+        //changeLanguage(pLangue);
+    }
+
     //angular
     //	.module('marcopolo')
     //	.factory('focus', function($timeout, $window) {
