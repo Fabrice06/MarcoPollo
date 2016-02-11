@@ -1,3 +1,8 @@
+/** 
+* Function Controller for new Marque page
+* @author Fred
+* @copyright les Huit salopards
+*/
 (function () {
     'use strict';
 
@@ -5,7 +10,7 @@
         .module('marcopolo')
         .controller('marquepageNewCtrl',
                     marquepageNewCtrl);
-
+    
     marquepageNewCtrl.$inject = ['$scope',
                                  '$resource',
                                  '$location',
@@ -23,7 +28,12 @@
         // definition du Mqp
         // $scope.mqpNewModel = {url: url, nameMqp: nameMqp};
         
-        // validation de la creation du nouveau Mqp :
+        /** 
+        * Validation de la creation du nouveau Mqp.
+        * @param Données du Formulaire Marquepage
+        * Adresse uri du Marque page
+        * Nom du Marque page
+        */
         $scope.validate = function(mqpNewModel) {
 
         	console.log("id : "
@@ -36,7 +46,14 @@
                                {lien:mqpNewModel.url,
                                 nom:mqpNewModel.nameMqp
                                }, 
-        	//Ca se passe bien
+        	/** 
+            * Succes du POST avec les données du nouveau Marque page.
+            * On récupère le retour de la Base de données qui correspond
+            * a l'id du nouveau marque page.
+            * Puis on bascule sur la page Detail pour ajouter les
+            * tags de ce nouveau marque page.
+            * @param success
+            */
         	function (success) {
         		//on récupère l'id du mqp créé
         		var jsonMqp = success.links[0].href
@@ -52,13 +69,19 @@
         		console.log($location.path());
         	},
                                
-        	// Ca se passe mal
+        	/**
+            * Echec de l'envoi du POST vers la Base de Données
+            * @param : pData et headers
+            */
         	function (pData, headers) {
         		console.log("marquepageLogCtl Query Echec");
         	})
         };
         
-        // clic sur le bouton annuler - retour sur la liste des mqp
+        /**
+        * Utilisation du bouton Annuler :
+        * Retour sur la liste des marque page.
+        */ 
         $scope.cancel = function() {
             //console.log("Canceling" + $scope.mqpNewModel.nameMqp + $scope.mqpNewModel.url);
 
@@ -69,7 +92,10 @@
                            +'/marquepages').replace();
         };                
         
-		 // clic sur le bouton déconnexion
+        /**
+        * Utilisation du bouton Déconnexion :
+        * On retourne sur la page de Connexion.
+        */
         $scope.onProfil = function () {
 
             console.log("clic marquepageDetailCtrl déconnexion en cours");
@@ -79,7 +105,7 @@
             $location.path(nProfilLink).replace();
         };
 
-        // clic sur le bouton deconnexion
+        // clic sur le bouton profil
         $scope.onExit = function () {
             $location.path('/').replace();
         };
