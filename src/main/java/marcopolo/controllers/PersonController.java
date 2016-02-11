@@ -29,7 +29,7 @@ public class PersonController {
     @Autowired
     JdbcTemplate jdbcTemplate;
 
-    /* 9. Créer une personne */
+    /* Créer une personne */
     @RequestMapping(method = RequestMethod.POST)
     public Person addPerson(
             @RequestParam(value = "mail", required = true) String pMail,
@@ -44,7 +44,7 @@ public class PersonController {
     }
 
 
-    /* 15. Supprimer une personne  */
+    /* Supprimer une personne  */
     @RequestMapping(method = RequestMethod.DELETE,value= "/{personId}")
     public void deletePerson(@PathVariable("personId") long personId) {
 
@@ -57,7 +57,7 @@ public class PersonController {
         myPersonDAO.deletePerson(personId);
     }
 
-    /* 10. Modifier une personne */
+    /* Modifier une personne */
     @RequestMapping(method = RequestMethod.PUT,value="/{personId}")
     public Person updatePerson(
             @PathVariable("personId") long personId,
@@ -69,7 +69,7 @@ public class PersonController {
         return myPersonDAO.updatePerson(personId, pMail, pLangue);
     }	
 
-    /* 12. Renvoi liste marquepages de la personne avec id defini */
+    /* Renvoi liste marquepages de la personne avec id defini */
 
     @RequestMapping(method = RequestMethod.GET, value = "/{personId}/marquepages")
     public List<MarquePage> getPersonMqp(@PathVariable("personId") long personId) {
@@ -113,7 +113,7 @@ public class PersonController {
         return (myCleDAO.getPersonCles(personId)); 
     }
 
-    /* 16. Créer marquepage à partir de l'idPerson */
+    /* Créer marquepage à partir de l'idPerson */
     @RequestMapping(method = RequestMethod.POST, value = "/{personId}/marquepages")
     public MarquePage addPersonMqp(
             @PathVariable("personId") long personId,

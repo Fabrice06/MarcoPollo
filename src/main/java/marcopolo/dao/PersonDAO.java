@@ -198,8 +198,6 @@ public class PersonDAO {
 
         String nSql = "update person set mail = ?, ";
         
-        //if (!pMdp.isEmpty()) nSql = nSql + "mdp = ?, ";
-        
         nSql = nSql + "id_langue = (select l.id_langue from langue l where l.nom=?) ";
         nSql = nSql + "where id_person = ?";
         
