@@ -64,7 +64,7 @@
                 mdp: nMdp,
                 langue: nLangue
             };
-            console.log("personNewCtrl " + JSON.stringify(nParams));
+            console.log("personNewCtrl " + JSON.stringify(nDatas));
 
             PersonZ.save('/persons', nDatas).then(
                 function successCallback(pResponse) { // OK pResponse est le retour du backEnd
