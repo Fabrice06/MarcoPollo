@@ -23,8 +23,6 @@
             console.log("marquepageListCtrl query échec");
         });
        
-        // bouton rechercher
-        $scope.search = ""; 
                
         //aciver les liens pour ouverture dans une autre fenêtre
         $scope.openLink = function(nAddLink){        	
@@ -60,6 +58,9 @@
         	$location.path(nAddLink +'/'+ nIdArray[4]).replace();
         	console.log($location.path());
         };
+        
+        // bouton rechercher
+        $scope.search = ""; 
 
         // clic sur le bouton supprimer
         $scope.onDelete = function (findIdMqp) {
