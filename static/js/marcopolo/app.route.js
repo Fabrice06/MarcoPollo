@@ -53,7 +53,7 @@
             })
 
             .when('/aboutUs', {
-                templateUrl: 'js/marcopolo/commons/aboutUs.html',
+                templateUrl: 'js/marcopolo/commons/aboutUsFr.html',
                 controller: 'globalCtrl'
             })
 

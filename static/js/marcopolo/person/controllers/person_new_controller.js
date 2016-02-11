@@ -19,7 +19,7 @@
         Session.clear();
 
         //** Récupération et affichage des informations de la ressource language*/
-        Language.query('/langues', {}).then(
+        Language.query('/langues', {user: 0}).then(
             function successCallback(pResponse) {
 
                 // this callback will be called asynchronously
@@ -59,14 +59,14 @@
 
             // faire un check regex ????
 
-            var nParams = {
+            var nDatas = {
                 mail: nMail,
                 mdp: nMdp,
                 langue: nLangue
             };
-            console.log("personNewCtrl " + JSON.stringify(nParams));
+            console.log("personNewCtrl " + JSON.stringify(nDatas));
 
-            PersonZ.save('/persons', nParams).then(
+            PersonZ.save('/persons', nDatas).then(
                 function successCallback(pResponse) { // OK pResponse est le retour du backEnd
 
                     // this callback will be called asynchronously

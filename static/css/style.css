@@ -60,7 +60,11 @@
 	margin-top: 20px;
 }
 
-
 .pad-top {
     padding-top: 70px;
+}
+
+.images-front{
+	height: 148px;
+	width: 150px;
 }
