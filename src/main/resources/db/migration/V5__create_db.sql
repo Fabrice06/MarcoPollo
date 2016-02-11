@@ -1,6 +1,6 @@
 ------------------------------------------------------------------
 -- Base de données :  BD_MARCOPOLO 
--- Script testé sur SQL Workbench --> résultats ok //vero le 07feb
+-- Script testé sur SQL Workbench --> résultats ok //vincent le 10feb
 --
 --desactivation des commandes DROP
 --penser à faire un commit
@@ -36,7 +36,7 @@ CREATE TABLE langue (
 CREATE TABLE cle (
 	id_cle NUMBER(8) CONSTRAINT PK_cle PRIMARY KEY,
 	id_langue NUMBER(8) CONSTRAINT CIR_langue_in_cle REFERENCES langue,
-	cle VARCHAR2(60) not null CONSTRAINT UNIK_cle UNIQUE
+	cle VARCHAR2(60) not null
 	
 );
 
@@ -44,7 +44,8 @@ CREATE TABLE person (
 	id_person NUMBER(8) CONSTRAINT PK_person PRIMARY KEY,
 	id_langue NUMBER(8) CONSTRAINT CIR_langue_in_pers REFERENCES langue,
 	mail VARCHAR2(200) not null,
-	mdp VARCHAR2(10) not null
+	mdp VARCHAR2(40) not null,
+	stamp NUMBER(8) not null
 );
 
 CREATE TABLE marquepage (
