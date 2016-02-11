@@ -71,7 +71,7 @@ public class Person extends ResourceSupport {
      */
 
 
-    public void setId(long idPerson) {
+    public void setId(final long idPerson) {
         this.idPerson = idPerson;
     }
 
@@ -90,7 +90,7 @@ public class Person extends ResourceSupport {
      * @param mail
      *      mail de la personne, de type String.
      */
-    public void setMail(String mail) {
+    public void setMail(final String mail) {
         this.mail = mail;
     }
 
@@ -112,7 +112,7 @@ public class Person extends ResourceSupport {
      *      mdp de la personne, de type String.
      */
 
-    public void setMdp(String mdp) {
+    public void setMdp(final String mdp) {
         this.mdp = mdp;
     }
 
@@ -135,7 +135,7 @@ public class Person extends ResourceSupport {
         return stamp;
     }
 
-    public void setStamp(Long pStamp) {
+    public void setStamp(final Long pStamp) {
         this.stamp = pStamp;
     }
     
