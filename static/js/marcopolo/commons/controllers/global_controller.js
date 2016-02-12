@@ -10,6 +10,7 @@
         
         ;
       
+		// clic sur aide dans le footer
         $scope.onHelp = function() {
 			console.log("clic sur Help");
             $rootScope.nHelpPreviousUrl = $location.path();
@@ -23,6 +24,7 @@
             
         };
         
+		// clic sur retour pour aide
         $scope.onExit = function() {
             console.log("clic sur Retour Help");
             
@@ -30,6 +32,7 @@
             $location.path($rootScope.nHelpPreviousUrl).replace();
         }
         
+		// clic sur qui sommes nous
         $scope.aboutUs = function() {
         	console.log("clic sur aboutUs");
             $rootScope.nAboutUsPreviousUrl = $location.path();
@@ -38,14 +41,14 @@
             
         };
 		
+		// clic sur sortir de qui sommes nous
 		$scope.onExit2 = function() {
             console.log("clic sur Retour AboutUs");
             
             console.log("retour sur l'url précédente : " + $rootScope.nAboutUsPreviousUrl);
             $location.path($rootScope.nAboutUsPreviousUrl).replace();
         }
-        
-        
+           
     }
     
     
