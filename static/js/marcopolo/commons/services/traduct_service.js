@@ -58,7 +58,7 @@
 						MQP_LIST_FILTER: 'Filter',
 						
 						ABOUT_US_WHO: "Who are we ?",
-						ABOUT_US_WHO2: "A group from here and there..regrouped in Orsay to found Marco Polo project.",
+						ABOUT_US_WHO2: "A group from here and there...regrouped in Orsay to found Marco Polo project.",
 						ABOUT_US_CHIEF: "The project manager",
 						ABOUT_US_FRONT: "The front-end team",
 						ABOUT_US_DB: 'The database manager',
@@ -102,7 +102,7 @@
 						PERSON_DETAIL_LANGUAGE: "Langue",
 						PERSON_MESSAGE: 'Un mot de passe provisoire a été envoyé à votre adresse e-mail',
 
-						PERSON_NEW_PROFILE: "Veuillez saisir les informations votre compte",
+						PERSON_NEW_PROFILE: "Veuillez saisir les informations de votre compte",
 						PERSON_NEW_MDP: "Mot de passe",
 						PERSON_NEW_CONFIRM: "Confirmez votre mot de passe",
 						PERSON_NEW_MAIL: "Adresse e-mail",
