@@ -20,13 +20,7 @@
                  
             </div>
             
-<!--             <div class="col-xs-2 text-right"> -->
-<!-- 	        	<a href="" ng-click="changeLanguage('en') ">{{'BUTTON_LANG_EN' | translate}}</a> -->
-<!-- 	            <span>&NonBreakingSpace;/&NonBreakingSpace;</span> -->
-<!-- 	            <a href="" ng-click="changeLanguage('fr')">{{'BUTTON_LANG_FR' | translate}}</a> -->
-<!--         	</div>      -->
-
-        </div>
+		</div>
         
     </div><br/>
 
@@ -81,16 +75,14 @@
                     </div>
                     
                     <label for="langue">{{'PERSON_DETAIL_LANGUAGE' | translate}}</label><br/>
+                    
                     <select class="form-control"
                             ng-model="personDetailModel.langue"
                             ng-options="language.nom for language in personDetail.languages">
                     </select>
-                    <span class="help-block">&emsp;
-                    </span>
-                    <!--<select ng-model="personDetailModel.langue" -->
-							<!--ng-options="langue for langue in langues">-->
-					<!--</select><br/>-->
-
+                    
+                    <span class="help-block">&emsp;</span>
+                    
                     <div class="text-right" >
                     
                         <button type="button"

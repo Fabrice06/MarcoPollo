@@ -21,14 +21,9 @@
 		<div class="col-xs-12 panel_sans_padding">
 			<div class="col-sm-8 panel_sans_padding">
 				<form class="form-inline pull-left">
-					<div class="input-group">
-					
-					<!--Code pour champ recherche-----------------------------------------------------------  -->	
-						
-						   <input type="text" class="form-control" ng-model="search"  id="search"  placeholder="{{'SEARCH' | translate}}">
-				 	
-						
-						<span class="input-group-btn">
+					<div class="input-group">					
+					   <input type="text" class="form-control" ng-model="search"  id="search"  placeholder="{{'SEARCH' | translate}}">
+				 	     <span class="input-group-btn">
 							<button class="btn btn-default" type="submit" ng-click="">
 								<span class="icon-af icon-af-B-digital-loupe-recherche"></span>
 							</button>
@@ -67,11 +62,32 @@
 							<td colspan="5">&nbsp;</td>
 						</tr>
 					</tfoot>
-					<tbody data-ng-repeat ="l in listMqp| orderBy:'nom'">
-						<tr data-ng-repeat ="t in l.tags|filter:search|filter:search">
+					<!-- <tbody data-ng-repeat ="l in listMqp|filter:search|orderBy:'nom'">
+						<tr data-ng-repeat ="t in l.tags|filter:search">
 							<td>{{l.nom}}</td>
 							<td ng-click="openLink(l)"><a href="">{{l.lien}}</a></td>	
 							<td>{{t.cle}}</td>
+							<td>{{t.valeur}}</td>					
+							<td>
+								<abbr title="edit">
+									 <a class="btn btn-primary" ng-click="onUpdate(l)">
+									   <span class="icon-af icon-af-B-digital-crayon-editer"></span>
+									</a>
+								</abbr> 
+								<abbr title="delete">
+									<button type="button" class="btn btn-default btn-md" ng-click="onDelete(l)">
+										<span class="icon-af icon-af-B-digital-cross"></span>
+									</button>
+								</abbr>
+							</td>
+						</tr>
+					</tbody> -->
+					<tbody data-ng-repeat ="l in listMqp|filter:search|orderBy:'nom'" >
+						<tr data-ng-repeat ="t in l.tags" >
+							<td >{{l.nom}}</td>
+							<td ng-click="openLink(l)"><a href="">{{l.lien}}</a></td>	
+							
+							<td >{{t.cle}}</td>
 							<td>{{t.valeur}}</td>					
 							<td>
 								<abbr title="edit">

@@ -28,14 +28,7 @@
         var nTag = 'tags';
         
         console.log("Langue : "+$scope.lang);
-        
-// A supprimer 
-        if (!$scope.lang) {
-            $scope.lang = 1;
-        }
-        
-        console.log("Langue : "+$scope.lang);
-        
+
         
         // Booléen de controle d'informations complétes
         $scope.invalidInfos = false;
@@ -76,7 +69,7 @@
 					uri:nMqp,
 					id:nIdMqp
 				},
-				function (success) {
+				function (success) { // OK
 					console.log('marquepageDetailCtrl delete query ok id : ' + nIdMqp);
 					$scope.onBack();
 				},
@@ -111,11 +104,11 @@
                         lien:lien,
                         nom:nom
                     },
-                    function (success) {
+                    function (success) { // OK
                         console.log('marquepageDetailCtrl update query ok id : ' + nIdMqp);
                         $scope.onBack();
                     },
-                    function (pData, header) {
+                    function (pData, header) { // échec
                         console.log('marquepageDetailCtrl update query échec');
                     }
                 )
@@ -140,11 +133,11 @@
                         valeur:pTag.valeur,
                         idLangue:$scope.lang
                     },
-                    function (success) {
+                    function (success) { // OK
                         console.log('marquepageDetailCtrl add Tag query ok id : ' + nIdMqp);
                         $route.reload();					
                     },
-                    function (pData, header) {
+                    function (pData, header) { // échec
                         console.log('marquepageDetailCtrl add Tag query échec');
                     }
                 )
@@ -170,11 +163,11 @@
                     uri:nTag,
 					id:idTag
 				},
-				function (success) {
+				function (success) { // OK
 					console.log('marquepageDetailCtrl del Tag query ok id : ' + idTag);
                     $scope.marquepageDetailModel.tags.splice($scope.marquepageDetailModel.tags.indexOf(pTag),1);
 				},
-				function (pData, header) {
+				function (pData, header) { // échec
 					console.log('marquepageDetailCtrl del Tag query échec');
 				}
 			)
@@ -191,10 +184,10 @@
             {
                 id:$scope.lang
             },
-            function (success) {
+            function (success) { // OK
                 console.log('marquepageDetailCtrl liste cle query ok');	
             },
-            function (pData, header) {
+            function (pData, header) { // échec
                 console.log('marquepageDetailCtrl liste cle query échec');
             }
         )     

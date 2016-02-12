@@ -5,20 +5,20 @@
         .module('marcopolo')
         .controller('personLogCtrl', personLogCtrl);
 
-    personLogCtrl.$inject = ['$scope', '$location', '$filter', 'PersonZ', 'Crypto', 'Hateoas', 'Session'];
-    function personLogCtrl($scope, $location, $filter, PersonZ, Crypto, Hateoas, Session) {
+    personLogCtrl.$inject = ['$scope', '$location', '$filter', 'PersonZ', 'Crypto', 'Hateoas', 'Session', 'Translate', '$rootScope'];
+    function personLogCtrl($scope, $location, $filter, PersonZ, Crypto, Hateoas, Session, Translate, $rootScope) {
 
         /* jshint validthis: true */
         var vm = this;
         vm.onSubmit = onSubmit;
         vm.onNew = onNew;
         vm.onLost = onLost;
-        vm.changeLangue = changeLangue;
         vm.onTestA = onTestA;
         vm.onTestB = onTestB;
         vm.onTestC = onTestC;
 
         Session.clear();
+		//TraducF.changeLanguage('french');
 
         vm.emptyLogin = false;
         vm.incorrectLogin = false;
@@ -50,8 +50,16 @@
 	                        vm.incorrectLogin = true;
 	
 	                    } else {
-	                        console.log("personLogCtrl save ok " + JSON.stringify(pResponse.data));
-                            
+	                        console.log("personLogCtrl save ok " + JSON.stringify(pResponse.data));			
+							
+							if(pResponse.data.langue == "english") {
+								$scope.changeLangue("english");
+								$rootScope.lang = 2;
+							}else{
+								$scope.changeLangue("french");
+								$rootScope.lang = 1;
+							}
+                            						
 	                        Session.setCurrent(pResponse.data.idperson, nMdp);
 	
 	                        // ce service fourni directement les liens hateoas sous forme de clé/valeur
@@ -107,9 +115,6 @@
         // pour test uniquement ---------------------------------------------------
     } // function    
 
-    function changeLangue(pLangue){
-        //changeLanguage(pLangue);
-    }
 
     //angular
     //	.module('marcopolo')

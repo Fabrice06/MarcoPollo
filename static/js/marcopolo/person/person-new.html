@@ -60,9 +60,10 @@
 	                        <input class="form-control" 
 	                        	   ng-model="personNewModel.new" 
 	                        	   name="mdp1" 								   
-								   ng-minlength="3" 
-								   ng-maxlength="40"
-								   required/>
+								   ng-minlength="8" 
+								   ng-maxlength="20"
+								   required
+								   type="password"/>
 	                        
 	                        <span class="help-block"
                                   ng-show="personNewModelForm.mdp1.$pristine || personNewModelForm.mdp1.$valid">&emsp;
@@ -95,9 +96,10 @@
 	                        <label class="control-label">{{'PERSON_NEW_CONFIRM' | translate}}</label>
 	                        <input class="form-control" 
 	                        	ng-model="personNewModel.confirm" name="mdp2"
-	                        	ng-minlength="3" 
-								ng-maxlength="40"
-								required/>
+	                        	ng-minlength="8" 
+								ng-maxlength="20"
+								required
+								type="password"/>
 	                        
 	                        <span class="help-block"
                                   ng-show="personNewModelForm.mdp2.$pristine || personNewModelForm.mdp2.$valid">&emsp;
