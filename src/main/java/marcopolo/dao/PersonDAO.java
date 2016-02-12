@@ -158,7 +158,7 @@ public class PersonDAO {
         String nSql = "insert "
                 + "into person (id_person, id_langue, mail, mdp, stamp) "
                 //+ "values (seq_person.nextval, ?, ?)"
-                + "select seq_person.nextval, l.id_langue, ?, ?, '0' "
+                + "select seq_person.nextval, l.id_langue, ?, ?, 0 "
                 + "from langue l "
                 + "where l.nom=?";
 
