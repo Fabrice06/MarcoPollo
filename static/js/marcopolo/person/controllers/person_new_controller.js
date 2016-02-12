@@ -55,18 +55,20 @@
 
             var nMail = pPersonModel.mail;
             var nMdp = Crypto.SHA1(pPersonModel.confirm);
+            console.log("personNewCtrl " + pPersonModel.confirm + " " +nMdp);
+
             var nLangue = pPersonModel.langue.nom;
 
             // faire un check regex ????
 
-            var nDatas = {
-                mail: nMail,
-                mdp: nMdp,
-                langue: nLangue
-            };
-            console.log("personNewCtrl " + JSON.stringify(nDatas));
+            var nDatas = JSON.stringify({
+                "mail": nMail,
+                "mdp": nMdp,
+                "langue": nLangue
+            });
+            console.log("personNewCtrl " + nDatas);
 
-            PersonZ.save('/persons', nDatas).then(
+            PersonZ.save('/persons', {user:0}, nDatas).then(
                 function successCallback(pResponse) { // OK pResponse est le retour du backEnd
 
                     // this callback will be called asynchronously

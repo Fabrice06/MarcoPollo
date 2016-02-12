@@ -18,7 +18,7 @@
         vm.onExit = onExit;
 
         //** Récupération et affichage des informations de la ressource language*/
-        Language.query('/langues', {user: 0}).then(
+        Language.query('/langues', {user: Session.getId()}).then(
             function successCallback(pResponse) {
 
                 // this callback will be called asynchronously
@@ -39,7 +39,7 @@
 
     function doQueryPerson() {
         //** Récuperation et affichage des informations de la ressource person selectionnée*/
-        PersonZ.query($location.url(), {}).then(
+        PersonZ.query($location.url(), {user: Session.getId()}).then(
             function successCallback(pResponse) {
 
                 // this callback will be called asynchronously
@@ -76,7 +76,7 @@
         // clic sur le bouton supprimer
         function onDelete() {
             alert("vraiment sûr?");
-            PersonZ.delete(Hateoas.getUri("self"), {}).then(
+            PersonZ.delete(Hateoas.getUri("self"), {user: Session.getId()}).then(
                 function successCallback(pResponse) { // OK pResponse est le retour du backEnd
 
                     // this callback will be called asynchronously
@@ -109,13 +109,13 @@
 
             // faire un check regex ????
 
-            var nParams = {
+            var nDatas = JSON.stringify({
                 mail: nMail,
                 langue: nLangue
-            };
-            console.log("personDetailCtrl " + JSON.stringify(nParams));
+            });
+            console.log("personDetailCtrl " + nDatas);
 
-            PersonZ.update(Hateoas.getUri("self"), nParams).then(
+            PersonZ.update(Hateoas.getUri("self"), {user: Session.getId()}, nDatas).then(
                 function successCallback(pResponse) { // OK pResponse est le retour du backEnd
 
                     // this callback will be called asynchronously

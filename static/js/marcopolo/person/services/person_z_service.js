@@ -9,29 +9,24 @@
 
         var dataFactory = {};
 
-        dataFactory.save = function (pUrl, pParams) {
+        dataFactory.save = function (pUrl, pParams, pDatas) {
 
             // définition de la requête à usage unique
-            //var nTimestamp = Date.now();
-            //var nSignature = Session.getSignature(pUrl, pParams, nTimestamp);
+            var nTimestamp = Date.now();
+            var nSignature = Session.getSignature(pUrl, pDatas, nTimestamp);
 
             var nReq = {
                 method: 'POST',
                 url: pUrl,
-                headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                headers: {'Content-Type': 'application/json'},
                 params: {
                     // requête à usage unique
-                    //signature: nSignature,
-                    //timestamp: nTimestamp,
-                    //user: Session.getId(),
+                    timestamp: nTimestamp,
+                    user: pParams.user,
+                    signature: nSignature
+                }, // params
 
-                    //params supplémentaires
-                    // attention: l'ordre des params doit être le même que dans l'uri
-                    mail: pParams.mail,
-                    mdp: pParams.mdp,
-                    langue: pParams.langue
-
-                } // params
+                data: pDatas
             };
             return $http(nReq);
         };
@@ -49,15 +44,14 @@
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'},
                 params: {
                     // requête à usage unique
-                    //signature: nSignature,
-                    //timestamp: nTimestamp,
-                    //user: Session.getId(),
+                    signature: nSignature,
+                    timestamp: nTimestamp,
+                    user: pParams.user,
 
                     //params supplémentaires
                     // attention: l'ordre des params doit être le même que dans l'uri
                     mail: pParams.mail,
                     mdp: pParams.mdp
-
                 }
             };
             return $http(nReq);
@@ -76,23 +70,20 @@
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'},
                 params: {
                     // requête à usage unique
-                    //signature: nSignature,
-                    //timestamp: nTimestamp,
-                    //user: Session.getId()
-
-                    //params supplémentaires
-                    // attention: l'ordre des params doit être le même que dans l'uri
+                    signature: nSignature,
+                    timestamp: nTimestamp,
+                    user: pParams.user
                 }
             };
             return $http(nReq);
         };
 
 
-        dataFactory.update = function (pUrl, pParams) {
+        dataFactory.update = function (pUrl, pParams, pDatas) {
 
             // définition de la requête à usage unique
             var nTimestamp = Date.now();
-            var nSignature = Session.getSignature(pUrl, pParams, nTimestamp);
+            var nSignature = Session.getSignature(pUrl, pDatas, nTimestamp);
 
             console.log("person factory params " + JSON.stringify(pParams));
 
@@ -102,15 +93,16 @@
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'},
                 params: {
                     // requête à usage unique
-                    //signature: nSignature,
-                    //timestamp: nTimestamp,
-                    //user: Session.getId()
+                    signature: nSignature,
+                    timestamp: nTimestamp,
+                    user: pParams.user
 
                     //params supplémentaires
                     // attention: l'ordre des params doit être le même que dans l'uri
-                    mail: pParams.mail,
-                    langue: pParams.langue
-                }
+                    //mail: pParams.mail,
+                    //langue: pParams.langue
+                },
+                data: pDatas
             };
             return $http(nReq);
         };

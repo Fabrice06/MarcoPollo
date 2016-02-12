@@ -35,6 +35,7 @@
 	            // faire un check regex ????
 	
 	            var nParams = {
+                    user: 0,
 	                mail: nMail,
 	                mdp: nMdp
 	            };
