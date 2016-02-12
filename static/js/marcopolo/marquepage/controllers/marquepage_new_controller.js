@@ -43,7 +43,7 @@
             
             // Post du formulaire
         	MarquepageNew.save({ id1:$scope.personId},
-                               {lien:mqpNewModel.url,
+        						{lien:mqpNewModel.url,
                                 nom:mqpNewModel.nameMqp
                                }, 
         	/** 
@@ -105,10 +105,10 @@
             $location.path(nProfilLink).replace();
         };
 
-        // clic sur le bouton profil
+       /* // clic sur le bouton profil
         $scope.onExit = function () {
             $location.path('/').replace();
-        };
+        };*/
         
     } // function
 
