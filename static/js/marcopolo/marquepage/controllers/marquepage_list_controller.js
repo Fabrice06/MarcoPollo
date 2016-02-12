@@ -6,7 +6,7 @@
 	myModuleController.controller('marquepageListCtrl',['$scope','MarquepageList','Marquepage','$routeParams','$location','$window', function($scope,MarquepageList,Marquepage,$routeParams,$location,$window){
 
            
-        // pour test ---------------------------------------------------
+        // pour test ------------------------------
         var nUrlArray = $location.url().split('/');
         console.log("marquepageListCtrl url " + $location.url());
 
@@ -16,15 +16,15 @@
         // Récuperation des marquepages d'une personne
         
         $scope.listMqp = MarquepageList.query({id:nUrlArray[2]},function (success){
-        
-        	
-        },function (pData, headers) { // échec
-        	window.alert("Connexion impossible");
-            console.log("marquepageListCtrl query échec");
-        });
+
+	        },function (pData, headers) { // échec
+	        	window.alert("Connexion impossible");
+	        	console.log("marquepageListCtrl query échec");
+	   });
        
                
         //aciver les liens pour ouverture dans une autre fenêtre
+        
         $scope.openLink = function(nAddLink){        	
         	//$window.location.href = nAddLink.lien; 
         	var protocole = nAddLink.lien.substring(0,4);
@@ -36,6 +36,7 @@
         }
 
         // clic sur le bouton ajouter
+        
         $scope.onAdd = function () {         
 
         	var nAddLink = $location.url();
@@ -53,8 +54,7 @@
         	console.log(nAddLink);
         	var id =findIdMqp.links[0].href;
         	var nIdArray = id.split('/');
-        	console.log('---------- identification id marquepage: ' + nIdArray[4]);
-        	
+        	console.log('---------- identification id marquepage: ' + nIdArray[4]);        	
         	$location.path(nAddLink +'/'+ nIdArray[4]).replace();
         	console.log($location.path());
         };
