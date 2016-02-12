@@ -56,6 +56,13 @@
 						MQP_LIST_NAME: 'Names',
 						MQP_LIST_LINKS: 'Links',
 						MQP_LIST_FILTER: 'Filter',
+						
+						ABOUT_US_WHO: "Who are we ?",
+						ABOUT_US_WHO2: "A group from here and there..regrouped in Orsay to found Marco Polo project.",
+						ABOUT_US_CHIEF: "The project manager",
+						ABOUT_US_FRONT: "The front-end team",
+						ABOUT_US_DB: 'The database manager',
+						ABOUT_US_BACK: "The back-end team",
 
 						REQUIRED: "This field is required",
 						URL: 'This field must be an URL',
@@ -68,7 +75,8 @@
 						DELETE: "Delete",
 						UPDATE: "Update",
 						CREATE: 'Create',
-						HELP: 'Help'
+						HELP: 'Help',
+						BACK: 'Back'
 
 				  };
 				} else {
@@ -111,6 +119,13 @@
 						MQP_LIST_NAME: 'Noms',
 						MQP_LIST_LINKS: 'Liens',
 						MQP_LIST_FILTER: 'Filtrer',
+						
+						ABOUT_US_WHO: "Qui sommes-nous ?",
+						ABOUT_US_WHO2: "Un groupe venu d'ici et d'ailleurs...rassemblé à Orsay pour fonder le projet Marco Polo.",
+						ABOUT_US_CHIEF: "Le chef de projet",
+						ABOUT_US_FRONT: "L'équipe front-end",
+						ABOUT_US_DB: 'La responsable de la base de données',
+						ABOUT_US_BACK: "L'équipe back-end",						
 
 						REQUIRED: "Ce champ est obligatoire",
 						URL: 'Ce champ doit être une URL',
@@ -123,7 +138,8 @@
 						DELETE: "Supprimer",
 						UPDATE: "Modifier",
 						CREATE: 'Créer',
-						HELP: 'Aide'
+						HELP: 'Aide',
+						BACK: 'Retour'
 				  };
 				}
 		  
