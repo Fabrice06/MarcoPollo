@@ -7,7 +7,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
+import marcopolo.controllers.LangueController;
 import marcopolo.controllers.PersonController;
+import marcopolo.entity.Langue;
 import marcopolo.entity.MarquePage;
 import marcopolo.entity.Person;
 
@@ -18,7 +20,7 @@ import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
-public class PersonDAO {
+public class PersonDAO extends DAO<Person> {
 
     @Autowired
     private final JdbcTemplate jdbcTemplate;
@@ -43,60 +45,30 @@ public class PersonDAO {
         public Person mapRow(ResultSet rs, int rowNum)
                 throws SQLException {
 
-            Person person = new Person();
-            person.setId(rs.getLong("id_person"));
-            person.setLangue(rs.getString("nom"));
-            person.setMail(rs.getString("mail"));
-            person.setMdp(rs.getString("mdp"));
-            person.setStamp(rs.getLong("stamp"));
+            Person nPerson = new Person();
+            nPerson.setIdPerson(rs.getLong("id_person"));
+            nPerson.setLangue(rs.getString("nom"));
+            nPerson.setMail(rs.getString("mail"));
+            nPerson.setMdp(rs.getString("mdp"));
+            nPerson.setStamp(rs.getLong("stamp"));
 
             // add Hateoas link 
-            person.add(linkTo(methodOn(PersonController.class).getPerson(person.getIdPerson())).withSelfRel());
-            person.add(ControllerLinkBuilder.linkTo(ControllerLinkBuilder.methodOn(PersonController.class).getPersonMqp(person.getIdPerson())).withRel("marquepages"));
-            return person;
+            nPerson.add(linkTo(methodOn(PersonController.class).getPerson(nPerson.getIdPerson())).withSelfRel());
+            nPerson.add(ControllerLinkBuilder.linkTo(ControllerLinkBuilder.methodOn(PersonController.class).getPersonMqp(nPerson.getIdPerson())).withRel("marquepages"));
+            return nPerson;
         }
     }
 
+    public Person deletePerson(final Long pIdPerson) {
 
-    public void deletePerson(Long idPerson) {
-
-        String sql = "delete "
+        String nSql = "delete "
                 + "from person "
                 + "where id_person=?";
 
-        this.jdbcTemplate.update(sql, idPerson);
-    }
-
-
-    public Person getPerson(Long idPerson) {
-
-        String nSql = "select p.id_person, p.mail, p.mdp, p.stamp, l.nom "
-                + "from person p, langue l "
-                + "where p.id_langue=l.id_langue "
-                + "and p.id_person=?"; 
+        this.jdbcTemplate.update(nSql, pIdPerson);
         
-        log.info("getPerson=" + nSql);
-        
-        List<Person> personsList = this.jdbcTemplate.query(nSql, new Object[]{idPerson}, new PersonMapper());
-
-        // id_person not found
-        if (personsList.isEmpty()) {
-            log.info("id_person does not exists");
-            return null; 
-
-            // list contains exactly 1 element
-        } else if (personsList.size() == 1 ) { 
-            log.info("id_person=" + personsList.get(0));
-
-            return personsList.get(0); 
-
-            // list contains more than 1 element
-        } else {
-            log.error("Table person : id_person is not unique");
-            return null;
-        }
-    }
-
+        return getPerson(pIdPerson);
+    } // Person
 
     public Person getPersonByMailMdp(final String pMail, final String pMdp) {
 
@@ -125,7 +97,7 @@ public class PersonDAO {
         }
     }
 
-    public Person getPersonById(Long pId) {
+    public Person getPerson(final Long pId) {
 
         String sql = "select p.id_person, p.mail, p.mdp, p.stamp, l.nom "
                 + "from person p, langue l "
@@ -153,16 +125,17 @@ public class PersonDAO {
     }
     
 
-    public Person addPerson(final String pMail, final String pMdp, final String pLangue) {
+    public Person addPerson(final String pMail, final String pMdp, final String pLangue, final Long pTimestamp) {
 
         String nSql = "insert "
                 + "into person (id_person, id_langue, mail, mdp, stamp) "
-                //+ "values (seq_person.nextval, ?, ?)"
-                + "select seq_person.nextval, l.id_langue, ?, ?, 0 "
+                + "select seq_person.nextval, l.id_langue, ?, ?, ? "
                 + "from langue l "
                 + "where l.nom=?";
 
-        this.jdbcTemplate.update(nSql, pMail, pMdp, pLangue);
+        log.info("nSql " + nSql);
+        
+        this.jdbcTemplate.update(nSql, pMail, pMdp, pTimestamp, pLangue);
 
         // get last id_person inserted
         Long LastIdPersonInserted = this.jdbcTemplate.queryForObject(SQL_GET_LAST_ID_INSERTED, Long.class);
@@ -194,30 +167,81 @@ public class PersonDAO {
     }
 
     
-    public Person updatePerson(Long pPersonId, final String pMail, final String pLangue) {
+    public Person updatePerson(final Long pPersonId, final String pMail, final String pMdp, final String pLangue, final Long pTimestamp) {
 
-        String nSql = "update person set mail = ?, ";
-        
-        nSql = nSql + "id_langue = (select l.id_langue from langue l where l.nom=?) ";
-        nSql = nSql + "where id_person = ?";
+        String nSql = "update person set mail = ?, mdp = ?, stamp = ?, "
+                + "id_langue = (select l.id_langue from langue l where l.nom=?) "
+                + "where id_person = ?";
         
         log.info("updatePerson=" + nSql);
+        
+        this.jdbcTemplate.update(nSql, pMail, pMdp, pTimestamp, pLangue, pPersonId);
+
+        return getPerson(pPersonId); 
+    }
+    
+    public Person updatePersonWithoutMdp(final Long pPersonId, final String pMail, final String pLangue, final Long pTimestamp) {
+
+        String nSql = "update person set mail = ?, stamp = ?, "
+                + "id_langue = (select l.id_langue from langue l where l.nom=?) "
+                + "where id_person = ?";
+        
+        log.info("updatePerson=" + nSql);
+        
+        this.jdbcTemplate.update(nSql, pMail, pTimestamp, pLangue, pPersonId);
+
+        return getPerson(pPersonId); 
+    }
+ 
+    public Person updatePersonById(final Long pPersonId, final String pMail, final String pLangue) {
+
+        String nSql = "update person set mail = ?, "
+                + "id_langue = (select l.id_langue from langue l where l.nom=?) "
+                + "where id_person = ?";
+        
+        log.info("updatePersonById=" + nSql);
         
         this.jdbcTemplate.update(nSql, pMail, pLangue, pPersonId);
 
         return getPerson(pPersonId); 
     }
-    
-    
-    public Person updateStampById(Long pPersonId, Long pTimestamp) {
 
-        String nSql = "update person set stamp = ? ";
-        nSql = nSql + "where id_person = ?";
+    public Person updateStampByMailMdp(final Long pTimestamp, final String pMail, final String pMdp) {
+
+        String nSql = "update person set stamp = ? "
+                + "where mail = ? "
+                + "and mdp = ? ";
+        
+        log.info("updateStampByMailMdp=" + nSql);
+        
+        this.jdbcTemplate.update(nSql, pTimestamp, pMail, pMdp);
+
+        return getPersonByMailMdp(pMail, pMdp); 
+    }
+    
+    public Person updateStampById(final Long pPersonId, final Long pTimestamp) {
+
+        String nSql = "update person set stamp = ? "
+            + "where id_person = ?";
         
         log.info("updateStampById=" + nSql);
         
         this.jdbcTemplate.update(nSql, pTimestamp, pPersonId);
 
         return getPerson(pPersonId); 
+    }
+
+
+    @Override
+    public Person find(final Long id) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+
+    @Override
+    public void delete(Long id) {
+        // TODO Auto-generated method stub
+        
     }
 }

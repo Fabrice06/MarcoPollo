@@ -33,8 +33,10 @@
 	            //var nMdp = pPersonLog.mdp;
 	
 	            // faire un check regex ????
-	
+
+	            Session.setMdp(nMdp);
 	            var nParams = {
+                    user: 0,
 	                mail: nMail,
 	                mdp: nMdp
 	            };
@@ -50,8 +52,13 @@
 	                        vm.incorrectLogin = true;
 	
 	                    } else {
-	                        console.log("personLogCtrl save ok " + JSON.stringify(pResponse.data));			
-							
+	                        console.log("personLogCtrl save ok " + JSON.stringify(pResponse.data));
+                            console.log("personLogCtrl save ok " + pResponse.data.idPerson);
+                            Session.setCurrent(pResponse.data.idPerson, nMdp);
+
+                            // ce service fourni directement les liens hateoas sous forme de clé/valeur
+                            Hateoas.setLinks(pResponse.data.links);
+
 							if(pResponse.data.langue == "english") {
 								$scope.changeLangue("english");
 								$rootScope.lang = 2;
@@ -59,12 +66,7 @@
 								$scope.changeLangue("french");
 								$rootScope.lang = 1;
 							}
-                            						
-	                        Session.setCurrent(pResponse.data.idperson, nMdp);
-	
-	                        // ce service fourni directement les liens hateoas sous forme de clé/valeur
-	                        Hateoas.setLinks(pResponse.data.links);
-	
+
 	                        $location.url(Hateoas.getUri("marquepages")).replace();
 	                    } // else
 	

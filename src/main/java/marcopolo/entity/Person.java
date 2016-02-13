@@ -59,7 +59,7 @@ public class Person extends ResourceSupport {
      * @return L'id personne, de type long.
      */
 
-    public long getIdPerson() {
+    public Long getIdPerson() {
         return this.idPerson;
     }
 
@@ -71,7 +71,7 @@ public class Person extends ResourceSupport {
      */
 
 
-    public void setId(long idPerson) {
+    public void setIdPerson(final Long idPerson) {
         this.idPerson = idPerson;
     }
 
@@ -135,7 +135,7 @@ public class Person extends ResourceSupport {
         return stamp;
     }
 
-    public void setStamp(Long pStamp) {
+    public void setStamp(final Long pStamp) {
         this.stamp = pStamp;
     }
     
