@@ -62,12 +62,30 @@
 							<td colspan="5">&nbsp;</td>
 						</tr>
 					</tfoot>
-					<tbody data-ng-repeat ="l in listMqp|filter:search|orderBy:'nom'" >
-						<tr data-ng-repeat ="t in l.tags" >
+					
+					
+					<tbody data-ng-repeat ="l in listMqp|filter:search|orderBy:'nom'">
+							<td ng-hide="l.tags[0].cle" >{{l.nom}}</td>
+							<td ng-hide="l.tags[0].cle"ng-click="openLink(l)"><a href="">{{l.lien}}</a></td>
+							<td ng-hide="l.tags[0].cle"></td>
+							<td ng-hide="l.tags[0].cle"></td>	
+							<td ng-hide="l.tags[0].cle">
+								<abbr title="edit">
+									 <a class="btn btn-primary" ng-click="onUpdate(l)">
+									   <span class="icon-af icon-af-B-digital-crayon-editer"></span>
+									</a>
+								</abbr> 
+								<abbr title="delete">
+									<button type="button" class="btn btn-default btn-md" ng-click="onDelete(l)">
+										<span class="icon-af icon-af-B-digital-cross"></span>
+									</button>
+								</abbr>
+							</td>					
+						<tr data-ng-repeat ="t in l.tags">
 							<td >{{l.nom}}</td>
-							<td ng-click="openLink(l)"><a href="">{{l.lien}}</a></td>								
+							<td ng-click="openLink(l)"><a href="">{{l.lien}}</a></td>				
 							<td >{{t.cle}}</td>
-							<td>{{t.valeur}}</td>					
+							<td >{{t.valeur}}</td>									
 							<td>
 								<abbr title="edit">
 									 <a class="btn btn-primary" ng-click="onUpdate(l)">
@@ -81,6 +99,7 @@
 								</abbr>
 							</td>
 						</tr>
+						
 					</tbody>
 				</table>
 			</div>
