@@ -1,5 +1,5 @@
 (function () {
-'use strict';
+    'use strict';
 
     angular
         .module('marcopolo', [
@@ -15,8 +15,8 @@
         ])
         .run(mockBackend);
 
-    mockBackend.$inject = ['$httpBackend','$resource', '$http'];
-    function mockBackend($httpBackend, $resource, $http) {
+    mockBackend.$inject = ['$httpBackend', '$http'];
+    function mockBackend($httpBackend, $http) {
 
         console.log("Warning: httpBackend mode");
 
@@ -45,23 +45,23 @@
         //    });
 
         // pages html ----------------------------------------------------------------------
-            $httpBackend.whenGET(new RegExp('/.*\.html$')).passThrough();
+        $httpBackend.whenGET(new RegExp('/.*\.html$')).passThrough();
 
         // help ----------------------------------------------------------------------
-            $httpBackend.whenPOST(new RegExp('help*')).passThrough(); // vers le backend
+        $httpBackend.whenPOST(new RegExp('help*')).passThrough(); // vers le backend
 
         // langue --------------------------------------------------------------------------
-            $httpBackend.whenGET(new RegExp('langues\\?.*')).passThrough();
+        $httpBackend.whenGET(new RegExp('langues\\?.*')).passThrough();
 
         // person --------------------------------------------------------------------------
-            $httpBackend.whenGET(new RegExp('persons\\?.*')).passThrough(); // vers le backend
-            $httpBackend.whenGET(new RegExp('persons/[0-9]{1,}\\?.*')).passThrough(); // vers le backend
+        $httpBackend.whenGET(new RegExp('persons\\?.*')).passThrough(); // vers le backend
+        $httpBackend.whenGET(new RegExp('persons/[0-9]{1,}\\?.*')).passThrough(); // vers le backend
 
-            $httpBackend.whenPUT(new RegExp('persons/[0-9]{1,}\\?.*')).passThrough(); // vers le backend
+        $httpBackend.whenPUT(new RegExp('persons/[0-9]{1,}\\?.*')).passThrough(); // vers le backend
 
-            $httpBackend.whenPOST(new RegExp('persons\\?.*')).passThrough(); // vers le backend
+        $httpBackend.whenPOST(new RegExp('persons\\?.*')).passThrough(); // vers le backend
 
-            $httpBackend.whenDELETE(new RegExp('persons/[0-9]{1,}\\?.*')).passThrough(); // vers le backend
+        $httpBackend.whenDELETE(new RegExp('persons/[0-9]{1,}\\?.*')).passThrough(); // vers le backend
 
         //   $httpBackend.whenGET(new RegExp('persons/[0-9]{1,}\\?.*')).respond(function (method, url) { // traitement FE sans BE
         //
@@ -88,34 +88,33 @@
         //        return nReturn;
         //    });
 
-            //$httpBackend.whenGET(new RegExp(nRegexPersons)).respond(function (method, url) { // traitement FE sans BE
-            //
-            //    var nReturn = new Array();
-            //    // valeur de retour par défaut: [http status, data]
-            //        nReturn.push(404);	// la page demandée n'existe pas
-            //        nReturn.push(null);
-            //
-            //    var nParams = url;
-            //    console.log("persons/id whenGET url params " + nParams);
-            //
-            //    // on boucle sur le fichier json pour trouver le _links.self.uri et retourner le backend
-            //    for (var i = 0, len = nJsonPersons.data.length; i < len; i++) {
-            //
-            //        if (nJsonPersons.data[i]._links.self.uri === nParams) {
-            //
-            //            nReturn[0] = 200; // requête effectuée avec succès
-            //            nReturn[1] = nJsonPersons.data[i];
-            //            break;
-            //        } // if
-            //        console.log("uri = " + nJsonPersons.data[i]._links.self.uri);
-            //    } // for
-            //
-            //    return nReturn;
-            //});
+        //$httpBackend.whenGET(new RegExp(nRegexPersons)).respond(function (method, url) { // traitement FE sans BE
+        //
+        //    var nReturn = new Array();
+        //    // valeur de retour par défaut: [http status, data]
+        //        nReturn.push(404);	// la page demandée n'existe pas
+        //        nReturn.push(null);
+        //
+        //    var nParams = url;
+        //    console.log("persons/id whenGET url params " + nParams);
+        //
+        //    // on boucle sur le fichier json pour trouver le _links.self.uri et retourner le backend
+        //    for (var i = 0, len = nJsonPersons.data.length; i < len; i++) {
+        //
+        //        if (nJsonPersons.data[i]._links.self.uri === nParams) {
+        //
+        //            nReturn[0] = 200; // requête effectuée avec succès
+        //            nReturn[1] = nJsonPersons.data[i];
+        //            break;
+        //        } // if
+        //        console.log("uri = " + nJsonPersons.data[i]._links.self.uri);
+        //    } // for
+        //
+        //    return nReturn;
+        //});
 
 
         //marquepages ----------------------------------------------------------------------
-        var nRegexMarquepages= 'marquepages/[0-9]{1,}$';
 
         $httpBackend.whenPOST(new RegExp('persons/[0-9]{1,}/marquepages\\?.*')).passThrough(); // vers le backend
         $httpBackend.whenDELETE(new RegExp('marquepages/[0-9]{1,}$')).passThrough(); // vers le backend
@@ -123,121 +122,119 @@
 
         /**************GET tous les marquepages********************/
 
-            $httpBackend.whenGET(new RegExp('persons/[0-9]{1,}/marquepages$')).passThrough(); // vers le backend
+        $httpBackend.whenGET(new RegExp('persons/[0-9]{1,}/marquepages$')).passThrough(); // vers le backend
 
-           /* $httpBackend.whenGET(new RegExp('persons/[0-9]{1,}/marquepages$')).respond(function (method, url) { // traitement FE sans BE
+        /* $httpBackend.whenGET(new RegExp('persons/[0-9]{1,}/marquepages$')).respond(function (method, url) { // traitement FE sans BE
 
-                var nReturn = new Array();
-                // valeur de retour par défaut: [http status, data]
-                    nReturn[0] = 200; // requête effectuée avec succès
-                    nReturn[1] = null;
+         var nReturn = new Array();
+         // valeur de retour par défaut: [http status, data]
+         nReturn[0] = 200; // requête effectuée avec succès
+         nReturn[1] = null;
 
-                var nParams = url;
-                console.log("marquepages/list whenGET url params " + nParams);
+         var nParams = url;
+         console.log("marquepages/list whenGET url params " + nParams);
 
-                // on boucle sur le fichier json pour trouver le _links.self.uri et retourner le backend
-                for (var i = 0, len = nJsonMarquepagesList.data.length; i < len; i++) {
+         // on boucle sur le fichier json pour trouver le _links.self.uri et retourner le backend
+         for (var i = 0, len = nJsonMarquepagesList.data.length; i < len; i++) {
 
-                    if (nJsonMarquepagesList.data[i]._links.self.uri === nParams) {
+         if (nJsonMarquepagesList.data[i]._links.self.uri === nParams) {
 
-                        nReturn[0] = 200; // requête effectuée avec succès
-                        nReturn[1] = nJsonMarquepagesList.data[i].marquepages;//retourne tableau de l'objet fichier
-                        break;
-                    } // if
-                    console.log("uri =" + nJsonMarquepagesList.data[i].marquepages);
-                } // for
+         nReturn[0] = 200; // requête effectuée avec succès
+         nReturn[1] = nJsonMarquepagesList.data[i].marquepages;//retourne tableau de l'objet fichier
+         break;
+         } // if
+         console.log("uri =" + nJsonMarquepagesList.data[i].marquepages);
+         } // for
 
-                return nReturn;
-            });*/
+         return nReturn;
+         });*/
 
 
-            $httpBackend.whenGET(new RegExp('marquepages/[0-9]{1,}$')).passThrough(); // vers le backend
-    /*        $httpBackend.whenGET(new RegExp('marquepages/[0-9]{1,}$')).respond(function (method, url) { // traitement FE sans BE
+        $httpBackend.whenGET(new RegExp('marquepages/[0-9]{1,}$')).passThrough(); // vers le backend
+        /*        $httpBackend.whenGET(new RegExp('marquepages/[0-9]{1,}$')).respond(function (method, url) { // traitement FE sans BE
 
-                var nReturn = new Array();
-                // valeur de retour par défaut: [http status, data]
-                nReturn[0] = 200; // requête effectuée avec succès
-                nReturn[1] = nJsonMarquepagesDetail;
+         var nReturn = new Array();
+         // valeur de retour par défaut: [http status, data]
+         nReturn[0] = 200; // requête effectuée avec succès
+         nReturn[1] = nJsonMarquepagesDetail;
 
-//                var nParams = url;
-//                console.log("marquepages/id whenGET url params " + nParams);
-//
-//                // on boucle sur le fichier json pour trouver le _links.self.uri et retourner le backend
-//                for (var i = 0, len = nJsonMarquepagesDetail.data.length; i < len; i++) {
-//
-//                    if (nJsonMarquepagesDetail.data[i]._links.self.uri === nParams) {
-//
-//                        nReturn[0] = 200; // requête effectuée avec succès
-//                        nReturn[1] = nJsonMarquepagesDetail.data[i];
-//                        break;
-//                    } // if
-//                    console.log("uri = " + nJsonMarquepagesDetail.data[i]._links.self.uri);
-//                } // for
-				
-				console.log(nJsonMarquepagesDetail);
+         //                var nParams = url;
+         //                console.log("marquepages/id whenGET url params " + nParams);
+         //
+         //                // on boucle sur le fichier json pour trouver le _links.self.uri et retourner le backend
+         //                for (var i = 0, len = nJsonMarquepagesDetail.data.length; i < len; i++) {
+         //
+         //                    if (nJsonMarquepagesDetail.data[i]._links.self.uri === nParams) {
+         //
+         //                        nReturn[0] = 200; // requête effectuée avec succès
+         //                        nReturn[1] = nJsonMarquepagesDetail.data[i];
+         //                        break;
+         //                    } // if
+         //                    console.log("uri = " + nJsonMarquepagesDetail.data[i]._links.self.uri);
+         //                } // for
 
-                return nReturn;
-            });*/
+         console.log(nJsonMarquepagesDetail);
+
+         return nReturn;
+         });*/
 
 
         // tag --------------------------------------------------------------------------
-            $httpBackend.whenGET(new RegExp('marquepages/[0-9]{1,}/tags$')).passThrough(); // vers le backend
+        $httpBackend.whenGET(new RegExp('marquepages/[0-9]{1,}/tags$')).passThrough(); // vers le backend
 
-            $httpBackend.whenPOST(new RegExp('tags\\?.*')).passThrough(); // vers le backend
+        $httpBackend.whenPOST(new RegExp('tags\\?.*')).passThrough(); // vers le backend
 
-            //$httpBackend.whenDELETE(new RegExp('marquepages/[0-9]{1,}/tags$')).passThrough(); // vers le backend
+        $httpBackend.whenDELETE(new RegExp('tags/[0-9]{1,}$')).passThrough(); // vers le backend
 
-            $httpBackend.whenDELETE(new RegExp('tags/[0-9]{1,}$')).passThrough(); // vers le backend
+        //$httpBackend.whenGET(new RegExp('marquepages/[0-9]{1,}/tags$')).respond(function (method, url) { // traitement FE sans BE
+        //
+        //    console.log("marquepages/[0-9]{1,}/tags whenGET url params " + url.split("/")[1]);
+        //
+        //    var nReturn = new Array();
+        //    nReturn.push(404);	// la page demandée n'existe pas
+        //    nReturn.push(null);
+        //
+        //    var nParams = url.split("/")[1];
+        //    //var nMarquepages = angular.fromJson(nJsonMarquepages);
+        //    //
+        //    //for (var i = 0, len = nMarquepages.length; i < len; i++) {
+        //    //
+        //    //    if (nMarquepages[i].id_marquepage === nParams) {
+        //    //
+        //    //        nReturn[0] = 200; // requête effectuée avec succès
+        //    //        nReturn[1] = JSON.stringify(nMarquepages[i]);
+        //    //        break;
+        //    //    } // if
+        //    //    console.log("id_marquepage=" + nMarquepages[i].id_marquepage);
+        //    //} // for
+        //
+        //    return nReturn;
+        //});
 
-            //$httpBackend.whenGET(new RegExp('marquepages/[0-9]{1,}/tags$')).respond(function (method, url) { // traitement FE sans BE
-            //
-            //    console.log("marquepages/[0-9]{1,}/tags whenGET url params " + url.split("/")[1]);
-            //
-            //    var nReturn = new Array();
-            //    nReturn.push(404);	// la page demandée n'existe pas
-            //    nReturn.push(null);
-            //
-            //    var nParams = url.split("/")[1];
-            //    //var nMarquepages = angular.fromJson(nJsonMarquepages);
-            //    //
-            //    //for (var i = 0, len = nMarquepages.length; i < len; i++) {
-            //    //
-            //    //    if (nMarquepages[i].id_marquepage === nParams) {
-            //    //
-            //    //        nReturn[0] = 200; // requête effectuée avec succès
-            //    //        nReturn[1] = JSON.stringify(nMarquepages[i]);
-            //    //        break;
-            //    //    } // if
-            //    //    console.log("id_marquepage=" + nMarquepages[i].id_marquepage);
-            //    //} // for
-            //
-            //    return nReturn;
-            //});
-
-            //$httpBackend.whenGET(new RegExp('tags/[0-9]{1,}$')).respond(function (method, url) { // traitement FE sans BE
-            //
-            //    console.log("tags/[0-9]{1,} whenGET url params " + url.split("/")[1]);
-            //
-            //    var nReturn = new Array();
-            //    nReturn.push(404);	// la page demandée n'existe pas
-            //    nReturn.push(null);
-            //
-            //    var nParams = url.split("/")[1];
-            //    //var nMarquepages = angular.fromJson(nJsonMarquepages);
-            //    //
-            //    //for (var i = 0, len = nMarquepages.length; i < len; i++) {
-            //    //
-            //    //    if (nMarquepages[i].id_marquepage === nParams) {
-            //    //
-            //    //        nReturn[0] = 200; // requête effectuée avec succès
-            //    //        nReturn[1] = JSON.stringify(nMarquepages[i]);
-            //    //        break;
-            //    //    } // if
-            //    //    console.log("id_marquepage=" + nMarquepages[i].id_marquepage);
-            //    //} // for
-            //
-            //    return nReturn;
-            //});
+        //$httpBackend.whenGET(new RegExp('tags/[0-9]{1,}$')).respond(function (method, url) { // traitement FE sans BE
+        //
+        //    console.log("tags/[0-9]{1,} whenGET url params " + url.split("/")[1]);
+        //
+        //    var nReturn = new Array();
+        //    nReturn.push(404);	// la page demandée n'existe pas
+        //    nReturn.push(null);
+        //
+        //    var nParams = url.split("/")[1];
+        //    //var nMarquepages = angular.fromJson(nJsonMarquepages);
+        //    //
+        //    //for (var i = 0, len = nMarquepages.length; i < len; i++) {
+        //    //
+        //    //    if (nMarquepages[i].id_marquepage === nParams) {
+        //    //
+        //    //        nReturn[0] = 200; // requête effectuée avec succès
+        //    //        nReturn[1] = JSON.stringify(nMarquepages[i]);
+        //    //        break;
+        //    //    } // if
+        //    //    console.log("id_marquepage=" + nMarquepages[i].id_marquepage);
+        //    //} // for
+        //
+        //    return nReturn;
+        //});
 
 
         // cle --------------------------------------------------------------------------
