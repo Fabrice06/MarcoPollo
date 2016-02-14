@@ -97,9 +97,17 @@ public class PersonController {
         // comparaison des signatures
         if (pSignature.equals(nCurrentSignature)) {
             
-            // réponse retournée valide
-            nResponseEntity = ResponseEntity.ok(myPersonDAO.addPerson(pFiche.getMail(), pFiche.getMdp(), pFiche.getLangue(), pTimestamp));
-             
+            // création fiche person
+            Person nPerson = myPersonDAO.addPerson(pFiche.getMail(), pFiche.getMdp(), pFiche.getLangue(), pTimestamp);
+            
+            // ajout d'un marquepage vers l'aide en ligne
+            String nLien = (pFiche.getLangue().equals("english")) ? "help_en" : "help_fr";
+            String nNom = (pFiche.getLangue().equals("english")) ? "welcome" : "bienvenue";
+            myPersonDAO.addPersonMqp(nPerson.getIdPerson(), "http://localhost:8080/#/" + nLien, nNom);
+            
+            // réponse retournée valide: 
+            nResponseEntity = ResponseEntity.ok(nPerson);
+
         } // if
        
         return nResponseEntity;    
@@ -178,34 +186,6 @@ public class PersonController {
             // réponse retournée valide
             nResponseEntity = ResponseEntity.ok(nPersonDAO.getPersonByMailMdp(pMail, pMdp));
         } // if
-        
-        
-//        // requête utilisée lors de la création d'une nouvelle fiche personne (pId=0)
-//        if (0 == pId) {
-//            // réponse retournée valide
-//            nResponseEntity = ResponseEntity.ok(nPersonDAO.updateStampByMailMdp(pTimestamp, pMail, pMdp));
-//            
-//        } else {
-//            // recherche du propriétaire de la requête en fonction de son Id
-//            Person nPerson = nPersonDAO.getPerson(pId); 
-//        
-//            // création de la signature avec les données issues de la bdd
-//            String nUri= "/persons?user=" + pId + "&timestamp=" + pTimestamp;
-//            String nCurrentSignature = HmacSha1Signature.calculate(nUri, nPerson.getMdp());
-//    
-//            log.info("Appel webService getPersonByMailMdp nUri " + nUri);
-//            log.info("Appel webService getPersonByMailMdp nCurrentSignature " + nCurrentSignature);
-//            
-//            // checkRequest retourne vrai si: pSignature=nCurrentSignature et pTimestamp > nPerson.getStamp()
-//            if (checkRequest(pSignature, nCurrentSignature, pTimestamp, nPerson.getStamp())) {
-//            
-//                // update person stamp
-//                nPersonDAO.updateStampById(pId, pTimestamp);
-//
-//                // réponse retournée valide
-//                nResponseEntity = ResponseEntity.ok(nPersonDAO.getPersonByMailMdp(pMail, pMdp));
-//            } // if
-//        } // if
 
         return nResponseEntity;
     } // HttpEntity<?>
@@ -323,6 +303,7 @@ public class PersonController {
     @RequestMapping(method = RequestMethod.POST, value = "/{personId}/marquepages")
     public MarquePage addPersonMqp(
             @PathVariable("personId") long personId,
+            
             @RequestParam(value = "lien", required = true) String lien,
             @RequestParam(value = "nom", required = true) String nom) {
 
