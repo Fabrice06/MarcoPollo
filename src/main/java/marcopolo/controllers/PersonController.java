@@ -42,6 +42,13 @@ public class PersonController {
     //**************************************************************************************************** début
     // évaluation requête à usage unique
     
+    /**
+     * @param pRequestSignature
+     * @param pCurrentSignature
+     * @param pRequestTimestamp
+     * @param pCurrentTimestamp
+     * @return true boolean if footprints are the same and if timestamp from uri is older than the database one
+     */
     private boolean checkRequest(final String pRequestSignature, final String pCurrentSignature, final Long pRequestTimestamp, final Long pCurrentTimestamp) {
         
         // valeur par défaut du retour
@@ -62,6 +69,10 @@ public class PersonController {
     } // boolean
     
     
+    /**
+     * @param pIdPerson
+     * @return Person object
+     */
     public Person getPerson(final Long pIdPerson) {
 
         PersonDAO myPersonDAO = new PersonDAO(jdbcTemplate);
@@ -69,8 +80,15 @@ public class PersonController {
         return myPersonDAO.getPerson(pIdPerson);
     } // Person
 
-    
-    /* Créer une personne */
+    /**
+     * Créer une personne
+     * 
+     * @param pFiche
+     * @param pId
+     * @param pTimestamp
+     * @param pSignature
+     * @return a ResponseEntity without data if failed
+     */
     @RequestMapping(method = RequestMethod.POST)
     @ResponseBody
     public HttpEntity<?> addPerson(
@@ -113,7 +131,16 @@ public class PersonController {
         return nResponseEntity;    
     } // HttpEntity<?>
     
-    /* Récuperer une personne avec son id */
+
+    /**
+     * Récupérer une personne avec son id
+     * 
+     * @param pIdPerson
+     * @param pId
+     * @param pTimestamp
+     * @param pSignature
+     * @return a ResponseEntity without data if failed
+     */
     @RequestMapping(method = RequestMethod.GET, value = "/{IdPerson}")
     @ResponseBody
     public HttpEntity<?> getPersonById(
@@ -151,8 +178,17 @@ public class PersonController {
         return nResponseEntity;
     } // HttpEntity<?>
     
-    
-    /* Récuperer une personne avec son mail et son mdp */
+
+    /**
+     * Récuperer une personne avec son mail et son mdp
+     * 
+     * @param pMail
+     * @param pMdp
+     * @param pId
+     * @param pTimestamp
+     * @param pSignature
+     * @return a ResponseEntity without data if failed
+     */
     @RequestMapping(method = RequestMethod.GET)
     @ResponseBody
     public HttpEntity<?> getPersonByMailMdp(
@@ -191,6 +227,16 @@ public class PersonController {
     } // HttpEntity<?>
     
     /* Modifier une personne */
+    /**
+     * Modifier une personne
+     * 
+     * @param pIdPerson
+     * @param pFiche
+     * @param pId
+     * @param pTimestamp
+     * @param pSignature
+     * @return a ResponseEntity without data if failed
+     */
     @RequestMapping(method = RequestMethod.PUT, value = "/{IdPerson}")
     @ResponseBody
     public HttpEntity<?> updatePerson(
@@ -234,7 +280,16 @@ public class PersonController {
         return nResponseEntity;
     } // HttpEntity<?>
     
-    /* Supprimer une personne  */
+
+    /**
+     * Supprimer une personne 
+     * 
+     * @param pIdPerson
+     * @param pId
+     * @param pTimestamp
+     * @param pSignature
+     * @return a ResponseEntity without data if failed
+     */
     @RequestMapping(method = RequestMethod.DELETE, value = "/{IdPerson}")
     @ResponseBody 
     public HttpEntity<?> deletePerson(

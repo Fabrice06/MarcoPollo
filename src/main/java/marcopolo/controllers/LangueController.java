@@ -2,10 +2,8 @@ package marcopolo.controllers;
 
 import java.sql.Timestamp;
 
-
 import marcopolo.dao.LangueDAO;
 import marcopolo.dao.PersonDAO;
-
 import marcopolo.entity.Langue;
 import marcopolo.entity.Person;
 import marcopolo.commons.HmacSha1Signature;
@@ -81,8 +79,6 @@ public class LangueController {
             // comparaison des signatures
             if (pSignature.equals(nHmac)) {
                 
-//                Timestamp nPersonTimestamp = new Timestamp(Long.parseLong(nPerson.getStamp()));
-//                Timestamp nUriTimestamp = new Timestamp(Long.parseLong(pTimestamp));
 
                 Timestamp nPersonTimestamp = new Timestamp(nPerson.getStamp());
                 Timestamp nUriTimestamp = new Timestamp(pTimestamp);
@@ -107,15 +103,16 @@ public class LangueController {
     } // HttpEntity<?>
 
     
-//    @RequestMapping(method = RequestMethod.GET,value="/{idLangue}")
-//    public Langue getLangue(
-//            @PathVariable("idLangue") Long pId) {
-//
-//        LangueDAO nLangueDAO = new LangueDAO(jdbcTemplate);
-//        
-//        return nLangueDAO.getLangue(pId);
-//    }
-//    
+    /**
+     * @param pIdLangue
+     * @return Langue object
+     */
+    public Langue getLangue(final Long pIdLangue) {
+
+        LangueDAO nLangueDAO = new LangueDAO(jdbcTemplate);
+        
+        return nLangueDAO.find(pIdLangue);
+    } // Langue
     
     /**
      * GET request for /langues/{idLangue}
@@ -125,16 +122,16 @@ public class LangueController {
      * @return HttpEntity<Langue> 
      */
     
-    @RequestMapping(method = RequestMethod.GET, value = "/{idLangue}")
-    public HttpEntity<Langue> getLangue(
-            @PathVariable("idLangue") Long pId ) {
-            
-            log.info("webService getLangue with idLangue =" + pId);
-            LangueDAO nLangueDAO = new LangueDAO(jdbcTemplate);
-            Langue nLangue = nLangueDAO.find(pId);
-            
-            return new ResponseEntity<Langue>(nLangue, HttpStatus.OK);
-                    
-    }
+//    @RequestMapping(method = RequestMethod.GET, value = "/{idLangue}")
+//    public HttpEntity<Langue> getLangue(
+//            @PathVariable("idLangue") Long pId ) {
+//            
+//            log.info("webService getLangue with idLangue =" + pId);
+//            LangueDAO nLangueDAO = new LangueDAO(jdbcTemplate);
+//            Langue nLangue = nLangueDAO.find(pId);
+//            
+//            return new ResponseEntity<Langue>(nLangue, HttpStatus.OK);
+//                    
+//    }
     
 } // class

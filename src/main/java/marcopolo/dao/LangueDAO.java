@@ -7,21 +7,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-
-
-import marcopolo.dao.PersonDAO.PersonMapper;
-//import marcopolo.dao.PersonDAO.PersonMapper;
 import marcopolo.entity.Langue;
-//import marcopolo.entity.Person;
-
-import marcopolo.entity.Person;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
 
-//import java.util.List;
 import marcopolo.controllers.LangueController;
 
 /**
@@ -59,13 +49,8 @@ public class LangueDAO extends DAO<Langue> {
         }
     }
 
-
     /**
-     * 
-     * Get all Langues
-     * @param 
-     * @return List<Langue>
-     * 
+     * @return a Langue object collection
      */
     public List<Langue> getAllLangues() {
 
@@ -77,6 +62,10 @@ public class LangueDAO extends DAO<Langue> {
         return langueList;
     }
 
+    /**
+     * @param pId
+     * @return a Langue object or null if failed
+     */
     public Langue getLangue(final Long pId) {
 
         String sql = "select l.id_langue, l.nom "
@@ -103,12 +92,20 @@ public class LangueDAO extends DAO<Langue> {
         }
     }
     
+    
+    /* (non-Javadoc)
+     * @see marcopolo.dao.DAO#find(java.lang.Long)
+     */
     @Override
     public Langue find(Long id) {
         // TODO Auto-generated method stub
         return null;
     }
 
+    
+    /* (non-Javadoc)
+     * @see marcopolo.dao.DAO#delete(java.lang.Long)
+     */
     @Override
     public void delete(Long id) {
         // TODO Auto-generated method stub

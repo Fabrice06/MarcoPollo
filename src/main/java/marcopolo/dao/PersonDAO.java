@@ -7,9 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-import marcopolo.controllers.LangueController;
 import marcopolo.controllers.PersonController;
-import marcopolo.entity.Langue;
 import marcopolo.entity.MarquePage;
 import marcopolo.entity.Person;
 
@@ -19,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+
 
 public class PersonDAO extends DAO<Person> {
 
@@ -46,6 +45,7 @@ public class PersonDAO extends DAO<Person> {
                 throws SQLException {
 
             Person nPerson = new Person();
+            
             nPerson.setIdPerson(rs.getLong("id_person"));
             nPerson.setLangue(rs.getString("nom"));
             nPerson.setMail(rs.getString("mail"));
@@ -55,10 +55,16 @@ public class PersonDAO extends DAO<Person> {
             // add Hateoas link 
             nPerson.add(linkTo(methodOn(PersonController.class).getPerson(nPerson.getIdPerson())).withSelfRel());
             nPerson.add(ControllerLinkBuilder.linkTo(ControllerLinkBuilder.methodOn(PersonController.class).getPersonMqp(nPerson.getIdPerson())).withRel("marquepages"));
+            
             return nPerson;
         }
-    }
+    } // constructeur
 
+    
+    /**
+     * @param pIdPerson
+     * @return null or a Person object if failed
+     */
     public Person deletePerson(final Long pIdPerson) {
 
         String nSql = "delete "
@@ -70,6 +76,12 @@ public class PersonDAO extends DAO<Person> {
         return getPerson(pIdPerson);
     } // Person
 
+    
+    /**
+     * @param pMail
+     * @param pMdp
+     * @return Person object
+     */
     public Person getPersonByMailMdp(final String pMail, final String pMdp) {
 
         String sql = "select p.id_person, p.mail, p.mdp, p.stamp, l.nom "
@@ -97,6 +109,10 @@ public class PersonDAO extends DAO<Person> {
         }
     }
 
+    /**
+     * @param pId
+     * @return Person object or null if fail
+     */
     public Person getPerson(final Long pId) {
 
         String sql = "select p.id_person, p.mail, p.mdp, p.stamp, l.nom "
@@ -125,6 +141,13 @@ public class PersonDAO extends DAO<Person> {
     }
     
 
+    /**
+     * @param pMail
+     * @param pMdp
+     * @param pLangue
+     * @param pTimestamp
+     * @return Person object
+     */
     public Person addPerson(final String pMail, final String pMdp, final String pLangue, final Long pTimestamp) {
 
         String nSql = "insert "
@@ -132,29 +155,29 @@ public class PersonDAO extends DAO<Person> {
                 + "select seq_person.nextval, l.id_langue, ?, ?, ? "
                 + "from langue l "
                 + "where l.nom=?";
-
-        log.info("nSql " + nSql);
         
         this.jdbcTemplate.update(nSql, pMail, pMdp, pTimestamp, pLangue);
 
         // get last id_person inserted
         Long LastIdPersonInserted = this.jdbcTemplate.queryForObject(SQL_GET_LAST_ID_INSERTED, Long.class);
-        log.debug("LastIdPersonInserted=" + LastIdPersonInserted);
-        log.info("id_person=" + LastIdPersonInserted);
 
         return getPerson(LastIdPersonInserted); 
-
     }
 
     
-    public MarquePage addPersonMqp(long personId, String lien, String nom) {
+    /**
+     * @param pPersonId
+     * @param pLien
+     * @param pNom
+     * @return object Marquepage
+     */
+    public MarquePage addPersonMqp(final Long pPersonId, final String pLien, final String pNom) {
 
-        String sql = "insert "
+        String nSql = "insert "
                 + "into marquepage (id_marquepage,id_person, lien, nom) "
                 + "values (seq_marquepage.nextval, ?, ?, ?)";
 
-        this.jdbcTemplate.update(sql,personId,lien,nom);	
-
+        this.jdbcTemplate.update(nSql, pPersonId, pLien, pNom);	
 
         // get last id_marquepage inserted
         Long LastIdMarquePageInserted = this.jdbcTemplate.queryForObject(SQL_GET_LAST_ID_INSERTED, Long.class);
@@ -167,80 +190,112 @@ public class PersonDAO extends DAO<Person> {
     }
 
     
+    /**
+     * @param pPersonId
+     * @param pMail
+     * @param pMdp
+     * @param pLangue
+     * @param pTimestamp
+     * @return Person object updated
+     */
     public Person updatePerson(final Long pPersonId, final String pMail, final String pMdp, final String pLangue, final Long pTimestamp) {
 
         String nSql = "update person set mail = ?, mdp = ?, stamp = ?, "
                 + "id_langue = (select l.id_langue from langue l where l.nom=?) "
                 + "where id_person = ?";
         
-        log.info("updatePerson=" + nSql);
-        
         this.jdbcTemplate.update(nSql, pMail, pMdp, pTimestamp, pLangue, pPersonId);
 
         return getPerson(pPersonId); 
     }
     
+    
+    /**
+     * @param pPersonId
+     * @param pMail
+     * @param pLangue
+     * @param pTimestamp
+     * @return Person object updated
+     */
     public Person updatePersonWithoutMdp(final Long pPersonId, final String pMail, final String pLangue, final Long pTimestamp) {
 
         String nSql = "update person set mail = ?, stamp = ?, "
                 + "id_langue = (select l.id_langue from langue l where l.nom=?) "
                 + "where id_person = ?";
         
-        log.info("updatePerson=" + nSql);
-        
         this.jdbcTemplate.update(nSql, pMail, pTimestamp, pLangue, pPersonId);
 
         return getPerson(pPersonId); 
     }
  
+    
+    /**
+     * @param pPersonId
+     * @param pMail
+     * @param pLangue
+     * @return Person object updated
+     */
     public Person updatePersonById(final Long pPersonId, final String pMail, final String pLangue) {
 
         String nSql = "update person set mail = ?, "
                 + "id_langue = (select l.id_langue from langue l where l.nom=?) "
                 + "where id_person = ?";
         
-        log.info("updatePersonById=" + nSql);
-        
         this.jdbcTemplate.update(nSql, pMail, pLangue, pPersonId);
 
         return getPerson(pPersonId); 
     }
 
+    
+    /**
+     * @param pTimestamp
+     * @param pMail
+     * @param pMdp
+     * @return Person object updated
+     */
     public Person updateStampByMailMdp(final Long pTimestamp, final String pMail, final String pMdp) {
 
         String nSql = "update person set stamp = ? "
                 + "where mail = ? "
                 + "and mdp = ? ";
-        
-        log.info("updateStampByMailMdp=" + nSql);
-        
+
         this.jdbcTemplate.update(nSql, pTimestamp, pMail, pMdp);
 
         return getPersonByMailMdp(pMail, pMdp); 
     }
     
+    
+    /**
+     * @param pPersonId
+     * @param pTimestamp
+     * @return Person object updated
+     */
     public Person updateStampById(final Long pPersonId, final Long pTimestamp) {
 
         String nSql = "update person set stamp = ? "
             + "where id_person = ?";
-        
-        log.info("updateStampById=" + nSql);
-        
+
         this.jdbcTemplate.update(nSql, pTimestamp, pPersonId);
 
         return getPerson(pPersonId); 
     }
 
 
+    /* (non-Javadoc)
+     * @see marcopolo.dao.DAO#find(java.lang.Long)
+     */
     @Override
-    public Person find(final Long id) {
+    public Person find(final Long pId) {
         // TODO Auto-generated method stub
         return null;
     }
 
 
+    /* (non-Javadoc)
+     * @see marcopolo.dao.DAO#delete(java.lang.Long)
+     */
     @Override
-    public void delete(Long id) {
+    public void delete(final Long pId) {
         // TODO Auto-generated method stub
         
     }
