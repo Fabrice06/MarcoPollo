@@ -112,10 +112,15 @@
             $location.url(Hateoas.getUri("marquepages")).replace();
         }
 
+        // retourne vrai si pString: empty, null or undefined
+        function isEmpty(pString) {
+            return (!pString || 0 === pString.length);
+        }
+
         function onSubmit(pPersonDetail) {
 
             var nMail = pPersonDetail.mail;
-            var nMdp = Crypto.SHA1(pPersonDetail.confirm);
+            var nMdp = (isEmpty(pPersonDetail.confirm))? "" : Crypto.SHA1(pPersonDetail.confirm);
             var nLangue = pPersonDetail.langue.nom;
 
             // faire un check regex ????
@@ -137,7 +142,9 @@
                     console.log("personDetailCtrl onSubmit ok");
 
                     // ce service permets de conserver le mail et le mdp crypté pendant toute la session
-                    Session.setId(pResponse.data.idPerson);
+                    if (!isEmpty(nMdp)) {
+                        Session.setMdp(nMdp);
+                    }
 
                     $scope.changeLangue(nLangue);
 

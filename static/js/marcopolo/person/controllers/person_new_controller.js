@@ -83,6 +83,8 @@
                         // ce service fourni directement les liens hateoas sous forme de clé/valeur
                         Hateoas.setLinks(pResponse.data.links);
 
+                        $scope.changeLangue(pResponse.data.langue);
+
                         $location.url(Hateoas.getUri("marquepages")).replace();
                     } // else
 

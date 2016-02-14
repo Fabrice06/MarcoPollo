@@ -4,12 +4,12 @@
 --
 ----------------------------------------------------------------
 
---visualiser les tables
-select * from langue;
-select * from person;
-select * from marquepage;
-select * from cle;
-select * from tag;
+----------------------------------------------------------------
+-- Base de données :  BD_MARCOPOLO update
+-- Script testé sur SQL Workbench --> résultats ok	vincent le 13FEB
+--
+-- modification des mots de passe pour répondre au règles de saisies (8 alphanumériques minimum)
+----------------------------------------------------------------
 
 --Insertion de données externes dans la table langue
 INSERT INTO langue VALUES (seq_langue.nextval, 'français');
@@ -40,11 +40,16 @@ INSERT INTO cle VALUES (seq_cle.nextval, 2, 'rabbit');
 
 --Insertion de données externes dans la table person
 -- VALUES (id_person, id_langue, mail, mdp, stamp)
-INSERT INTO person VALUES (seq_person.nextval, 1, 'bill@mail.fr', '31d00a39558917516beae49a4b9ef6f87ccccd0e', 0);
-INSERT INTO person VALUES (seq_person.nextval, 2, 'english@mail.fr', 'bce5a4d712e5bfe0a021fe616235750ef10e068a', 0);
-INSERT INTO person VALUES (seq_person.nextval, 1, 'bob@mail.fr', '493a5108980098b1b6218f94e534abbc84d2bb08', 0);
-INSERT INTO person VALUES (seq_person.nextval, 2, 'max@mail.fr', '3626810c003760d1c278a356c450af9abe695ce9', 0);
-INSERT INTO person VALUES (seq_person.nextval, 1, 'riton@mail.fr', '9effe418e9b6994407d42c2c67b1c69d9b4c4f5c', 0);
+-- mdp: bbbbbbbb
+INSERT INTO person VALUES (seq_person.nextval, 1, 'bill@mail.fr', '98c98d9431fecef8db2531511aa45e2bb0484ee4', 1455351533707);
+-- mdp: eeeeeee
+INSERT INTO person VALUES (seq_person.nextval, 2, 'english@mail.fr', '13990a053ebc6b96f2610c97f0783e769f08127e', 1455351533707);
+-- mdp: bbbbbbbb
+INSERT INTO person VALUES (seq_person.nextval, 1, 'bob@mail.fr', '98c98d9431fecef8db2531511aa45e2bb0484ee4', 1455351533707);
+-- mdp: mmmmmmmm
+INSERT INTO person VALUES (seq_person.nextval, 2, 'max@mail.fr', 'b755ea777ae1d54a21ffcda6f265c2617bd0d415', 1455351533707);
+-- mdp: rrrrrrrr
+INSERT INTO person VALUES (seq_person.nextval, 1, 'riton@mail.fr', '65f6c4c4745eb72f7dd98ca0cf4058e302aa1aab', 1455351533707);
 
 
 --Insertion de données externes dans la table marquepage
@@ -81,6 +86,10 @@ INSERT INTO tag VALUES (seq_tag.nextval, 9, 1001, 'cooking');
 INSERT INTO tag VALUES (seq_tag.nextval, 10, 1001, 'cooking');
 INSERT INTO tag VALUES (seq_tag.nextval, 7, 1005, '2016');
 INSERT INTO tag VALUES (seq_tag.nextval, 8, 1005, '2016');
+
+
+
+
 
 
 
