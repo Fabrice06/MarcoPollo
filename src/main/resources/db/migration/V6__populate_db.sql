@@ -25,10 +25,14 @@ INSERT INTO cle VALUES (5,1, 'date de création');
 INSERT INTO cle VALUES (6,2, 'creation date');
 INSERT INTO cle VALUES (7,1, 'couleur');
 INSERT INTO cle VALUES (8,2, 'color');
+INSERT INTO cle VALUES (9,1, 'description');
+INSERT INTO cle VALUES (10,2, 'description');
+INSERT INTO cle VALUES (11,1, 'date');
+INSERT INTO cle VALUES (12,2, 'date');
 
 
 --Insertion de données externes dans la table cle valeurs custom
-INSERT INTO cle VALUES (seq_cle.nextval, 1, 'description');
+INSERT INTO cle VALUES (seq_cle.nextval, 1, 'divers');
 INSERT INTO cle VALUES (seq_cle.nextval, 2, 'project');
 INSERT INTO cle VALUES (seq_cle.nextval, 1, 'todo');
 INSERT INTO cle VALUES (seq_cle.nextval, 2, 'todo');
@@ -56,13 +60,13 @@ INSERT INTO person VALUES (seq_person.nextval, 1, 'riton@mail.fr', '65f6c4c4745e
 --VALUES (id_marquepage, id_person, nom, lien)
 INSERT INTO marquepage VALUES (seq_marquepage.nextval, 1, 'google', 'http://www.google.fr');
 INSERT INTO marquepage VALUES (seq_marquepage.nextval, 1, 'cours android', 'www.lri.fr/~keller/Enseignement/Orsay/LP-SRSI-AF/android.html');
-INSERT INTO marquepage VALUES (seq_marquepage.nextval, 2, 'idée déco', 'www.philippesaucourt.com');
+INSERT INTO marquepage VALUES (seq_marquepage.nextval, 2, 'painter', 'www.philippesaucourt.com');
 INSERT INTO marquepage VALUES (seq_marquepage.nextval, 1, 'cours réseau', 'http://lacour.xavier.free.fr/');
 INSERT INTO marquepage VALUES (seq_marquepage.nextval, 1, 'gitlab', 'https://gitlab.com/users/sign_in');
 INSERT INTO marquepage VALUES (seq_marquepage.nextval, 2, 'StackOverFlow', 'http://stackoverflow.com/questions/22870930/recover-value-of-field-in-ng-repeat');
 INSERT INTO marquepage VALUES (seq_marquepage.nextval, 3, 'jetTour', 'www.jettours.com/clubs');
 INSERT INTO marquepage VALUES (seq_marquepage.nextval, 3, 'air france', 'www.airfrance.fr');
-INSERT INTO marquepage VALUES (seq_marquepage.nextval, 3, 'my best cookbook',  'http://www.marmiton.org/recettes/recette_crumble-sale-carottes-poireaux-et-gruyere_167282.aspx');
+INSERT INTO marquepage VALUES (seq_marquepage.nextval, 2, 'my best cookbook',  'http://www.marmiton.org/recettes/recette_crumble-sale-carottes-poireaux-et-gruyere_167282.aspx');
 INSERT INTO marquepage VALUES (seq_marquepage.nextval, 3, 'my best adress',  'www.picard.fr');
 INSERT INTO marquepage VALUES (seq_marquepage.nextval, 4, '2014', 'https://fr.wiktionary.org/wiki/escapade');
 INSERT INTO marquepage VALUES (seq_marquepage.nextval, 4, 'loterie', 'http://en.bab.la/dictionary/french-english/pas-de-chance');
@@ -73,16 +77,16 @@ INSERT INTO marquepage VALUES (seq_marquepage.nextval, 5, 'derrière les nuages'
 
 --Insertion de données externes dans la table tag
 -- VALUES (id_tag, id_marquepage, id_cle, valeur)
-INSERT INTO tag VALUES (seq_tag.nextval, 1, 1000, 'site de recherche');
-INSERT INTO tag VALUES (seq_tag.nextval, 3, 1006, 'bleu');
+INSERT INTO tag VALUES (seq_tag.nextval, 1, 9, 'site de recherche');
+INSERT INTO tag VALUES (seq_tag.nextval, 3, 8, 'blue');
 INSERT INTO tag VALUES (seq_tag.nextval, 5, 1000, 'site exemple');
-INSERT INTO tag VALUES (seq_tag.nextval, 4, 1004, '2014');
-INSERT INTO tag VALUES (seq_tag.nextval, 2, 1000, 'cours Chantal Keller');
-INSERT INTO tag VALUES (seq_tag.nextval, 4, 1000, 'Systeme-Reseaux');
-INSERT INTO tag VALUES (seq_tag.nextval, 6, 1000, 'ma recherche angular');
+INSERT INTO tag VALUES (seq_tag.nextval, 4, 11, '2014');
+INSERT INTO tag VALUES (seq_tag.nextval, 2, 9, 'cours Chantal Keller');
+INSERT INTO tag VALUES (seq_tag.nextval, 4, 9, 'Systeme-Reseaux');
+INSERT INTO tag VALUES (seq_tag.nextval, 6, 10, 'my search');
 INSERT INTO tag VALUES (seq_tag.nextval, 7, 1001, 'holydays');
 INSERT INTO tag VALUES (seq_tag.nextval, 8, 1001, 'holydays');
-INSERT INTO tag VALUES (seq_tag.nextval, 9, 1001, 'cooking');
+INSERT INTO tag VALUES (seq_tag.nextval, 9, 1002, 'cooking');
 INSERT INTO tag VALUES (seq_tag.nextval, 10, 1001, 'cooking');
 INSERT INTO tag VALUES (seq_tag.nextval, 7, 1005, '2016');
 INSERT INTO tag VALUES (seq_tag.nextval, 8, 1005, '2016');
