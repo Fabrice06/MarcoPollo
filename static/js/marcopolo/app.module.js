@@ -185,7 +185,9 @@
 
             $httpBackend.whenPOST(new RegExp('tags\\?.*')).passThrough(); // vers le backend
 
-            $httpBackend.whenDELETE(new RegExp('marquepages/[0-9]{1,}/tags$')).passThrough(); // vers le backend
+            //$httpBackend.whenDELETE(new RegExp('marquepages/[0-9]{1,}/tags$')).passThrough(); // vers le backend
+
+            $httpBackend.whenDELETE(new RegExp('tags/[0-9]{1,}$')).passThrough(); // vers le backend
 
             //$httpBackend.whenGET(new RegExp('marquepages/[0-9]{1,}/tags$')).respond(function (method, url) { // traitement FE sans BE
             //
