@@ -5,8 +5,8 @@
         .module('marcopolo')
         .controller('personDetailCtrl', personDetailCtrl);
 
-    personDetailCtrl.$inject = ['$scope', '$location', 'PersonZ', 'Language', 'Session', 'Hateoas', 'Crypto'];
-    function personDetailCtrl($scope, $location, PersonZ, Language, Session, Hateoas, Crypto) {
+    personDetailCtrl.$inject = ['$scope', '$location', 'PersonZ', 'Language', 'Session', 'Hateoas', 'Crypto', '$filter'];
+    function personDetailCtrl($scope, $location, PersonZ, Language, Session, Hateoas, Crypto, $filter ) {
 
         /* jshint validthis: true */
         var vm = this;
@@ -69,7 +69,7 @@
         // clic sur le bouton supprimer
         function onDelete() {
 
-            var nPopup = confirm("Voulez-vous vraiment supprimer votre compte ?");
+            var nPopup = confirm($filter('translate')('PERSON_DETAIL_VALID'));
             if (nPopup == true) {
 
                 // pas de hateoas dans ihmMarquepage :-/

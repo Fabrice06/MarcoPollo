@@ -83,7 +83,7 @@
 
                     <span class="help-block">&emsp;</span>
 
-                    <label>Modifier mon mot de passe</label> <input type="checkbox" ng-model="personDetail.showMdpInput" />
+                    <label>{{'PERSON_DETAIL_PASSWD' | translate}}</label> <input type="checkbox" ng-model="personDetail.showMdpInput" />
                     <div class="form-group"
                          ng-class="{'has-success': personDetailModelForm.mdp1.$dirty && personDetailModelForm.mdp1.$valid && personDetail.showMdpInput,
 			                    'has-error': personDetailModelForm.mdp1.$dirty && personDetailModelForm.mdp1.$invalid && personDetail.showMdpInput}"
@@ -140,9 +140,8 @@
 
 
 							<span class="help-block"
-                                  ng-show="personDetailModel.confirm.$error.equalsTo">
-                                Pas pareil !
-
+                                  ng-show="personDetailModel.confirm.$error.equalsTo"
+                                  translate="PERSON_DETAIL_DIFF">
 							</span>
 
 							<!--<span class="help-block"-->

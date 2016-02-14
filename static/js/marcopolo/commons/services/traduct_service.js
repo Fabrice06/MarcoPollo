@@ -37,6 +37,9 @@
 						PERSON_LOG_CONTACT: "Contact us",
 						PERSON_DETAIL_PROFILE: "Update my profile",
 						PERSON_DETAIL_LANGUAGE: "Language",
+                        PERSON_DETAIL_VALID: "Do you really want to delete your account?",
+                        PERSON_DETAIL_PASSWD: "Change my password",
+                        PERSON_DETAIL_DIFF: "Both are different",
 						PERSON_MESSAGE: 'A temporary password has been sent to your e-mail address',
 
 						PERSON_NEW_PROFILE: "Fill up your profile form",
@@ -100,6 +103,9 @@
 						PERSON_LOG_CONTACT: "Contactez-nous",
 						PERSON_DETAIL_PROFILE: "Mettre à jour mon profil",
 						PERSON_DETAIL_LANGUAGE: "Langue",
+                        PERSON_DETAIL_VALID: "Voulez-vous vraiment supprimer votre compte ?",
+                        PERSON_DETAIL_PASSWD: "Modifier mon mon de passe",
+                        PERSON_DETAIL_DIFF: "Les deux sont différent",
 						PERSON_MESSAGE: 'Un mot de passe provisoire a été envoyé à votre adresse e-mail',
 
 						PERSON_NEW_PROFILE: "Veuillez saisir les informations votre compte",
