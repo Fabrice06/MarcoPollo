@@ -23,17 +23,11 @@
         Language.query('/langues', {user:Session.getId()}).then(
             function successCallback(pResponse) {
 
-                // this callback will be called asynchronously
-                // when the response is available
-                console.log("personDetailCtrl query langues ok " + JSON.stringify(pResponse.data));
                 vm.languages = pResponse.data;
 
                 doQueryPerson({user:Session.getId()});
             },
-            function errorCallback(pResponse) {
-
-                // called asynchronously if an error occurs
-                // or server returns response with an error status.
+            function errorCallback() {
                 console.log("personDetailCtrl query langues échec");
             }
         );
@@ -46,9 +40,6 @@
             PersonZ.query($location.url(), pParams).then(
                 function successCallback(pResponse) {
 
-                    // this callback will be called asynchronously
-                    // when the response is available
-                    console.log("personDetailCtrl query person ok " + JSON.stringify(pResponse.data));
                     $scope.personDetailModel = pResponse.data;
 
                     // ce service fourni directement les liens hateoas sous forme de clé/valeur
@@ -62,10 +53,7 @@
                         } // if
                     } // for
                 },
-                function errorCallback(pResponse) {
-
-                    // called asynchronously if an error occurs
-                    // or server returns response with an error status.
+                function errorCallback() {
                     console.log("personDetailCtrl query person échec");
                 }
             );
@@ -87,19 +75,12 @@
                 // pas de hateoas dans ihmMarquepage :-/
                 //PersonZ.update(Hateoas.getUri("self"), {user:Session.getId()}).then(
                 PersonZ.delete($location.url(), {user:Session.getId()}).then(
-                    function successCallback(pResponse) { // OK pResponse est le retour du backEnd
-
-                        // this callback will be called asynchronously
-                        // when the response is available
-                        console.log("personDetailCtrl onDelete ok ");
+                    function successCallback() { // OK pResponse est le retour du backEnd
 
                         Session.clear();
                         $location.path('/').replace();
                     },
-                    function errorCallback(pResponse) {
-
-                        // called asynchronously if an error occurs
-                        // or server returns response with an error status.
+                    function errorCallback() {
                         console.log("personDetailCtrl onDelete échec");
                     }
                 );
@@ -130,16 +111,11 @@
                 "mdp": nMdp,
                 "langue": nLangue
             });
-            console.log("personDetailCtrl " + nDatas);
 
             // pas de hateoas dans ihmMarquepage :-/
             //PersonZ.update(Hateoas.getUri("self"), {user:Session.getId()}, nDatas).then(
             PersonZ.update($location.url(), {user:Session.getId()}, nDatas).then(
-                function successCallback(pResponse) { // OK pResponse est le retour du backEnd
-
-                    // this callback will be called asynchronously
-                    // when the response is available
-                    console.log("personDetailCtrl onSubmit ok");
+                function successCallback() { // OK pResponse est le retour du backEnd
 
                     // ce service permets de conserver le mail et le mdp crypté pendant toute la session
                     if (!isEmpty(nMdp)) {
@@ -151,10 +127,7 @@
                     $location.url(Hateoas.getUri("marquepages")).replace();
 
                 },
-                function errorCallback(pResponse) {
-
-                    // called asynchronously if an error occurs
-                    // or server returns response with an error status.
+                function errorCallback() {
                     console.log("personDetailCtrl onSubmit échec");
                 }
             );

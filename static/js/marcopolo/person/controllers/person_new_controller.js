@@ -21,16 +21,9 @@
         //** Récupération et affichage des informations de la ressource language*/
         Language.query('/langues', {user: 0}).then(
             function successCallback(pResponse) {
-
-                // this callback will be called asynchronously
-                // when the response is available
-                console.log("personNewCtrl query langues ok " + JSON.stringify(pResponse.data));
                 vm.languages = pResponse.data;
             },
-            function errorCallback(pResponse) {
-
-                // called asynchronously if an error occurs
-                // or server returns response with an error status.
+            function errorCallback() {
                 console.log("personNewCtrl query langues échec");
             }
         );
@@ -64,19 +57,14 @@
                 "mdp": nMdp,
                 "langue": nLangue
             });
-            console.log("personNewCtrl " + nDatas);
 
             PersonZ.save('/persons', {user:0}, nDatas).then(
                 function successCallback(pResponse) { // OK pResponse est le retour du backEnd
 
-                    // this callback will be called asynchronously
-                    // when the response is available
                     if (angular.isUndefined(pResponse.data.links)) {
                         console.log("personNewCtrl query ok but Person don't exist");
 
                     } else {
-                        console.log("personNewCtrl save ok " + JSON.stringify(pResponse.data));
-
                         // ce service permets de conserver l'id et le mdp crypté pendant toute la session
                         Session.setCurrent(pResponse.data.idPerson, nMdp);
 
@@ -89,10 +77,7 @@
                     } // else
 
                 },
-                function errorCallback(pResponse) {
-
-                    // called asynchronously if an error occurs
-                    // or server returns response with an error status.
+                function errorCallback() {
                     console.log("personNewCtrl save échec");
                 }
             );

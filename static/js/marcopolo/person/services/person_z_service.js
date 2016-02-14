@@ -92,7 +92,6 @@
             var nReq = {
                 method: 'PUT',
                 url: pUrl,
-                //headers: {'Content-Type': 'application/x-www-form-urlencoded'},
                 headers: {'Content-Type': 'application/json'},
                 params: {
                     // pour l'usage unique

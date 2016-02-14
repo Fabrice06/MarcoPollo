@@ -25,15 +25,12 @@
 
                 var nSignature = Crypto.HmacSHA1(nUri, nMdp);
 
-                console.log("Session factory getSignature nMdp " + nMdp);
-                console.log("Session factory getSignature uri " + nUri + "&signature=" + nSignature);
+                //console.log("Session factory getSignature nMdp " + nMdp);
+                //console.log("Session factory getSignature uri " + nUri + "&signature=" + nSignature);
 
                 return nSignature;
             },
 
-            setId: function (pId) {
-                nSession['id'] = pId;
-            },
             getId: function () {
                 return nSession['id'];
             },
